@@ -46,11 +46,11 @@ Thumbs.db
 */build
 
 # IntelliJ specific files/directories
-# out
-# .idea
-# *.ipr
-# *.iws
-# *.iml
+out
+.idea
+*.ipr
+*.iws
+*.iml
 # atlassian-ide-plugin.xml
 
 # Eclipse specific files/directories
