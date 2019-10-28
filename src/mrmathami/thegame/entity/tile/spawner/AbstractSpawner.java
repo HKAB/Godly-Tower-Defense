@@ -16,7 +16,7 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 	private long numOfSpawn;
 
 	protected AbstractSpawner(long createdTick, long posX, long posY, long width, long height, double spawningSize, @Nonnull Class<E> spawningClass, long spawnInterval, long initialDelay, long numOfSpawn) {
-		super(createdTick, posX, posY, width, height);
+		super(createdTick, posX, posY, width, height, 0);
 		this.spawningSize = spawningSize;
 		this.spawningClass = spawningClass;
 		this.spawnInterval = spawnInterval;
@@ -28,12 +28,14 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 	public final void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
 		if (tickDown <= 0 && numOfSpawn > 0) {
+			System.out.println("An enemy");
 			// TODO: get a random spot inside spawn range
 			// Check if the spot is valid and then spawn an enemy
 			// Remember to set this.tickDown back to this.spawnInterval
 			// and decrease this.numOfSpawn once you spawn an enemy.
-			// this.tickDown = spawnInterval;
-			// this.numOfSpawn -= 1;
+			doSpawn(getCreatedTick(), getPosX(), getPosY());
+			 this.tickDown = spawnInterval;
+			 this.numOfSpawn -= 1;
 		}
 	}
 

@@ -11,6 +11,7 @@ import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -65,7 +66,7 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
-	public GameController(GraphicsContext graphicsContext) {
+	public GameController(GraphicsContext graphicsContext) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
 
@@ -78,7 +79,7 @@ public final class GameController extends AnimationTimer {
 		this.field = new GameField(GameStage.load("/stage/demo.txt"));
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field);
+		this.drawer = new GameDrawer(graphicsContext, field, "/stage/sheet.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -115,7 +116,11 @@ public final class GameController extends AnimationTimer {
 //		if (currentTick != tick) return;
 
 		// draw a new frame, as fast as possible.
-		drawer.render();
+		try {
+			drawer.render();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		// MSPT display. MSPT stand for Milliseconds Per Tick.
 		// It means how many ms your game spend to update and then draw the game once.

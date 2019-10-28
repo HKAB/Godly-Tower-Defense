@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 
 public final class TankerEnemyDrawer implements EntityDrawer {
 	@Override

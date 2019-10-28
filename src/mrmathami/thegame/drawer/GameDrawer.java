@@ -1,6 +1,8 @@
 package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
@@ -9,6 +11,7 @@ import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.tile.Mountain;
+import mrmathami.thegame.entity.tile.Basement;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -16,6 +19,8 @@ import mrmathami.thegame.entity.tile.tower.NormalTower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +32,7 @@ public final class GameDrawer {
 	 * Remember to add your own entity class here if it can be drawn.
 	 */
 	@Nonnull private static final List<Class<?>> ENTITY_DRAWING_ORDER = List.of(
+			Basement.class,
 			Road.class,
 			Mountain.class,
 			NormalTower.class,
@@ -51,6 +57,7 @@ public final class GameDrawer {
 	 * Remember to add your entity drawer here.
 	 */
 	@Nonnull private static final Map<Class<? extends GameEntity>, EntityDrawer> ENTITY_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+			Map.entry(Basement.class, new BasementDrawer()),
 			Map.entry(Road.class, new RoadDrawer()),
 			Map.entry(Mountain.class, new MountainDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
@@ -72,13 +79,15 @@ public final class GameDrawer {
 
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
+	private static Image sheetImage;
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField) {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, String sheetImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
+		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 	}
 
 	/**
@@ -145,7 +154,7 @@ public final class GameDrawer {
 	/**
 	 * Do render. Should not touch.
 	 */
-	public final void render() {
+	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
@@ -189,5 +198,9 @@ public final class GameDrawer {
 
 	public final double fieldToScreenPosY(double fieldPosY) {
 		return (fieldPosY - fieldStartPosY) / fieldZoom;
+	}
+
+	public static Image getSheetImage() {
+		return sheetImage;
 	}
 }

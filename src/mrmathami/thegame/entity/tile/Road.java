@@ -2,9 +2,8 @@ package mrmathami.thegame.entity.tile;
 
 public final class Road extends AbstractTile {
 	private double distance = Double.NaN;
-
-	public Road(long createdTick, long posX, long posY) {
-		super(createdTick, posX, posY, 1L, 1L);
+	public Road(long createdTick, long posX, long posY, int GID) {
+		super(createdTick, posX, posY, 1L, 1L, GID);
 	}
 
 	public final double getDistance() {

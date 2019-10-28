@@ -2,6 +2,7 @@ package mrmathami.thegame;
 
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Mountain;
+import mrmathami.thegame.entity.tile.Basement;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -38,13 +39,18 @@ public final class GameStage {
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
-						if (value == 0) {
-							entities.add(new Road(0, x, y));
-						} else if (value == 1) {
-							entities.add(new Mountain(0, x, y));
-						} else {
-							throw new InputMismatchException("Unexpected value! Input value: " + value);
+						if (value == 61 || value == 268) {
+							entities.add(new Road(0, x, y, value));
+						} else if (value == 183 || value == 181 || value == 184) {
+							entities.add(new Mountain(0, x, y, value));
 						}
+						else if (value != 0)
+						{
+							entities.add(new Basement(0, x, y, value));
+						}
+//						else {
+//							throw new InputMismatchException("Unexpected value! Input value: " + value);
+//						}
 					}
 				}
 				// path finding
@@ -61,6 +67,12 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new NormalSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					}
+					else if ("Mountain".equals(value)) {
+						final int x = scanner.nextInt();
+						final int y = scanner.nextInt();
+						final int gid = scanner.nextInt();
+						entities.add(new Mountain(0, x, y, gid));
 //					} else if ("SmallerSpawner".equals(value)) {
 //						final int x = scanner.nextInt();
 //						final int y = scanner.nextInt();
@@ -91,7 +103,9 @@ public final class GameStage {
 					} else if ("NormalTower".equals(value)) {
 						final int x = scanner.nextInt();
 						final int y = scanner.nextInt();
-						entities.add(new NormalTower(0, x, y));
+						final int angle = scanner.nextInt();
+						final int GID = scanner.nextInt();
+						entities.add(new NormalTower(0, x, y, angle, GID));
 //					} else if ("MachineGunTower".equals(value)) {
 //						final int x = scanner.nextInt();
 //						final int y = scanner.nextInt();
@@ -128,7 +142,8 @@ public final class GameStage {
 					final Road road = roadQueue.poll();
 					roadSet.add(road);
 					final Collection<Road> overlappedEntities = GameEntities.getFilteredOverlappedEntities(entities, Road.class,
-							road.getPosX() - 0.5, road.getPosY() - 0.5, 2.0, 2.0);
+							road.getPosX() - 0.5, road.getPosY() - 0.5, 2, 2);
+//					System.out.println(overlappedEntities.toString() + road.getPosX() + "," + road.getPosY());
 					for (Road destRoad : overlappedEntities) {
 						if (!roadSet.contains(destRoad)) {
 							if (!roadQueue.contains(destRoad)) roadQueue.add(destRoad);
@@ -143,6 +158,7 @@ public final class GameStage {
 						}
 					}
 				}
+				System.out.println(roadSet.size());
 
 				return new GameStage(width, height, entities);
 			} catch (NoSuchElementException e) {

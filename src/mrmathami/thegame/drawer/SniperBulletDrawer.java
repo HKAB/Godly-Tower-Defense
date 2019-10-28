@@ -9,6 +9,7 @@ import mrmathami.thegame.drawer.EntityDrawer;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 
 public final class SniperBulletDrawer implements EntityDrawer {
 	private final RadialGradient gradient = new RadialGradient(

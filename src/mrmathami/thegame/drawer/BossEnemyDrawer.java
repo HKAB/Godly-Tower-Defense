@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 
 public final class BossEnemyDrawer implements EntityDrawer {
 	@Override
@@ -12,4 +13,5 @@ public final class BossEnemyDrawer implements EntityDrawer {
 		graphicsContext.setFill(Color.DARKVIOLET);
 		graphicsContext.fillRoundRect(screenPosX, screenPosY, screenWidth, screenHeight, 4, 4);
 	}
+
 }

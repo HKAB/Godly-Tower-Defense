@@ -6,7 +6,7 @@ public final class Target extends AbstractTile implements LivingEntity {
 	private long health;
 
 	public Target(long createdTick, long posX, long posY, long width, long height, long health) {
-		super(createdTick, posX, posY, width, height);
+		super(createdTick, posX, posY, width, height, 0);
 		this.health = health;
 	}
 

@@ -8,6 +8,7 @@ import javafx.scene.paint.Stop;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 
 public final class SniperTowerDrawer implements EntityDrawer {
 	@Override
@@ -15,4 +16,5 @@ public final class SniperTowerDrawer implements EntityDrawer {
 		graphicsContext.setFill(Color.MEDIUMVIOLETRED);
 		graphicsContext.fillOval(screenPosX, screenPosY, screenWidth, screenHeight);
 	}
+
 }
