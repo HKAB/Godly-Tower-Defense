@@ -41,12 +41,12 @@ public final class GameStage {
 						final int value = scanner.nextInt();
 						if (value == 61 || value == 268) {
 							entities.add(new Road(0, x, y, value));
-						} else if (value == 183 || value == 181 || value == 184) {
-							entities.add(new Mountain(0, x, y, value));
+//						} else if (value == 183 || value == 181 || value == 184) {
+//							entities.add(new Mountain(0, x, y, value));
 						}
 						else if (value != 0)
 						{
-							entities.add(new Basement(0, x, y, value));
+							entities.add(new Mountain(0, x, y, value));
 						}
 //						else {
 //							throw new InputMismatchException("Unexpected value! Input value: " + value);
@@ -152,13 +152,19 @@ public final class GameStage {
 							final Collection<Road> destOverlappedRoads = GameEntities.getFilteredOverlappedEntities(entities, Road.class,
 									destRoad.getPosX() - 0.5, destRoad.getPosY() - 0.5, 2.0, 2.0);
 							final double destDistance = road.getDistance() + Math.sqrt(deltaX * deltaX + deltaY * deltaY) / destOverlappedRoads.size();
+//							System.out.println(destOverlappedRoads);
 							if (Double.isNaN(destRoad.getDistance()) || destRoad.getDistance() > destDistance) {
 								destRoad.setDistance(destDistance);
 							}
 						}
 					}
 				}
-				System.out.println(roadSet.size());
+//
+//				System.out.println(roadSet.size());
+//				for (Road road :
+//						roadSet) {
+//					System.out.println(road.getPosX() + "," + road.getPosY() + ": " + road.getDistance());
+//				}
 
 				return new GameStage(width, height, entities);
 			} catch (NoSuchElementException e) {

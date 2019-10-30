@@ -1,5 +1,8 @@
 package mrmathami.thegame.entity.enemy;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
@@ -8,17 +11,20 @@ import mrmathami.thegame.entity.tile.Road;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, EffectEntity, LivingEntity, DestroyListener {
+public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
 	private static final double SQRT_2 = Math.sqrt(2.0) / 2.0;
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
-			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
+//			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
+//			{-1.0, -1.0}, {1.0, 1.0}, {1.0, -1.0}, {-1.0, 1.0},
 	};
 
 	private long health;
 	private long armor;
 	private double speed;
 	private long reward;
+	private int GID = 271;
+	private double angle = 0;
 
 	protected AbstractEnemy(long createdTick, double posX, double posY, double size, long health, long armor, double speed, long reward) {
 		super(createdTick, posX, posY, size, size);
@@ -33,7 +39,11 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		double distance = 0.0;
 		double sumArea = 0.0;
 		for (GameEntity entity : GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height)) {
-			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass())) return Double.NaN;
+			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass()))
+			{
+//				System.out.println(sourceEntity.getClass() + " is colliable with " + entity.getClass());
+				return Double.NaN;
+			}
 			if (entity instanceof Road) {
 				final double entityPosX = entity.getPosX();
 				final double entityPosY = entity.getPosY();
@@ -62,6 +72,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
 				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
 				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
+//				System.out.println(overlappableEntities);
 				if (currentDistance < minimumDistance) {
 					minimumDistance = currentDistance;
 					newPosX = currentPosX;
@@ -69,8 +80,14 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				}
 			}
 		}
+//		System.out.println(newPosX + ":" + newPosY);
+		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
+		else
+			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY - enemyPosY))*180/Math.PI;
+//		System.out.println(angle);
 		setPosX(newPosX);
 		setPosY(newPosY);
+
 	}
 
 	@Override
@@ -103,5 +120,22 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final boolean isDestroyed() {
 		return health <= 0L;
+	}
+
+	@Override
+	public void rotate(GraphicsContext graphicsContext, Image image, double screenPosX, double screenPosY, double angle) {
+		graphicsContext.save();
+		Rotate r = new Rotate(angle, screenPosX + image.getWidth()/2, screenPosY + image.getHeight()/2);
+		graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+		graphicsContext.drawImage(image, screenPosX, screenPosY);
+		graphicsContext.restore();
+	}
+
+	public int getGID() {
+		return this.GID;
+	}
+
+	public double getAngle() {
+		return angle;
 	}
 }

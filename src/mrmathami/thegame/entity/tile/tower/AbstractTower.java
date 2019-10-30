@@ -3,13 +3,16 @@ package mrmathami.thegame.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.RotatableEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.bullet.AbstractBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
+import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
+import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -37,6 +40,15 @@ public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTi
 			// Use GameEntities.getFilteredOverlappedEntities to find target in range
 			// Remember to set this.tickDown back to this.speed after shooting something.
 			// this.tickDown = speed;
+			final Collection<NormalEnemy> overlappedEntities = GameEntities.getFilteredOverlappedEntities(field.getEntities(), NormalEnemy.class,
+					this.getPosX() - 0.5 - Config.NORMAL_TOWER_RANGE, this.getPosY() - 0.5 - Config.NORMAL_TOWER_RANGE, Config.NORMAL_TOWER_RANGE * 2 + 1, Config.NORMAL_TOWER_RANGE * 2 + 1);
+			System.out.println(this.getPosX() + " " + this.getPosY());
+			for (NormalEnemy normalEnemy :
+					overlappedEntities) {
+				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY()));
+				System.out.println("Enemy spot");
+			}
+			 this.tickDown = speed;
 		}
 	}
 
