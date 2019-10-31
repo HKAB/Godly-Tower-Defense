@@ -2,7 +2,6 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
@@ -16,10 +15,10 @@ import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
+import mrmathami.thegame.bar.FlowControlBar;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +48,8 @@ public final class GameDrawer {
 //			SmallerSpawner.class,
 //			TankerSpawner.class,
 //			BossSpawner.class,
-			Target.class
+			Target.class,
+			FlowControlBarDrawer.class
 	);
 	/**
 	 * TODO:
@@ -74,7 +74,8 @@ public final class GameDrawer {
 //			Map.entry(SmallerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
-			Map.entry(Target.class, new TargetDrawer())
+			Map.entry(Target.class, new TargetDrawer()),
+			Map.entry(FlowControlBar.class, new FlowControlBarDrawer())
 	));
 
 	@Nonnull private final GraphicsContext graphicsContext;
