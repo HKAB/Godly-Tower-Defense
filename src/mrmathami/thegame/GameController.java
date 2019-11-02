@@ -50,6 +50,11 @@ public final class GameController extends AnimationTimer {
 	private GameDrawer drawer;
 
 	/**
+	 * Game UI. Contains UI elements.
+	 */
+	private GameUI gameUI;
+
+	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
 	 */
 	private ScheduledFuture<?> scheduledFuture;
@@ -78,8 +83,10 @@ public final class GameController extends AnimationTimer {
 		// TODO: I don't have much time, so, spawn some wall then :)
 		this.field = new GameField(GameStage.load("/stage/demo.txt"));
 
+		this.gameUI = new GameUI();
+
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, "/stage/sheet.png");
+		this.drawer = new GameDrawer(graphicsContext, field, gameUI,"/stage/sheet.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]

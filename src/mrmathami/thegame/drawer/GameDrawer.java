@@ -6,6 +6,9 @@ import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.GameUI;
+import mrmathami.thegame.bar.AbstractButton;
+import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
@@ -49,7 +52,8 @@ public final class GameDrawer {
 //			TankerSpawner.class,
 //			BossSpawner.class,
 			Target.class,
-			FlowControlBarDrawer.class
+//			FlowControlBarDrawer.class,
+			ButtonDrawer.class
 	);
 	/**
 	 * TODO:
@@ -75,20 +79,23 @@ public final class GameDrawer {
 //			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
 			Map.entry(Target.class, new TargetDrawer()),
-			Map.entry(FlowControlBar.class, new FlowControlBarDrawer())
+//			Map.entry(FlowControlBar.class, new FlowControlBarDrawer()),
+			Map.entry(NormalButton.class, new ButtonDrawer())
 	));
 
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
+	@Nonnull private GameUI gameUI;
 	private static Image sheetImage;
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, String sheetImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, String sheetImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
+		this.gameUI = gameUI;
 	}
 
 	/**
@@ -139,6 +146,10 @@ public final class GameDrawer {
 		this.gameField = gameField;
 	}
 
+	public void setGameUI(@Nonnull GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
+
 	/**
 	 * Set the field view region, in other words, set the region of the field that will be drawn on the screen.
 	 *
@@ -157,21 +168,24 @@ public final class GameDrawer {
 	 */
 	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
+		final GameUI gameUI = this.gameUI;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
-
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
+		final List<AbstractButton> buttons = gameUI.getButtons();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
 		graphicsContext.setFill(Color.BLACK);
 		graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
 		GameEntity lastEntity = null;
+
 		for (final GameEntity entity : entities) {
 			if (lastEntity != null && entityDrawingOrderComparator(entity, lastEntity) == 0) continue;
 			lastEntity = entity;
+
 			final EntityDrawer drawer = getEntityDrawer(entity);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, entity,
@@ -181,6 +195,12 @@ public final class GameDrawer {
 						entity.getHeight() * fieldZoom,
 						fieldZoom
 				);
+			}
+		}
+		for (AbstractButton b : buttons) {
+			final EntityDrawer drawer = getEntityDrawer(b);
+			if (drawer != null) {
+				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getHeight(), b.getWidth(), fieldZoom);
 			}
 		}
 	}

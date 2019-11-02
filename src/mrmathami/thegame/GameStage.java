@@ -1,5 +1,6 @@
 package mrmathami.thegame;
 
+import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Basement;
@@ -106,6 +107,14 @@ public final class GameStage {
 						final int angle = scanner.nextInt();
 						final int GID = scanner.nextInt();
 						entities.add(new NormalTower(0, x, y, angle, GID));
+
+					} else if ("NormalButton".equals(value)) {
+						final int x = scanner.nextInt();
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final String pngName = scanner.next();
+						entities.add(new NormalButton(0, x, y, w, h, pngName));
 //					} else if ("MachineGunTower".equals(value)) {
 //						final int x = scanner.nextInt();
 //						final int y = scanner.nextInt();
