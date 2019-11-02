@@ -10,7 +10,7 @@ public final class GameUI {
     private List<AbstractButton> buttons;
 
     public GameUI() {
-        NormalButton button = new NormalButton(0, 200, 200, 1, 1, "button_home");
+        NormalButton button = new NormalButton(0, 150, 150, 1, 1, "button_home");
         this.buttons = new ArrayList<AbstractButton>();
         this.buttons.add(button);
     }

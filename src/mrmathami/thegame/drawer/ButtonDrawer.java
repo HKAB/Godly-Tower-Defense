@@ -7,6 +7,8 @@ import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ButtonDrawer implements EntityDrawer {
@@ -14,9 +16,10 @@ public class ButtonDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
 //        System.out.println("Button drawer called");
-//        String pngName = ((NormalButton)entity).getPngName();
-//        graphicsContext.drawImage(new Image("file:" + baseUrl + pngName), entity.getPosX(), entity.getPosY());
-        graphicsContext.setFill(Color.RED);
-        graphicsContext.fillRect(entity.getPosX(), entity.getPosY(), 50, 50);
+        String pngName = ((NormalButton)entity).getPngName();
+        Image image = new Image(getClass().getResourceAsStream(baseUrl + pngName));
+        graphicsContext.drawImage(image, screenPosX, screenPosY, 64, 64);
+//        graphicsContext.setFill(Color.GOLD);
+//        graphicsContext.fillRect(entity.getPosX(), entity.getPosY(), 50, 50);
     }
 }
