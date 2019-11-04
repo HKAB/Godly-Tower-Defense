@@ -27,8 +27,8 @@ public final class NormalEnemyDrawer implements EntityDrawer {
 		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
-//		System.out.println(screenPosX + " " + screenPosY);
-		WritableImage newImage = new WritableImage(reader, (((NormalEnemy)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth/Config.NORMAL_ENEMY_SIZE), Math.round((((NormalEnemy)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight/Config.NORMAL_ENEMY_SIZE), (int)(screenWidth/Config.NORMAL_ENEMY_SIZE), (int)(screenHeight/Config.NORMAL_ENEMY_SIZE));
+//		System.out.println(screenWidth + " " + screenHeight);
+		WritableImage newImage = new WritableImage(reader, (((NormalEnemy)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), Math.round((((NormalEnemy)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight), (int)(screenWidth), (int)(screenHeight));
 //		ImageView imageView = new ImageView(newImage);
 //		imageView.setPreserveRatio(true);
 //		imageView.setFitWidth(screenWidth);

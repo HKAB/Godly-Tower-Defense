@@ -19,13 +19,18 @@ import java.io.FileNotFoundException;
 
 public final class NormalTowerDrawer implements EntityDrawer {
 	@Override
-	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {		Image img = GameDrawer.getSheetImage();
+	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+		Image img = GameDrawer.getSheetImage();
 		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
 
 		WritableImage newImage = new WritableImage(reader, (((NormalTower)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((NormalTower)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 		((NormalTower)entity).rotate(graphicsContext, newImage, screenPosX, screenPosY, ((NormalTower)entity).getAngle());
+//		Range
+//		graphicsContext.setStroke(Color.RED);
+//		graphicsContext.setLineWidth(4);
+//		graphicsContext.strokeRect((((NormalTower)entity).getPosX() - Config.NORMAL_TOWER_RANGE) *64, (((NormalTower)entity).getPosY() - Config.NORMAL_TOWER_RANGE)*64, (Config.NORMAL_TOWER_RANGE + 1)*2*64, (Config.NORMAL_TOWER_RANGE + 1)*2*64);
 	}
 
 }

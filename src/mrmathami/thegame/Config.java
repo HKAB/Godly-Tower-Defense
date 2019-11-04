@@ -57,41 +57,69 @@ public final class Config {
 	public static final long MACHINE_GUN_BULLET_TTL = 15;
 	public static final long MACHINE_GUN_BULLET_STRENGTH = 20;
 	public static final double MACHINE_GUN_BULLET_SPEED = 0.4;
+	public static final int MACHINE_GUN_BULLET_GID = 273;
 
 	public static final long SNIPER_BULLET_TTL = 60;
 	public static final long SNIPER_BULLET_STRENGTH = 120;
 	public static final double SNIPER_BULLET_SPEED = 0.5;
+
+	public static final long ROCKET_BULLET_TTL = 60;
+	public static final long ROCKET_BULLET_STRENGTH = 300;
+	public static final double ROCKET_BULLET_SPEED = 0.2;
+	public static final int ROCKET_BULLET_GID = 252;
 	//endregion
 
 	//region Tower
-	public static final long NORMAL_TOWER_SPEED = 30;
-	public static final double NORMAL_TOWER_RANGE = 3.0;
+	public static final long NORMAL_TOWER_SPEED = 10;
+	public static final double NORMAL_TOWER_RANGE = 2.0;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
+	public static final int MACHINE_GUN_TOWER_LEVEL1_GID = 250;
+	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
+
+	public static final long ROCKET_TOWER_SPEED = 20;
+	public static final double ROCKET_TOWER_RANGE = 4.0;
+	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
+	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
 
 	public static final long SNIPER_TOWER_SPEED = 60;
 	public static final double SNIPER_TOWER_RANGE = 8.0;
 	//endregion
 
 	//region Enemy
-	public static final double NORMAL_ENEMY_SIZE = 0.9;
-	public static final long NORMAL_ENEMY_HEALTH = 100;
+	public static final double NORMAL_ENEMY_SIZE = 1;
+	public static final long NORMAL_ENEMY_HEALTH = 1000;
 	public static final long NORMAL_ENEMY_ARMOR = 3;
-	public static final double NORMAL_ENEMY_SPEED = 0.13;
+	public static final double NORMAL_ENEMY_SPEED = 0.2;
 	public static final long NORMAL_ENEMY_REWARD = 1;
+
+	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1;
+	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 50;
+	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
+	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
+	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
+
+	public static final double BIG_AIRCRAFT_ENEMY_SIZE = 1;
+	public static final long BIG_AIRCRAFT_ENEMY_HEALTH = 300;
+	public static final long BIG_AIRCRAFT_ENEMY_ARMOR = 2;
+	public static final double BIG_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final long BIG_AIRCRAFT_ENEMY_REWARD = 1;
+	public static final int[] BIG_AIRCRAFT_ENEMY_GID = {271, 272};
+
+	public static final double TANKER_ENEMY_SIZE = 1;
+	public static final long TANKER_ENEMY_HEALTH = 1000;
+	public static final long TANKER_ENEMY_ARMOR = 2;
+	public static final double TANKER_ENEMY_SPEED = 0.2;
+	public static final long TANKER_ENEMY_REWARD = 1;
+	public static final int[] TANKER_ENEMY_GID = {269, 270};
 
 	public static final double SMALLER_ENEMY_SIZE = 0.7;
 	public static final long SMALLER_ENEMY_HEALTH = 50;
 	public static final long SMALLER_ENEMY_ARMOR = 0;
 	public static final double SMALLER_ENEMY_SPEED = 0.4;
 	public static final long SMALLER_ENEMY_REWARD = 2;
-
-	public static final double TANKER_ENEMY_SIZE = 1.1;
-	public static final long TANKER_ENEMY_HEALTH = 300;
-	public static final long TANKER_ENEMY_ARMOR = 5;
-	public static final double TANKER_ENEMY_SPEED = 0.2;
-	public static final long TANKER_ENEMY_REWARD = 3;
 
 	public static final double BOSS_ENEMY_SIZE = 1.3;
 	public static final long BOSS_ENEMY_HEALTH = 500;
