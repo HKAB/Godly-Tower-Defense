@@ -28,4 +28,9 @@ public interface UIEntity {
      * @return field height
      */
     double getHeight();
+
+    /**
+     * Handle mouse click event
+     */
+    void onClick();
 }

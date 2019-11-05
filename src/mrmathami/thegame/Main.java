@@ -32,10 +32,10 @@ public final class Main extends Application {
 		canvas.setOnKeyReleased(gameController::keyUpHandler);
 //		canvas.setOnKeyTyped(...);
 
-		canvas.setOnMousePressed(gameController::mouseDownHandler);
-		canvas.setOnMouseReleased(gameController::mouseUpHandler);
-//		canvas.setOnMouseClicked(...);
-//		canvas.setOnMouseMoved(...);
+//		canvas.setOnMousePressed(gameController::mouseDownHandler);
+//		canvas.setOnMouseReleased(gameController::mouseUpHandler);
+		canvas.setOnMouseClicked(gameController::mouseClickHandler);
+//		canvas.setOnMouseMoved(gameController::mouseMoveHandler);
 
 
 		primaryStage.setResizable(false);
