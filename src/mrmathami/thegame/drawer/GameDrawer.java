@@ -10,6 +10,7 @@ import mrmathami.thegame.GameUI;
 import mrmathami.thegame.bar.AbstractButton;
 import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.tile.Mountain;
@@ -78,8 +79,11 @@ public final class GameDrawer {
 //			Map.entry(SmallerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
-			Map.entry(Target.class, new TargetDrawer()),
-//			Map.entry(FlowControlBar.class, new FlowControlBarDrawer()),
+			Map.entry(Target.class, new TargetDrawer())
+	));
+
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+			Map.entry(FlowControlBar.class, new FlowControlBarDrawer()),
 			Map.entry(NormalButton.class, new ButtonDrawer())
 	));
 
@@ -128,6 +132,11 @@ public final class GameDrawer {
 	@Nullable
 	private static EntityDrawer getEntityDrawer(@Nonnull GameEntity entity) {
 		return ENTITY_DRAWER_MAP.get(entity.getClass());
+	}
+
+	@Nullable
+	private static UIDrawer getUIDrawer(@Nonnull UIEntity entity) {
+		return UI_DRAWER_MAP.get(entity.getClass());
 	}
 
 	public final double getFieldStartPosX() {
@@ -198,7 +207,7 @@ public final class GameDrawer {
 			}
 		}
 		for (AbstractButton b : buttons) {
-			final EntityDrawer drawer = getEntityDrawer(b);
+			final UIDrawer drawer = getUIDrawer(b);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getHeight(), b.getWidth(), fieldZoom);
 			}
