@@ -9,9 +9,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.GameDrawer;
+import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -223,5 +227,29 @@ public final class GameController extends AnimationTimer {
 //		// Screen coordinate. Remember to convert to field coordinate
 //		drawer.screenToFieldPosX(mouseEvent.getX());
 //		drawer.screenToFieldPosY(mouseEvent.getY());
+	}
+
+	final void mouseMoveHandler(MouseEvent mouseEvent) {}
+
+	final void mouseClickHandler(MouseEvent mouseEvent) {
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
+		double mousePosX = mouseEvent.getX();
+		double mousePosY = mouseEvent.getY();
+		System.out.println("Processing " + mousePosX + " " + mousePosY);
+
+		for (UIEntity entity: UIEntities) {
+			double startX = entity.getPosX();
+			double startY = entity.getPosY();
+			double endX = startX + entity.getWidth();
+			double endY = startY + entity.getHeight();
+			System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
+			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+			&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+				entity.onClick();
+			} else {
+				System.out.println("Button not clicked");
+			}
+		}
 	}
 }

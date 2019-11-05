@@ -1,6 +1,5 @@
 package mrmathami.thegame.bar;
 
-import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 
 public abstract class AbstractBar implements UIEntity {

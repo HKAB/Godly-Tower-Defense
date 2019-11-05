@@ -7,7 +7,6 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.bar.AbstractButton;
 import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
@@ -183,7 +182,7 @@ public final class GameDrawer {
 		final double fieldZoom = this.fieldZoom;
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
-		final List<AbstractButton> buttons = gameUI.getButtons();
+		final List<UIEntity> buttons = new ArrayList<>(gameUI.getEntities());
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
 		graphicsContext.setFill(Color.BLACK);
@@ -206,7 +205,7 @@ public final class GameDrawer {
 				);
 			}
 		}
-		for (AbstractButton b : buttons) {
+		for (UIEntity b : buttons) {
 			final UIDrawer drawer = getUIDrawer(b);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getHeight(), b.getWidth(), fieldZoom);

@@ -1,25 +1,25 @@
 package mrmathami.thegame;
 
-import mrmathami.thegame.bar.AbstractButton;
 import mrmathami.thegame.bar.NormalButton;
+import mrmathami.thegame.entity.UIEntity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public final class GameUI {
-    private List<AbstractButton> buttons;
+    private Collection<UIEntity> entities;
 
     public GameUI() {
-        NormalButton button = new NormalButton(0, 150, 150, 1, 1, "button_home");
-        this.buttons = new ArrayList<AbstractButton>();
-        this.buttons.add(button);
+        NormalButton button = new NormalButton(0, 150, 150, 64, 64, "button_home");
+        this.entities = new ArrayList<UIEntity>();
+        this.entities.add(button);
     }
 
-    public List<AbstractButton> getButtons() {
-        return buttons;
+    public Collection<UIEntity> getEntities() {
+        return this.entities;
     }
 
-    public void addButton(AbstractButton button) {
-        buttons.add(button);
+    public void addButton(UIEntity entity) {
+        entities.add(entity);
     }
 }

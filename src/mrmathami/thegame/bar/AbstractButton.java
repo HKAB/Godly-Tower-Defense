@@ -1,8 +1,5 @@
 package mrmathami.thegame.bar;
 
-import mrmathami.thegame.GameEntities;
-import mrmathami.thegame.entity.AbstractEntity;
-import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 
 public abstract class AbstractButton implements UIEntity {
