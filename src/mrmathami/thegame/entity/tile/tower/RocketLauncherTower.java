@@ -7,6 +7,7 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.bullet.RocketBullet;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.BigAircraft;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 
@@ -19,8 +20,8 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAi
 
     @Nonnull
     @Override
-    protected final RocketBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY) {
-        return new RocketBullet(createdTick, posX, posY, deltaX, deltaY);
+    protected final RocketBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
+        return new RocketBullet(createdTick, posX, posY, deltaX, deltaY, enemyTarget);
     }
 
 

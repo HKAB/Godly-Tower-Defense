@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.transform.Rotate;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.enemy.BigAircraft;
@@ -35,6 +36,12 @@ public final class BigAircraftDrawer implements EntityDrawer {
 //		imageView.setFitWidth(screenWidth);
 //		imageView.setFitHeight(screenHeight);
 //		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
+//        WritableImage shadowImage = new WritableImage(reader, (((BigAircraft)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), Math.round((((BigAircraft)entity).getGID() - 1) / maxTileWidth + 1) * (int)(screenHeight), (int)(screenWidth), (int)(screenHeight));
         ((BigAircraft)entity).rotate(graphicsContext, newImage, screenPosX, screenPosY, ((BigAircraft)entity).getAngle() - 90);
+//        graphicsContext.save();
+//        Rotate r = new Rotate(((BigAircraft)entity).getAngle() - 90, screenPosX + shadowImage.getWidth()/2, screenPosY + shadowImage.getHeight()/2);
+//        graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+//        graphicsContext.drawImage(shadowImage, screenPosX - 40, screenPosY - 40);
+//        graphicsContext.restore();
     }
 }

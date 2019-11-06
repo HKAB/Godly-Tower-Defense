@@ -109,8 +109,7 @@ public final class GameStage {
 						final int x = scanner.nextInt();
 						final int y = scanner.nextInt();
 						final int angle = scanner.nextInt();
-						final int GID = scanner.nextInt();
-						entities.add(new NormalTower(0, x, y, angle, GID));
+						entities.add(new NormalTower(0, x, y, angle));
 					} else if ("MachineGunTower".equals(value)) {
 						final int x = scanner.nextInt();
 						final int y = scanner.nextInt();

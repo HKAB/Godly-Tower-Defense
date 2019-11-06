@@ -5,18 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
 
 import javax.annotation.Nonnull;
 
 public abstract class AbstractBullet extends AbstractEntity implements UpdatableEntity, EffectEntity, DestroyableEntity, RotatableEntity {
-	private final double deltaX;
-	private final double deltaY;
+	private double deltaX;
+	private double deltaY;
 	private final long strength;
 	private long tickDown;
 	private int GID;
+	private double speed;
 	private double angle;
+	private AbstractEnemy enemyTarget;
 
-	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY, double speed, long strength, long timeToLive, int GID) {
+	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY, double speed, long strength, long timeToLive, int GID, AbstractEnemy enemyTarget) {
 		super(createdTick, posX, posY, 1, 1);
 		final double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 		this.deltaX = deltaX * normalize;
@@ -24,15 +27,30 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 		this.strength = strength;
 		this.tickDown = timeToLive;
 		this.GID = GID;
+		this.enemyTarget = enemyTarget;
+		this.speed = speed;
 		setAngle(90 + Math.atan2((deltaY), (deltaX))*180/Math.PI);
 	}
 
 	@Override
 	public final void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
-		setPosX(getPosX() + deltaX);
-		setPosY(getPosY() + deltaY);
+		if (!enemyTarget.isDestroyed()) {
+			deltaX = enemyTarget.getPosX() - getPosX();
+			deltaY = enemyTarget.getPosY() - getPosY();
+			double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+			deltaX = deltaX * normalize;
+			deltaY = deltaY * normalize;
 
+			setPosX(getPosX() + deltaX);
+			setPosY(getPosY() + deltaY);
+			setAngle(90 + Math.atan2(deltaY, deltaX) * 180 / Math.PI);
+		}
+		else
+		{
+			setPosX(getPosX() + deltaX);
+			setPosY(getPosY() + deltaY);
+		}
 	}
 
 	@Override
@@ -76,5 +94,9 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 
 	public void setAngle(double angle) {
 		this.angle = angle;
+	}
+
+	public AbstractEnemy getEnemyTarget() {
+		return enemyTarget;
 	}
 }

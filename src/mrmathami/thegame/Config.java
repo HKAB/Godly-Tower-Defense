@@ -53,6 +53,7 @@ public final class Config {
 	public static final long NORMAL_BULLET_TTL = 30;
 	public static final long NORMAL_BULLET_STRENGTH = 30;
 	public static final double NORMAL_BULLET_SPEED = 0.3;
+	public static final int NORMAL_BULLET_GID = 273;
 
 	public static final long MACHINE_GUN_BULLET_TTL = 15;
 	public static final long MACHINE_GUN_BULLET_STRENGTH = 20;
@@ -72,6 +73,7 @@ public final class Config {
 	//region Tower
 	public static final long NORMAL_TOWER_SPEED = 10;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
+	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;

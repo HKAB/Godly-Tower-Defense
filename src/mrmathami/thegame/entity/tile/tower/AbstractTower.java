@@ -45,8 +45,9 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		for (T normalEnemy :
 				overlappedEntities) {
 //			field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY()));
-			System.out.println("Enemy spot");
+//			System.out.println("Enemy spot");
 			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+			break;
 		}
 		if (tickDown <= 0) {
 			// TODO: Find a target and spawn a bullet to that direction.
@@ -58,9 +59,10 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 //					this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
 			for (T normalEnemy :
 					overlappedEntities) {
-				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY()));
-				System.out.println("Enemy spot");
+				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY(), normalEnemy));
+//				System.out.println("Enemy spot");
 				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+				break;
 			}
 			 this.tickDown = speed;
 		}
@@ -79,7 +81,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	 * @return the bullet entity
 	 */
 	@Nonnull
-	protected abstract E doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY);
+	protected abstract E doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget);
 
 	@Override
 	public void rotate(GraphicsContext graphicsContext, Image image, double screenPosX, double screenPosY, double angle) {

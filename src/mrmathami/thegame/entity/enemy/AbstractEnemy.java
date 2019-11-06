@@ -9,10 +9,12 @@ import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.function.BiFunction;
 
 public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
-//	private static final double SQRT_2 = Math.sqrt(2.0) / 2.0;
+	private static final double SQRT_2 = Math.sqrt(2.0) / 2.0;
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
 //			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
@@ -38,8 +40,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 			@Nonnull GameEntity sourceEntity, double posX, double posY, double width, double height) {
 		double distance = 0.0;
 		double sumArea = 0.0;
-		double minDistance = Double.MAX_VALUE;
-//		System.out.println("Overlap in direction: " + GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height));
+		System.out.println("Overlap in direction: " + GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height));
 		for (GameEntity entity : GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height)) {
 			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass()))
 			{
@@ -52,6 +53,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				final double area = (Math.min(posX + width, entityPosX + entity.getWidth()) - Math.max(posX, entityPosX))
 						* (Math.min(posY + height, entityPosY + entity.getHeight()) - Math.max(posY, entityPosY));
 				sumArea += area;
+				System.out.println("sumArea: " + sumArea);
 				distance += area * ((Road) entity).getDistance();
 			}
 
@@ -65,33 +67,34 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		final double enemyPosY = getPosY();
 		final double enemyWidth = getWidth();
 		final double enemyHeight = getHeight();
-//		System.out.println(GameEntities.getOverlappedEntities(field.getEntities(), getPosX() - speed, getPosY() - speed, speed + getWidth() + speed, speed + getHeight() + speed));
+		System.out.println(GameEntities.getOverlappedEntities(field.getEntities(), getPosX() - speed, getPosY() - speed, speed + getWidth() + speed, speed + getHeight() + speed));
 		final Collection<GameEntity> overlappableEntities = GameEntities.getOverlappedEntities(field.getEntities(),
 				getPosX() - speed, getPosY() - speed, speed + getWidth() + speed, speed + getHeight() + speed);
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
-//		System.out.println(newPosX + ":" + newPosY);
+		System.out.println(newPosX + ":" + newPosY);
 		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
 			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
+				BigDecimal a = BigDecimal.valueOf(enemyPosY + deltaDirection[1] * realSpeed);
 				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
-//				System.out.println("Evaluate at (" + (currentPosX) + "," + (currentPosY) + ")" + " with width = " + enemyWidth + ", height = " + enemyHeight);
-				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth - 0.1, enemyHeight - 0.1);
-//				System.out.println("At direction (" + deltaDirection[0] + "," + deltaDirection[1] +  ") currentDistance is : "  + currentDistance);
-				if (currentDistance <= minimumDistance) {
+				System.out.println("Evaluate at (" + (currentPosX) + "," + (currentPosY) + ")" + " with width = " + enemyWidth + ", height = " + enemyHeight + ", but bigdecimal Y is : " + a);
+				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
+				System.out.println("At direction (" + deltaDirection[0] + "," + deltaDirection[1] +  ") currentDistance is : "  + currentDistance);
+				if (currentDistance < minimumDistance) {
 					minimumDistance = currentDistance;
 					newPosX = currentPosX;
 					newPosY = currentPosY;
 				}
 			}
-//			System.out.println("--------");
+			System.out.println("--------");
 		}
 //		System.out.println(newPosX + ":" + newPosY);
 		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
 		else
 			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
-		System.out.println(angle);
+//		System.out.println(angle);
 		setPosX(newPosX);
 		setPosY(newPosY);
 
