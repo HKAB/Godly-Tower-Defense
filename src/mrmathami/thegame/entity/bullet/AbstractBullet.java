@@ -3,6 +3,7 @@ package mrmathami.thegame.entity.bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
@@ -19,8 +20,8 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 	private double angle;
 	private AbstractEnemy enemyTarget;
 
-	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY, double speed, long strength, long timeToLive, int GID, AbstractEnemy enemyTarget) {
-		super(createdTick, posX, posY, 1, 1);
+	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY, double width, double height, double speed, long strength, long timeToLive, int GID, AbstractEnemy enemyTarget) {
+		super(createdTick, posX, posY, width, height);
 		final double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 		this.deltaX = deltaX * normalize;
 		this.deltaY = deltaY * normalize;
@@ -67,7 +68,7 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 
 	@Override
 	public final boolean isDestroyed() {
-		return tickDown <= -0;
+		return tickDown <= 0;
 	}
 
 	@Override

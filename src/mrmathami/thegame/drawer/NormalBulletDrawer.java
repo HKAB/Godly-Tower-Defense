@@ -35,11 +35,18 @@ public final class NormalBulletDrawer implements EntityDrawer {
 //		graphicsContext.setFill(gradient);
 //		graphicsContext.fillOval(screenPosX, screenPosY, screenWidth, screenHeight);
 
+		graphicsContext.setStroke(Color.RED);
+		graphicsContext.setLineWidth(4);
+		graphicsContext.strokeRect(screenPosX, screenPosY, screenWidth, screenHeight);
+
 		Image img = GameDrawer.getSheetImage();
 		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
-		WritableImage newImage = new WritableImage(reader, (((NormalBullet)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), Math.round((((NormalBullet)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight), (int)(screenWidth), (int)(screenHeight));
-		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
+//		System.out.println("screenWidth: " + screenWidth);
+		WritableImage bulletImage = new WritableImage(reader, (int)((((NormalBullet)entity).getGID() - 1) % maxTileWidth * Config.TILE_SIZE), (int)(Math.round((((NormalBullet)entity).getGID() - 1) / maxTileWidth) * Config.TILE_SIZE), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
+		reader = bulletImage.getPixelReader();
+		WritableImage t_bulletImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.NORMAL_BULLET_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.NORMAL_BULLET_HEIGHT/2), (int)(Config.NORMAL_BULLET_HEIGHT), (int)(Config.NORMAL_BULLET_HEIGHT));
+		graphicsContext.drawImage(t_bulletImage, screenPosX, screenPosY);
 	}
 }

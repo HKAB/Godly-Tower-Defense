@@ -60,7 +60,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 			for (T normalEnemy :
 					overlappedEntities) {
 				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY(), normalEnemy));
-//				System.out.println("Enemy spot");
+				System.out.println("Enemy spot");
 				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
 				break;
 			}

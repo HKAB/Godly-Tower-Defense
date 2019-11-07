@@ -25,17 +25,23 @@ public final class NormalAircraftDrawer implements EntityDrawer {
 //		graphicsContext.setFill(Color.DARKMAGENTA);
 //		graphicsContext.fillRoundRect(screenPosX, screenPosY, screenWidth, screenHeight, 4, 4);
 
+        graphicsContext.setStroke(Color.DARKMAGENTA);
+        graphicsContext.setLineWidth(4);
+        graphicsContext.strokeRect(screenPosX, screenPosY, Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT);
+
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
         PixelReader reader = img.getPixelReader();
 //		System.out.println(screenWidth + " " + screenHeight);
-        WritableImage newImage = new WritableImage(reader, (((NormalAircraft)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), Math.round((((NormalAircraft)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight), (int)(screenWidth), (int)(screenHeight));
+        WritableImage newImage = new WritableImage(reader, (int)((((NormalAircraft)entity).getGID() - 1) % maxTileWidth * Config.TILE_SIZE), (int)(Math.round((((NormalAircraft)entity).getGID() - 1) / maxTileWidth) * Config.TILE_SIZE), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
 //		ImageView imageView = new ImageView(newImage);
 //		imageView.setPreserveRatio(true);
 //		imageView.setFitWidth(screenWidth);
 //		imageView.setFitHeight(screenHeight);
 //		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
-        ((NormalAircraft)entity).rotate(graphicsContext, newImage, screenPosX, screenPosY, ((NormalAircraft)entity).getAngle() - 90);
+        reader = newImage.getPixelReader();
+        WritableImage aircraft = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.NORMAL_AIRCRAFT_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT/2), (int)Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, (int)Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT);
+        ((NormalAircraft)entity).rotate(graphicsContext, aircraft, screenPosX, screenPosY, ((NormalAircraft)entity).getAngle() - 90);
     }
 }

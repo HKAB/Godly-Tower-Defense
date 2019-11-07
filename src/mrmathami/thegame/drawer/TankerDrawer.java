@@ -30,13 +30,13 @@ public final class TankerDrawer implements EntityDrawer {
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
         PixelReader reader = img.getPixelReader();
 //		System.out.println(screenWidth + " " + screenHeight);
-        WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight)), (int)(screenWidth), (int)(screenHeight));
-        WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(screenHeight)), (int)(screenWidth), (int)(screenHeight));
+//        WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(screenHeight)), (int)(screenWidth), (int)(screenHeight));
+//        WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(screenWidth), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(screenHeight)), (int)(screenWidth), (int)(screenHeight));
 //		ImageView imageView = new ImageView(newImage);
 //		imageView.setPreserveRatio(true);
 //		imageView.setFitWidth(screenWidth);
 //		imageView.setFitHeight(screenHeight);
 //		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
-        ((Tanker)entity).rotate(graphicsContext, new Image[]{ baseImage, barrelImage }, screenPosX, screenPosY, ((Tanker)entity).getAngle() - 90);
+//        ((Tanker)entity).rotate(graphicsContext, new Image[]{ baseImage, barrelImage }, screenPosX, screenPosY, ((Tanker)entity).getAngle() - 90);
     }
 }
