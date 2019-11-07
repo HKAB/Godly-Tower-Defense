@@ -7,6 +7,6 @@ public class NormalButton extends AbstractButton {
 
     @Override
     public void onClick() {
-        System.out.println("Button Clicked");
+        System.out.println(getPngName() + " Clicked");
     }
 }

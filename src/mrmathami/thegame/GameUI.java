@@ -11,15 +11,17 @@ public final class GameUI {
 
     public GameUI() {
         NormalButton button = new NormalButton(0, 150, 150, 64, 64, "button_home");
+        NormalButton dragable = new NormalButton(0, 600, 150, 64, 64, "button_play");
         this.entities = new ArrayList<UIEntity>();
-        this.entities.add(button);
+        addEntity(button);
+        addEntity(dragable);
     }
 
     public Collection<UIEntity> getEntities() {
         return this.entities;
     }
 
-    public void addButton(UIEntity entity) {
+    public void addEntity(UIEntity entity) {
         entities.add(entity);
     }
 }

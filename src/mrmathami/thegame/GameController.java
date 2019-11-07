@@ -229,7 +229,9 @@ public final class GameController extends AnimationTimer {
 //		drawer.screenToFieldPosY(mouseEvent.getY());
 	}
 
-	final void mouseMoveHandler(MouseEvent mouseEvent) {}
+	final void mouseMoveHandler(MouseEvent mouseEvent) {
+
+	}
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
@@ -243,12 +245,12 @@ public final class GameController extends AnimationTimer {
 			double startY = entity.getPosY();
 			double endX = startX + entity.getWidth();
 			double endY = startY + entity.getHeight();
-			System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
+//			System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 			&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 				entity.onClick();
 			} else {
-				System.out.println("Button not clicked");
+//				System.out.println("Button not clicked");
 			}
 		}
 	}
