@@ -29,18 +29,24 @@ public final class Config {
 	 * Num of tiles the screen can display if fieldZoom is TILE_SIZE,
 	 * in other words, the texture will be display as it without scaling.
 	 */
-	public static final long TILE_VERTICAL = 8;
+	public static final long TILE_VERTICAL = 9;
 	/**
 	 * An arbitrary number just to make some code run a little faster.
 	 * Do not touch.
 	 */
 	public static final int _TILE_MAP_COUNT = (int) (TILE_HORIZONTAL * TILE_VERTICAL);
 
+	/**
+	 * Num of tiles the sidebar uses
+	 */
+	public static final long SIDEBAR_HORIZONTAL = 4;
+	public static final long SIDEBAR_VERTICAL = TILE_VERTICAL;
+
 
 	/**
 	 * Size of the screen.
 	 */
-	public static final long SCREEN_WIDTH = TILE_SIZE * TILE_HORIZONTAL;
+	public static final long SCREEN_WIDTH = TILE_SIZE * (TILE_HORIZONTAL + SIDEBAR_HORIZONTAL);
 	/**
 	 * Size of the screen.
 	 */

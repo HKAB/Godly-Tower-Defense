@@ -2,25 +2,31 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import mrmathami.thegame.Config;
+import mrmathami.thegame.bar.AbstractButton;
 import mrmathami.thegame.bar.NormalButton;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ButtonDrawer implements UIDrawer {
-    private String baseUrl = "/bar/button/";
+
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
-//        System.out.println("Button drawer called");
-        String pngName = ((NormalButton)entity).getPngName();
-        Image image = new Image(getClass().getResourceAsStream(baseUrl + pngName));
-        graphicsContext.drawImage(image, screenPosX, screenPosY, 64, 64);
-//        graphicsContext.setFill(Color.GOLD);
-//        graphicsContext.fillRect(entity.getPosX(), entity.getPosY(), 50, 50);
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+        Image img = GameDrawer.getButtonImage();
+        PixelReader reader = img.getPixelReader();
+
+        AbstractButton button = (AbstractButton)entity;
+
+        WritableImage buttonImage = new WritableImage(reader, (int)button.getAssetPosX(), (int)button.getAssetPosY(), (int)screenWidth, (int)screenHeight);
+        graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);
     }
 }

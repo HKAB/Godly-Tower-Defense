@@ -9,6 +9,7 @@ import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
 import mrmathami.thegame.bar.AbstractButton;
 import mrmathami.thegame.bar.NormalButton;
+import mrmathami.thegame.bar.UnclickableButton;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.NormalBullet;
@@ -19,15 +20,11 @@ import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.bar.FlowControlBar;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class GameDrawer {
 	/**
@@ -83,7 +80,7 @@ public final class GameDrawer {
 	));
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
-			Map.entry(FlowControlBar.class, new FlowControlBarDrawer()),
+			Map.entry(UnclickableButton.class, new ButtonDrawer()),
 			Map.entry(NormalButton.class, new ButtonDrawer())
 	));
 
@@ -91,14 +88,16 @@ public final class GameDrawer {
 	@Nonnull private GameField gameField;
 	@Nonnull private GameUI gameUI;
 	private static Image sheetImage;
+	private static Image buttonImage;
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, String sheetImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
+		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.gameUI = gameUI;
 	}
 
@@ -183,10 +182,10 @@ public final class GameDrawer {
 		final double fieldZoom = this.fieldZoom;
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
-		final List<AbstractButton> buttons = gameUI.getButtons();
+		final Collection<UIEntity> buttons = gameUI.getEntities();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
-		graphicsContext.setFill(Color.BLACK);
+		graphicsContext.setFill(Color.rgb(46, 46, 46));
 		graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
 		GameEntity lastEntity = null;
@@ -206,10 +205,10 @@ public final class GameDrawer {
 				);
 			}
 		}
-		for (AbstractButton b : buttons) {
+		for (UIEntity b : buttons) {
 			final UIDrawer drawer = getUIDrawer(b);
 			if (drawer != null) {
-				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getHeight(), b.getWidth(), fieldZoom);
+				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getWidth(), b.getHeight(), fieldZoom);
 			}
 		}
 	}
@@ -232,5 +231,9 @@ public final class GameDrawer {
 
 	public static Image getSheetImage() {
 		return sheetImage;
+	}
+
+	public static Image getButtonImage () {
+		return buttonImage;
 	}
 }
