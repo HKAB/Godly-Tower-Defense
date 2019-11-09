@@ -2,7 +2,6 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
@@ -33,7 +32,6 @@ import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -102,7 +100,7 @@ public final class GameDrawer {
 			Map.entry(Target.class, new TargetDrawer())
 	));
 
-	@Nonnull private static final Map<Class<? extends UIEntity>, UIDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
 			Map.entry(UnclickableButton.class, new ButtonDrawer()),
 			Map.entry(BackButton.class, new ButtonDrawer()),
 			Map.entry(PauseButton.class, new ButtonDrawer()),
@@ -163,7 +161,7 @@ public final class GameDrawer {
 	}
 
 	@Nullable
-	private static UIDrawer getUIDrawer(@Nonnull UIEntity entity) {
+	private static UIEntityDrawer getUIDrawer(@Nonnull UIEntity entity) {
 		return UI_DRAWER_MAP.get(entity.getClass());
 	}
 
@@ -241,7 +239,7 @@ public final class GameDrawer {
 			}
 		}
 		for (UIEntity button : buttons) {
-			final UIDrawer drawer = getUIDrawer(button);
+			final UIEntityDrawer drawer = getUIDrawer(button);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, button,
 						(button.getPosX() - fieldStartPosX) * fieldZoom,
