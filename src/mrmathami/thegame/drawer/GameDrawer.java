@@ -81,7 +81,7 @@ public final class GameDrawer {
 			Map.entry(Target.class, new TargetDrawer())
 	));
 
-	@Nonnull private static final Map<Class<? extends UIEntity>, UIDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
 			Map.entry(FlowControlBar.class, new FlowControlBarDrawer()),
 			Map.entry(NormalButton.class, new ButtonDrawer())
 	));
@@ -134,7 +134,7 @@ public final class GameDrawer {
 	}
 
 	@Nullable
-	private static UIDrawer getUIDrawer(@Nonnull UIEntity entity) {
+	private static UIEntityDrawer getUIDrawer(@Nonnull UIEntity entity) {
 		return UI_DRAWER_MAP.get(entity.getClass());
 	}
 
@@ -206,7 +206,7 @@ public final class GameDrawer {
 			}
 		}
 		for (UIEntity b : buttons) {
-			final UIDrawer drawer = getUIDrawer(b);
+			final UIEntityDrawer drawer = getUIDrawer(b);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getHeight(), b.getWidth(), fieldZoom);
 			}

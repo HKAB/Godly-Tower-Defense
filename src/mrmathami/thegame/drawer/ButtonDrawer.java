@@ -2,17 +2,13 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import mrmathami.thegame.bar.NormalButton;
-import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.FileNotFoundException;
 
-public class ButtonDrawer implements UIDrawer {
+public class ButtonDrawer implements UIEntityDrawer {
     private String baseUrl = "/bar/button/";
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {

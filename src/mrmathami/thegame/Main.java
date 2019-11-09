@@ -21,6 +21,14 @@ public final class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
+		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
+		final MenuController menuController = new MenuController(menuGraphicsContext);
+		menuCanvas.setFocusTraversable(true);
+		menuGraphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
+
+		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+
 		final Canvas canvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 		final GameController gameController = new GameController(graphicsContext);
@@ -40,10 +48,14 @@ public final class Main extends Application {
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(Config.GAME_NAME);
-		primaryStage.setOnCloseRequest(gameController::closeRequestHandler);
-		primaryStage.setScene(new Scene(new StackPane(canvas)));
+//		primaryStage.setOnCloseRequest(gameController::closeRequestHandler);
+//		primaryStage.setScene(new Scene(new StackPane(canvas)));
+        primaryStage.setScene(new Scene(new StackPane(menuCanvas)));
 		primaryStage.show();
 
-		gameController.start();
+//		gameController.start();
+        primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
+        menuController.start();
+
 	}
 }
