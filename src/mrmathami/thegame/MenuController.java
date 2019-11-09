@@ -69,7 +69,7 @@ public final class MenuController extends AnimationTimer {
         final long height = Config.TILE_VERTICAL;
 
         this.menuUI = new MenuUI();
-        this.drawer = new UIDrawer(graphicsContext, menuUI);
+        this.drawer = new UIDrawer(graphicsContext, menuUI, "/menu/blurry_background.png");
         drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
@@ -100,7 +100,6 @@ public final class MenuController extends AnimationTimer {
         // draw a new frame, as fast as possible.
         try {
             drawer.render();
-            System.out.println("Rendering");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

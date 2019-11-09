@@ -1,6 +1,6 @@
 package mrmathami.thegame;
 
-import mrmathami.thegame.bar.NormalButton;
+import mrmathami.thegame.bar.PlayButton;
 import mrmathami.thegame.entity.UIEntity;
 
 import java.util.ArrayList;
@@ -10,11 +10,16 @@ public final class MenuUI {
     private Collection<UIEntity> entities;
 
     public MenuUI() {
-        NormalButton button = new NormalButton(0, 150, 150, 64, 64, "button_home");
-        NormalButton dragable = new NormalButton(0, 600, 150, 64, 64, "button_play");
-        this.entities = new ArrayList<UIEntity>();
-        addEntity(button);
-        addEntity(dragable);
+        this.entities = new ArrayList<>();
+        prepareMainMenu();
+    }
+
+    private void prepareMainMenu() {
+        PlayButton playButton = new PlayButton(0,
+                Config.SCREEN_WIDTH/2 - 64,
+                Config.SCREEN_HEIGHT/2 - 64,
+                128, 64, "/menu/play_button.png");
+        addEntity(playButton);
     }
 
     public Collection<UIEntity> getEntities() {
