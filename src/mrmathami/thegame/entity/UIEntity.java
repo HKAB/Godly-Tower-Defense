@@ -34,7 +34,7 @@ public interface UIEntity {
     /**
      * Handle mouse event
      */
-    void onClick();
+    String onClick();
     void onFocus();
     void outFocus();
 }

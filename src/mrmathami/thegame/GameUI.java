@@ -1,12 +1,6 @@
 package mrmathami.thegame;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
-import mrmathami.thegame.bar.AbstractButton;
-import mrmathami.thegame.bar.NormalButton;
-import mrmathami.thegame.bar.UnclickableButton;
-import mrmathami.thegame.drawer.GameDrawer;
+import mrmathami.thegame.bar.button.*;
 import mrmathami.thegame.entity.UIEntity;
 
 import java.io.IOException;
@@ -25,18 +19,34 @@ public final class GameUI {
                 final String value = scanner.next();
                 if (value.equals("EndOfFile")) break;
                 else {
-                    final double assetX = scanner.nextDouble() * Config.TILE_SIZE;
-                    final double assetY = scanner.nextDouble() * Config.TILE_SIZE;
-                    final double x = scanner.nextDouble() * Config.TILE_SIZE;
-                    final double y = scanner.nextDouble() * Config.TILE_SIZE;
-                    final double w = scanner.nextDouble() * Config.TILE_SIZE;
-                    final double h = scanner.nextDouble() * Config.TILE_SIZE;
+                    final double assetX = scanner.nextDouble();
+                    final double assetY = scanner.nextDouble();
+                    final double x = scanner.nextDouble();
+                    final double y = scanner.nextDouble();
+                    final double w = scanner.nextDouble();
+                    final double h = scanner.nextDouble();
+                    String towerType = "";
+                    if (value.equals("TowerButton")) {
+                        towerType = scanner.next();
+                    }
 
                     if (value.equals("MoneyButton")) {
                         entities.add(new UnclickableButton(0, assetX, assetY, x, y, w, h));
                     }
-                    else {
-                        entities.add(new NormalButton(0, assetX, assetY, x, y, w, h));
+                    else if (value.equals("BackButton")) {
+                        entities.add(new BackButton(0, assetX, assetY, x, y, w, h));
+                    }
+                    else if (value.equals("PauseButton")) {
+                        entities.add(new PauseButton(0, assetX, assetY, x, y, w, h));
+                    }
+                    else if (value.equals("TowerButton")) {
+                        entities.add(new TowerButton(0, assetX, assetY, x, y, w, h, towerType));
+                    }
+                    else if (value.equals("UpgradeButton")) {
+                        entities.add(new UpgradeButton(0, assetX, assetY, x, y, w, h));
+                    }
+                    else if (value.equals("SellButton")) {
+                        entities.add(new SellButton(0, assetX, assetY, x, y, w, h));
                     }
                 }
             }

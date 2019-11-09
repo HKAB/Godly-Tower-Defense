@@ -72,12 +72,21 @@ public final class Config {
 	//region Tower
 	public static final long NORMAL_TOWER_SPEED = 30;
 	public static final double NORMAL_TOWER_RANGE = 3.0;
+	public static final int NORMAL_TOWER_LV1_GID = 205;
+	public static final int NORMAL_TOWER_LV2_GID = 0;
+	public static final int NORMAL_TOWER_LV3_GID = 0;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
+	public static final int MACHINE_GUN_TOWER_LV1_GID = 0;
+	public static final int MACHINE_GUN_TOWER_LV2_GID = 0;
+	public static final int MACHINE_GUN_TOWER_LV3_GID = 0;
 
 	public static final long SNIPER_TOWER_SPEED = 60;
 	public static final double SNIPER_TOWER_RANGE = 8.0;
+	public static final int SNIPER_TOWER_LV1_GID = 0;
+	public static final int SNIPER_TOWER_LV2_GID = 0;
+	public static final int SNIPER_TOWER_LV3_GID = 0;
 	//endregion
 
 	//region Enemy

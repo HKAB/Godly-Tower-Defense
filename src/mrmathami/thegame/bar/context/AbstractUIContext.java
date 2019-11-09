@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar;
+package mrmathami.thegame.bar.context;
 
 import mrmathami.thegame.entity.UIEntity;
 
@@ -43,7 +43,7 @@ public abstract class AbstractUIContext implements UIEntity {
         return height;
     }
 
-    public abstract void onClick();
+    public abstract String onClick();
     public abstract void onFocus();
     public abstract void outFocus();
 }

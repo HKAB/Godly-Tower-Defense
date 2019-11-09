@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar;
+package mrmathami.thegame.bar.context;
 
 public class NormalUIContext extends AbstractUIContext {
 
@@ -7,8 +7,8 @@ public class NormalUIContext extends AbstractUIContext {
     }
 
     @Override
-    public void onClick() {
-
+    public String onClick() {
+        return "";
     }
 
     @Override

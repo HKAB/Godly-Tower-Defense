@@ -1,5 +1,6 @@
-package mrmathami.thegame.bar;
+package mrmathami.thegame.bar.button;
 
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.entity.AbstractEntity;
 import mrmathami.thegame.entity.GameEntity;
@@ -28,10 +29,6 @@ public abstract class AbstractButton implements UIEntity {
         this.normalAssetPosY = assetPosY;
     }
 
-    public abstract void onClick();
-    public abstract void onFocus();
-    public abstract void outFocus();
-
     @Override
     public long getCreatedTick() {
         return createdTick;
@@ -43,22 +40,6 @@ public abstract class AbstractButton implements UIEntity {
 
     public double getAssetPosY() {
         return assetPosY;
-    }
-
-    public void setAssetPosX(double assetPosX) {
-        this.assetPosX = assetPosX;
-    }
-
-    public void setAssetPosY(double assetPosY) {
-        this.assetPosY = assetPosY;
-    }
-
-    public double getNormalAssetPosX() {
-        return normalAssetPosX;
-    }
-
-    public double getNormalAssetPosY() {
-        return normalAssetPosY;
     }
 
     @Override
@@ -79,5 +60,21 @@ public abstract class AbstractButton implements UIEntity {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    public abstract String onClick();
+
+    @Override
+    public void onFocus() {
+        if (this.assetPosY == this.normalAssetPosY) {
+            this.assetPosY = this.assetPosY + 1;
+        }
+    }
+
+    @Override
+    public void outFocus() {
+        if (this.assetPosY > this.normalAssetPosY) {
+            this.assetPosY = this.normalAssetPosY;
+        }
     }
 }

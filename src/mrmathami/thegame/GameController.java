@@ -10,7 +10,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.entity.tile.Mountain;
+import mrmathami.thegame.entity.tile.Road;
+import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -58,6 +62,11 @@ public final class GameController extends AnimationTimer {
 	private GameUI gameUI;
 
 	/**
+	 * Tower Placing Class. Using for place a tower.
+	 */
+	private TowerPlacing towerPlacing = null;
+
+	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
 	 */
 	private ScheduledFuture<?> scheduledFuture;
@@ -89,7 +98,7 @@ public final class GameController extends AnimationTimer {
 		this.gameUI = new GameUI("/stage/buttonConfig.dat");
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, gameUI,"/stage/sheet.png", "/stage/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/stage/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -233,20 +242,37 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-//		System.out.println("Processing " + mousePosX + " " + mousePosY);
 
 		for (UIEntity entity: UIEntities) {
-			double startX = entity.getPosX();
-			double startY = entity.getPosY();
-			double endX = startX + entity.getWidth();
-			double endY = startY + entity.getHeight();
-//			System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
+			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+			double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-				entity.onClick();
+				towerPlacing = new TowerPlacing(entity.onClick());
+				drawer.setTowerPlacing(towerPlacing);
 				return;
 			}
 		}
+        mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
+        mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
+        final boolean lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+        if (!lg) return;
+
+        for (GameEntity entity: gameEntities) {
+            if (!(entity instanceof Mountain)) {
+                if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
+                    if (entity instanceof AbstractTower) {
+                        //call onClick() of tower
+                    }
+                    return;
+                }
+            }
+        }
+        this.field.doSpawn(towerPlacing.getTower());
+        towerPlacing = null;
+        drawer.setTowerPlacing(towerPlacing);
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
@@ -254,20 +280,47 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-		System.out.println("Processing " + mousePosX + " " + mousePosY);
+		//System.out.println("Processing " + mousePosX + " " + mousePosY);
+		boolean lg = false;
 
 		for (UIEntity entity: UIEntities) {
-			double startX = entity.getPosX();
-			double startY = entity.getPosY();
-			double endX = startX + entity.getWidth();
-			double endY = startY + entity.getHeight();
-			System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
+			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+			double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+			//System.out.println(String.format("(%.2f, %.2f)(%.2f, %.2f)", startX, endX, startY, endY));
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 				entity.onFocus();
+				lg = true;
 			} else {
 				entity.outFocus();
 			}
 		}
+		if (lg  || (this.towerPlacing == null)) return;
+		mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
+		mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
+		lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+		if (!lg) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
+		else {
+		    towerPlacing.setPlacingState(towerPlacing.PLACEABLE);
+            towerPlacing.setPosition(mousePosX, mousePosY);
+        }
+
+		for (GameEntity entity: gameEntities) {
+            if (entity instanceof Road) {
+                if (towerPlacing.isOverlappedWithRoad(entity)) {
+                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
+                    break;
+                }
+            }
+            if (entity instanceof AbstractTower) {
+                if (towerPlacing.isOverlappedWithTower(entity)) {
+                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
+                    break;
+                }
+            }
+        }
+		drawer.setTowerPlacing(this.towerPlacing);
 	}
 }

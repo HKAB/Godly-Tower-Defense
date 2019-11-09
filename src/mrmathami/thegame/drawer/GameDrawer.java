@@ -7,10 +7,9 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.bar.AbstractButton;
-import mrmathami.thegame.bar.NormalButton;
-import mrmathami.thegame.bar.UnclickableButton;
+import mrmathami.thegame.bar.button.*;
 import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
@@ -81,21 +80,27 @@ public final class GameDrawer {
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
 			Map.entry(UnclickableButton.class, new ButtonDrawer()),
-			Map.entry(NormalButton.class, new ButtonDrawer())
+			Map.entry(BackButton.class, new ButtonDrawer()),
+			Map.entry(PauseButton.class, new ButtonDrawer()),
+			Map.entry(SellButton.class, new ButtonDrawer()),
+			Map.entry(TowerButton.class, new ButtonDrawer()),
+			Map.entry(UpgradeButton.class, new ButtonDrawer())
 	));
 
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
 	@Nonnull private GameUI gameUI;
+	private TowerPlacing towerPlacing;
 	private static Image sheetImage;
 	private static Image buttonImage;
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, TowerPlacing towerPlacing, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
+		this.towerPlacing = towerPlacing;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.gameUI = gameUI;
@@ -158,6 +163,10 @@ public final class GameDrawer {
 		this.gameUI = gameUI;
 	}
 
+	public void setTowerPlacing(TowerPlacing towerPlacing) {
+	    this.towerPlacing = towerPlacing;
+    }
+
 	/**
 	 * Set the field view region, in other words, set the region of the field that will be drawn on the screen.
 	 *
@@ -177,6 +186,7 @@ public final class GameDrawer {
 	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
 		final GameUI gameUI = this.gameUI;
+		final TowerPlacing towerPlacing = this.towerPlacing;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
@@ -205,11 +215,27 @@ public final class GameDrawer {
 				);
 			}
 		}
-		for (UIEntity b : buttons) {
-			final UIDrawer drawer = getUIDrawer(b);
+		for (UIEntity button : buttons) {
+			final UIDrawer drawer = getUIDrawer(button);
 			if (drawer != null) {
-				drawer.draw(gameField.getTickCount(), graphicsContext, b, b.getPosX(), b.getPosY(), b.getWidth(), b.getHeight(), fieldZoom);
+				drawer.draw(gameField.getTickCount(), graphicsContext, button,
+						(button.getPosX() - fieldStartPosX) * fieldZoom,
+						(button.getPosY() - fieldStartPosY) * fieldZoom,
+						button.getWidth() * fieldZoom,
+						button.getHeight() * fieldZoom,
+						fieldZoom
+				);
 			}
+		}
+		if (towerPlacing != null) {
+            //System.out.println(towerPlacing.getPlacingState());
+			final TowerPlacingDrawer drawer = new TowerPlacingDrawer();
+			drawer.draw(gameField.getTickCount(), graphicsContext, towerPlacing,
+					(towerPlacing.getTower().getPosX() - fieldStartPosX) * fieldZoom,
+					(towerPlacing.getTower().getPosY() - fieldStartPosY) * fieldZoom,
+					towerPlacing.getTower().getWidth() * fieldZoom,
+					towerPlacing.getTower().getHeight() * fieldZoom,
+					fieldZoom);
 		}
 	}
 
