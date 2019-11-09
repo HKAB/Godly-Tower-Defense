@@ -73,7 +73,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
-		System.out.println(newPosX + ":" + newPosY);
+//		System.out.println(newPosX + ":" + newPosY);
 		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
 			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
@@ -90,10 +90,13 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 			}
 //			System.out.println("--------");
 		}
-//		System.out.println(newPosX + ":" + newPosY);
+		System.out.println(newPosX + ":" + newPosY);
 		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
 		else
 			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
+
+
+
 //		System.out.println(angle);
 		setPosX(newPosX);
 		setPosY(newPosY);

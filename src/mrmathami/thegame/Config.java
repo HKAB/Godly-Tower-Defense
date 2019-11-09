@@ -105,7 +105,7 @@ public final class Config {
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
 	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 5000;
 	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
-	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.1;
 	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
