@@ -2,7 +2,9 @@ package mrmathami.thegame.entity;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
+import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
+import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 
 public class TowerPlacing {
     public final int NOT_BEING_PLACED = 0;
@@ -13,9 +15,9 @@ public class TowerPlacing {
     private AbstractTower tower;
 
     public TowerPlacing (String towerType) {
-        if (towerType.equals("NormalTower")) tower = new NormalTower(0, 0, 0, 0, Config.NORMAL_TOWER_LV1_GID);
-//        else if (towerType.equals("MachineGunTower"))
-//        else if (towerType.equals("RocketLauncherTower"))
+        if (towerType.equals("NormalTower")) tower = new NormalTower(0, 0, 0, 0);
+        else if (towerType.equals("RocketLauncherTower")) tower = new RocketLauncherTower(0, 0, 0, 0);
+        else if (towerType.equals("MachineGunTower")) tower = new MachineGunTower(0, 0, 0, 0);
         this.placingState = NOT_BEING_PLACED;
     }
 

@@ -27,6 +27,10 @@ public final class NormalTowerDrawer implements EntityDrawer {
 
 		WritableImage newImage = new WritableImage(reader, (((NormalTower)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((NormalTower)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 		((NormalTower)entity).rotate(graphicsContext, newImage, screenPosX, screenPosY, ((NormalTower)entity).getAngle());
+//		Range
+//		graphicsContext.setStroke(Color.RED);
+//		graphicsContext.setLineWidth(4);
+//		graphicsContext.strokeRect((((NormalTower)entity).getPosX() - Config.NORMAL_TOWER_RANGE) *64, (((NormalTower)entity).getPosY() - Config.NORMAL_TOWER_RANGE)*64, (Config.NORMAL_TOWER_RANGE + 1)*2*64, (Config.NORMAL_TOWER_RANGE + 1)*2*64);
 	}
 
 }

@@ -2,6 +2,7 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
@@ -11,17 +12,28 @@ import mrmathami.thegame.bar.button.*;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
+import mrmathami.thegame.entity.bullet.RocketBullet;
+import mrmathami.thegame.entity.enemy.BigAircraft;
+import mrmathami.thegame.entity.enemy.NormalAircraft;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
+import mrmathami.thegame.entity.enemy.Tanker;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Basement;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
+import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
+import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
+import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
+import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
+import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -35,21 +47,25 @@ public final class GameDrawer {
 			Road.class,
 			Mountain.class,
 			NormalTower.class,
+			RocketLauncherTower.class,
 //			SniperTower.class,
-//			MachineGunTower.class,
+			MachineGunTower.class,
 			NormalBullet.class,
-//			MachineGunBullet.class,
+			MachineGunBullet.class,
+			RocketBullet.class,
 //			SniperBullet.class,
 			NormalEnemy.class,
 //			SmallerEnemy.class,
 //			TankerEnemy.class,
 //			BossEnemy.class,
 			NormalSpawner.class,
+			NormalAircraft.class,
+			BigAircraft.class,
+			Tanker.class,
 //			SmallerSpawner.class,
 //			TankerSpawner.class,
 //			BossSpawner.class,
 			Target.class,
-//			FlowControlBarDrawer.class,
 			ButtonDrawer.class
 	);
 	/**
@@ -62,16 +78,24 @@ public final class GameDrawer {
 			Map.entry(Road.class, new RoadDrawer()),
 			Map.entry(Mountain.class, new MountainDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
+			Map.entry(RocketLauncherTower.class, new RocketLauncherTowerDrawer()),
 //			Map.entry(SniperTower.class, new SniperTowerDrawer()),
-//			Map.entry(MachineGunTower.class, new MachineGunTowerDrawer()),
+			Map.entry(MachineGunTower.class, new MachineGunTowerDrawer()),
 			Map.entry(NormalBullet.class, new NormalBulletDrawer()),
-//			Map.entry(MachineGunBullet.class, new MachineGunBulletDrawer()),
+			Map.entry(MachineGunBullet.class, new MachineGunBulletDrawer()),
+			Map.entry(RocketBullet.class, new RocketBulletDrawer()),
 //			Map.entry(SniperBullet.class, new SniperBulletDrawer()),
 			Map.entry(NormalEnemy.class, new NormalEnemyDrawer()),
+			Map.entry(NormalAircraft.class, new NormalAircraftDrawer()),
+			Map.entry(BigAircraft.class, new BigAircraftDrawer()),
+			Map.entry(Tanker.class, new TankerDrawer()),
 //			Map.entry(SmallerEnemy.class, new SmallerEnemyDrawer()),
 //			Map.entry(TankerEnemy.class, new TankerEnemyDrawer()),
 //			Map.entry(BossEnemy.class, new BossEnemyDrawer()),
 			Map.entry(NormalSpawner.class, new SpawnerDrawer()),
+			Map.entry(NormalAircraftSpawner.class, new SpawnerDrawer()),
+			Map.entry(BigAircraftSpawner.class, new SpawnerDrawer()),
+			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(SmallerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
@@ -190,6 +214,7 @@ public final class GameDrawer {
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
+
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
 		final Collection<UIEntity> buttons = gameUI.getEntities();

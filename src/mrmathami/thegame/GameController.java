@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
+import mrmathami.thegame.bar.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.TowerPlacing;
@@ -250,8 +251,11 @@ public final class GameController extends AnimationTimer {
 			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-				towerPlacing = new TowerPlacing(entity.onClick());
-				drawer.setTowerPlacing(towerPlacing);
+				if ((entity instanceof TowerButton) && (!entity.onClick().equals("Locked"))) {
+					System.out.println(entity.onClick());
+					towerPlacing = new TowerPlacing(entity.onClick());
+					drawer.setTowerPlacing(towerPlacing);
+				}
 				return;
 			}
 		}
@@ -270,9 +274,11 @@ public final class GameController extends AnimationTimer {
                 }
             }
         }
-        this.field.doSpawn(towerPlacing.getTower());
-        towerPlacing = null;
-        drawer.setTowerPlacing(towerPlacing);
+        if (towerPlacing.getPlacingState() == 2) {
+        	this.field.doSpawn(towerPlacing.getTower());
+			towerPlacing = null;
+			drawer.setTowerPlacing(towerPlacing);
+		}
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
@@ -297,7 +303,9 @@ public final class GameController extends AnimationTimer {
 				entity.outFocus();
 			}
 		}
-		if (lg  || (this.towerPlacing == null)) return;
+		if (lg && (this.towerPlacing != null)) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
+		if (lg || (towerPlacing == null)) return;
+
 		mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
 		mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
 		lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);

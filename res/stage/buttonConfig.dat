@@ -1,8 +1,8 @@
 BackButton 0 0 16 0 2 1
 PauseButton 2 0 18 0 2 1
 TowerButton 8 0 16 2 1 1 NormalTower
+TowerButton 8 0 18 2 1 1 RocketLauncherTower
 TowerButton 8 0 17 2 1 1 MachineGunTower
-TowerButton 8 0 18 2 1 1 SniperTower
 TowerButton 8 0 19 2 1 1 Locked
 TowerButton 8 0 16 3 1 1 Locked
 TowerButton 8 0 17 3 1 1 Locked
