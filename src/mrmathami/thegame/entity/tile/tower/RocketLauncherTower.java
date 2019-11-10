@@ -1,15 +1,10 @@
 
 package mrmathami.thegame.entity.tile.tower;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import mrmathami.thegame.Config;
-import mrmathami.thegame.entity.bullet.MachineGunBullet;
-import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.bullet.RocketBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.BigAircraft;
-import mrmathami.thegame.entity.enemy.NormalAircraft;
 
 import javax.annotation.Nonnull;
 

@@ -4,14 +4,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public final class RoadDrawer implements EntityDrawer {

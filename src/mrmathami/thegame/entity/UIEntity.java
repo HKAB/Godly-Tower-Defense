@@ -1,6 +1,5 @@
 package mrmathami.thegame.entity;
 
-import javafx.scene.image.WritableImage;
 
 /**
  * A game entity

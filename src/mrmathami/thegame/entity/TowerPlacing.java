@@ -1,6 +1,5 @@
 package mrmathami.thegame.entity;
 
-import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;

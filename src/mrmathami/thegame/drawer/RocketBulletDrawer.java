@@ -6,23 +6,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.bullet.MachineGunBullet;
-import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.bullet.RocketBullet;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public final class RocketBulletDrawer implements EntityDrawer {
     @Override

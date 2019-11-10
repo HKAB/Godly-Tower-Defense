@@ -29,42 +29,23 @@ public final class GameEntities {
 			UnorderedPair.immutableOf(Mountain.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, Tanker.class),
-//			UnorderedPair.immutableOf(Mountain.class, SmallerEnemy.class),
-//			UnorderedPair.immutableOf(Mountain.class, TankerEnemy.class),
-//			UnorderedPair.immutableOf(Mountain.class, BossEnemy.class),
 			UnorderedPair.immutableOf(NormalEnemy.class, NormalEnemy.class),
 			UnorderedPair.immutableOf(NormalAircraft.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(BigAircraft.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Tanker.class, Tanker.class)
-//			UnorderedPair.immutableOf(SmallerEnemy.class, SmallerEnemy.class),
-//			UnorderedPair.immutableOf(TankerEnemy.class, TankerEnemy.class),
-//			UnorderedPair.immutableOf(BossEnemy.class, BossEnemy.class)
 	));
 
 	private static final Set<Pair<Class<? extends EffectEntity>, Class<? extends LivingEntity>>> EFFECT_LIVING_SET
 			= new HashSet<>(Set.of(
 			Pair.immutableOf(NormalBullet.class, NormalEnemy.class),
-//			Pair.immutableOf(MachineGunBullet.class, NormalEnemy.class),
-//			Pair.immutableOf(SniperBullet.class, NormalEnemy.class),
-//			Pair.immutableOf(NormalBullet.class, SmallerEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, NormalAircraft.class),
 			Pair.immutableOf(NormalBullet.class, NormalAircraft.class),
 			Pair.immutableOf(RocketBullet.class, BigAircraft.class),
 			Pair.immutableOf(MachineGunBullet.class, Tanker.class),
-//			Pair.immutableOf(SniperBullet.class, SmallerEnemy.class),
-//			Pair.immutableOf(NormalBullet.class, TankerEnemy.class),
-//			Pair.immutableOf(MachineGunBullet.class, TankerEnemy.class),
-//			Pair.immutableOf(SniperBullet.class, TankerEnemy.class),
-//			Pair.immutableOf(NormalBullet.class, BossEnemy.class),
-//			Pair.immutableOf(MachineGunBullet.class, BossEnemy.class),
-//			Pair.immutableOf(SniperBullet.class, BossEnemy.class),
 			Pair.immutableOf(NormalEnemy.class, Target.class),
 			Pair.immutableOf(NormalAircraft.class, Target.class),
 			Pair.immutableOf(BigAircraft.class, Target.class),
 			Pair.immutableOf(Tanker.class, Target.class)//,
-//			Pair.immutableOf(SmallerEnemy.class, Target.class),
-//			Pair.immutableOf(TankerEnemy.class, Target.class),
-//			Pair.immutableOf(BossEnemy.class, Target.class)
 	));
 
 	private GameEntities() {

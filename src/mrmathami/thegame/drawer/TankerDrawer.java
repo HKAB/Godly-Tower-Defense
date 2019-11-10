@@ -4,17 +4,11 @@ package mrmathami.thegame.drawer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.enemy.Tanker;
-import mrmathami.thegame.entity.enemy.Tanker;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
 
 import javax.annotation.Nonnull;
-import java.util.WeakHashMap;
 
 public final class TankerDrawer implements EntityDrawer {
     @Override
@@ -31,7 +25,6 @@ public final class TankerDrawer implements EntityDrawer {
         
         WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
         WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
-//        WritableImage tankerImage = new WritableImage((int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
 
         reader = baseImage.getPixelReader();
         WritableImage t_baseImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_HEIGHT/2), (int)(Config.TANKER_ENEMY_WIDTH), (int)(Config.TANKER_ENEMY_HEIGHT));

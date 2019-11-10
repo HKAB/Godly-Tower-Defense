@@ -7,7 +7,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.TowerPlacing;
-import mrmathami.thegame.entity.enemy.NormalEnemy;
 
 import javax.annotation.Nonnull;
 

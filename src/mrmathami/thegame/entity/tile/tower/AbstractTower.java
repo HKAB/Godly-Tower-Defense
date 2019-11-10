@@ -3,16 +3,13 @@ package mrmathami.thegame.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
-import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.RotatableEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.bullet.AbstractBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
-import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
-import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;

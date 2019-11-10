@@ -11,10 +11,8 @@ import mrmathami.thegame.entity.tile.Road;
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.function.BiFunction;
 
 public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
-//	private static final double SQRT_2 = Math.sqrt(2.0) / 2.0;
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
 //			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
