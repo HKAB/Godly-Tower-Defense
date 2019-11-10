@@ -27,7 +27,7 @@ public final class MenuUI {
         addEntity(menuPane);
 
         PlayButton playButton = new PlayButton(0,
-                Config.SCREEN_WIDTH/2 - 81,
+                Config.SCREEN_WIDTH/2 - 80,
                 Config.SCREEN_HEIGHT/2 - 150,
                 162, 98,
                 "/menu/button_play_outfocus.png", "/menu/button_play_onfocus.png");
