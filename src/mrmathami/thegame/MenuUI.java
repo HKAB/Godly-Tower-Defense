@@ -1,8 +1,7 @@
 package mrmathami.thegame;
 
 import javafx.scene.paint.Color;
-import mrmathami.thegame.bar.PngMenuPane;
-import mrmathami.thegame.bar.PlayButton;
+import mrmathami.thegame.bar.button.PlayButton;
 import mrmathami.thegame.bar.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 

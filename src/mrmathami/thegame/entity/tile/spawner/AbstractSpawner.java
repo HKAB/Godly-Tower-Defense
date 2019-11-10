@@ -2,11 +2,14 @@ package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
+import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 
 public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractTile implements UpdatableEntity {
 	private final double spawningSize;
@@ -32,9 +35,23 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 			// Remember to set this.tickDown back to this.spawnInterval
 			// and decrease this.numOfSpawn once you spawn an enemy.
 			// TODO: check if spot is valid
-			field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY()));
-			 this.tickDown = spawnInterval;
-			 this.numOfSpawn -= 1;
+			boolean valid = true;
+			final Collection<GameEntity> overlappedEntities = GameEntities.getOverlappedEntities(field.getEntities(), getPosX(), getPosY(), getWidth(), getHeight());
+			for (GameEntity entity: overlappedEntities)
+			{
+				if (GameEntities.isCollidable(spawningClass, entity.getClass()))
+				{
+					System.out.println("one fucked my way!!");
+					this.tickDown = spawnInterval;
+					valid = false;
+					break;
+				}
+			}
+			if (valid) {
+				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY()));
+				this.tickDown = spawnInterval;
+				this.numOfSpawn -= 1;
+			}
 		}
 	}
 

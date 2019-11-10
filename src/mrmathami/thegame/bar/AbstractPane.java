@@ -18,7 +18,7 @@ public abstract class AbstractPane implements UIEntity {
         this.height = height;
     }
 
-    public abstract void onClick();
+    public abstract String onClick();
 
     @Override
     public long getCreatedTick() {

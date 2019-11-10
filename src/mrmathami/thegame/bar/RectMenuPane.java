@@ -14,5 +14,15 @@ public class RectMenuPane extends AbstractPane {
     }
 
     @Override
-    public void onClick() { }
+    public String onClick() { return ""; }
+
+    @Override
+    public void onFocus() {
+
+    }
+
+    @Override
+    public void outFocus() {
+
+    }
 }

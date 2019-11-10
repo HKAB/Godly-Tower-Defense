@@ -2,7 +2,7 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import mrmathami.thegame.bar.PlayButton;
+import mrmathami.thegame.bar.button.PlayButton;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;

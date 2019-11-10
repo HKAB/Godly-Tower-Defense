@@ -9,13 +9,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.bar.PlayButton;
+import mrmathami.thegame.bar.button.PlayButton;
 import mrmathami.thegame.drawer.UIDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

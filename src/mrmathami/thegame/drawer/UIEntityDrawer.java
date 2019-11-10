@@ -1,6 +1,7 @@
 package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
+
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;

@@ -1,0 +1,15 @@
+BackButton 0 0 16 0 2 1
+PauseButton 2 0 18 0 2 1
+TowerButton 8 0 16 2 1 1 NormalTower
+TowerButton 8 0 18 2 1 1 RocketLauncherTower
+TowerButton 8 0 17 2 1 1 MachineGunTower
+TowerButton 8 0 19 2 1 1 Locked
+TowerButton 8 0 16 3 1 1 Locked
+TowerButton 8 0 17 3 1 1 Locked
+TowerButton 8 0 18 3 1 1 Locked
+TowerButton 8 0 19 3 1 1 Locked
+UpgradeButton 4 0 16 8 2 1
+SellButton 6 0 18 8 2 1
+EndOfFile
+
+MoneyButton 0 2 16.5 4 3 1

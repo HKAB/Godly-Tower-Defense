@@ -1,19 +1,19 @@
 package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
+import mrmathami.thegame.entity.UIEntity;
+
+import javax.annotation.Nonnull;
+import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.MenuUI;
 import mrmathami.thegame.bar.PngMenuPane;
-import mrmathami.thegame.bar.PlayButton;
-import mrmathami.thegame.bar.NormalButton;
+import mrmathami.thegame.bar.button.PlayButton;
 import mrmathami.thegame.bar.RectMenuPane;
-import mrmathami.thegame.entity.UIEntity;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,6 @@ public final class UIDrawer {
      * Map each entity type with corresponding drawer.
      */
     @Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_ENTITY_DRAWER_MAP = new HashMap<> (Map.ofEntries(
-        Map.entry(NormalButton.class, new ButtonDrawer()),
             Map.entry(PlayButton.class, new PlayButtonDrawer()),
             Map.entry(PngMenuPane.class, new PngMenuPaneDrawer()),
             Map.entry(RectMenuPane.class, new RectMenuPaneDrawer())

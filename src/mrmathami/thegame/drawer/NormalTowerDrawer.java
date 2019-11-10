@@ -25,8 +25,12 @@ public final class NormalTowerDrawer implements EntityDrawer {
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
 
-		WritableImage newImage = new WritableImage(reader, (((NormalTower)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((NormalTower)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
-		((NormalTower)entity).rotate(graphicsContext, newImage, screenPosX, screenPosY, ((NormalTower)entity).getAngle());
+		WritableImage towerImage = new WritableImage(reader, (int)((((NormalTower)entity).getGID() - 1) % maxTileWidth * Config.TILE_SIZE), (int)(Math.round((((NormalTower)entity).getGID() - 1) / maxTileWidth) * Config.TILE_SIZE), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
+		((NormalTower)entity).rotate(graphicsContext, towerImage, screenPosX, screenPosY, ((NormalTower)entity).getAngle());
+//		Range
+//		graphicsContext.setStroke(Color.RED);
+//		graphicsContext.setLineWidth(4);
+//		graphicsContext.strokeRect((((NormalTower)entity).getPosX() - Config.NORMAL_TOWER_RANGE) *64, (((NormalTower)entity).getPosY() - Config.NORMAL_TOWER_RANGE)*64, ((Config.NORMAL_TOWER_RANGE)*2 + 1)*64, ((Config.NORMAL_TOWER_RANGE)*2  + 1)*64);
 	}
 
 }

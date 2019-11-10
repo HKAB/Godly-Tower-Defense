@@ -1,5 +1,7 @@
 package mrmathami.thegame.entity;
 
+import javafx.scene.image.WritableImage;
+
 /**
  * A game entity
  */
@@ -30,7 +32,9 @@ public interface UIEntity {
     double getHeight();
 
     /**
-     * Handle mouse click event
+     * Handle mouse event
      */
-    void onClick();
+    String onClick();
+    void onFocus();
+    void outFocus();
 }

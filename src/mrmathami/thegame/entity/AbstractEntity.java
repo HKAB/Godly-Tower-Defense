@@ -93,9 +93,9 @@ public abstract class AbstractEntity implements GameEntity {
 
 	@Override
 	public final boolean isBeingOverlapped(double posX, double posY, double width, double height) {
-		return posX < this.posX + this.width
-				&& posY < this.posY + this.height
-				&& posX + width > this.posX
-				&& posY + height > this.posY;
+		return -posX + (this.posX + this.width) > 0.00001
+				&& -posY + (this.posY + this.height) > 0.00001
+				&& posX + width - this.posX > 0.00001
+				&& posY + height - this.posY > 0.00001;
 	}
 }
