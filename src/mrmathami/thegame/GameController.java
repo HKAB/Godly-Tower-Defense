@@ -281,6 +281,7 @@ public final class GameController extends AnimationTimer {
         	this.field.doSpawn(towerPlacing.getTower());
 			towerPlacing = null;
 			drawer.setTowerPlacing(towerPlacing);
+			System.out.println("Placing tower");
 		}
 	}
 

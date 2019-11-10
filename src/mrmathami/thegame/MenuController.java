@@ -154,6 +154,7 @@ public final class MenuController extends AnimationTimer {
             e.printStackTrace();
         }
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
+        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         root.getChildren().clear();
         root.getChildren().add(gameCanvas);
         gameController.start();

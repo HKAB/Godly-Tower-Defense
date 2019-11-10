@@ -157,7 +157,7 @@ public final class GameStage {
 							final Collection<Road> destOverlappedRoads = GameEntities.getFilteredOverlappedEntities(entities, Road.class,
 									destRoad.getPosX() - 0.5, destRoad.getPosY() - 0.5, 2.0, 2.0);
 							final double destDistance = road.getDistance() + Math.sqrt(deltaX * deltaX + deltaY * deltaY)/destOverlappedRoads.size();
-							System.out.println(destDistance);
+//							System.out.println(destDistance);
 							if (Double.isNaN(destRoad.getDistance()) || destRoad.getDistance() > destDistance) {
 								destRoad.setDistance(destDistance);
 							}
