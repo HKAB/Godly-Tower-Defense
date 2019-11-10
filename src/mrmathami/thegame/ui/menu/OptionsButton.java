@@ -1,11 +1,11 @@
 package mrmathami.thegame.ui.menu;
 
-public class PlayButton extends AbstractMenuButton {
+public class OptionsButton extends AbstractMenuButton {
     private String imageUri;
     private String outFocusImageUri;
     private String onFocusImageUri;
 
-    public PlayButton(long createdTick, double posX, double posY, double width, double height, String imageUri, String focusImageUri) {
+    public OptionsButton(long createdTick, double posX, double posY, double width, double height, String imageUri, String focusImageUri) {
         super(createdTick, posX, posY, width, height);
         this.imageUri = imageUri;
         this.outFocusImageUri = imageUri;

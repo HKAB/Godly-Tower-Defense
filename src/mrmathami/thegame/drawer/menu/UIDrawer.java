@@ -1,6 +1,10 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.menu;
 
 import javafx.scene.canvas.GraphicsContext;
+import mrmathami.thegame.drawer.UIEntityDrawer;
+import mrmathami.thegame.drawer.menu.PlayButtonDrawer;
+import mrmathami.thegame.drawer.menu.PngMenuPaneDrawer;
+import mrmathami.thegame.drawer.menu.RectMenuPaneDrawer;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
@@ -9,9 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.MenuUI;
-import mrmathami.thegame.ui.menu.PngMenuPane;
-import mrmathami.thegame.ui.menu.PlayButton;
-import mrmathami.thegame.ui.menu.RectMenuPane;
+import mrmathami.thegame.ui.menu.*;
 
 import javax.annotation.Nullable;
 import java.io.InputStream;
@@ -26,6 +28,8 @@ public final class UIDrawer {
      */
     @Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_ENTITY_DRAWER_MAP = new HashMap<> (Map.ofEntries(
             Map.entry(PlayButton.class, new PlayButtonDrawer()),
+            Map.entry(OptionsButton.class, new OptionsButtonDrawer()),
+            Map.entry(CreditsButton.class, new CreditsButtonDrawer()),
             Map.entry(PngMenuPane.class, new PngMenuPaneDrawer()),
             Map.entry(RectMenuPane.class, new RectMenuPaneDrawer())
     ));

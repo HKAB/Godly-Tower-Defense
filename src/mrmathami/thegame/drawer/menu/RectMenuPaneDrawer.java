@@ -1,7 +1,8 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.menu;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import mrmathami.thegame.drawer.UIEntityDrawer;
 import mrmathami.thegame.ui.menu.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 

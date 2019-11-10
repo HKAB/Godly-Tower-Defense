@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.ui.menu.PlayButton;
-import mrmathami.thegame.drawer.UIDrawer;
+import mrmathami.thegame.drawer.menu.UIDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
@@ -217,10 +217,14 @@ public final class MenuController extends AnimationTimer {
         double mousePosY = mouseEvent.getY();
 
         for (UIEntity entity: UIEntities) {
-            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
-            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
-            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
-            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+//            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+//            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+//            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+//            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+            double startX = entity.getPosX();
+            double startY = entity.getPosY();
+            double endX = startX + entity.getWidth();
+            double endY = startY + entity.getHeight();
             if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                 entity.onFocus();
