@@ -9,9 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.MenuUI;
-import mrmathami.thegame.bar.PngMenuPane;
-import mrmathami.thegame.bar.button.PlayButton;
-import mrmathami.thegame.bar.RectMenuPane;
+import mrmathami.thegame.ui.menu.PngMenuPane;
+import mrmathami.thegame.ui.menu.PlayButton;
+import mrmathami.thegame.ui.menu.RectMenuPane;
 
 import javax.annotation.Nullable;
 import java.io.InputStream;

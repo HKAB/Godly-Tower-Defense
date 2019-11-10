@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.bar.button.PlayButton;
+import mrmathami.thegame.ui.menu.PlayButton;
 import mrmathami.thegame.drawer.UIDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
@@ -212,7 +212,22 @@ public final class MenuController extends AnimationTimer {
     }
 
     final void mouseMoveHandler(MouseEvent mouseEvent) {
+        Collection<UIEntity> UIEntities = this.menuUI.getEntities();
+        double mousePosX = mouseEvent.getX();
+        double mousePosY = mouseEvent.getY();
 
+        for (UIEntity entity: UIEntities) {
+            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+            if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+                    && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+                entity.onFocus();
+            } else {
+                entity.outFocus();
+            }
+        }
     }
 
     final void mouseClickHandler(MouseEvent mouseEvent) {

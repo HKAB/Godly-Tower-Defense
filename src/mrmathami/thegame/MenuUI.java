@@ -1,8 +1,8 @@
 package mrmathami.thegame;
 
 import javafx.scene.paint.Color;
-import mrmathami.thegame.bar.button.PlayButton;
-import mrmathami.thegame.bar.RectMenuPane;
+import mrmathami.thegame.ui.menu.PlayButton;
+import mrmathami.thegame.ui.menu.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 
 import java.util.ArrayList;
@@ -24,7 +24,8 @@ public final class MenuUI {
         PlayButton playButton = new PlayButton(0,
                 Config.SCREEN_WIDTH/2 - 81,
                 Config.SCREEN_HEIGHT/2 - 100,
-                162, 98, "/menu/button_play.png");
+                162, 98,
+                "/menu/button_play_outfocus.png", "/menu/button_play_onfocus.png");
         RectMenuPane menuPane = new RectMenuPane(0,
                 Config.SCREEN_WIDTH/2 - 150,
                 Config.SCREEN_HEIGHT/2 - 200,

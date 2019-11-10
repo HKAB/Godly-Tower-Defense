@@ -1,8 +1,7 @@
 package mrmathami.thegame;
 
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.bar.button.*;
-import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.ui.button.*;
 
 import java.util.ArrayList;
 import java.util.Collection;

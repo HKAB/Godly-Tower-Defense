@@ -1,6 +1,6 @@
-package mrmathami.thegame.bar;
+package mrmathami.thegame.ui.menu;
 
-public class PngMenuPane extends AbstractPane {
+public class PngMenuPane extends AbstractMenuPane {
     private String imageUri;
     public PngMenuPane(long createdTick, double posX, double posY, double width, double height, String imageUri) {
         super(createdTick, posX, posY, width, height);

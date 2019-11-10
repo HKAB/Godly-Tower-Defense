@@ -1,16 +1,15 @@
-package mrmathami.thegame.bar;
+package mrmathami.thegame.ui.menu;
 
-import javafx.scene.paint.Color;
 import mrmathami.thegame.entity.UIEntity;
 
-public abstract class AbstractPane implements UIEntity {
+public abstract class AbstractMenuPane implements UIEntity {
     private final long createdTick;
     private double posX;
     private double posY;
     private double width;
     private double height;
 
-    protected AbstractPane(long createdTick, double posX, double posY, double width, double height) {
+    protected AbstractMenuPane(long createdTick, double posX, double posY, double width, double height) {
         this.createdTick = createdTick;
         this.posX = posX;
         this.posY = posY;

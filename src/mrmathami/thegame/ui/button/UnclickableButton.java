@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar.button;
+package mrmathami.thegame.ui.button;
 
 public class UnclickableButton extends AbstractIngameButton {
     public UnclickableButton(long createdTick, double assetPosX, double assetPosY, double posX, double posY, double width, double height) {

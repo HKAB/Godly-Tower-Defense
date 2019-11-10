@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar.button;
+package mrmathami.thegame.ui;
 
 import mrmathami.thegame.entity.UIEntity;
 

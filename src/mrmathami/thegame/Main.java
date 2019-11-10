@@ -37,6 +37,7 @@ public final class Main extends Application {
 
 		// Event handler
 		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(Config.GAME_NAME);

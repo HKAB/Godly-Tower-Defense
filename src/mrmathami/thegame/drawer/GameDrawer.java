@@ -7,7 +7,7 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.bar.button.*;
+import mrmathami.thegame.ui.button.*;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;

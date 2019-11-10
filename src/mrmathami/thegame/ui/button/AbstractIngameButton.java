@@ -1,4 +1,6 @@
-package mrmathami.thegame.bar.button;
+package mrmathami.thegame.ui.button;
+
+import mrmathami.thegame.ui.AbstractButton;
 
 public abstract class AbstractIngameButton extends AbstractButton {
     private double assetPosX;

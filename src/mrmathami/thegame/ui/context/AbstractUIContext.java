@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar.context;
+package mrmathami.thegame.ui.context;
 
 import mrmathami.thegame.entity.UIEntity;
 

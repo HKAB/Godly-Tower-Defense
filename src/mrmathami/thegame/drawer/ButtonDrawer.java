@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import mrmathami.thegame.Config;
-import mrmathami.thegame.bar.button.AbstractIngameButton;
-import mrmathami.thegame.bar.button.TowerButton;
+import mrmathami.thegame.ui.button.AbstractIngameButton;
+import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;

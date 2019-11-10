@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar.context;
+package mrmathami.thegame.ui.context;
 
 public class NormalUIContext extends AbstractUIContext {
 

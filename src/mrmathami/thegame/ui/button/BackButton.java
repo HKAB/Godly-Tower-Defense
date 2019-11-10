@@ -1,4 +1,4 @@
-package mrmathami.thegame.bar.button;
+package mrmathami.thegame.ui.button;
 
 public class BackButton extends AbstractIngameButton {
     public BackButton (long createdTick, double assetPosX, double assetPosY, double posX, double posY, double width, double height) {
