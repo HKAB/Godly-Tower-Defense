@@ -95,30 +95,4 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 	public AbstractEnemy getEnemyTarget() {
 		return enemyTarget;
 	}
-
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image image, double screenPosX, double screenPosY, double angle) {
-		graphicsContext.save();
-		Rotate r = new Rotate(angle, screenPosX + image.getWidth()/2, screenPosY + image.getHeight()/2);
-		graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-		graphicsContext.drawImage(image, screenPosX, screenPosY);
-		graphicsContext.restore();
-	}
-
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image[] image, double screenPosX, double screenPosY, double angle) {
-
-	}
-
-	public int getGID() {
-		return GID;
-	}
-
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
 }

@@ -90,11 +90,6 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		graphicsContext.restore();
 	}
 
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image[] image, double screenPosX, double screenPosY, double angle) {
-
-	}
-
 	public double getAngle() {
 		return angle;
 	}

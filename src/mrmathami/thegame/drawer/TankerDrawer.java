@@ -20,6 +20,10 @@ public final class TankerDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
 
+        graphicsContext.setStroke(Color.DARKMAGENTA);
+        graphicsContext.setLineWidth(4);
+        graphicsContext.strokeRect(screenPosX, screenPosY, Config.TANKER_ENEMY_WIDTH, Config.TANKER_ENEMY_HEIGHT);
+
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
@@ -27,21 +31,30 @@ public final class TankerDrawer implements EntityDrawer {
         
         WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
         WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
-        WritableImage tankerImage = new WritableImage((int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        PixelReader baseImagePixelReader =  baseImage.getPixelReader();
-        PixelReader barrelImagePixelReader =  barrelImage.getPixelReader();
+//        WritableImage tankerImage = new WritableImage((int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
+
+        reader = baseImage.getPixelReader();
+        WritableImage t_baseImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_HEIGHT/2), (int)(Config.TANKER_ENEMY_WIDTH), (int)(Config.TANKER_ENEMY_HEIGHT));
+        reader = barrelImage.getPixelReader();
+        WritableImage t_barrelImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_HEIGHT/2), (int)(Config.TANKER_BARREL_ENEMY_WIDTH), (int)(Config.TANKER_BARREL_ENEMY_HEIGHT));
+
+
+        WritableImage tankerImage = new WritableImage((int)Config.TANKER_ENEMY_WIDTH, (int)(Config.TANKER_ENEMY_HEIGHT));
+        PixelReader baseImagePixelReader =  t_baseImage.getPixelReader();
+        PixelReader barrelImagePixelReader =  t_barrelImage.getPixelReader();
         PixelWriter pixelWriterTanker = tankerImage.getPixelWriter();
 
-        for (int y = 0; y < baseImage.getHeight(); y++) {
-            for (int x = 0; x < baseImage.getWidth(); x++) {
+
+        for (int y = 0; y < t_baseImage.getHeight(); y++) {
+            for (int x = 0; x < t_baseImage.getWidth(); x++) {
                 pixelWriterTanker.setColor(x, y, baseImagePixelReader.getColor(x, y));
             }
         }
 
-        for (int y = 0; y < tankerImage.getHeight(); y++) {
-            for (int x = 0; x < tankerImage.getWidth(); x++) {
+        for (int y = 0; y < t_barrelImage.getHeight(); y++) {
+            for (int x = 0; x < t_barrelImage.getWidth(); x++) {
                 if (!barrelImagePixelReader.getColor(x, y).equals(Color.rgb(0, 0, 0, 0)))
-                    pixelWriterTanker.setColor(x, y, barrelImagePixelReader.getColor(x, y));
+                    pixelWriterTanker.setColor(x, y + (int)((Config.TANKER_ENEMY_HEIGHT - Config.TANKER_BARREL_ENEMY_HEIGHT)/2), barrelImagePixelReader.getColor(x, y));
             }
         }
         
