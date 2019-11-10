@@ -136,7 +136,7 @@ public final class Config {
 	public static final double TANKER_ENEMY_SIZE = 1;
 	public static final long TANKER_ENEMY_HEALTH = 1000;
 	public static final long TANKER_ENEMY_ARMOR = 2;
-	public static final double TANKER_ENEMY_SPEED = 0.2;
+	public static final double TANKER_ENEMY_SPEED = 0.1;
 	public static final long TANKER_ENEMY_REWARD = 1;
 	public static final int[] TANKER_ENEMY_GID = {269, 270};
 	public static final double TANKER_ENEMY_WIDTH = 54.0;
