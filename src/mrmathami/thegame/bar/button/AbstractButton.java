@@ -64,14 +64,12 @@ public abstract class AbstractButton implements UIEntity {
 
     public abstract String onClick();
 
-    @Override
     public void onFocus() {
         if (this.assetPosY == this.normalAssetPosY) {
             this.assetPosY = this.assetPosY + 1;
         }
     }
 
-    @Override
     public void outFocus() {
         if (this.assetPosY > this.normalAssetPosY) {
             this.assetPosY = this.normalAssetPosY;

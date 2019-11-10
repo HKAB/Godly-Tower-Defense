@@ -1,17 +1,20 @@
-package mrmathami.thegame.bar.context;
+package mrmathami.thegame.bar.button;
 
 import mrmathami.thegame.entity.UIEntity;
 
-public abstract class AbstractUIContext implements UIEntity {
-
+public abstract class AbstractUnclickableButton implements UIEntity {
     private long createdTick;
+    private double assetPosX;
+    private double assetPosY;
     private double posX;
     private double posY;
     private double width;
     private double height;
 
-    public AbstractUIContext (long createdTick, double posX, double posY, double width, double height) {
+    public AbstractUnclickableButton(long createdTick, double assetPosX, double assetPosY, double posX, double posY, double width, double height) {
         this.createdTick = createdTick;
+        this.assetPosX = assetPosX;
+        this.assetPosY = assetPosY;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
@@ -21,6 +24,14 @@ public abstract class AbstractUIContext implements UIEntity {
     @Override
     public long getCreatedTick() {
         return createdTick;
+    }
+
+    public double getAssetPosX() {
+        return assetPosX;
+    }
+
+    public double getAssetPosY() {
+        return assetPosY;
     }
 
     @Override

@@ -65,10 +65,6 @@ public final class Config {
 	public static final double MACHINE_GUN_BULLET_SPEED = 0.4;
 	public static final int MACHINE_GUN_BULLET_GID = 273;
 
-	public static final long SNIPER_BULLET_TTL = 60;
-	public static final long SNIPER_BULLET_STRENGTH = 120;
-	public static final double SNIPER_BULLET_SPEED = 0.5;
-
 	public static final long ROCKET_BULLET_TTL = 60;
 	public static final long ROCKET_BULLET_STRENGTH = 300;
 	public static final double ROCKET_BULLET_SPEED = 0.2;

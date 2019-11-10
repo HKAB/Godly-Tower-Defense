@@ -101,7 +101,7 @@ public final class GameDrawer {
 	));
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
-			Map.entry(UnclickableButton.class, new ButtonDrawer()),
+			Map.entry(AbstractUnclickableButton.class, new ButtonDrawer()),
 			Map.entry(BackButton.class, new ButtonDrawer()),
 			Map.entry(PauseButton.class, new ButtonDrawer()),
 			Map.entry(SellButton.class, new ButtonDrawer()),
@@ -215,7 +215,7 @@ public final class GameDrawer {
 
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
-		final Collection<UIEntity> buttons = gameUI.getEntities();
+		final Collection<AbstractButton> buttons = gameUI.getEntities();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
 		graphicsContext.setFill(Color.rgb(46, 46, 46));
@@ -238,7 +238,7 @@ public final class GameDrawer {
 				);
 			}
 		}
-		for (UIEntity button : buttons) {
+		for (AbstractButton button : buttons) {
 			final UIEntityDrawer drawer = getUIDrawer(button);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, button,

@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
+import mrmathami.thegame.bar.button.AbstractButton;
 import mrmathami.thegame.bar.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
@@ -239,12 +240,12 @@ public final class GameController extends AnimationTimer {
 	}
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<AbstractButton> UIEntities = this.gameUI.getEntities();
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 
-		for (UIEntity entity: UIEntities) {
+		for (AbstractButton entity: UIEntities) {
 			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
 			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
 			double endX = startX + entity.getWidth() * drawer.getFieldZoom();
@@ -282,14 +283,14 @@ public final class GameController extends AnimationTimer {
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<AbstractButton> UIEntities = this.gameUI.getEntities();
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 		//System.out.println("Processing " + mousePosX + " " + mousePosY);
 		boolean lg = false;
 
-		for (UIEntity entity: UIEntities) {
+		for (AbstractButton entity: UIEntities) {
 			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
 			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
 			double endX = startX + entity.getWidth() * drawer.getFieldZoom();

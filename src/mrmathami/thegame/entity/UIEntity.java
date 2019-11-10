@@ -30,11 +30,4 @@ public interface UIEntity {
      * @return field height
      */
     double getHeight();
-
-    /**
-     * Handle mouse event
-     */
-    String onClick();
-    void onFocus();
-    void outFocus();
 }

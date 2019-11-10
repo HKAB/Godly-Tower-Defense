@@ -15,9 +15,17 @@ public class TowerPlacing {
     private AbstractTower tower;
 
     public TowerPlacing (String towerType) {
-        if (towerType.equals("NormalTower")) tower = new NormalTower(0, 0, 0, 0);
-        else if (towerType.equals("RocketLauncherTower")) tower = new RocketLauncherTower(0, 0, 0, 0);
-        else if (towerType.equals("MachineGunTower")) tower = new MachineGunTower(0, 0, 0, 0);
+        switch (towerType) {
+            case "NormalTower":
+                tower = new NormalTower(0, 0, 0, 90);
+                break;
+            case "RocketLauncherTower":
+                tower = new RocketLauncherTower(0, 0, 0, 90);
+                break;
+            case "MachineGunTower":
+                tower = new MachineGunTower(0, 0, 0, 90);
+                break;
+        }
         this.placingState = NOT_BEING_PLACED;
     }
 
