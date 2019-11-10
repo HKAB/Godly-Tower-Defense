@@ -255,7 +255,6 @@ public final class GameDrawer {
 			}
 		}
 		if (towerPlacing != null) {
-            //System.out.println(towerPlacing.getPlacingState());
 			final TowerPlacingDrawer drawer = new TowerPlacingDrawer();
 			drawer.draw(gameField.getTickCount(), graphicsContext, towerPlacing,
 					(towerPlacing.getTower().getPosX() - fieldStartPosX) * fieldZoom,

@@ -148,7 +148,6 @@ public final class GameStage {
 					roadSet.add(road);
 					final Collection<Road> overlappedEntities = GameEntities.getFilteredOverlappedEntities(entities, Road.class,
 							road.getPosX() - 0.5, road.getPosY() - 0.5, 2, 2);
-//					System.out.println(overlappedEntities.toString() + road.getPosX() + "," + road.getPosY());
 					for (Road destRoad : overlappedEntities) {
 						if (!roadSet.contains(destRoad)) {
 							if (!roadQueue.contains(destRoad)) roadQueue.add(destRoad);
@@ -157,20 +156,12 @@ public final class GameStage {
 							final Collection<Road> destOverlappedRoads = GameEntities.getFilteredOverlappedEntities(entities, Road.class,
 									destRoad.getPosX() - 0.5, destRoad.getPosY() - 0.5, 2.0, 2.0);
 							final double destDistance = road.getDistance() + Math.sqrt(deltaX * deltaX + deltaY * deltaY)/destOverlappedRoads.size();
-//							System.out.println(destDistance);
 							if (Double.isNaN(destRoad.getDistance()) || destRoad.getDistance() > destDistance) {
 								destRoad.setDistance(destDistance);
 							}
 						}
 					}
 				}
-//
-//				System.out.println(roadSet.size());
-//				for (Road road :
-//						roadSet) {
-//					System.out.println(road.getPosX() + "," + road.getPosY() + ": " + road.getDistance());
-//				}
-
 				return new GameStage(width, height, entities);
 			} catch (NoSuchElementException e) {
 				throw new IOException("Resource invalid! Resource name: " + name, e);

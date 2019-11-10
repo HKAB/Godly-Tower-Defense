@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class UIDrawer {
+public final class MenuDrawer {
     /**
      * Map each entity type with corresponding drawer.
      */
@@ -41,7 +41,7 @@ public final class UIDrawer {
     private transient double fieldStartPosY = Float.NaN;
     private transient double fieldZoom = Float.NaN;
 
-    public UIDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull MenuUI menuUI, String backgroundImageUri) {
+    public MenuDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull MenuUI menuUI, String backgroundImageUri) {
         this.graphicsContext = graphicsContext;
         this.menuUI = menuUI;
         InputStream image = getClass().getResourceAsStream(backgroundImageUri);

@@ -132,10 +132,6 @@ public final class GameController extends AnimationTimer {
 		// do a tick, as fast as possible
 		field.tick();
 
-//		// if it's too late to draw a new frame, skip it.
-//		// make the game feel really laggy, so...
-//		if (currentTick != tick) return;
-
 		// draw a new frame, as fast as possible.
 		try {
 			drawer.render();
@@ -220,24 +216,14 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param mouseEvent the mouse button you press down.
 	 */
-	final void mouseDownHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
-	}
+	final void mouseDownHandler(MouseEvent mouseEvent) { }
 
 	/**
 	 * Mouse up handler.
 	 *
 	 * @param mouseEvent the mouse button you release up.
 	 */
-	final void mouseUpHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
-	}
+	final void mouseUpHandler(MouseEvent mouseEvent) { }
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
@@ -253,7 +239,6 @@ public final class GameController extends AnimationTimer {
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 				if ((entity instanceof TowerButton) && (!entity.onClick().equals("Locked"))) {
-					System.out.println(entity.onClick());
 					towerPlacing = new TowerPlacing(entity.onClick());
 					drawer.setTowerPlacing(towerPlacing);
 				}
@@ -279,7 +264,6 @@ public final class GameController extends AnimationTimer {
         	this.field.doSpawn(towerPlacing.getTower());
 			towerPlacing = null;
 			drawer.setTowerPlacing(towerPlacing);
-			System.out.println("Placing tower");
 		}
 	}
 

@@ -41,20 +41,17 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		double distance = 0.0;
 		double sumArea = 0.0;
 
-//		System.out.println("Overlap in direction: " + GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height));
 		for (GameEntity entity : GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height)) {
 			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass()))
 			{
 				return Double.NaN;
 			}
 			if (entity instanceof Road) {
-//				System.out.println("Road " + ((Road)entity).getPosX() + "," + ((Road)entity).getPosY());
 				final double entityPosX = entity.getPosX();
 				final double entityPosY = entity.getPosY();
 				final double area = (Math.min(posX + width, entityPosX + entity.getWidth()) - Math.max(posX, entityPosX))
 						* (Math.min(posY + height, entityPosY + entity.getHeight()) - Math.max(posY, entityPosY));
 				sumArea += area;
-//				System.out.println("sumArea: " + sumArea);
 				distance += area * ((Road) entity).getDistance();
 			}
 
@@ -68,37 +65,30 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		final double enemyPosY = getPosY();
 		final double enemyWidth = 1.0;
 		final double enemyHeight = 1.0;
-//		System.out.println(GameEntities.getOverlappedEntities(field.getEntities(), getPosX() - speed, getPosY() - speed, speed +1 + speed, speed +1 + speed));
 		final Collection<GameEntity> overlappableEntities = GameEntities.getOverlappedEntities(field.getEntities(),
 				getPosX() - speed, getPosY() - speed, speed + 1.0 + speed, speed + 1.0 + speed);
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
-//		System.out.println(newPosX + ":" + newPosY);
 		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
 			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
 				BigDecimal a = BigDecimal.valueOf(enemyPosY + deltaDirection[1] * realSpeed);
 				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
-//				System.out.println("Evaluate at (" + (currentPosX) + "," + (currentPosY) + ")" + " with width = " + enemyWidth + ", height = " + enemyHeight + ", but bigdecimal Y is : " + a);
 				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
-//				System.out.println("At direction (" + deltaDirection[0] + "," + deltaDirection[1] +  ") currentDistance is : "  + currentDistance);
 				if (currentDistance < minimumDistance) {
 					minimumDistance = currentDistance;
 					newPosX = currentPosX;
 					newPosY = currentPosY;
 				}
 			}
-//			System.out.println("--------");
 		}
-//		System.out.println(newPosX + ":" + newPosY);
 		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
 		else
 			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
 
 
 
-//		System.out.println(angle);
 		setPosX(newPosX);
 		setPosY(newPosY);
 

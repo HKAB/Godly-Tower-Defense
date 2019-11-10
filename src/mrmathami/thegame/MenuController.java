@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.ui.menu.PlayButton;
-import mrmathami.thegame.drawer.menu.UIDrawer;
+import mrmathami.thegame.drawer.menu.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
@@ -47,7 +47,7 @@ public final class MenuController extends AnimationTimer {
      * Game drawer. Responsible to draw the field every tick.
      * Kinda advance, modify if you are sure about your change.
      */
-    private UIDrawer drawer;
+    private MenuDrawer drawer;
 
     /**
      * Menu UI. Contains UI elements.
@@ -67,10 +67,6 @@ public final class MenuController extends AnimationTimer {
     private volatile long tick;
 
     /**
-     * Prepare for the next scene
-     */
-
-    /**
      * The constructor.
      *
      * @param graphicsContext the screen to draw on
@@ -84,7 +80,7 @@ public final class MenuController extends AnimationTimer {
         final long height = Config.TILE_VERTICAL;
 
         this.menuUI = new MenuUI();
-        this.drawer = new UIDrawer(graphicsContext, menuUI, "/menu/background.png");
+        this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png");
         drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
@@ -92,7 +88,6 @@ public final class MenuController extends AnimationTimer {
      * Beat-keeper. Just don't touch me.
      */
     private void tick() {
-        //noinspection NonAtomicOperationOnVolatileField
         this.tick += 1;
     }
 
@@ -107,10 +102,6 @@ public final class MenuController extends AnimationTimer {
         // don't touch me.
         final long currentTick = tick;
         final long startNs = System.nanoTime();
-
-//		// if it's too late to draw a new frame, skip it.
-//		// make the game feel really laggy, so...
-//		if (currentTick != tick) return;
 
         // draw a new frame, as fast as possible.
         try {
@@ -192,24 +183,14 @@ public final class MenuController extends AnimationTimer {
      *
      * @param mouseEvent the mouse button you press down.
      */
-    final void mouseDownHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
-    }
+    final void mouseDownHandler(MouseEvent mouseEvent) { }
 
     /**
      * Mouse up handler.
      *
      * @param mouseEvent the mouse button you release up.
      */
-    final void mouseUpHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
-    }
+    final void mouseUpHandler(MouseEvent mouseEvent) { }
 
     final void mouseMoveHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
