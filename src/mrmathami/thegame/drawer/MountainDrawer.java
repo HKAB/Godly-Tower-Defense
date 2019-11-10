@@ -25,9 +25,9 @@ public final class MountainDrawer implements EntityDrawer {
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
 
-		WritableImage newImage = new WritableImage(reader, (((Mountain)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Mountain)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+		WritableImage mountainImage = new WritableImage(reader, (((Mountain)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Mountain)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 
-		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
+		graphicsContext.drawImage(mountainImage, screenPosX, screenPosY);
 	}
 
 }

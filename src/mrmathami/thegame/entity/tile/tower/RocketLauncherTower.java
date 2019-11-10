@@ -21,7 +21,7 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAi
     @Nonnull
     @Override
     protected final RocketBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-        return new RocketBullet(createdTick, posX, posY, deltaX, deltaY, enemyTarget);
+        return new RocketBullet(createdTick, posX + 0.4, posY + 0.4, deltaX, deltaY, enemyTarget);
     }
 
 

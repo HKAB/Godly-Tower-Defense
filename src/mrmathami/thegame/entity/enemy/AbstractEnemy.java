@@ -90,7 +90,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 			}
 //			System.out.println("--------");
 		}
-		System.out.println(newPosX + ":" + newPosY);
+//		System.out.println(newPosX + ":" + newPosY);
 		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
 		else
 			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
@@ -141,19 +141,6 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		Rotate r = new Rotate(angle, screenPosX + image.getWidth()/2, screenPosY + image.getHeight()/2);
 		graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		graphicsContext.drawImage(image, screenPosX, screenPosY);
-		graphicsContext.restore();
-	}
-
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image[] images, double screenPosX, double screenPosY, double angle) {
-		graphicsContext.save();
-		for (Image image :
-				images) {
-			Rotate r = new Rotate(angle, screenPosX + image.getWidth()/2, screenPosY + image.getHeight()/2);
-			graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-			graphicsContext.drawImage(image, screenPosX, screenPosY);
-		}
-
 		graphicsContext.restore();
 	}
 

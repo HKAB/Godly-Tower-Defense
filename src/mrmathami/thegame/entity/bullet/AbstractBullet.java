@@ -80,11 +80,6 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 		graphicsContext.restore();
 	}
 
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image[] image, double screenPosX, double screenPosY, double angle) {
-
-	}
-
 	public int getGID() {
 		return GID;
 	}

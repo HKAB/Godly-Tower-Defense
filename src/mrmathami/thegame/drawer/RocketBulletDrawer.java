@@ -25,19 +25,6 @@ import javax.annotation.Nonnull;
 import java.io.FileNotFoundException;
 
 public final class RocketBulletDrawer implements EntityDrawer {
-    private final RadialGradient gradient = new RadialGradient(
-            0.0,
-            0.0,
-            0.5,
-            0.5,
-            1.0,
-            true,
-            CycleMethod.NO_CYCLE,
-            new Stop(0.0, Color.WHITE),
-            new Stop(0.5, Color.YELLOW),
-            new Stop(1.0, Color.RED)
-    );
-
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         Image img = GameDrawer.getSheetImage();
@@ -75,13 +62,7 @@ public final class RocketBulletDrawer implements EntityDrawer {
 //        graphicsContext.setLineWidth(4);
 //        graphicsContext.strokeRect(screenPosX, screenPosY, (int)Config.FIRE1_WIDTH, (int)(Config.FIRE1_HEIGHT  + Config.ROCKET_BULLET_HEIGHT));
 
-//        BufferedImage rocketAndFire = new BufferedImage(64, 128, BufferedImage.TYPE_INT_RGB);
-//        Graphics graphicsContext1 = rocketAndFire.createGraphics();
-
 
         ((RocketBullet)entity).rotate(graphicsContext, rocketAndFireImage, screenPosX, screenPosY, ((RocketBullet)entity).getAngle());
-//        ((RocketBullet)entity).rotate(graphicsContext, fireImage, screenPosX + 32, screenPosY - 64, ((RocketBullet)entity).getAngle() + 180);
-
-//        graphicsContext.drawImage(rocketAndFireImage, 0, 0);
     }
 }

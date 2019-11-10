@@ -22,15 +22,9 @@ public final class RoadDrawer implements EntityDrawer {
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
 
-		WritableImage newImage = new WritableImage(reader, (((Road)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Road)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+		WritableImage roadImage = new WritableImage(reader, (((Road)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Road)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 
-		graphicsContext.drawImage(newImage, screenPosX, screenPosY);
-//		graphicsContext.setFill(Color.LIGHTGREEN);
-//		graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);
+		graphicsContext.drawImage(roadImage, screenPosX, screenPosY);
 
-//		if (entity instanceof Road) {
-//			graphicsContext.setFill(Color.BLACK);
-//			graphicsContext.fillText(String.format("%2.2f", ((Road) entity).getDistance()), screenPosX, screenPosY + screenHeight / 2);
-//		}
 	}
 }

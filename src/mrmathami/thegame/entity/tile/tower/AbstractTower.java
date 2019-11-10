@@ -55,8 +55,6 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 			// Remember to set this.tickDown back to this.speed after shooting something.
 			// this.tickDown = speed;
 			// TODO: Uncomment
-//			final Collection<NormalEnemy> overlappedEntities = GameEntities.getFilteredOverlappedEntities(field.getEntities(), NormalEnemy.class,
-//					this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
 			for (T normalEnemy :
 					overlappedEntities) {
 				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY(), normalEnemy));
@@ -90,11 +88,6 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		graphicsContext.drawImage(image, screenPosX, screenPosY);
 		graphicsContext.restore();
-	}
-
-	@Override
-	public void rotate(GraphicsContext graphicsContext, Image[] image, double screenPosX, double screenPosY, double angle) {
-
 	}
 
 	public double getAngle() {
