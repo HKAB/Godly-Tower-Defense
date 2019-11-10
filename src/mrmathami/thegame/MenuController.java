@@ -2,15 +2,21 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
+import mrmathami.thegame.bar.PlayButton;
 import mrmathami.thegame.drawer.UIDrawer;
+import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -27,6 +33,11 @@ public final class MenuController extends AnimationTimer {
                     .setPriority(Thread.NORM_PRIORITY)
                     .build()
     );
+
+    /**
+     * Root. Needed for changing scene.
+     */
+    private Group root;
 
     /**
      * The screen to draw on. Just don't touch me. Google me if you are curious.
@@ -57,19 +68,24 @@ public final class MenuController extends AnimationTimer {
     private volatile long tick;
 
     /**
+     * Prepare for the next scene
+     */
+
+    /**
      * The constructor.
      *
      * @param graphicsContext the screen to draw on
      */
-    public MenuController(GraphicsContext graphicsContext) throws FileNotFoundException {
+    public MenuController(GraphicsContext graphicsContext, Group root) throws FileNotFoundException {
         this.graphicsContext = graphicsContext;
+        this.root = root;
 
         // Just a few acronyms.
         final long width = Config.TILE_HORIZONTAL;
         final long height = Config.TILE_VERTICAL;
 
         this.menuUI = new MenuUI();
-        this.drawer = new UIDrawer(graphicsContext, menuUI, "/menu/blurry_background.png");
+        this.drawer = new UIDrawer(graphicsContext, menuUI, "/menu/background.png");
         drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
@@ -125,6 +141,23 @@ public final class MenuController extends AnimationTimer {
         this.scheduledFuture = SCHEDULER.scheduleAtFixedRate(this::tick, 0, Config.GAME_NSPT, TimeUnit.NANOSECONDS);
         // start the JavaFX loop.
         super.start();
+    }
+
+    private void moveToGameScene() {
+        scheduledFuture.cancel(true);
+        stop();
+        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
+        GameController gameController = null;
+        try {
+            gameController = new GameController(graphicsContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
+        root.getChildren().clear();
+        root.getChildren().add(gameCanvas);
+        gameController.start();
     }
 
     /**
@@ -183,6 +216,23 @@ public final class MenuController extends AnimationTimer {
     }
 
     final void mouseClickHandler(MouseEvent mouseEvent) {
-        System.out.println("Mouse clicked");
+        Collection<UIEntity> UIEntities = this.menuUI.getEntities();
+        double mousePosX = mouseEvent.getX();
+        double mousePosY = mouseEvent.getY();
+
+        for (UIEntity entity: UIEntities) {
+            double startX = entity.getPosX();
+            double startY = entity.getPosY();
+            double endX = startX + entity.getWidth();
+            double endY = startY + entity.getHeight();
+            if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+                    && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+                if (entity instanceof PlayButton) {
+                    moveToGameScene();
+                } else {
+                    entity.onClick();
+                }
+            }
+        }
     }
 }

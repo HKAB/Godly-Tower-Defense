@@ -5,8 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.MenuUI;
+import mrmathami.thegame.bar.PngMenuPane;
 import mrmathami.thegame.bar.PlayButton;
 import mrmathami.thegame.bar.NormalButton;
+import mrmathami.thegame.bar.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
@@ -24,7 +26,9 @@ public final class UIDrawer {
      */
     @Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_ENTITY_DRAWER_MAP = new HashMap<> (Map.ofEntries(
         Map.entry(NormalButton.class, new ButtonDrawer()),
-            Map.entry(PlayButton.class, new PlayButtonDrawer())
+            Map.entry(PlayButton.class, new PlayButtonDrawer()),
+            Map.entry(PngMenuPane.class, new PngMenuPaneDrawer()),
+            Map.entry(RectMenuPane.class, new RectMenuPaneDrawer())
     ));
 
     @Nonnull private final GraphicsContext graphicsContext;

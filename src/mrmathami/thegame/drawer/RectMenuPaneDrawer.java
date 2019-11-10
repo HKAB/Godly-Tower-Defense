@@ -2,17 +2,19 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import mrmathami.thegame.bar.NormalButton;
+import javafx.scene.paint.Color;
+import mrmathami.thegame.bar.PngMenuPane;
+import mrmathami.thegame.bar.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
 import java.io.FileNotFoundException;
 
-public class ButtonDrawer implements UIEntityDrawer {
+public class RectMenuPaneDrawer implements UIEntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
-        String imageUri = ((NormalButton)entity).getImageUri();
-        Image image = new Image(getClass().getResourceAsStream(imageUri));
-        graphicsContext.drawImage(image, screenPosX, screenPosY, 64, 64);
+        Color rectColor = ((RectMenuPane)entity).getRectColor();
+        graphicsContext.setFill(rectColor);
+        graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);
     }
 }
