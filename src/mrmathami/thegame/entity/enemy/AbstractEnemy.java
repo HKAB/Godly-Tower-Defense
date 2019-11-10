@@ -40,6 +40,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 			@Nonnull GameEntity sourceEntity, double posX, double posY, double width, double height) {
 		double distance = 0.0;
 		double sumArea = 0.0;
+
 //		System.out.println("Overlap in direction: " + GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height));
 		for (GameEntity entity : GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height)) {
 			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass()))

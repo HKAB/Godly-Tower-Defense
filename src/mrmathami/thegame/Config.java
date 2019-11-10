@@ -29,18 +29,24 @@ public final class Config {
 	 * Num of tiles the screen can display if fieldZoom is TILE_SIZE,
 	 * in other words, the texture will be display as it without scaling.
 	 */
-	public static final long TILE_VERTICAL = 8;
+	public static final long TILE_VERTICAL = 9;
 	/**
 	 * An arbitrary number just to make some code run a little faster.
 	 * Do not touch.
 	 */
 	public static final int _TILE_MAP_COUNT = (int) (TILE_HORIZONTAL * TILE_VERTICAL);
 
+	/**
+	 * Num of tiles the sidebar uses
+	 */
+	public static final long SIDEBAR_HORIZONTAL = 4;
+	public static final long SIDEBAR_VERTICAL = TILE_VERTICAL;
+
 
 	/**
 	 * Size of the screen.
 	 */
-	public static final long SCREEN_WIDTH = TILE_SIZE * TILE_HORIZONTAL;
+	public static final long SCREEN_WIDTH = TILE_SIZE * (TILE_HORIZONTAL + SIDEBAR_HORIZONTAL);
 	/**
 	 * Size of the screen.
 	 */
@@ -82,17 +88,22 @@ public final class Config {
 	public static final long NORMAL_TOWER_SPEED = 10;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
 	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
+	public static final int NORMAL_TOWER_LEVEL2_GID = 0;
+	public static final int NORMAL_TOWER_LEVEL3_GID = 0;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
+	public static final int MACHINE_GUN_TOWER_LEVEL1_GID = 250;
+	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
+	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 251;
 
 	public static final long ROCKET_TOWER_SPEED = 20;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
 	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
+	public static final int ROCKET_TOWER_LEVEL3_GID = 206;
 
-	public static final long SNIPER_TOWER_SPEED = 60;
-	public static final double SNIPER_TOWER_RANGE = 8.0;
+	public static final int LOCKED_GID = 291;
 	//endregion
 
 	//region Enemy

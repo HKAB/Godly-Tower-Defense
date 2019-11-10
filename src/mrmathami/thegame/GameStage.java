@@ -2,7 +2,6 @@ package mrmathami.thegame;
 
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Mountain;
-import mrmathami.thegame.entity.tile.Basement;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;

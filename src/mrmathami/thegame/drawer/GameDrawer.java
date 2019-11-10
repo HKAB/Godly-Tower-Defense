@@ -2,12 +2,15 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.GameUI;
+import mrmathami.thegame.bar.button.*;
 import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.TowerPlacing;
+import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.bullet.RocketBullet;
@@ -29,12 +32,8 @@ import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class GameDrawer {
 	/**
@@ -68,7 +67,8 @@ public final class GameDrawer {
 //			SmallerSpawner.class,
 //			TankerSpawner.class,
 //			BossSpawner.class,
-			Target.class
+			Target.class,
+			ButtonDrawer.class
 	);
 	/**
 	 * TODO:
@@ -104,17 +104,32 @@ public final class GameDrawer {
 			Map.entry(Target.class, new TargetDrawer())
 	));
 
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+			Map.entry(UnclickableButton.class, new ButtonDrawer()),
+			Map.entry(BackButton.class, new ButtonDrawer()),
+			Map.entry(PauseButton.class, new ButtonDrawer()),
+			Map.entry(SellButton.class, new ButtonDrawer()),
+			Map.entry(TowerButton.class, new ButtonDrawer()),
+			Map.entry(UpgradeButton.class, new ButtonDrawer())
+	));
+
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
+	@Nonnull private GameUI gameUI;
+	private TowerPlacing towerPlacing;
 	private static Image sheetImage;
+	private static Image buttonImage;
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, String sheetImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, TowerPlacing towerPlacing, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
+		this.towerPlacing = towerPlacing;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
+		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
+		this.gameUI = gameUI;
 	}
 
 	/**
@@ -149,6 +164,11 @@ public final class GameDrawer {
 		return ENTITY_DRAWER_MAP.get(entity.getClass());
 	}
 
+	@Nullable
+	private static UIEntityDrawer getUIDrawer(@Nonnull UIEntity entity) {
+		return UI_DRAWER_MAP.get(entity.getClass());
+	}
+
 	public final double getFieldStartPosX() {
 		return fieldStartPosX;
 	}
@@ -164,6 +184,14 @@ public final class GameDrawer {
 	public final void setGameField(@Nonnull GameField gameField) {
 		this.gameField = gameField;
 	}
+
+	public void setGameUI(@Nonnull GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
+
+	public void setTowerPlacing(TowerPlacing towerPlacing) {
+	    this.towerPlacing = towerPlacing;
+    }
 
 	/**
 	 * Set the field view region, in other words, set the region of the field that will be drawn on the screen.
@@ -183,21 +211,26 @@ public final class GameDrawer {
 	 */
 	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
+		final GameUI gameUI = this.gameUI;
+		final TowerPlacing towerPlacing = this.towerPlacing;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
 
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
+		final Collection<UIEntity> buttons = gameUI.getEntities();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
-		graphicsContext.setFill(Color.BLACK);
+		graphicsContext.setFill(Color.rgb(46, 46, 46));
 		graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
 		GameEntity lastEntity = null;
+
 		for (final GameEntity entity : entities) {
 			if (lastEntity != null && entityDrawingOrderComparator(entity, lastEntity) == 0) continue;
 			lastEntity = entity;
+
 			final EntityDrawer drawer = getEntityDrawer(entity);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, entity,
@@ -208,6 +241,28 @@ public final class GameDrawer {
 						fieldZoom
 				);
 			}
+		}
+		for (UIEntity button : buttons) {
+			final UIEntityDrawer drawer = getUIDrawer(button);
+			if (drawer != null) {
+				drawer.draw(gameField.getTickCount(), graphicsContext, button,
+						(button.getPosX() - fieldStartPosX) * fieldZoom,
+						(button.getPosY() - fieldStartPosY) * fieldZoom,
+						button.getWidth() * fieldZoom,
+						button.getHeight() * fieldZoom,
+						fieldZoom
+				);
+			}
+		}
+		if (towerPlacing != null) {
+            //System.out.println(towerPlacing.getPlacingState());
+			final TowerPlacingDrawer drawer = new TowerPlacingDrawer();
+			drawer.draw(gameField.getTickCount(), graphicsContext, towerPlacing,
+					(towerPlacing.getTower().getPosX() - fieldStartPosX) * fieldZoom,
+					(towerPlacing.getTower().getPosY() - fieldStartPosY) * fieldZoom,
+					towerPlacing.getTower().getWidth() * fieldZoom,
+					towerPlacing.getTower().getHeight() * fieldZoom,
+					fieldZoom);
 		}
 	}
 
@@ -229,5 +284,9 @@ public final class GameDrawer {
 
 	public static Image getSheetImage() {
 		return sheetImage;
+	}
+
+	public static Image getButtonImage () {
+		return buttonImage;
 	}
 }
