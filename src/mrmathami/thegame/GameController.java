@@ -8,10 +8,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
+
+import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
+import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.entity.TowerPlacing;
+import mrmathami.thegame.entity.tile.Mountain;
+import mrmathami.thegame.entity.tile.Road;
+import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -50,6 +59,16 @@ public final class GameController extends AnimationTimer {
 	private GameDrawer drawer;
 
 	/**
+	 * Game UI. Contains UI elements.
+	 */
+	private GameUI gameUI;
+
+	/**
+	 * Tower Placing Class. Using for place a tower.
+	 */
+	private TowerPlacing towerPlacing = null;
+
+	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
 	 */
 	private ScheduledFuture<?> scheduledFuture;
@@ -78,8 +97,10 @@ public final class GameController extends AnimationTimer {
 		// TODO: I don't have much time, so, spawn some wall then :)
 		this.field = new GameField(GameStage.load("/stage/demo.txt"));
 
+		this.gameUI = new GameUI("/stage/buttonConfig.dat");
+
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, "/stage/sheet.png");
+		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/stage/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -110,10 +131,6 @@ public final class GameController extends AnimationTimer {
 
 		// do a tick, as fast as possible
 		field.tick();
-
-//		// if it's too late to draw a new frame, skip it.
-//		// make the game feel really laggy, so...
-//		if (currentTick != tick) return;
 
 		// draw a new frame, as fast as possible.
 		try {
@@ -199,22 +216,103 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param mouseEvent the mouse button you press down.
 	 */
-	final void mouseDownHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
-	}
+	final void mouseDownHandler(MouseEvent mouseEvent) { }
 
 	/**
 	 * Mouse up handler.
 	 *
 	 * @param mouseEvent the mouse button you release up.
 	 */
-	final void mouseUpHandler(MouseEvent mouseEvent) {
-//		mouseEvent.getButton(); // which mouse button?
-//		// Screen coordinate. Remember to convert to field coordinate
-//		drawer.screenToFieldPosX(mouseEvent.getX());
-//		drawer.screenToFieldPosY(mouseEvent.getY());
+	final void mouseUpHandler(MouseEvent mouseEvent) { }
+
+	final void mouseClickHandler(MouseEvent mouseEvent) {
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
+		double mousePosX = mouseEvent.getX();
+		double mousePosY = mouseEvent.getY();
+
+		for (UIEntity entity: UIEntities) {
+			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+			double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+				if ((entity instanceof TowerButton) && (!entity.onClick().equals("Locked"))) {
+					towerPlacing = new TowerPlacing(entity.onClick());
+					drawer.setTowerPlacing(towerPlacing);
+				}
+				return;
+			}
+		}
+        mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
+        mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
+        final boolean lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+        if (!lg) return;
+
+        for (GameEntity entity: gameEntities) {
+            if (!(entity instanceof Mountain)) {
+                if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
+                    if (entity instanceof AbstractTower) {
+                        //call onClick() of tower
+                    }
+                    return;
+                }
+            }
+        }
+        if (towerPlacing.getPlacingState() == 2) {
+        	this.field.doSpawn(towerPlacing.getTower());
+			towerPlacing = null;
+			drawer.setTowerPlacing(towerPlacing);
+		}
+	}
+
+	final void mouseMoveHandler(MouseEvent mouseEvent) {
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
+		double mousePosX = mouseEvent.getX();
+		double mousePosY = mouseEvent.getY();
+		boolean lg = false;
+
+		for (UIEntity entity: UIEntities) {
+			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+			double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+				entity.onFocus();
+				lg = true;
+			} else {
+				entity.outFocus();
+			}
+		}
+		if (lg && (this.towerPlacing != null)) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
+		if (lg || (towerPlacing == null)) return;
+
+		mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
+		mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
+		lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+		if (!lg) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
+		else {
+		    towerPlacing.setPlacingState(towerPlacing.PLACEABLE);
+            towerPlacing.setPosition(mousePosX, mousePosY);
+        }
+
+		for (GameEntity entity: gameEntities) {
+            if (entity instanceof Road) {
+                if (towerPlacing.isOverlappedWithRoad(entity)) {
+                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
+                    break;
+                }
+            }
+            if (entity instanceof AbstractTower) {
+                if (towerPlacing.isOverlappedWithTower(entity)) {
+                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
+                    break;
+                }
+            }
+        }
+		drawer.setTowerPlacing(this.towerPlacing);
 	}
 }

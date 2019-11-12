@@ -5,11 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-import mrmathami.thegame.drawer.EntityDrawer;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public final class SniperBulletDrawer implements EntityDrawer {
 	private final RadialGradient gradient = new RadialGradient(

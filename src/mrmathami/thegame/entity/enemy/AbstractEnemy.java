@@ -1,39 +1,49 @@
 package mrmathami.thegame.entity.enemy;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
 
 import javax.annotation.Nonnull;
+import java.math.BigDecimal;
 import java.util.Collection;
 
-public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, EffectEntity, LivingEntity, DestroyListener {
-	private static final double SQRT_2 = Math.sqrt(2.0) / 2.0;
+public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
-			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
+//			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
 	};
 
 	private long health;
 	private long armor;
 	private double speed;
 	private long reward;
+	protected int GID;
+	private double angle = 0;
 
-	protected AbstractEnemy(long createdTick, double posX, double posY, double size, long health, long armor, double speed, long reward) {
-		super(createdTick, posX, posY, size, size);
+	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
+		super(createdTick, posX, posY, width, height);
 		this.health = health;
 		this.armor = armor;
 		this.speed = speed;
 		this.reward = reward;
+		this.GID = GID;
 	}
 
 	private static double evaluateDistance(@Nonnull Collection<GameEntity> overlappableEntities,
 			@Nonnull GameEntity sourceEntity, double posX, double posY, double width, double height) {
 		double distance = 0.0;
 		double sumArea = 0.0;
+
 		for (GameEntity entity : GameEntities.getOverlappedEntities(overlappableEntities, posX, posY, width, height)) {
-			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass())) return Double.NaN;
+			if (sourceEntity != entity && GameEntities.isCollidable(sourceEntity.getClass(), entity.getClass()))
+			{
+				return Double.NaN;
+			}
 			if (entity instanceof Road) {
 				final double entityPosX = entity.getPosX();
 				final double entityPosY = entity.getPosY();
@@ -42,6 +52,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				sumArea += area;
 				distance += area * ((Road) entity).getDistance();
 			}
+
 		}
 		return distance / sumArea;
 	}
@@ -50,16 +61,17 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	public final void onUpdate(@Nonnull GameField field) {
 		final double enemyPosX = getPosX();
 		final double enemyPosY = getPosY();
-		final double enemyWidth = getWidth();
-		final double enemyHeight = getHeight();
+		final double enemyWidth = 1.0;
+		final double enemyHeight = 1.0;
 		final Collection<GameEntity> overlappableEntities = GameEntities.getOverlappedEntities(field.getEntities(),
-				getPosX() - speed, getPosY() - speed, speed + getWidth() + speed, speed + getHeight() + speed);
+				getPosX() - speed, getPosY() - speed, speed + 1.0 + speed, speed + 1.0 + speed);
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
 		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
 			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
+				BigDecimal a = BigDecimal.valueOf(enemyPosY + deltaDirection[1] * realSpeed);
 				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
 				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
 				if (currentDistance < minimumDistance) {
@@ -69,8 +81,15 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				}
 			}
 		}
+		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
+		else
+			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
+
+
+
 		setPosX(newPosX);
 		setPosY(newPosY);
+
 	}
 
 	@Override
@@ -102,6 +121,24 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 
 	@Override
 	public final boolean isDestroyed() {
-		return health <= 0L;
+		return health <= -0L;
+	}
+
+	@Override
+	public void rotate(GraphicsContext graphicsContext, Image image, double screenPosX, double screenPosY, double angle) {
+		graphicsContext.save();
+		Rotate r = new Rotate(angle, screenPosX + image.getWidth()/2, screenPosY + image.getHeight()/2);
+		graphicsContext.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+		graphicsContext.drawImage(image, screenPosX, screenPosY);
+		graphicsContext.restore();
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
+	@Override
+	public String toString() {
+		return "[Enemy@x=" + getPosX() + ",y=" + getPosY() + ",w=" + getWidth() + ",h=" + getHeight() + "]";
 	}
 }

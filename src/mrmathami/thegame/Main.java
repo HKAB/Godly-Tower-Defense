@@ -1,10 +1,10 @@
 package mrmathami.thegame;
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
 
@@ -21,29 +21,28 @@ public final class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
-		final Canvas canvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-		final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-		final GameController gameController = new GameController(graphicsContext);
-		canvas.setFocusTraversable(true);
-		graphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
+	    Group root = new Group();
 
-		// keyboard and mouse events to catch. Add if you need more
-		canvas.setOnKeyPressed(gameController::keyDownHandler);
-		canvas.setOnKeyReleased(gameController::keyUpHandler);
-//		canvas.setOnKeyTyped(...);
+	    // Prepare game Canvas
+		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
+		final MenuController menuController = new MenuController(menuGraphicsContext, root);
+		menuCanvas.setFocusTraversable(true);
+		menuGraphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
 
-		canvas.setOnMousePressed(gameController::mouseDownHandler);
-		canvas.setOnMouseReleased(gameController::mouseUpHandler);
-//		canvas.setOnMouseClicked(...);
-//		canvas.setOnMouseMoved(...);
+		// Creating the scene
+		Scene mainScene = new Scene(root);
+		root.getChildren().add(menuCanvas);
 
+		// Event handler
+		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle(Config.GAME_NAME);
-		primaryStage.setOnCloseRequest(gameController::closeRequestHandler);
-		primaryStage.setScene(new Scene(new StackPane(canvas)));
+        primaryStage.setScene(mainScene);
 		primaryStage.show();
-
-		gameController.start();
+        primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
+        menuController.start();
 	}
 }

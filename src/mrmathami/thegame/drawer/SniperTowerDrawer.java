@@ -2,13 +2,9 @@ package mrmathami.thegame.drawer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public final class SniperTowerDrawer implements EntityDrawer {
 	@Override

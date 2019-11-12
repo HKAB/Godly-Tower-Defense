@@ -1,7 +1,6 @@
 package mrmathami.thegame.entity.tile;
 
 import mrmathami.thegame.entity.AbstractEntity;
-import mrmathami.thegame.entity.GameEntity;
 
 public final class Mountain extends AbstractEntity {
 	private int GID;
