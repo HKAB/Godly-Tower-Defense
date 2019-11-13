@@ -85,7 +85,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
 
 
-
+		System.out.println("(" + newPosX + "," + newPosY + ")");
 		setPosX(newPosX);
 		setPosY(newPosY);
 

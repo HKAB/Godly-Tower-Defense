@@ -43,7 +43,7 @@ public final class GameStage {
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
-						if (value == 61 || value == 268) {
+						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3) {
 							entities.add(new Road(0, x, y, value));
 //						} else if (value == 183 || value == 181 || value == 184) {
 //							entities.add(new Mountain(0, x, y, value));

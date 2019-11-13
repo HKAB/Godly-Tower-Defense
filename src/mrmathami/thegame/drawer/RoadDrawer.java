@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
@@ -22,6 +23,8 @@ public final class RoadDrawer implements EntityDrawer {
 		WritableImage roadImage = new WritableImage(reader, (((Road)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Road)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 
 		graphicsContext.drawImage(roadImage, screenPosX, screenPosY);
+
+		graphicsContext.setFill(Color.RED);
 
 	}
 }
