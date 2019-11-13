@@ -260,7 +260,7 @@ public final class GameController extends AnimationTimer {
                 }
             }
         }
-        if (towerPlacing.getPlacingState() == 2) {
+        if ((towerPlacing != null) && (towerPlacing.getPlacingState() == towerPlacing.PLACEABLE)) {
         	this.field.doSpawn(towerPlacing.getTower());
 			towerPlacing = null;
 			drawer.setTowerPlacing(towerPlacing);

@@ -77,7 +77,7 @@ public final class Config {
 
 	public static final long ROCKET_BULLET_TTL = 60;
 	public static final long ROCKET_BULLET_STRENGTH = 300;
-	public static final double ROCKET_BULLET_SPEED = 0.4;
+	public static final double ROCKET_BULLET_SPEED = 0.5;
 	public static final int ROCKET_BULLET_GID = 252;
 	public static final double ROCKET_BULLET_WIDTH = 12.0;
 	public static final double ROCKET_BULLET_HEIGHT = 36.0;
@@ -97,7 +97,7 @@ public final class Config {
 	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
 	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 251;
 
-	public static final long ROCKET_TOWER_SPEED = 40;
+	public static final long ROCKET_TOWER_SPEED = 20;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
 	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
@@ -114,13 +114,14 @@ public final class Config {
 	public static final long NORMAL_ENEMY_REWARD = 1;
 
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
-	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 5000;
+	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 200;
 	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
 	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.2;
 	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
 	public static final double NORMAL_AIRCRAFT_ENEMY_HEIGHT = 28.0;
+	public static final double NORMAL_AIRCRAFT_ENEMY_DAMAGE = 1.0;
 
 
 	public static final double BIG_AIRCRAFT_ENEMY_SIZE = 1;
@@ -131,6 +132,7 @@ public final class Config {
 	public static final int[] BIG_AIRCRAFT_ENEMY_GID = {271, 272};
 	public static final double BIG_AIRCRAFT_ENEMY_WIDTH = 55.0;
 	public static final double BIG_AIRCRAFT_ENEMY_HEIGHT = 60.0;
+	public static final double BIG_AIRCRAFT_ENEMY_DAMAGE = 2.0;
 
 
 	public static final double TANKER_ENEMY_SIZE = 1;
@@ -143,6 +145,7 @@ public final class Config {
 	public static final double TANKER_ENEMY_HEIGHT = 36.0;
 	public static final double TANKER_BARREL_ENEMY_WIDTH = 54.0;
 	public static final double TANKER_BARREL_ENEMY_HEIGHT = 20.0;
+	public static final double TANKER_ENEMY_DAMAGE = 4;
 
 	public static final double SMALLER_ENEMY_SIZE = 0.7;
 	public static final long SMALLER_ENEMY_HEALTH = 50;
