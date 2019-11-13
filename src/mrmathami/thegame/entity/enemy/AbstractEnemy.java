@@ -71,7 +71,6 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
 			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
-				BigDecimal a = BigDecimal.valueOf(enemyPosY + deltaDirection[1] * realSpeed);
 				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
 				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
 				if (currentDistance < minimumDistance) {
@@ -95,11 +94,16 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
+		field.setMoney(field.getMoney() + 1);
+
 	}
 
 	@Override
 	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		// TODO: harm the target
+		livingEntity.doEffect(-1);
+//		System.out.println(livingEntity.getHealth());
+		field.setMoney(field.getMoney() - 1);
 		this.health = Long.MIN_VALUE;
 		return false;
 	}

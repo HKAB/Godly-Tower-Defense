@@ -27,11 +27,26 @@ public final class GameField {
 	 */
 	private long tickCount;
 
+	/**
+	 * Field money
+	 */
+	private long money;
+
 	public GameField(@Nonnull GameStage gameStage) {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
+		this.money = 0;
 		entities.addAll(gameStage.getEntities());
+	}
+
+	public long getMoney() {
+		return money;
+	}
+
+
+	public void setMoney(long money) {
+		this.money = money;
 	}
 
 	public final double getWidth() {

@@ -1,6 +1,7 @@
 
 package mrmathami.thegame.drawer;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -28,5 +29,13 @@ public final class NormalAircraftDrawer implements EntityDrawer {
         reader = newImage.getPixelReader();
         WritableImage aircraft = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.NORMAL_AIRCRAFT_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT/2), (int)Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, (int)Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT);
         ((NormalAircraft) entity).rotate(graphicsContext, aircraft, screenPosX, screenPosY, ((NormalAircraft) entity).getAngle() - 90);
+        if (((NormalAircraft)entity).getHealth() < Config.NORMAL_AIRCRAFT_ENEMY_HEALTH) {
+            graphicsContext.setFill(Color.RED);
+            graphicsContext.fillRect(screenPosX, screenPosY - 5, Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, 7);
+
+            graphicsContext.setFill(Color.GREEN);
+            graphicsContext.fillRect(screenPosX, screenPosY - 5, ((NormalAircraft) entity).getHealth() * 1.0 / Config.NORMAL_AIRCRAFT_ENEMY_HEALTH * Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, 7);
+        }
+//        System.out.println((((NormalAircraft)entity).getHealth()/Config.NORMAL_AIRCRAFT_ENEMY_HEALTH));
     }
 }
