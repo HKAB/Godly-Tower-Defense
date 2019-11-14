@@ -14,11 +14,13 @@ public final class TankerDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
 
-//        graphicsContext.setStroke(Color.DARKMAGENTA);
-//        graphicsContext.setLineWidth(4);
-//        graphicsContext.strokeRect(screenPosX, screenPosY, Config.TANKER_ENEMY_WIDTH, Config.TANKER_ENEMY_HEIGHT);
-        screenPosX += 45;
-        screenPosY += 45;
+        screenPosX += Config.OFFSET;
+        screenPosY += Config.OFFSET;
+
+
+        graphicsContext.setStroke(Color.DARKMAGENTA);
+        graphicsContext.setLineWidth(4);
+        graphicsContext.strokeRect(screenPosX, screenPosY, Config.TANKER_ENEMY_WIDTH, Config.TANKER_ENEMY_HEIGHT);
 
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);

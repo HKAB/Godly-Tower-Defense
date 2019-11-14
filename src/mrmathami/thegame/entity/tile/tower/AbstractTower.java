@@ -3,6 +3,7 @@ package mrmathami.thegame.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.RotatableEntity;
@@ -43,7 +44,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 				overlappedEntities) {
 //			field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY()));
 //			System.out.println("Enemy spot");
-			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + normalEnemy.getHeight()/2 - this.getPosY()), (normalEnemy.getPosX() + normalEnemy.getWidth()/2 - this.getPosX()))*180/Math.PI;
 			break;
 		}
 		if (tickDown <= 0) {
@@ -54,9 +55,10 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 			// TODO: Uncomment
 			for (T normalEnemy :
 					overlappedEntities) {
-				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY(), normalEnemy));
+				field.doSpawn(doSpawn(getCreatedTick(), getPosX() - Config.OFFSET/(Config.TILE_SIZE*1.0), getPosY() - Config.OFFSET/(Config.TILE_SIZE*1.0), normalEnemy.getPosX() + normalEnemy.getWidth()/2 - getPosX(), normalEnemy.getPosY() + normalEnemy.getHeight()/2 - getPosY(), normalEnemy));
+				System.out.println("posX: " + (getPosX() - Config.OFFSET/(Config.TILE_SIZE*1.0)) + "posY: " + (getPosY() - Config.OFFSET/(Config.TILE_SIZE*1.0)));
 //				System.out.println("Enemy spot");
-				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + normalEnemy.getHeight()/2 - this.getPosY()), (normalEnemy.getPosX() + normalEnemy.getWidth()/2 - this.getPosX()))*180/Math.PI;
 				break;
 			}
 			 this.tickDown = speed;

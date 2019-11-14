@@ -52,7 +52,7 @@ public final class Config {
 	 */
 	public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
-
+	public static final long OFFSET = 45;
 	//Other config related to other entities in the game.
 
 	//region Bullet
@@ -77,7 +77,7 @@ public final class Config {
 
 	public static final long ROCKET_BULLET_TTL = 60;
 	public static final long ROCKET_BULLET_STRENGTH = 300;
-	public static final double ROCKET_BULLET_SPEED = 0.5;
+	public static final double ROCKET_BULLET_SPEED = 0.2;
 	public static final int ROCKET_BULLET_GID = 252;
 	public static final double ROCKET_BULLET_WIDTH = 12.0;
 	public static final double ROCKET_BULLET_HEIGHT = 36.0;
