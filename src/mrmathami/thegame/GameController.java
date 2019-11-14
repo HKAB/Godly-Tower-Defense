@@ -95,7 +95,7 @@ public final class GameController extends AnimationTimer {
 
 		// The game field. Please consider create another way to load a game field.
 		// TODO: I don't have much time, so, spawn some wall then :)
-		this.field = new GameField(GameStage.load("/stage/demo.txt"));
+		this.field = new GameField(GameStage.load("/stage/map1.txt"));
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 

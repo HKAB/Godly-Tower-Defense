@@ -17,6 +17,8 @@ public final class TankerDrawer implements EntityDrawer {
 //        graphicsContext.setStroke(Color.DARKMAGENTA);
 //        graphicsContext.setLineWidth(4);
 //        graphicsContext.strokeRect(screenPosX, screenPosY, Config.TANKER_ENEMY_WIDTH, Config.TANKER_ENEMY_HEIGHT);
+        screenPosX += 45;
+        screenPosY += 45;
 
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
@@ -51,7 +53,7 @@ public final class TankerDrawer implements EntityDrawer {
             }
         }
         
-        ((Tanker)entity).rotate(graphicsContext, tankerImage, screenPosX, screenPosY, ((Tanker)entity).getAngle() - 90);
+        ((Tanker)entity).rotate(graphicsContext, tankerImage, screenPosX, screenPosY, ((Tanker)entity).getAngle());
         if (((Tanker)entity).getHealth() < Config.TANKER_ENEMY_HEALTH) {
             graphicsContext.setFill(Color.RED);
             graphicsContext.fillRect(screenPosX, screenPosY - 10, Config.TANKER_ENEMY_WIDTH, 7);

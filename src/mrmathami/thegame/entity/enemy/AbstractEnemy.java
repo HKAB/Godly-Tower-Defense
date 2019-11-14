@@ -7,6 +7,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
+import mrmathami.thegame.entity.tile.TurnPoint;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	private long reward;
 	protected int GID;
 	private double angle = 0;
+	private double t_bezier = 0;
 
 	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
 		super(createdTick, posX, posY, width, height);
@@ -68,23 +70,40 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
-		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
-			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
-				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
-				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
-				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
-				if (currentDistance < minimumDistance) {
-					minimumDistance = currentDistance;
-					newPosX = currentPosX;
-					newPosY = currentPosY;
-				}
-			}
+
+		double bestX = 0;
+		double bestY = 0;
+
+//			for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
+				for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
+					final double currentPosX = enemyPosX + deltaDirection[0] * speed;
+					final double currentPosY = enemyPosY + deltaDirection[1] * speed;
+					final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
+					if (currentDistance < minimumDistance) {
+						minimumDistance = currentDistance;
+						newPosX = currentPosX;
+						newPosY = currentPosY;
+						bestX = deltaDirection[0];
+						bestY = deltaDirection[1];
+					}
+//				}
+//			}
 		}
-		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
-		else
-			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
-
-
+		final Collection<TurnPoint> turnPointCollection = GameEntities.getFilteredOverlappedEntities(field.getEntities(), TurnPoint.class, enemyPosX + bestX * speed, enemyPosY + bestY * speed, enemyWidth, enemyHeight);
+		/**
+		 * Big thank to Benzier
+		 */
+		if (turnPointCollection.size() == 1)
+		{
+			t_bezier += 0.7*speed;
+			if (t_bezier > 1) t_bezier = 1;
+			newPosX = (1 - t_bezier) * (1 - t_bezier) * turnPointCollection.iterator().next().x1 + 2 * (1 - t_bezier) * t_bezier * turnPointCollection.iterator().next().x2 + t_bezier * t_bezier * turnPointCollection.iterator().next().x3;
+			newPosY = (1 - t_bezier) * (1 - t_bezier) * turnPointCollection.iterator().next().y1 + 2 * (1 - t_bezier) * t_bezier * turnPointCollection.iterator().next().y2 + t_bezier * t_bezier * turnPointCollection.iterator().next().y3;
+		}
+		else {
+			t_bezier = 0;
+		}
+		this.angle = Math.atan2((newPosY- enemyPosY), (newPosX - enemyPosX))*180/Math.PI;
 
 		setPosX(newPosX);
 		setPosY(newPosY);
@@ -102,7 +121,6 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		// TODO: harm the target
 		livingEntity.doEffect(-1);
-//		System.out.println(livingEntity.getHealth());
 		field.setMoney(field.getMoney() - 1);
 		this.health = Long.MIN_VALUE;
 		return false;
