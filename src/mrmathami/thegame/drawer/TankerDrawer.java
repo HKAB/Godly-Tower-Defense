@@ -53,7 +53,7 @@ public final class TankerDrawer implements EntityDrawer {
             }
         }
         
-        ((Tanker)entity).rotate(graphicsContext, tankerImage, screenPosX, screenPosY, ((Tanker)entity).getAngle() - 90);
+        ((Tanker)entity).rotate(graphicsContext, tankerImage, screenPosX, screenPosY, ((Tanker)entity).getAngle());
         if (((Tanker)entity).getHealth() < Config.TANKER_ENEMY_HEALTH) {
             graphicsContext.setFill(Color.RED);
             graphicsContext.fillRect(screenPosX, screenPosY - 10, Config.TANKER_ENEMY_WIDTH, 7);

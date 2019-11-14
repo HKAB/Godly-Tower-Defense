@@ -24,7 +24,7 @@ public final class RoadDrawer implements EntityDrawer {
 
 		graphicsContext.drawImage(roadImage, screenPosX, screenPosY);
 
-		graphicsContext.setFill(Color.RED);
-
+//		graphicsContext.setFill(Color.RED);
+//		graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);
 	}
 }

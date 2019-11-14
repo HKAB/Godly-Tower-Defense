@@ -4,6 +4,7 @@ import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Target;
+import mrmathami.thegame.entity.tile.TurnPoint;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -135,7 +136,18 @@ public final class GameStage {
 								road.setDistance(0.0);
 							}
 						}
-					} else {
+					}
+					else if ("TurnPoint".equals(value))
+					{
+						final long x1 = scanner.nextInt();
+						final long y1 = scanner.nextInt();
+						final long x2 = scanner.nextInt();
+						final long y2 = scanner.nextInt();
+						final long x3 = scanner.nextInt();
+						final long y3 = scanner.nextInt();
+						entities.add(new TurnPoint(x1, y1, x2, y2, x3, y3));
+					}
+					else {
 						System.out.println("Unexpected value! Input value: " + value);
 						scanner.nextLine();
 //						throw new InputMismatchException("Unexpected value! Input value: " + value);
