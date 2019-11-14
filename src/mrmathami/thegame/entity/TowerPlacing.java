@@ -1,5 +1,6 @@
 package mrmathami.thegame.entity;
 
+import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
@@ -43,7 +44,32 @@ public class TowerPlacing {
             {0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
             {-1.0, -1.0}, {1.0, 1.0}, {1.0, -1.0}, {-1.0, 1.0}
         };
-        for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
+
+        final Road road = (Road)entity;
+        int[] deltaIndex = {0};
+
+        switch (road.getGID()) {
+            case 26:
+                deltaIndex = new int[] {0, 3};
+                break;
+            case 48:
+                deltaIndex = new int[] {0, 1};
+                break;
+            case 4:
+                deltaIndex = new int[] {0, 5};
+                break;
+            case 47:
+                deltaIndex = new int[] {0, 1, 7};
+                break;
+            case 49:
+                deltaIndex = new int[] {0, 1, 3, 5};
+                break;
+            case 3:
+                deltaIndex = new int[] {0, 3, 8};
+                break;
+        }
+        for (int index: deltaIndex) {
+            double[] deltaDirection = DELTA_DIRECTION_ARRAY[index];
             final double posX = this.tower.getPosX() + deltaDirection[0];
             final double posY = this.tower.getPosY() + deltaDirection[1];
             if (entity.isBeingOverlapped(posX, posY, 1, 1)) return true;
