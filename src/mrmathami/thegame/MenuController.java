@@ -224,8 +224,10 @@ public final class MenuController extends AnimationTimer {
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                 final String command = entity.onClick();
                 switch (command) {
-                    case "PlayButton":
+                    case "SinglePlayerButton":
                         moveToGameScene();
+                        break;
+                    case "MultiPlayerButton":
                         break;
                     case "SettingsButton":
                         break;

@@ -26,15 +26,23 @@ public final class MenuUI {
      * IMPORTANT: Remember to maintain the add order, which affect the draw order of the UI.
      */
     private void prepareMainMenu(String path) {
-        RectMenuPane menuPane = new RectMenuPane(0, 8, 1, 4, 5.5, Color.rgb(0xCC, 0xBE, 0xA3));
-        addEntity(menuPane);
-
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
             while (true) {
                 final String value = scanner.next();
                 if (value.equals("EndOfFile")) break;
+                else if (value.equals("RectMenuPane")) {
+                    final double x = scanner.nextDouble();
+                    final double y = scanner.nextDouble();
+                    final double w = scanner.nextDouble();
+                    final double h = scanner.nextDouble();
+                    final int r = scanner.nextInt();
+                    final int g = scanner.nextInt();
+                    final int b = scanner.nextInt();
+                    RectMenuPane menuPane = new RectMenuPane(0, x, y, w, h, Color.rgb(r, g, b));
+                    addEntity(menuPane);
+                }
                 else {
                     final double assetX = scanner.nextDouble();
                     final double assetY = scanner.nextDouble();
