@@ -9,8 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.ui.menu.PlayButton;
-import mrmathami.thegame.drawer.menu.MenuDrawer;
+import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
@@ -79,8 +78,8 @@ public final class MenuController extends AnimationTimer {
         final long width = Config.TILE_HORIZONTAL;
         final long height = Config.TILE_VERTICAL;
 
-        this.menuUI = new MenuUI();
-        this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png");
+        this.menuUI = new MenuUI("/menu/buttonConfig.dat");
+        this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png", "/menu/button.png");
         drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
@@ -198,14 +197,10 @@ public final class MenuController extends AnimationTimer {
         double mousePosY = mouseEvent.getY();
 
         for (UIEntity entity: UIEntities) {
-//            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
-//            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
-//            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
-//            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
-            double startX = entity.getPosX();
-            double startY = entity.getPosY();
-            double endX = startX + entity.getWidth();
-            double endY = startY + entity.getHeight();
+            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
             if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                 entity.onFocus();
@@ -221,16 +216,21 @@ public final class MenuController extends AnimationTimer {
         double mousePosY = mouseEvent.getY();
 
         for (UIEntity entity: UIEntities) {
-            double startX = entity.getPosX();
-            double startY = entity.getPosY();
-            double endX = startX + entity.getWidth();
-            double endY = startY + entity.getHeight();
+            double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+            double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+            double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+            double endY = startY + entity.getHeight() * drawer.getFieldZoom();
             if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-                if (entity instanceof PlayButton) {
-                    moveToGameScene();
-                } else {
-                    entity.onClick();
+                final String command = entity.onClick();
+                switch (command) {
+                    case "PlayButton":
+                        moveToGameScene();
+                        break;
+                    case "SettingsButton":
+                        break;
+                    case "CreditsButton":
+                        break;
                 }
             }
         }

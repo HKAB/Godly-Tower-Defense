@@ -68,7 +68,7 @@ public final class GameDrawer {
 //			TankerSpawner.class,
 //			BossSpawner.class,
 			Target.class,
-			ButtonDrawer.class
+			GameButtonDrawer.class
 	);
 	/**
 	 * TODO:
@@ -105,12 +105,9 @@ public final class GameDrawer {
 	));
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
-			Map.entry(UnclickableButton.class, new ButtonDrawer()),
-			Map.entry(BackButton.class, new ButtonDrawer()),
-			Map.entry(PauseButton.class, new ButtonDrawer()),
-			Map.entry(SellButton.class, new ButtonDrawer()),
-			Map.entry(TowerButton.class, new ButtonDrawer()),
-			Map.entry(UpgradeButton.class, new ButtonDrawer())
+			Map.entry(NavigationButton.class, new GameButtonDrawer()),
+			Map.entry(TowerButton.class, new GameButtonDrawer()),
+			Map.entry(ContextButton.class, new GameButtonDrawer())
 	));
 
 	@Nonnull private final GraphicsContext graphicsContext;
@@ -222,7 +219,7 @@ public final class GameDrawer {
 		final Collection<UIEntity> UIEntities = gameUI.getEntities();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
-		graphicsContext.setFill(Color.rgb(46, 46, 46));
+		graphicsContext.setFill(Color.rgb(152, 118, 90));
 		graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 
 		GameEntity lastEntity = null;

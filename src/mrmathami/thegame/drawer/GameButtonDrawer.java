@@ -5,20 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import mrmathami.thegame.Config;
-import mrmathami.thegame.ui.button.AbstractIngameButton;
+import mrmathami.thegame.ui.AbstractButton;
 import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
 
-public class ButtonDrawer implements UIEntityDrawer {
+public class GameButtonDrawer implements UIEntityDrawer {
 
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         Image img = GameDrawer.getButtonImage();
         PixelReader reader = img.getPixelReader();
 
-        AbstractIngameButton button = (AbstractIngameButton)entity;
+        AbstractButton button = (AbstractButton)entity;
 
         WritableImage buttonImage = new WritableImage(reader, (int)button.getAssetPosX() * (int)fieldZoom, (int)button.getAssetPosY() * (int)fieldZoom, (int)screenWidth, (int)screenHeight);
         graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);

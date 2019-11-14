@@ -8,13 +8,29 @@ public abstract class AbstractButton implements UIEntity {
     private double posY;
     private double width;
     private double height;
+    private double assetPosX;
+    private double assetPosY;
+    private double normalAssetPosX;
+    private double normalAssetPosY;
 
-    protected AbstractButton(long createdTick, double posX, double posY, double width, double height) {
+    protected AbstractButton(long createdTick, double assetPosX, double assetPosY, double posX, double posY, double width, double height) {
         this.createdTick = createdTick;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
+        this.assetPosX = assetPosX;
+        this.assetPosY = assetPosY;
+        this.normalAssetPosX = assetPosX;
+        this.normalAssetPosY = assetPosY;
+    }
+
+    public double getAssetPosX() {
+        return assetPosX;
+    }
+
+    public double getAssetPosY() {
+        return assetPosY;
     }
 
     @Override
@@ -43,4 +59,16 @@ public abstract class AbstractButton implements UIEntity {
     }
 
     public abstract String onClick();
+
+    public void onFocus() {
+        if (this.assetPosX == this.normalAssetPosX) {
+            this.assetPosX = this.assetPosX + width;
+        }
+    }
+
+    public void outFocus() {
+        if (this.assetPosX > this.normalAssetPosX) {
+            this.assetPosX = this.normalAssetPosX;
+        }
+    }
 }

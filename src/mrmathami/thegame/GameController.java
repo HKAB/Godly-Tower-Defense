@@ -97,10 +97,10 @@ public final class GameController extends AnimationTimer {
 		// TODO: I don't have much time, so, spawn some wall then :)
 		this.field = new GameField(GameStage.load("/stage/demo.txt"));
 
-		this.gameUI = new GameUI("/stage/buttonConfig.dat");
+		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/stage/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -255,8 +255,8 @@ public final class GameController extends AnimationTimer {
                 if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
                     if (entity instanceof AbstractTower) {
                         //call onClick() of tower
+						return;
                     }
-                    return;
                 }
             }
         }

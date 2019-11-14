@@ -14,6 +14,10 @@ public final class GameUI {
 
     public GameUI(String path) {
         this.entities = new ArrayList<UIEntity>();
+        prepareGameUI(path);
+    }
+
+    private void prepareGameUI (String path) {
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
@@ -27,28 +31,20 @@ public final class GameUI {
                     final double y = scanner.nextDouble();
                     final double w = scanner.nextDouble();
                     final double h = scanner.nextDouble();
-                    String towerType = "";
-                    if (value.equals("TowerButton")) {
-                        towerType = scanner.next();
-                    }
 
-                    if (value.equals("MoneyButton")) {
-                        entities.add(new UnclickableButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("BackButton")) {
-                        entities.add(new BackButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("PauseButton")) {
-                        entities.add(new PauseButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("TowerButton")) {
-                        entities.add(new TowerButton(0, assetX, assetY, x, y, w, h, towerType));
-                    }
-                    else if (value.equals("UpgradeButton")) {
-                        entities.add(new UpgradeButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("SellButton")) {
-                        entities.add(new SellButton(0, assetX, assetY, x, y, w, h));
+                    switch (value) {
+                        case "BackButton":
+                        case "PauseButton":
+                            addButton(new NavigationButton(0, assetX, assetY, x, y, w, h, value));
+                            break;
+                        case "UpgradeButton":
+                        case "SellButton":
+                            addButton(new ContextButton(0, assetX, assetY, x, y, w, h, value));
+                            break;
+                        case "TowerButton":
+                            final String towerType = scanner.next();
+                            addButton(new TowerButton(0, assetX, assetY, x, y, w, h, towerType));
+                            break;
                     }
                 }
             }
