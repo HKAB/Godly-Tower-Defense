@@ -48,7 +48,9 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		if (tickDown <= 0) {
 			for (T normalEnemy :
 					overlappedEntities) {
+				// Remember the freaking OFFSET
 				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
+				// Using polar coordinate system, dont forget to add width/2 and height/2 to posX and posY with specific bullet
 				field.doSpawn(doSpawn(getCreatedTick(),
 						(getPosX() - Config.OFFSET/(Config.TILE_SIZE) + this.getWidth()/2 + this.getWidth()/2*Math.cos(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2)))),
 						(getPosY() - Config.OFFSET/(Config.TILE_SIZE) + this.getHeight()/2) + this.getWidth()/2*Math.sin(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))),
