@@ -52,7 +52,7 @@ public final class Config {
 	 */
 	public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
-	public static final long OFFSET = 45;
+	public static final double OFFSET = 45.0;
 	//Other config related to other entities in the game.
 
 	//region Bullet

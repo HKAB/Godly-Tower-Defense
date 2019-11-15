@@ -16,10 +16,6 @@ import javax.annotation.Nonnull;
 public final class NormalAircraftDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
-
-        graphicsContext.setStroke(Color.DARKMAGENTA);
-        graphicsContext.setLineWidth(4);
-        graphicsContext.strokeRect(screenPosX, screenPosY, Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, Config.NORMAL_AIRCRAFT_ENEMY_HEIGHT);
         screenPosX += Config.OFFSET;
         screenPosY += Config.OFFSET;
 
@@ -38,6 +34,5 @@ public final class NormalAircraftDrawer implements EntityDrawer {
             graphicsContext.setFill(Color.GREEN);
             graphicsContext.fillRect(screenPosX, screenPosY - 5, ((NormalAircraft) entity).getHealth() * 1.0 / Config.NORMAL_AIRCRAFT_ENEMY_HEALTH * Config.NORMAL_AIRCRAFT_ENEMY_WIDTH, 7);
         }
-//        System.out.println((((NormalAircraft)entity).getHealth()/Config.NORMAL_AIRCRAFT_ENEMY_HEALTH));
     }
 }
