@@ -15,6 +15,6 @@ public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraf
 	@Nonnull
 	@Override
 	protected final NormalBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-		return new NormalBullet(createdTick, posX + 0.4, posY + 0.4, deltaX, deltaY, enemyTarget);
+		return new NormalBullet(createdTick, posX - Config.NORMAL_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.NORMAL_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
 	}
 }

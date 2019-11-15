@@ -16,7 +16,7 @@ public final class MachineGunTower extends AbstractTower<MachineGunBullet, Tanke
     @Nonnull
     @Override
     protected final MachineGunBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-        return new MachineGunBullet(createdTick, posX + 0.4, posY + 0.4, deltaX, deltaY, enemyTarget);
+        return new MachineGunBullet(createdTick, posX - Config.MACHINE_GUN_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.MACHINE_GUN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 
 

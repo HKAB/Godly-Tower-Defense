@@ -18,6 +18,10 @@ public final class MachineGunBulletDrawer implements EntityDrawer {
 //		graphicsContext.setStroke(Color.RED);
 //        graphicsContext.setLineWidth(4);
 //        graphicsContext.strokeRect(screenPosX, screenPosY, Config.MACHINE_GUN_BULLET_WIDTH, Config.MACHINE_GUN_BULLET_HEIGHT);
+		screenPosX += Config.OFFSET;
+		screenPosY += Config.OFFSET;
+
+		System.out.println("screenPosX: " + screenHeight + ",screenPosY: " + screenPosY);
 
 		Image img = GameDrawer.getSheetImage();
 		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);

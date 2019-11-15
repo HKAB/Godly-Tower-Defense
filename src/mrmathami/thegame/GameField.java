@@ -75,7 +75,7 @@ public final class GameField {
 	 * @param entity Entity to spawn
 	 */
 	public final void doSpawn(@Nonnull GameEntity entity) {
-		if (entity.isBeingOverlapped(0.0, 0.0, width, height)) spawnEntities.add(entity);
+		spawnEntities.add(entity);
 	}
 
 	/**
