@@ -8,6 +8,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
 import mrmathami.thegame.entity.tile.*;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.ui.button.*;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.TowerPlacing;
@@ -43,6 +44,7 @@ public final class GameDrawer {
 			Mountain.class,
 			Rock.class,
 			Bush.class,
+			ExplosionEffect.class,
 			NormalTower.class,
 			RocketLauncherTower.class,
 //			SniperTower.class,
@@ -80,6 +82,7 @@ public final class GameDrawer {
 			Map.entry(Mountain.class, new MountainDrawer()),
 			Map.entry(Rock.class, new RockDrawer()),
 			Map.entry(Bush.class, new BushDrawer()),
+			Map.entry(ExplosionEffect.class, new ExplosionEffectDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
 			Map.entry(RocketLauncherTower.class, new RocketLauncherTowerDrawer()),
 //			Map.entry(SniperTower.class, new SniperTowerDrawer()),

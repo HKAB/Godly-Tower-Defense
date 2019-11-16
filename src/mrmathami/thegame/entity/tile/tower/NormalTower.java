@@ -11,6 +11,8 @@ public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraf
 	public int[] GID = new int[] {Config.NORMAL_TOWER_LEVEL1_GID, Config.NORMAL_TOWER_LEVEL2_GID, Config.NORMAL_TOWER_LEVEL3_GID};
 	public NormalTower(long createdTick, long posX, long posY, double angle) {
 		super(createdTick, posX, posY, Config.NORMAL_TOWER_RANGE, Config.NORMAL_TOWER_SPEED, angle, Config.NORMAL_TOWER_LEVEL1_GID, NormalAircraft.class);
+		upgrade();
+		upgrade();
 	}
 
 	@Nonnull
