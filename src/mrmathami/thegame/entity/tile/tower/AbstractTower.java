@@ -16,13 +16,14 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public abstract class AbstractTower<E extends AbstractBullet, T extends AbstractEnemy> extends AbstractTile implements UpdatableEntity, RotatableEntity {
-	private final double range;
-	private final long speed;
+	private double range;
+	private long speed;
 	private double angle;
 	private double defaultAngle;
 	protected int GID;
 	private Class<T> target;
 	private long tickDown;
+	private int level;
 
 	protected AbstractTower(long createdTick, long posX, long posY, double range, long speed, double angle, int GID, Class<T> target) {
 		super(createdTick, posX, posY, 1L, 1L, GID);
@@ -33,6 +34,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		this.tickDown = 0;
 		this.GID = GID;
 		this.target = target;
+		this.level = 0;
 	}
 
 	@Override
@@ -90,4 +92,30 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	public double getAngle() {
 		return angle;
 	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public double getRange() {
+		return range;
+	}
+
+	public void setRange(double range) {
+		this.range = range;
+	}
+
+	public long getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(long speed) {
+		this.speed = speed;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public abstract boolean upgrade();
 }

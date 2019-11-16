@@ -116,6 +116,9 @@ public final class GameDrawer {
 	private TowerPlacing towerPlacing;
 	private static Image sheetImage;
 	private static Image buttonImage;
+	private static Image rankImage;
+	private static Image ultimateNormalTower;
+
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
@@ -126,6 +129,8 @@ public final class GameDrawer {
 		this.towerPlacing = towerPlacing;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
+		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
+		this.ultimateNormalTower = new Image(getClass().getResourceAsStream("/stage/pacman.png"));
 		this.gameUI = gameUI;
 	}
 
@@ -284,5 +289,9 @@ public final class GameDrawer {
 
 	public static Image getButtonImage () {
 		return buttonImage;
+	}
+
+	public static Image getRankImage() {
+		return rankImage;
 	}
 }
