@@ -117,7 +117,6 @@ public final class GameDrawer {
 	private static Image sheetImage;
 	private static Image buttonImage;
 	private static Image rankImage;
-	private static Image ultimateNormalTower;
 
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
@@ -130,7 +129,6 @@ public final class GameDrawer {
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
-		this.ultimateNormalTower = new Image(getClass().getResourceAsStream("/stage/pacman.png"));
 		this.gameUI = gameUI;
 	}
 
