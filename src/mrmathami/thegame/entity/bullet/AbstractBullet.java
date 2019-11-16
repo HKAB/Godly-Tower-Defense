@@ -36,8 +36,8 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 	public final void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
 		if (!enemyTarget.isDestroyed()) {
-			deltaX = enemyTarget.getPosX() - getPosX();
-			deltaY = enemyTarget.getPosY() - getPosY();
+			deltaX = enemyTarget.getPosX() + enemyTarget.getWidth()/2 - getPosX();
+			deltaY = enemyTarget.getPosY() + enemyTarget.getHeight()/2 - getPosY();
 			double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 			deltaX = deltaX * normalize;
 			deltaY = deltaY * normalize;

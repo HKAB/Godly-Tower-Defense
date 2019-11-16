@@ -3,6 +3,7 @@ package mrmathami.thegame.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.RotatableEntity;
@@ -15,13 +16,14 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public abstract class AbstractTower<E extends AbstractBullet, T extends AbstractEnemy> extends AbstractTile implements UpdatableEntity, RotatableEntity {
-	private final double range;
-	private final long speed;
+	private double range;
+	private long speed;
 	private double angle;
 	private double defaultAngle;
 	protected int GID;
 	private Class<T> target;
 	private long tickDown;
+	private int level;
 
 	protected AbstractTower(long createdTick, long posX, long posY, double range, long speed, double angle, int GID, Class<T> target) {
 		super(createdTick, posX, posY, 1L, 1L, GID);
@@ -32,6 +34,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		this.tickDown = 0;
 		this.GID = GID;
 		this.target = target;
+		this.level = 0;
 	}
 
 	@Override
@@ -41,22 +44,21 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 				this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
 		for (T normalEnemy :
 				overlappedEntities) {
-//			field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY()));
-//			System.out.println("Enemy spot");
-			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
 			break;
 		}
 		if (tickDown <= 0) {
-			// TODO: Find a target and spawn a bullet to that direction.
-			// Use GameEntities.getFilteredOverlappedEntities to find target in range
-			// Remember to set this.tickDown back to this.speed after shooting something.
-			// this.tickDown = speed;
-			// TODO: Uncomment
 			for (T normalEnemy :
 					overlappedEntities) {
-				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY(), normalEnemy.getPosX() - getPosX(), normalEnemy.getPosY() - getPosY(), normalEnemy));
-//				System.out.println("Enemy spot");
-				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() - this.getPosY()), (normalEnemy.getPosX() - this.getPosX()))*180/Math.PI;
+				// Remember the freaking OFFSET
+				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
+				// Using polar coordinate system, dont forget to add width/2 and height/2 to posX and posY with specific bullet
+				field.doSpawn(doSpawn(getCreatedTick(),
+						(getPosX() - Config.OFFSET/(Config.TILE_SIZE) + this.getWidth()/2 + this.getWidth()/2*Math.cos(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2)))),
+						(getPosY() - Config.OFFSET/(Config.TILE_SIZE) + this.getHeight()/2) + this.getWidth()/2*Math.sin(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))),
+						normalEnemy.getPosX() + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2,
+						normalEnemy.getPosY() + normalEnemy.getHeight()/2 - this.getPosY() - this.getHeight()/2,
+						normalEnemy));
 				break;
 			}
 			 this.tickDown = speed;
@@ -90,4 +92,30 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	public double getAngle() {
 		return angle;
 	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public double getRange() {
+		return range;
+	}
+
+	public void setRange(double range) {
+		this.range = range;
+	}
+
+	public long getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(long speed) {
+		this.speed = speed;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public abstract boolean upgrade();
 }

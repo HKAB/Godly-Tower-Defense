@@ -52,7 +52,7 @@ public final class Config {
 	 */
 	public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
-
+	public static final double OFFSET = 45.0;
 	//Other config related to other entities in the game.
 
 	//region Bullet
@@ -77,7 +77,7 @@ public final class Config {
 
 	public static final long ROCKET_BULLET_TTL = 60;
 	public static final long ROCKET_BULLET_STRENGTH = 300;
-	public static final double ROCKET_BULLET_SPEED = 0.5;
+	public static final double ROCKET_BULLET_SPEED = 0.2;
 	public static final int ROCKET_BULLET_GID = 252;
 	public static final double ROCKET_BULLET_WIDTH = 12.0;
 	public static final double ROCKET_BULLET_HEIGHT = 36.0;
@@ -88,20 +88,20 @@ public final class Config {
 	public static final long NORMAL_TOWER_SPEED = 10;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
 	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
-	public static final int NORMAL_TOWER_LEVEL2_GID = 0;
-	public static final int NORMAL_TOWER_LEVEL3_GID = 0;
+	public static final int NORMAL_TOWER_LEVEL2_GID = 227;
+	public static final int NORMAL_TOWER_LEVEL3_GID = 207;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
 	public static final int MACHINE_GUN_TOWER_LEVEL1_GID = 250;
 	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
-	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 251;
+	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 253;
 
 	public static final long ROCKET_TOWER_SPEED = 20;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
 	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
-	public static final int ROCKET_TOWER_LEVEL3_GID = 206;
+	public static final int ROCKET_TOWER_LEVEL3_GID = 230;
 
 	public static final int LOCKED_GID = 291;
 	//endregion
@@ -190,6 +190,12 @@ public final class Config {
 
 	public static final double FIRE1_WIDTH = 12.0;
 	public static final double FIRE1_HEIGHT = 24.0;
+
+	//region star rank
+	public static final int TOWER_RANK_1_GID = 36;
+	public static final int TOWER_RANK_2_GID = 37;
+	public static final int TOWER_RANK_3_GID = 38;
+	//endregion
 
 	private Config() {
 	}

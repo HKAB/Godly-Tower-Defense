@@ -15,6 +15,8 @@ import javax.annotation.Nonnull;
 public final class RocketBulletDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+        screenPosX += Config.OFFSET;
+        screenPosY += Config.OFFSET;
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
