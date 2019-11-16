@@ -44,7 +44,6 @@ public final class GameField {
 		return money;
 	}
 
-
 	public void setMoney(long money) {
 		this.money = money;
 	}

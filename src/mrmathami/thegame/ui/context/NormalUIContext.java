@@ -2,22 +2,20 @@ package mrmathami.thegame.ui.context;
 
 public class NormalUIContext extends AbstractUIContext {
 
-    public NormalUIContext (long createdTick, double posX, double posY, double width, double height) {
+    private long money;
+    private long targetHealth;
+
+    public NormalUIContext (long createdTick, double posX, double posY, double width, double height, long money, long targetHealth) {
         super(createdTick, posX, posY, width, height);
+        this.money = money;
+        this.targetHealth = targetHealth;
     }
 
-    @Override
-    public String onClick() {
-        return "";
+    public long getMoney() {
+        return money;
     }
 
-    @Override
-    public void onFocus() {
-
-    }
-
-    @Override
-    public void outFocus() {
-
+    public long getTargetHealth() {
+        return targetHealth;
     }
 }

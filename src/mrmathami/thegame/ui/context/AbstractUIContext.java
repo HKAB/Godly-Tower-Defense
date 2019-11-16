@@ -43,7 +43,17 @@ public abstract class AbstractUIContext implements UIEntity {
         return height;
     }
 
-    public abstract String onClick();
-    public abstract void onFocus();
-    public abstract void outFocus();
+    @Override
+    public String onClick() {
+        //Literally nothing to be done here
+        return "";
+    }
+    @Override
+    public void onFocus() {
+        //Literally nothing to be done here
+    }
+    @Override
+    public void outFocus() {
+        //Literally nothing to be done here
+    }
 }
