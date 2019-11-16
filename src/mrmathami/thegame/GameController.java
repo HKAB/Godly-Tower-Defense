@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 
+import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
@@ -306,12 +307,10 @@ public final class GameController extends AnimationTimer {
                     break;
                 }
             }
-            if (entity instanceof AbstractTower) {
-                if (towerPlacing.isOverlappedWithTower(entity)) {
-                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
-                    break;
-                }
-            }
+			if (towerPlacing.isOverlappedAndColliableWithTower(entity)) {
+				towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
+				break;
+			}
         }
 		drawer.setTowerPlacing(this.towerPlacing);
 	}

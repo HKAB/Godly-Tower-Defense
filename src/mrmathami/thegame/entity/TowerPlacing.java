@@ -1,5 +1,6 @@
 package mrmathami.thegame.entity;
 
+import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
@@ -77,8 +78,14 @@ public class TowerPlacing {
         return false;
     }
 
-    public boolean isOverlappedWithTower (GameEntity entity) {
-        if (entity.isBeingOverlapped(this.tower.getPosX(), this.tower.getPosY(), 1, 1)) return true;
-        else return false;
+    public boolean isOverlappedAndColliableWithTower (GameEntity entity) {
+        if (entity.isBeingOverlapped(this.tower.getPosX(), this.tower.getPosY(), 1, 1))
+        {
+            if (GameEntities.isCollidable(entity.getClass(), this.tower.getClass()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

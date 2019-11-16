@@ -24,7 +24,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	private double speed;
 	private long reward;
 	protected int GID;
-	private double angle = 0;
+	private double angle = -90;
 	private double t_bezier = 0;
 
 	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {

@@ -7,6 +7,7 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
+import mrmathami.thegame.entity.tile.*;
 import mrmathami.thegame.ui.button.*;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.TowerPlacing;
@@ -18,10 +19,6 @@ import mrmathami.thegame.entity.enemy.BigAircraft;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.enemy.Tanker;
-import mrmathami.thegame.entity.tile.Mountain;
-import mrmathami.thegame.entity.tile.Basement;
-import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -44,6 +41,8 @@ public final class GameDrawer {
 			Basement.class,
 			Road.class,
 			Mountain.class,
+			Rock.class,
+			Bush.class,
 			NormalTower.class,
 			RocketLauncherTower.class,
 //			SniperTower.class,
@@ -79,6 +78,8 @@ public final class GameDrawer {
 			Map.entry(Basement.class, new BasementDrawer()),
 			Map.entry(Road.class, new RoadDrawer()),
 			Map.entry(Mountain.class, new MountainDrawer()),
+			Map.entry(Rock.class, new RockDrawer()),
+			Map.entry(Bush.class, new BushDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
 			Map.entry(RocketLauncherTower.class, new RocketLauncherTowerDrawer()),
 //			Map.entry(SniperTower.class, new SniperTowerDrawer()),

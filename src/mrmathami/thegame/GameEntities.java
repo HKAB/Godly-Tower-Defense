@@ -10,8 +10,12 @@ import mrmathami.thegame.entity.enemy.BigAircraft;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.enemy.Tanker;
+import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Target;
+import mrmathami.thegame.entity.tile.tower.MachineGunTower;
+import mrmathami.thegame.entity.tile.tower.NormalTower;
+import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 import mrmathami.utilities.Pair;
 import mrmathami.utilities.UnorderedPair;
 
@@ -29,6 +33,9 @@ public final class GameEntities {
 			UnorderedPair.immutableOf(Mountain.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, Tanker.class),
+			UnorderedPair.immutableOf(Bush.class, NormalTower.class),
+			UnorderedPair.immutableOf(Bush.class, RocketLauncherTower.class),
+			UnorderedPair.immutableOf(Bush.class, MachineGunTower.class),
 			UnorderedPair.immutableOf(NormalEnemy.class, NormalEnemy.class),
 			UnorderedPair.immutableOf(NormalAircraft.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(BigAircraft.class, BigAircraft.class),
