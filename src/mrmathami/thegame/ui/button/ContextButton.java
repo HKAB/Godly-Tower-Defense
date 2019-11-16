@@ -1,7 +1,5 @@
 package mrmathami.thegame.ui.button;
 
-import mrmathami.thegame.ui.AbstractButton;
-
 public class ContextButton extends AbstractButton {
     private String command;
 

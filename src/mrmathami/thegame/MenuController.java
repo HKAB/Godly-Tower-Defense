@@ -150,6 +150,24 @@ public final class MenuController extends AnimationTimer {
         gameController.start();
     }
 
+    private void moveToMPScene() {
+        scheduledFuture.cancel(true);
+        stop();
+        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
+        MPGameController gameController = null;
+        try {
+            gameController = new MPGameController(graphicsContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
+        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
+        root.getChildren().clear();
+        root.getChildren().add(gameCanvas);
+        gameController.start();
+    }
+
     /**
      * On window close request.
      * Kinda advance, modify if you are sure about your change.
@@ -228,6 +246,7 @@ public final class MenuController extends AnimationTimer {
                         moveToGameScene();
                         break;
                     case "MultiPlayerButton":
+                        moveToMPScene();
                         break;
                     case "SettingsButton":
                         break;

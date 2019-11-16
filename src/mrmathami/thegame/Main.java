@@ -24,7 +24,7 @@ public final class Main extends Application {
 	    Group root = new Group();
 
 	    // Prepare game Canvas
-		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH + 500, Config.SCREEN_HEIGHT + 100);
+		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
 		final MenuController menuController = new MenuController(menuGraphicsContext, root);
 		menuCanvas.setFocusTraversable(true);

@@ -95,12 +95,12 @@ public final class GameController extends AnimationTimer {
 
 		// The game field. Please consider create another way to load a game field.
 		// TODO: I don't have much time, so, spawn some wall then :)
-		this.field = new GameField(GameStage.load("/stage/map1.txt"));
+		this.field = new GameField(GameStage.load("/stage/map1.txt", false));
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPlacing,"/stage/sheet.png", "/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -131,6 +131,7 @@ public final class GameController extends AnimationTimer {
 
 		// do a tick, as fast as possible
 		field.tick();
+
 
 		// draw a new frame, as fast as possible.
 		try {

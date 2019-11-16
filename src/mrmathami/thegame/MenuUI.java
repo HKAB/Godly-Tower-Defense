@@ -1,9 +1,6 @@
 package mrmathami.thegame;
 
 import javafx.scene.paint.Color;
-import mrmathami.thegame.ui.button.ContextButton;
-import mrmathami.thegame.ui.button.NavigationButton;
-import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.entity.UIEntity;
 

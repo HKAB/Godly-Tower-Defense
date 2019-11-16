@@ -109,7 +109,6 @@ public final class GameField {
 				}
 			}
 		}
-
 		// 1.3. Update DestroyableEntity
 		final List<GameEntity> destroyedEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 		for (final GameEntity entity : entities) {
@@ -122,8 +121,8 @@ public final class GameField {
 		// 2.1. Destroy entities
 		entities.removeAll(destroyedEntities);
 
-		// 2.2. Destroy entities
-		entities.removeIf(entity -> !entity.isBeingOverlapped(0.0, 0.0, width, height));
+		// 2.2. Destroy entities (removed becuz it deleting my entities :<)
+//		entities.removeIf(entity -> !entity.isBeingOverlapped(0.0, 0.0, width, height));
 
 		// 3. Spawn entities
 		for (GameEntity entity : spawnEntities) {

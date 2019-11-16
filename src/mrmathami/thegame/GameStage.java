@@ -12,6 +12,7 @@ import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.net.MPConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,7 +33,7 @@ public final class GameStage {
 	}
 
 	@Nullable
-	public static GameStage load(@Nonnull String name) {
+	public static GameStage load(@Nonnull String name, boolean isOpponent) {
 		try (final InputStream stream = GameStage.class.getResourceAsStream(name)) {
 			if (stream == null) throw new IOException("Resource not found! Resource name: " + name);
 			final Scanner scanner = new Scanner(stream);
@@ -45,17 +46,12 @@ public final class GameStage {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
 						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3) {
-							entities.add(new Road(0, x, y, value));
-//						} else if (value == 183 || value == 181 || value == 184) {
-//							entities.add(new Mountain(0, x, y, value));
+							entities.add(new Road(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
 						else if (value != 0)
 						{
-							entities.add(new Mountain(0, x, y, value));
+							entities.add(new Mountain(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
-//						else {
-//							throw new InputMismatchException("Unexpected value! Input value: " + value);
-//						}
 					}
 				}
 				// path finding
@@ -64,7 +60,7 @@ public final class GameStage {
 				for (int i = 0; i < numOfTiles; i++) {
 					final String value = scanner.next();
 					if ("NormalSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -74,12 +70,12 @@ public final class GameStage {
 						entities.add(new NormalSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					}
 					else if ("Mountain".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int gid = scanner.nextInt();
 						entities.add(new Mountain(0, x, y, gid));
 					} else if ("NormalAircraftSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -88,7 +84,7 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new NormalAircraftSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("BigAircraftSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -97,7 +93,7 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new BigAircraftSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("TankerSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -106,22 +102,22 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new TankerSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("NormalTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int angle = scanner.nextInt();
 						entities.add(new NormalTower(0, x, y, angle));
 					} else if ("MachineGunTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final double angle = scanner.nextInt();
 						entities.add(new MachineGunTower(0, x, y, angle));
 					} else if ("RocketLauncherTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final double angle = scanner.nextInt();
 						entities.add(new RocketLauncherTower(0, x, y, angle));
 					} else if ("Target".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -139,11 +135,11 @@ public final class GameStage {
 					}
 					else if ("TurnPoint".equals(value))
 					{
-						final long x1 = scanner.nextInt();
+						final long x1 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final long y1 = scanner.nextInt();
-						final long x2 = scanner.nextInt();
+						final long x2 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final long y2 = scanner.nextInt();
-						final long x3 = scanner.nextInt();
+						final long x3 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final long y3 = scanner.nextInt();
 						entities.add(new TurnPoint(x1, y1, x2, y2, x3, y3));
 					}
