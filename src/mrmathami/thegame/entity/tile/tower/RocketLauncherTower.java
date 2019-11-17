@@ -2,6 +2,7 @@
 package mrmathami.thegame.entity.tile.tower;
 
 import mrmathami.thegame.Config;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.RocketBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.BigAircraft;
@@ -17,6 +18,7 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAi
     @Nonnull
     @Override
     protected final RocketBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
+        GameAudio.playSound(RocketBullet.class);
         return new RocketBullet(createdTick, posX - Config.ROCKET_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.ROCKET_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 

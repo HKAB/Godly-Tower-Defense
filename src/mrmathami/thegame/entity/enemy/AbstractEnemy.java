@@ -5,9 +5,12 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
@@ -114,6 +117,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	public final void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
 		field.setMoney(field.getMoney() + 1);
+		GameAudio.playSound(ExplosionEffect.class);
 	}
 
 	@Override

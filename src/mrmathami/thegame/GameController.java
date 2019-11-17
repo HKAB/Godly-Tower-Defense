@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
@@ -86,6 +87,8 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
+
+
 	public GameController(GraphicsContext graphicsContext) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
@@ -108,6 +111,8 @@ public final class GameController extends AnimationTimer {
 		// that the drawer will select and draw everything in it in an self-defined order.
 		// Can be modified to support zoom in / zoom out of the map.
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+
+
 	}
 
 	/**
