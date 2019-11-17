@@ -16,19 +16,6 @@ public class MPClient {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error connecting to " + address + " " + port);
-            System.exit(0);
-        }
-    }
-
-    public void close() {
-        try {
-            input.close();
-            output.close();
-            socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Cannot close connection");
-            System.exit(1);
         }
     }
 
@@ -39,12 +26,30 @@ public class MPClient {
     public String recvLine() {
         String data;
         try {
-            data = this.input.readLine();
+            if (this.input.ready()) {
+                data = this.input.readLine();
+            } else {
+                data = "";
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Return data is empty");
             data = "";
         }
         return data;
+    }
+
+    public void close() {
+        try {
+            input.close();
+            output.close();
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Cannot close connection");
+        }
+    }
+
+    public boolean hasConnection() {
+        return this.socket != null;
     }
 }

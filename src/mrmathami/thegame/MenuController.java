@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.net.MPConfig;
+import mrmathami.thegame.net.MPGameClient;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -152,12 +154,20 @@ public final class MenuController extends AnimationTimer {
 
     private void moveToMPScene() {
         scheduledFuture.cancel(true);
-        stop();
         Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+
+        this.graphicsContext.setFill(Color.rgb(0, 0, 0, 0.5));
+        this.graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+        this.graphicsContext.fillText("Connecting to server...", Config.SCREEN_WIDTH/2.0, Config.SCREEN_HEIGHT/2.0);
+        stop();
+//
+        MPGameClient client = new MPGameClient(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
+        boolean isServer = !client.hasConnection();
+
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         MPGameController gameController = null;
         try {
-            gameController = new MPGameController(graphicsContext);
+            gameController = new MPGameController(graphicsContext, isServer);
         } catch (Exception e) {
             e.printStackTrace();
         }

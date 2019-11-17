@@ -48,7 +48,6 @@ public class MPServer {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Cannot close connection");
-            System.exit(1);
         }
     }
 }

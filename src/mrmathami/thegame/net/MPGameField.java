@@ -5,6 +5,9 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.tile.tower.MachineGunTower;
+import mrmathami.thegame.entity.tile.tower.NormalTower;
+import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -14,12 +17,15 @@ import java.util.List;
 public final class MPGameField extends GameField {
     private boolean isServer;
     private MPGameServer gameServer = null;
+    private MPGameClient gameClient = null;
 
     public MPGameField(@Nonnull GameStage gameStage, boolean isServer) {
         super(gameStage);
         this.isServer = isServer;
         if (isServer) {
             this.gameServer = MPGameServer.getInstance();
+        } else {
+            this.gameClient = MPGameClient.getCurrentInstance();
         }
     }
 
@@ -64,12 +70,27 @@ public final class MPGameField extends GameField {
         }
         spawnEntities.clear();
 
-        if (isServer) {
+        if (isServer && gameServer.hasConnection()) {
             getAndProcessRemoteCommand();
         }
     }
 
     private void getAndProcessRemoteCommand() {
-//        List<String> commands = this.gameServer.
+        List<String> command = this.gameServer.getNextCommand();
+        if (!command.isEmpty()) {
+            if (command.get(0).equals("PLACE")) {
+                switch (command.get(1)) {
+                    case "1":
+                        doSpawn(new NormalTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
+                        break;
+                    case "2":
+                        doSpawn(new MachineGunTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
+                        break;
+                    case "3":
+                        doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
+                        break;
+                }
+            }
+        }
     }
 }
