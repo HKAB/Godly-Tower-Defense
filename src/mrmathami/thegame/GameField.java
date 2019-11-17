@@ -9,28 +9,28 @@ import java.util.*;
 /**
  * Game Field. Created from GameMap for each new stage. Represent the currently playing game.
  */
-public final class GameField {
-	@Nonnull private final Set<GameEntity> entities = new LinkedHashSet<>(Config._TILE_MAP_COUNT);
-	@Nonnull private final Collection<GameEntity> unmodifiableEntities = Collections.unmodifiableCollection(entities);
-	@Nonnull private final List<GameEntity> spawnEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+public class GameField {
+	@Nonnull protected final Set<GameEntity> entities = new LinkedHashSet<>(Config._TILE_MAP_COUNT);
+	@Nonnull protected final Collection<GameEntity> unmodifiableEntities = Collections.unmodifiableCollection(entities);
+	@Nonnull protected final List<GameEntity> spawnEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 
 	/**
 	 * Field width
 	 */
-	private final double width;
+	protected final double width;
 	/**
 	 * Field height
 	 */
-	private final double height;
+	protected final double height;
 	/**
 	 * Field tick count
 	 */
-	private long tickCount;
+	protected long tickCount;
 
 	/**
 	 * Field money
 	 */
-	private long money;
+	protected long money;
 
 	public GameField(@Nonnull GameStage gameStage) {
 		this.width = gameStage.getWidth();
@@ -90,7 +90,7 @@ public final class GameField {
 	 * 2.2. Destroy entities that are outside the field.
 	 * 3. Spawn Entity: Add entities that are marked to be spawned.
 	 */
-	public final void tick() {
+	public void tick() {
 		this.tickCount += 1;
 
 		// 1.1. Update UpdatableEntity

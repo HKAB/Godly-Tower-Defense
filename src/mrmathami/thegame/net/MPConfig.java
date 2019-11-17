@@ -33,12 +33,12 @@ public class MPConfig {
      */
     public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
-    public static final double OPPONENT_START_PX_X = TILE_SIZE * 10;
-    public static final int OPPONENT_START_X = 10;
+    public static final int OPPONENT_START_X = 12;
+    public static final double OPPONENT_START_PX_X = TILE_SIZE * OPPONENT_START_X;
 
     /**
      * Network stuffs.
      */
-    public static final int LISTEN_PORT = 1337;
     public static final String DEFAULT_SERVER_HOST = "localhost";
+    public static final int DEFAULT_LISTEN_PORT = 1337;
 }

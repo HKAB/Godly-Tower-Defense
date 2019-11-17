@@ -14,6 +14,7 @@ import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.net.MPConfig;
+import mrmathami.thegame.net.MPGameField;
 import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
@@ -94,7 +95,7 @@ public final class MPGameController extends AnimationTimer {
 		this.graphicsContext = graphicsContext;
 
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
-		this.opponentField = new GameField(GameStage.load("/stage/mapMP.txt", true));
+		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true), true);
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 

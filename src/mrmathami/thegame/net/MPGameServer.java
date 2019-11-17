@@ -5,7 +5,7 @@ public class MPGameServer {
     private static MPGameServer instance;
 
     private MPGameServer() {
-        this.server = new MPServer(1337);
+        this.server = new MPServer(MPConfig.DEFAULT_LISTEN_PORT);
     }
 
     public static MPGameServer getInstance() {
