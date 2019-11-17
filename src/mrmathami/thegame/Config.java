@@ -199,6 +199,7 @@ public final class Config {
 
 	//region effect
 	public static final int EXPLOSION_GID = 23;
+	public static final int EXPLOSION_TTL = 10;
 	//endregion
 
 	private Config() {

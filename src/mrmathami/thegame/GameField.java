@@ -127,7 +127,7 @@ public final class GameField {
 		for (GameEntity destroyEntity :
 				destroyedEntities) {
 			if (destroyEntity instanceof AbstractEnemy)
-				entities.add(new ExplosionEffect(0, destroyEntity.getPosX(), destroyEntity.getPosY(), 10));
+				entities.add(new ExplosionEffect(0, destroyEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE, destroyEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE, Config.EXPLOSION_TTL));
 		}
 		entities.removeAll(destroyedEntities);
 

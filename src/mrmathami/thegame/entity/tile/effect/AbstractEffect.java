@@ -12,16 +12,19 @@ import javax.annotation.Nonnull;
 public abstract class AbstractEffect extends AbstractEntity implements UpdatableEntity, DestroyableEntity {
     private long tickDown;
     private int GID;
+    private double blur;
 
     protected AbstractEffect(long createdTick, double posX, double posY, double width, double height,long timeToLive, int GID) {
         super(createdTick, posX, posY, width, height);
         this.tickDown = timeToLive;
         this.GID = GID;
+        this.blur = 1.0;
     }
 
     @Override
     public final void onUpdate(@Nonnull GameField field) {
         this.tickDown -= 1;
+        this.blur /= 2;
     }
 
 
@@ -40,4 +43,7 @@ public abstract class AbstractEffect extends AbstractEntity implements Updatable
         return GID;
     }
 
+    public double getBlur() {
+        return blur;
+    }
 }
