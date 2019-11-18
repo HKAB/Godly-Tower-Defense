@@ -26,10 +26,9 @@ public final class MenuUI {
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
-            while (true) {
+            while (scanner.hasNext()) {
                 final String buttonType = scanner.next();
-                if (buttonType.equals("EndOfFile")) break;
-                else if (buttonType.equals("RectMenuPane")) {
+                if (buttonType.equals("RectMenuPane")) {
                     final double x = scanner.nextDouble();
                     final double y = scanner.nextDouble();
                     final double w = scanner.nextDouble();
