@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 
 public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraft> {
 	public int[] GID = new int[] {Config.NORMAL_TOWER_LEVEL1_GID, Config.NORMAL_TOWER_LEVEL2_GID, Config.NORMAL_TOWER_LEVEL3_GID};
+	private long[] SELL_PRICE = {Config.NORMAL_TOWER_LEVEL1_SELL_PRICE, Config.NORMAL_TOWER_LEVEL2_SELL_PRICE, Config.NORMAL_TOWER_LEVEL3_SELL_PRICE};
+	private long[] UPGRADE_PRICE = {Config.NORMAL_TOWER_LEVEL1_UPGRADE_PRICE, Config.NORMAL_TOWER_LEVEL2_UPGRADE_PRICE, 0};
+
 	public NormalTower(long createdTick, long posX, long posY, double angle) {
 		super(createdTick, posX, posY, Config.NORMAL_TOWER_RANGE, Config.NORMAL_TOWER_SPEED, angle, Config.NORMAL_TOWER_LEVEL1_GID, NormalAircraft.class);
 	}
@@ -34,4 +37,23 @@ public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraf
 		}
 	}
 
+	@Override
+	public long getFirepower() {
+		return Config.NORMAL_BULLET_STRENGTH;
+	}
+
+	@Override
+	public long getPrice() {
+		return Config.NORMAL_TOWER_PRICE;
+	}
+
+	@Override
+	public long getSellPrice() {
+		return SELL_PRICE[getLevel()];
+	}
+
+	@Override
+	public long getUpgradePrice() {
+		return UPGRADE_PRICE[getLevel()];
+	}
 }

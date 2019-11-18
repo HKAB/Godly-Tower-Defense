@@ -2,6 +2,7 @@ package mrmathami.thegame;
 
 
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
@@ -47,7 +48,6 @@ public final class GameField {
 		return money;
 	}
 
-
 	public void setMoney(long money) {
 		this.money = money;
 	}
@@ -62,6 +62,15 @@ public final class GameField {
 
 	public final long getTickCount() {
 		return tickCount;
+	}
+
+	public long getTargetHealth () {
+		for (GameEntity entity: entities) {
+			if (entity instanceof Target) {
+				return ((Target) entity).getHealth();
+			}
+		}
+		return 0;
 	}
 
 	/**

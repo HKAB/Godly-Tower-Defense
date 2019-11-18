@@ -6,6 +6,7 @@ import javafx.scene.transform.Rotate;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.entity.DestroyableEntity;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.RotatableEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
@@ -16,7 +17,7 @@ import mrmathami.thegame.entity.tile.AbstractTile;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-public abstract class AbstractTower<E extends AbstractBullet, T extends AbstractEnemy> extends AbstractTile implements UpdatableEntity, RotatableEntity {
+public abstract class AbstractTower<E extends AbstractBullet, T extends AbstractEnemy> extends AbstractTile implements UpdatableEntity, RotatableEntity, DestroyableEntity {
 	private double range;
 	private long speed;
 	private double angle;
@@ -25,6 +26,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	private Class<T> target;
 	private long tickDown;
 	private int level;
+	private boolean sold;
 
 	protected AbstractTower(long createdTick, long posX, long posY, double range, long speed, double angle, int GID, Class<T> target) {
 		super(createdTick, posX, posY, 1L, 1L, GID);
@@ -36,6 +38,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		this.GID = GID;
 		this.target = target;
 		this.level = 0;
+		this.sold = false;
 	}
 
 	@Override
@@ -118,5 +121,23 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		this.level = level;
 	}
 
+	@Override
+	public void doDestroy () {
+		this.sold = true;
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return sold;
+	}
+
 	public abstract boolean upgrade();
+
+	/**
+	 * used by context
+	 */
+	public abstract long getFirepower();
+	public abstract long getPrice();
+	public abstract long getSellPrice();
+	public abstract long getUpgradePrice();
 }

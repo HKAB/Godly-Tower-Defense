@@ -1,4 +1,4 @@
-package mrmathami.thegame.ui.button;
+package mrmathami.thegame.ui.ingame.button;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.ui.AbstractButton;
@@ -11,14 +11,27 @@ public class TowerButton extends AbstractButton {
         super(createdTick, assetPosX, assetPosY, posX, posY, width, height);
         this.towerType = towerType;
 
-        if (towerType.equals("NormalTower")) this.GID = Config.NORMAL_TOWER_LEVEL1_GID;
-        else if (towerType.equals("RocketLauncherTower")) this.GID = Config.ROCKET_TOWER_LEVEL1_GID;
-        else if (towerType.equals("MachineGunTower")) this.GID = Config.MACHINE_GUN_TOWER_LEVEL1_GID;
-        else this.GID = Config.LOCKED_GID;
+        switch (towerType) {
+            case "NormalTower":
+                this.GID = Config.NORMAL_TOWER_LEVEL1_GID;
+                break;
+            case "RocketLauncherTower":
+                this.GID = Config.ROCKET_TOWER_LEVEL1_GID;
+                break;
+            case "MachineGunTower":
+                this.GID = Config.MACHINE_GUN_TOWER_LEVEL1_GID;
+                break;
+            default:
+                this.GID = Config.LOCKED_GID;
+        }
     }
 
     public int getGID () {
         return GID;
+    }
+
+    public String getTowerType() {
+        return towerType;
     }
 
     @Override

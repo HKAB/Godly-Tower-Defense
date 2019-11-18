@@ -2,23 +2,34 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 
-import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.tile.Bush;
-import mrmathami.thegame.ui.button.TowerButton;
+import mrmathami.thegame.entity.tile.Rock;
+import mrmathami.thegame.towerpicker.AbstractTowerPicker;
+import mrmathami.thegame.towerpicker.TowerPlacing;
+import mrmathami.thegame.towerpicker.TowerSelling;
+import mrmathami.thegame.towerpicker.TowerUpgrading;
+import mrmathami.thegame.ui.ingame.button.ContextButton;
+import mrmathami.thegame.ui.ingame.button.TowerButton;
 import mrmathami.thegame.drawer.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
+import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
+import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
+import mrmathami.thegame.ui.ingame.context.NormalUIContext;
+import mrmathami.thegame.ui.ingame.context.TowerUIContext;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -68,7 +79,12 @@ public final class GameController extends AnimationTimer {
 	/**
 	 * Tower Placing Class. Using for place a tower.
 	 */
-	private TowerPlacing towerPlacing = null;
+	private AbstractTowerPicker towerPicker;
+
+	/**
+	 * UI Context. Used to display game info on the sidebar
+	 */
+	private AbstractUIContext UIContext;
 
 	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -87,8 +103,6 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
-
-
 	public GameController(GraphicsContext graphicsContext) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
@@ -103,16 +117,18 @@ public final class GameController extends AnimationTimer {
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
+		this.towerPicker = null;
+
+		this.UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0,0);
+
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPlacing,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
 		// that the drawer will select and draw everything in it in an self-defined order.
 		// Can be modified to support zoom in / zoom out of the map.
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
-
-
 	}
 
 	/**
@@ -138,6 +154,9 @@ public final class GameController extends AnimationTimer {
 		// do a tick, as fast as possible
 		field.tick();
 
+		//update the values in context so it match the current field, as fast as possible
+		UIContext.fieldUpdate(field.getMoney(), field.getTargetHealth(), 0, 0);
+
 		// draw a new frame, as fast as possible.
 		try {
 			drawer.render();
@@ -150,7 +169,10 @@ public final class GameController extends AnimationTimer {
 		// Draw it out mostly for debug
 		final double mspt = (System.nanoTime() - startNs) / 1000000.0;
 		graphicsContext.setFill(Color.BLACK);
-		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 12);
+		graphicsContext.setTextAlign(TextAlignment.LEFT);
+		graphicsContext.setTextBaseline(VPos.TOP);
+		graphicsContext.setFont(new Font(12));
+		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
@@ -244,32 +266,76 @@ public final class GameController extends AnimationTimer {
 			double endY = startY + entity.getHeight() * drawer.getFieldZoom();
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-				if ((entity instanceof TowerButton) && (!entity.onClick().equals("Locked"))) {
-					towerPlacing = new TowerPlacing(entity.onClick());
-					drawer.setTowerPlacing(towerPlacing);
+				if (entity instanceof TowerButton) {
+					if (!entity.onClick().equals("Locked")) {
+						if ((towerPicker instanceof TowerPlacing) && (entity.onClick().equals(((TowerPlacing) towerPicker).getTowerType()))) {
+							towerPicker = null;
+							drawer.setTowerPicker(null);
+						}
+						else {
+							towerPicker = new TowerPlacing(entity.onClick());
+							drawer.setTowerPicker(towerPicker);
+						}
+					}
+				}
+				else if (entity instanceof ContextButton) {
+					switch (entity.onClick()) {
+						case "UpgradeButton":
+							if (towerPicker instanceof TowerUpgrading) {
+								towerPicker = null;
+								drawer.setTowerPicker(null);
+							}
+							else {
+								towerPicker = new TowerUpgrading();
+								drawer.setTowerPicker(towerPicker);
+							}
+							break;
+						case "SellButton":
+							if (towerPicker instanceof TowerSelling) {
+								towerPicker = null;
+								drawer.setTowerPicker(null);
+							}
+							else {
+								towerPicker = new TowerSelling();
+								drawer.setTowerPicker(towerPicker);
+							}
+							break;
+					}
 				}
 				return;
 			}
 		}
         mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
         mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
-        final boolean lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
-        if (!lg) return;
+        final boolean inField = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+        if (!inField) return;
 
-        for (GameEntity entity: gameEntities) {
-            if (!(entity instanceof Mountain)) {
-                if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
-                    if (entity instanceof AbstractTower) {
-                        //call onClick() of tower
-						return;
-                    }
-                }
-            }
-        }
-        if ((towerPlacing != null) && (towerPlacing.getPlacingState() == towerPlacing.PLACEABLE)) {
-        	this.field.doSpawn(towerPlacing.getTower());
-			towerPlacing = null;
-			drawer.setTowerPlacing(towerPlacing);
+        if ((towerPicker != null) && (towerPicker.getPickingState() == towerPicker.PICKABLE)) {
+        	if (towerPicker instanceof TowerPlacing) {
+				field.doSpawn(((TowerPlacing)towerPicker).getTower());
+				field.setMoney(field.getMoney() - ((TowerPlacing) towerPicker).getTowerPrice());
+				towerPicker = null;
+				drawer.setTowerPicker(null);
+        	}
+        	else {
+				for (GameEntity entity : gameEntities) {
+					if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
+						if (towerPicker instanceof TowerUpgrading) {
+							if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+								((AbstractTower) entity).upgrade();
+								field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
+							}
+						}
+						else if (towerPicker instanceof TowerSelling) {
+							((AbstractTower) entity).doDestroy();
+							field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
+						}
+						break;
+					}
+				}
+				towerPicker = null;
+				drawer.setTowerPicker(null);
+			}
 		}
 	}
 
@@ -278,8 +344,11 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-		boolean lg = false;
+		boolean onButton = false;
 
+		/**
+		 * check if the cursor is on any button
+		 */
 		for (UIEntity entity: UIEntities) {
 			double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
 			double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
@@ -288,35 +357,92 @@ public final class GameController extends AnimationTimer {
 			if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
 					&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 				entity.onFocus();
-				lg = true;
+				onButton = true;
+				if ((entity instanceof TowerButton) && (!((TowerButton)entity).getTowerType().equals("Locked"))) {
+					UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerButton)entity).getTowerType());
+				}
+				else {
+					UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
+				}
+				drawer.setUIContext(UIContext);
 			} else {
 				entity.outFocus();
 			}
 		}
-		if (lg && (this.towerPlacing != null)) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
-		if (lg || (towerPlacing == null)) return;
+
+		if (onButton) {
+			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
+			return;
+		}
+		UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
+		drawer.setUIContext(UIContext);
 
 		mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
 		mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
-		lg = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
-		if (!lg) towerPlacing.setPlacingState(towerPlacing.NOT_BEING_PLACED);
-		else {
-		    towerPlacing.setPlacingState(towerPlacing.PLACEABLE);
-            towerPlacing.setPosition(mousePosX, mousePosY);
-        }
+		boolean inField = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
 
-		for (GameEntity entity: gameEntities) {
-            if (entity instanceof Road) {
-                if (towerPlacing.isOverlappedWithRoad(entity)) {
-                    towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
-                    break;
-                }
-            }
-			if (towerPlacing.isOverlappedAndColliableWithTower(entity)) {
-				towerPlacing.setPlacingState(towerPlacing.NOT_PLACEABLE);
-				break;
+		if (towerPicker != null) {
+			if (!inField) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
+			else {
+				if (towerPicker instanceof TowerPlacing) {
+					((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).PLACEABLE);
+					towerPicker.setPosition((long) mousePosX, (long) mousePosY);
+				}
+				else {
+					towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
+					towerPicker.setPosition((long) mousePosX, (long) mousePosY);
+				}
 			}
-        }
-		drawer.setTowerPlacing(this.towerPlacing);
+		}
+
+		if ((towerPicker != null) && (towerPicker instanceof TowerPlacing) && (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney())) {
+			((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+			return;
+		}
+
+		boolean onTower = false;
+		for (GameEntity entity : gameEntities) {
+			if (entity instanceof Road) {
+				if ((towerPicker != null) && (towerPicker instanceof TowerPlacing) && (towerPicker.isOverlappedWithRoad(entity))) {
+					((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+					break;
+				}
+			}
+			else if (entity instanceof AbstractTower) {
+				if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
+					UIContext = new TowerUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, (AbstractTower)entity);
+					drawer.setUIContext(UIContext);
+					onTower = true;
+				}
+				if (towerPicker != null) {
+					if (towerPicker.isOverlappedWithTower(entity)) {
+						if (towerPicker instanceof TowerPlacing) {
+							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+						}
+						else {
+							towerPicker.setPickingState(towerPicker.PICKABLE);
+						}
+						break;
+					}
+				}
+			}
+			else if ((entity instanceof Rock) || (entity instanceof Bush)) {
+				if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
+					if (towerPicker instanceof TowerPlacing) {
+						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+					}
+					break;
+				}
+			}
+		}
+
+		if ((towerPicker == null) && (!onTower)) {
+			UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
+			drawer.setUIContext(UIContext);
+		}
+		if ((towerPicker != null) && (towerPicker instanceof TowerPlacing)) {
+			UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerPlacing) towerPicker).getTowerType());
+			drawer.setUIContext(UIContext);
+		}
 	}
 }
