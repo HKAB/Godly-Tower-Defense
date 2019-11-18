@@ -6,7 +6,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
-import mrmathami.thegame.entity.TowerPlacing;
+import mrmathami.thegame.TowerPlacing;
 
 import javax.annotation.Nonnull;
 

@@ -2,12 +2,15 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
@@ -114,7 +117,10 @@ public final class MenuController extends AnimationTimer {
         // Draw it out mostly for debug
         final double mspt = (System.nanoTime() - startNs) / 1000000.0;
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 12);
+        graphicsContext.setTextAlign(TextAlignment.LEFT);
+        graphicsContext.setTextBaseline(VPos.TOP);
+        graphicsContext.setFont(new Font(12));
+        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
 
         // if we have time to spend, do a spin
         while (currentTick == tick) Thread.onSpinWait();

@@ -7,9 +7,9 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.ui.button.*;
+import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.TowerPlacing;
+import mrmathami.thegame.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
@@ -29,6 +29,10 @@ import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
+import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
+import mrmathami.thegame.ui.ingame.context.NormalUIContext;
+import mrmathami.thegame.ui.ingame.context.TowerUIContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -110,25 +114,35 @@ public final class GameDrawer {
 			Map.entry(ContextButton.class, new GameButtonDrawer())
 	));
 
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_CONTEXT_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+			Map.entry(NormalUIContext.class, new NormalUIContextDrawer()),
+			Map.entry(ButtonUIContext.class, new ButtonUIContextDrawer()),
+			Map.entry(TowerUIContext.class, new TowerUIContextDrawer())
+	));
+
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
 	@Nonnull private GameUI gameUI;
 	private TowerPlacing towerPlacing;
+	private AbstractUIContext UIContext;
 	private static Image sheetImage;
 	private static Image buttonImage;
 	private static Image rankImage;
+	private static Image contextIconImage;
 
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, TowerPlacing towerPlacing, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, TowerPlacing towerPlacing, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.towerPlacing = towerPlacing;
+		this.UIContext = UIContext;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
+		this.contextIconImage = new Image(getClass().getResourceAsStream("/ui/contextIcon.png"));
 		this.gameUI = gameUI;
 	}
 
@@ -169,6 +183,10 @@ public final class GameDrawer {
 		return UI_DRAWER_MAP.get(entity.getClass());
 	}
 
+	private static UIEntityDrawer getUIContextDrawer (@Nonnull AbstractUIContext UIContext) {
+		return UI_CONTEXT_DRAWER_MAP.get(UIContext.getClass());
+	}
+
 	public final double getFieldStartPosX() {
 		return fieldStartPosX;
 	}
@@ -192,6 +210,10 @@ public final class GameDrawer {
 	public void setTowerPlacing(TowerPlacing towerPlacing) {
 	    this.towerPlacing = towerPlacing;
     }
+
+	public void setUIContext(AbstractUIContext UIContext) {
+		this.UIContext = UIContext;
+	}
 
 	/**
 	 * Set the field view region, in other words, set the region of the field that will be drawn on the screen.
@@ -263,6 +285,18 @@ public final class GameDrawer {
 					towerPlacing.getTower().getHeight() * fieldZoom,
 					fieldZoom);
 		}
+		if (UIContext != null) {
+			final UIEntityDrawer drawer = getUIContextDrawer(UIContext);
+			if (drawer != null) {
+				drawer.draw(gameField.getTickCount(), graphicsContext, UIContext,
+						(UIContext.getPosX() - fieldStartPosX) * fieldZoom,
+						(UIContext.getPosY() - fieldStartPosY) * fieldZoom,
+						UIContext.getWidth() * fieldZoom,
+						UIContext.getHeight() * fieldZoom,
+						fieldZoom
+				);
+			}
+		}
 	}
 
 	public final double screenToFieldPosX(double screenPosX) {
@@ -291,5 +325,9 @@ public final class GameDrawer {
 
 	public static Image getRankImage() {
 		return rankImage;
+	}
+
+	public static Image getContextIconImage() {
+		return contextIconImage;
 	}
 }

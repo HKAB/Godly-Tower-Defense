@@ -1,5 +1,7 @@
-package mrmathami.thegame.entity;
+package mrmathami.thegame;
 
+import mrmathami.thegame.Config;
+import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
@@ -12,22 +14,44 @@ public class TowerPlacing {
     public final int PLACEABLE = 2;
 
     private int placingState;
-    private AbstractTower tower;
+    private String towerType;
+    private long posX;
+    private long posY;
 
     public TowerPlacing (String towerType) {
-        if (towerType.equals("NormalTower")) tower = new NormalTower(0, 0, 0, 90);
-        else if (towerType.equals("RocketLauncherTower")) tower = new RocketLauncherTower(0, 0, 0, 90);
-        else if (towerType.equals("MachineGunTower")) tower = new MachineGunTower(0, 0, 0, 90);
+        this.towerType = towerType;
         this.placingState = NOT_BEING_PLACED;
+        this.posX = 0;
+        this.posY = 0;
     }
 
     public AbstractTower getTower() {
-        return tower;
+        switch (towerType) {
+            case "NormalTower":
+                return new NormalTower(0, posX, posY, 90);
+            case "RocketLauncherTower":
+                return new RocketLauncherTower(0, posX, posY, 90);
+            case "MachineGunTower":
+                return new MachineGunTower(0, posX, posY, 90);
+        }
+        return null;
     }
 
-    public void setPosition (double posX, double posY) {
-        tower.setPosX(posX);
-        tower.setPosY(posY);
+    public void setPosition (long posX, long posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
+
+    public long getTowerPrice() {
+        switch (towerType) {
+            case "NormalTower":
+                return Config.NORMAL_TOWER_PRICE;
+            case "RocketLauncherTower":
+                return Config.ROCKET_TOWER_PRICE;
+            case "MachineGunTower":
+                return Config.MACHINE_GUN_TOWER_PRICE;
+        }
+        return 0;
     }
 
     public int getPlacingState() {
@@ -70,15 +94,15 @@ public class TowerPlacing {
         }
         for (int index: deltaIndex) {
             double[] deltaDirection = DELTA_DIRECTION_ARRAY[index];
-            final double posX = this.tower.getPosX() + deltaDirection[0];
-            final double posY = this.tower.getPosY() + deltaDirection[1];
-            if (entity.isBeingOverlapped(posX, posY, 1, 1)) return true;
+            final double currentPosX = posX + deltaDirection[0];
+            final double currentPosY = posY + deltaDirection[1];
+            if (entity.isBeingOverlapped(currentPosX, currentPosY, 1, 1)) return true;
         }
         return false;
     }
 
     public boolean isOverlappedWithTower (GameEntity entity) {
-        if (entity.isBeingOverlapped(this.tower.getPosX(), this.tower.getPosY(), 1, 1)) return true;
+        if (entity.isBeingOverlapped(posX, posY, 1, 1)) return true;
         else return false;
     }
 }

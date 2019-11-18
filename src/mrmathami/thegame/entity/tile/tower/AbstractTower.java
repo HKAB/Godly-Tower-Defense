@@ -118,4 +118,12 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	}
 
 	public abstract boolean upgrade();
+
+	/**
+	 * used by context
+	 */
+	public abstract long getFirepower();
+	public abstract long getPrice();
+	public abstract long getSellPrice();
+	public abstract long getUpgradePrice();
 }

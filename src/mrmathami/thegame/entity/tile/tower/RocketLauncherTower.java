@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 
 public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAircraft> {
     public int[] GID = new int[] {Config.ROCKET_TOWER_LEVEL1_GID, Config.ROCKET_TOWER_LEVEL2_GID, Config.ROCKET_TOWER_LEVEL3_GID};
+    private long[] SELL_PRICE = {Config.ROCKET_TOWER_LEVEL1_SELL_PRICE, Config.ROCKET_TOWER_LEVEL2_SELL_PRICE, Config.ROCKET_TOWER_LEVEL3_SELL_PRICE};
+    private long[] UPGRADE_PRICE = {Config.ROCKET_TOWER_LEVEL1_UPGRADE_PRICE, Config.ROCKET_TOWER_LEVEL2_UPGRADE_PRICE, 0};
+
     public RocketLauncherTower(long createdTick, long posX, long posY, double angle) {
         super(createdTick, posX, posY, Config.ROCKET_TOWER_RANGE, Config.ROCKET_TOWER_SPEED, angle, Config.ROCKET_TOWER_LEVEL1_GID, BigAircraft.class);
     }
@@ -33,4 +36,23 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAi
         }
     }
 
+    @Override
+    public long getFirepower() {
+        return Config.ROCKET_BULLET_STRENGTH;
+    }
+
+    @Override
+    public long getPrice() {
+        return Config.ROCKET_TOWER_PRICE;
+    }
+
+    @Override
+    public long getSellPrice() {
+        return SELL_PRICE[getLevel()];
+    }
+
+    @Override
+    public long getUpgradePrice() {
+        return UPGRADE_PRICE[getLevel()];
+    }
 }

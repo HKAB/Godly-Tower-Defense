@@ -2,6 +2,7 @@ package mrmathami.thegame;
 
 
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.tile.Target;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -58,6 +59,15 @@ public final class GameField {
 
 	public final long getTickCount() {
 		return tickCount;
+	}
+
+	public long getTargetHealth () {
+		for (GameEntity entity: entities) {
+			if (entity instanceof Target) {
+				return ((Target) entity).getHealth();
+			}
+		}
+		return 0;
 	}
 
 	/**

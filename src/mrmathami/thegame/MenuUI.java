@@ -1,9 +1,6 @@
 package mrmathami.thegame;
 
 import javafx.scene.paint.Color;
-import mrmathami.thegame.ui.button.ContextButton;
-import mrmathami.thegame.ui.button.NavigationButton;
-import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.entity.UIEntity;
 
@@ -29,10 +26,9 @@ public final class MenuUI {
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
-            while (true) {
+            while (scanner.hasNext()) {
                 final String value = scanner.next();
-                if (value.equals("EndOfFile")) break;
-                else if (value.equals("RectMenuPane")) {
+                if (value.equals("RectMenuPane")) {
                     final double x = scanner.nextDouble();
                     final double y = scanner.nextDouble();
                     final double w = scanner.nextDouble();
