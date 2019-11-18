@@ -7,9 +7,9 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
+import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
@@ -123,7 +123,7 @@ public final class GameDrawer {
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
 	@Nonnull private GameUI gameUI;
-	private TowerPlacing towerPlacing;
+	private AbstractTowerPicker towerPicker;
 	private AbstractUIContext UIContext;
 	private static Image sheetImage;
 	private static Image buttonImage;
@@ -134,10 +134,10 @@ public final class GameDrawer {
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, TowerPlacing towerPlacing, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
-		this.towerPlacing = towerPlacing;
+		this.towerPicker = towerPicker;
 		this.UIContext = UIContext;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
@@ -207,8 +207,8 @@ public final class GameDrawer {
 		this.gameUI = gameUI;
 	}
 
-	public void setTowerPlacing(TowerPlacing towerPlacing) {
-	    this.towerPlacing = towerPlacing;
+	public void setTowerPicker(AbstractTowerPicker towerPicker) {
+	    this.towerPicker = towerPicker;
     }
 
 	public void setUIContext(AbstractUIContext UIContext) {
@@ -234,7 +234,7 @@ public final class GameDrawer {
 	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
 		final GameUI gameUI = this.gameUI;
-		final TowerPlacing towerPlacing = this.towerPlacing;
+		final AbstractTowerPicker towerPicker = this.towerPicker;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
@@ -276,14 +276,13 @@ public final class GameDrawer {
 				);
 			}
 		}
-		if (towerPlacing != null) {
-			final TowerPlacingDrawer drawer = new TowerPlacingDrawer();
-			drawer.draw(gameField.getTickCount(), graphicsContext, towerPlacing,
-					(towerPlacing.getTower().getPosX() - fieldStartPosX) * fieldZoom,
-					(towerPlacing.getTower().getPosY() - fieldStartPosY) * fieldZoom,
-					towerPlacing.getTower().getWidth() * fieldZoom,
-					towerPlacing.getTower().getHeight() * fieldZoom,
-					fieldZoom);
+		if (towerPicker != null) {
+			final TowerPickerDrawer drawer = new TowerPickerDrawer();
+			drawer.draw(gameField.getTickCount(), graphicsContext, towerPicker,
+					(towerPicker.getPosX() - fieldStartPosX) * fieldZoom,
+					(towerPicker.getPosY() - fieldStartPosY) * fieldZoom,
+					fieldZoom, fieldZoom, fieldZoom
+			);
 		}
 		if (UIContext != null) {
 			final UIEntityDrawer drawer = getUIContextDrawer(UIContext);

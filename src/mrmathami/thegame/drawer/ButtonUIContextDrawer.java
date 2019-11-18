@@ -58,7 +58,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         icon = new WritableImage(reader, (int)(getIconGID("money") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(Long.toString(context.getMoney()), leftTextPosX, linePosY, 75);
+        graphicsContext.fillText(context.getMoney() + "$", leftTextPosX, linePosY, 75);
 
         /**
          * Current wave
