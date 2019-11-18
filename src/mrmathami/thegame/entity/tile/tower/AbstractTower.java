@@ -7,6 +7,7 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.DestroyableEntity;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.RotatableEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.bullet.AbstractBullet;

@@ -2,6 +2,7 @@
 package mrmathami.thegame.entity.tile.tower;
 
 import mrmathami.thegame.Config;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.Tanker;
@@ -20,6 +21,7 @@ public final class MachineGunTower extends AbstractTower<MachineGunBullet, Tanke
     @Nonnull
     @Override
     protected final MachineGunBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
+        GameAudio.playSound(MachineGunBullet.class);
         return new MachineGunBullet(createdTick, posX - Config.MACHINE_GUN_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.MACHINE_GUN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 

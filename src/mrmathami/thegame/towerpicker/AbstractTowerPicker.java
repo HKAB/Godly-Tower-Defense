@@ -52,21 +52,27 @@ public abstract class AbstractTowerPicker {
 
         switch (road.getGID()) {
             case 26:
+            case 243:
                 deltaIndex = new int[] {0, 3};
                 break;
             case 48:
+            case 265:
                 deltaIndex = new int[] {0, 1};
                 break;
             case 4:
+            case 221:
                 deltaIndex = new int[] {0, 5};
                 break;
             case 47:
+            case 264:
                 deltaIndex = new int[] {0, 1, 7};
                 break;
             case 49:
+            case 266:
                 deltaIndex = new int[] {0, 1, 3, 5};
                 break;
             case 3:
+            case 220:
                 deltaIndex = new int[] {0, 3, 8};
                 break;
         }

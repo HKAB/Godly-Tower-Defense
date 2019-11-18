@@ -3,6 +3,9 @@ package mrmathami.thegame;
 
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Target;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
+import mrmathami.thegame.entity.tile.tower.AbstractTower;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -121,6 +124,7 @@ public final class GameField {
 
 		// 1.3. Update DestroyableEntity
 		final List<GameEntity> destroyedEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+		final List<GameEntity> effectEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 		for (final GameEntity entity : entities) {
 			if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroyed()) {
 				if (entity instanceof DestroyListener) ((DestroyListener) entity).onDestroy(this);
@@ -129,6 +133,11 @@ public final class GameField {
 		}
 
 		// 2.1. Destroy entities
+		for (GameEntity destroyEntity :
+				destroyedEntities) {
+			if (destroyEntity instanceof AbstractEnemy)
+				entities.add(new ExplosionEffect(0, destroyEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE, destroyEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE, Config.EXPLOSION_TTL));
+		}
 		entities.removeAll(destroyedEntities);
 
 		// 2.2. Destroy entities

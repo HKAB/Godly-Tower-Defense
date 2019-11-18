@@ -9,8 +9,8 @@
 163  26  61  24  25  25 163 163 163 163 244 219 219 219 219 219
 163  26  61  24 163 163 163 163 163  25 242 242 242 242 242 242
 Target 15 6 1 1 20
-NormalAircraftSpawner 2 8 1 1 10 0 10
-BigAircraftSpawner 2 8 1 1 10 110 5
-TankerSpawner 2 8 1 1 20 170 10
+NormalAircraftSpawner 2 8 1 1 10 0
+BigAircraftSpawner 2 8 1 1 10 0 5
+TankerSpawner 2 8 1 1 20 0 0
 RocketLauncherTower 4 3 90
 MachineGunTower 13 4 90

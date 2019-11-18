@@ -225,6 +225,11 @@ public final class Config {
 	public static final int TOWER_RANK_3_GID = 38;
 	//endregion
 
+	//region effect
+	public static final int EXPLOSION_GID = 23;
+	public static final int EXPLOSION_TTL = 10;
+	//endregion
+
 	private Config() {
 	}
 

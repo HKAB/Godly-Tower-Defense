@@ -132,7 +132,7 @@ public class TowerUIContextDrawer implements UIEntityDrawer {
             graphicsContext.fillText(context.getTower().getUpgradePrice() + "$", leftTextPosX, linePosY, 75);
         }
         else {
-            graphicsContext.fillText("N/A", rightTextPosX, linePosY, 75);
+            graphicsContext.fillText("N/A", leftTextPosX, linePosY, 75);
         }
 
         /**

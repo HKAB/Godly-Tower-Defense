@@ -1,6 +1,7 @@
 package mrmathami.thegame.entity.tile.tower;
 
 import mrmathami.thegame.Config;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
@@ -19,6 +20,7 @@ public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraf
 	@Nonnull
 	@Override
 	protected final NormalBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
+		GameAudio.playSound(NormalBullet.class);
 		return new NormalBullet(createdTick, posX - Config.NORMAL_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.NORMAL_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
 	}
 

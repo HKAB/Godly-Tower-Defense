@@ -12,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 
+import mrmathami.thegame.entity.tile.Bush;
+import mrmathami.thegame.entity.tile.Rock;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
@@ -422,6 +424,14 @@ public final class GameController extends AnimationTimer {
 						}
 						break;
 					}
+				}
+			}
+			else if ((entity instanceof Rock) || (entity instanceof Bush)) {
+				if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
+					if (towerPicker instanceof TowerPlacing) {
+						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+					}
+					break;
 				}
 			}
 		}
