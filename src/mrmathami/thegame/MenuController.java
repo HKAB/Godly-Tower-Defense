@@ -11,6 +11,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.ui.menu.CreditsButton;
+import mrmathami.thegame.ui.menu.MultiPlayerButton;
+import mrmathami.thegame.ui.menu.SettingsButton;
+import mrmathami.thegame.ui.menu.SinglePlayerButton;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -222,17 +226,11 @@ public final class MenuController extends AnimationTimer {
             double endY = startY + entity.getHeight() * drawer.getFieldZoom();
             if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-                final String command = entity.onClick();
-                switch (command) {
-                    case "SinglePlayerButton":
-                        moveToGameScene();
-                        break;
-                    case "MultiPlayerButton":
-                        break;
-                    case "SettingsButton":
-                        break;
-                    case "CreditsButton":
-                        break;
+                if (entity instanceof SinglePlayerButton) {
+                    moveToGameScene();
+                } else if (entity instanceof MultiPlayerButton) {
+                } else if (entity instanceof SettingsButton) {
+                } else if (entity instanceof CreditsButton) {
                 }
             }
         }
