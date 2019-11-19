@@ -42,6 +42,13 @@ public final class Config {
 	public static final long SIDEBAR_HORIZONTAL = 4;
 	public static final long SIDEBAR_VERTICAL = TILE_VERTICAL;
 
+	/**
+	 * UI Context size and position
+	 */
+	public static final double UI_CONTEXT_POS_X = 16;
+	public static final double UI_CONTEXT_POS_Y = 3.5;
+	public static final double UI_CONTEXT_WIDTH = 4;
+	public static final double UI_CONTEXT_HEIGHT = 4;
 
 	/**
 	 * Size of the screen.
@@ -88,20 +95,41 @@ public final class Config {
 	public static final long NORMAL_TOWER_SPEED = 10;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
 	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
-	public static final int NORMAL_TOWER_LEVEL2_GID = 0;
-	public static final int NORMAL_TOWER_LEVEL3_GID = 0;
+	public static final int NORMAL_TOWER_LEVEL2_GID = 227;
+	public static final int NORMAL_TOWER_LEVEL3_GID = 207;
+
+	public static final long NORMAL_TOWER_PRICE = 100;
+	public static final long NORMAL_TOWER_LEVEL1_SELL_PRICE = 75;
+	public static final long NORMAL_TOWER_LEVEL1_UPGRADE_PRICE = 150;
+	public static final long NORMAL_TOWER_LEVEL2_SELL_PRICE = 150;
+	public static final long NORMAL_TOWER_LEVEL2_UPGRADE_PRICE = 250;
+	public static final long NORMAL_TOWER_LEVEL3_SELL_PRICE = 250;
 
 	public static final long MACHINE_GUN_TOWER_SPEED = 5;
 	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
 	public static final int MACHINE_GUN_TOWER_LEVEL1_GID = 250;
 	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
-	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 251;
+	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 253;
+
+	public static final long MACHINE_GUN_TOWER_PRICE = 175;
+	public static final long MACHINE_GUN_TOWER_LEVEL1_SELL_PRICE = 125;
+	public static final long MACHINE_GUN_TOWER_LEVEL1_UPGRADE_PRICE = 250;
+	public static final long MACHINE_GUN_TOWER_LEVEL2_SELL_PRICE = 250;
+	public static final long MACHINE_GUN_TOWER_LEVEL2_UPGRADE_PRICE = 400;
+	public static final long MACHINE_GUN_TOWER_LEVEL3_SELL_PRICE = 400;
 
 	public static final long ROCKET_TOWER_SPEED = 20;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
 	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
-	public static final int ROCKET_TOWER_LEVEL3_GID = 206;
+	public static final int ROCKET_TOWER_LEVEL3_GID = 230;
+
+	public static final long ROCKET_TOWER_PRICE = 135;
+	public static final long ROCKET_TOWER_LEVEL1_SELL_PRICE = 100;
+	public static final long ROCKET_TOWER_LEVEL1_UPGRADE_PRICE = 200;
+	public static final long ROCKET_TOWER_LEVEL2_SELL_PRICE = 200;
+	public static final long ROCKET_TOWER_LEVEL2_UPGRADE_PRICE = 300;
+	public static final long ROCKET_TOWER_LEVEL3_SELL_PRICE = 300;
 
 	public static final int LOCKED_GID = 291;
 	//endregion
@@ -190,6 +218,17 @@ public final class Config {
 
 	public static final double FIRE1_WIDTH = 12.0;
 	public static final double FIRE1_HEIGHT = 24.0;
+
+	//region star rank
+	public static final int TOWER_RANK_1_GID = 36;
+	public static final int TOWER_RANK_2_GID = 37;
+	public static final int TOWER_RANK_3_GID = 38;
+	//endregion
+
+	//region effect
+	public static final int EXPLOSION_GID = 23;
+	public static final int EXPLOSION_TTL = 10;
+	//endregion
 
 	private Config() {
 	}

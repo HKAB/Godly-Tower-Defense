@@ -22,7 +22,10 @@ public final class MenuDrawer {
      * Map each entity type with corresponding drawer.
      */
     @Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_ENTITY_DRAWER_MAP = new HashMap<> (Map.ofEntries(
-            Map.entry(MenuButton.class, new MenuButtonDrawer()),
+            Map.entry(SinglePlayerButton.class, new MenuButtonDrawer()),
+            Map.entry(MultiPlayerButton.class, new MenuButtonDrawer()),
+            Map.entry(SettingsButton.class, new MenuButtonDrawer()),
+            Map.entry(CreditsButton.class, new MenuButtonDrawer()),
             Map.entry(PngMenuPane.class, new PngMenuPaneDrawer()),
             Map.entry(RectMenuPane.class, new RectMenuPaneDrawer())
     ));

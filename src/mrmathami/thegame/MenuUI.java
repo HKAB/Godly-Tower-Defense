@@ -26,10 +26,9 @@ public final class MenuUI {
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
-            while (true) {
-                final String value = scanner.next();
-                if (value.equals("EndOfFile")) break;
-                else if (value.equals("RectMenuPane")) {
+            while (scanner.hasNext()) {
+                final String buttonType = scanner.next();
+                if (buttonType.equals("RectMenuPane")) {
                     final double x = scanner.nextDouble();
                     final double y = scanner.nextDouble();
                     final double w = scanner.nextDouble();
@@ -40,14 +39,41 @@ public final class MenuUI {
                     RectMenuPane menuPane = new RectMenuPane(0, x, y, w, h, Color.rgb(r, g, b));
                     addEntity(menuPane);
                 }
-                else {
+                else if (buttonType.equals("SinglePlayerButton")){
                     final double assetX = scanner.nextDouble();
                     final double assetY = scanner.nextDouble();
                     final double x = scanner.nextDouble();
                     final double y = scanner.nextDouble();
                     final double w = scanner.nextDouble();
                     final double h = scanner.nextDouble();
-                    addEntity(new MenuButton(0, assetX, assetY, x, y, w, h, value));
+                    addEntity(new SinglePlayerButton(0, assetX, assetY, x, y, w, h, buttonType));
+                }
+                else if (buttonType.equals("MultiPlayerButton")){
+                    final double assetX = scanner.nextDouble();
+                    final double assetY = scanner.nextDouble();
+                    final double x = scanner.nextDouble();
+                    final double y = scanner.nextDouble();
+                    final double w = scanner.nextDouble();
+                    final double h = scanner.nextDouble();
+                    addEntity(new MultiPlayerButton(0, assetX, assetY, x, y, w, h, buttonType));
+                }
+                else if (buttonType.equals("SettingsButton")){
+                    final double assetX = scanner.nextDouble();
+                    final double assetY = scanner.nextDouble();
+                    final double x = scanner.nextDouble();
+                    final double y = scanner.nextDouble();
+                    final double w = scanner.nextDouble();
+                    final double h = scanner.nextDouble();
+                    addEntity(new SettingsButton(0, assetX, assetY, x, y, w, h, buttonType));
+                }
+                else if (buttonType.equals("CreditsButton")){
+                    final double assetX = scanner.nextDouble();
+                    final double assetY = scanner.nextDouble();
+                    final double x = scanner.nextDouble();
+                    final double y = scanner.nextDouble();
+                    final double w = scanner.nextDouble();
+                    final double h = scanner.nextDouble();
+                    addEntity(new CreditsButton(0, assetX, assetY, x, y, w, h, buttonType));
                 }
             }
         }

@@ -7,9 +7,11 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.ui.button.*;
+import mrmathami.thegame.towerpicker.AbstractTowerPicker;
+import mrmathami.thegame.ui.ingame.button.*;
+import mrmathami.thegame.entity.tile.*;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
@@ -18,10 +20,6 @@ import mrmathami.thegame.entity.enemy.BigAircraft;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.enemy.Tanker;
-import mrmathami.thegame.entity.tile.Mountain;
-import mrmathami.thegame.entity.tile.Basement;
-import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -29,6 +27,10 @@ import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
+import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
+import mrmathami.thegame.ui.ingame.context.NormalUIContext;
+import mrmathami.thegame.ui.ingame.context.TowerUIContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,6 +46,9 @@ public final class GameDrawer {
 			Basement.class,
 			Road.class,
 			Mountain.class,
+			Rock.class,
+			Bush.class,
+			ExplosionEffect.class,
 			NormalTower.class,
 			RocketLauncherTower.class,
 //			SniperTower.class,
@@ -79,6 +84,9 @@ public final class GameDrawer {
 			Map.entry(Basement.class, new BasementDrawer()),
 			Map.entry(Road.class, new RoadDrawer()),
 			Map.entry(Mountain.class, new MountainDrawer()),
+			Map.entry(Rock.class, new RockDrawer()),
+			Map.entry(Bush.class, new BushDrawer()),
+			Map.entry(ExplosionEffect.class, new ExplosionEffectDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
 			Map.entry(RocketLauncherTower.class, new RocketLauncherTowerDrawer()),
 //			Map.entry(SniperTower.class, new SniperTowerDrawer()),
@@ -110,25 +118,36 @@ public final class GameDrawer {
 			Map.entry(ContextButton.class, new GameButtonDrawer())
 	));
 
+	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_CONTEXT_DRAWER_MAP = new HashMap<>(Map.ofEntries(
+			Map.entry(NormalUIContext.class, new NormalUIContextDrawer()),
+			Map.entry(ButtonUIContext.class, new ButtonUIContextDrawer()),
+			Map.entry(TowerUIContext.class, new TowerUIContextDrawer())
+	));
+
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
 	@Nullable private GameField opponentGameField;
 	@Nonnull private GameUI gameUI;
-	private TowerPlacing towerPlacing;
+	private AbstractTowerPicker towerPicker;
+	private AbstractUIContext UIContext;
 	private static Image sheetImage;
 	private static Image buttonImage;
+	private static Image rankImage;
+	private static Image contextIconImage;
+
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField,
-					  @Nullable GameField opponentGameField, @Nonnull GameUI gameUI,
-					  TowerPlacing towerPlacing, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nullable GameField opponentGameField, @Nonnull GameField gameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
-		this.towerPlacing = towerPlacing;
+		this.towerPicker = towerPicker;
+		this.UIContext = UIContext;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
+		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
+		this.contextIconImage = new Image(getClass().getResourceAsStream("/ui/contextIcon.png"));
 		this.gameUI = gameUI;
 		this.opponentGameField = opponentGameField;
 	}
@@ -170,6 +189,10 @@ public final class GameDrawer {
 		return UI_DRAWER_MAP.get(entity.getClass());
 	}
 
+	private static UIEntityDrawer getUIContextDrawer (@Nonnull AbstractUIContext UIContext) {
+		return UI_CONTEXT_DRAWER_MAP.get(UIContext.getClass());
+	}
+
 	public final double getFieldStartPosX() {
 		return fieldStartPosX;
 	}
@@ -190,9 +213,13 @@ public final class GameDrawer {
 		this.gameUI = gameUI;
 	}
 
-	public void setTowerPlacing(TowerPlacing towerPlacing) {
-	    this.towerPlacing = towerPlacing;
+	public void setTowerPicker(AbstractTowerPicker towerPicker) {
+	    this.towerPicker = towerPicker;
     }
+
+	public void setUIContext(AbstractUIContext UIContext) {
+		this.UIContext = UIContext;
+	}
 
 	/**
 	 * Set the field view region, in other words, set the region of the field that will be drawn on the screen.
@@ -213,7 +240,7 @@ public final class GameDrawer {
 	public final void render() throws FileNotFoundException {
 		final GameField gameField = this.gameField;
 		final GameUI gameUI = this.gameUI;
-		final TowerPlacing towerPlacing = this.towerPlacing;
+		final AbstractTowerPicker towerPicker = this.towerPicker;
 		final double fieldStartPosX = this.fieldStartPosX;
 		final double fieldStartPosY = this.fieldStartPosY;
 		final double fieldZoom = this.fieldZoom;
@@ -277,15 +304,25 @@ public final class GameDrawer {
 				}
 			}
 		}
-
-		if (towerPlacing != null) {
-			final TowerPlacingDrawer drawer = new TowerPlacingDrawer();
-			drawer.draw(gameField.getTickCount(), graphicsContext, towerPlacing,
-					(towerPlacing.getTower().getPosX() - fieldStartPosX) * fieldZoom,
-					(towerPlacing.getTower().getPosY() - fieldStartPosY) * fieldZoom,
-					towerPlacing.getTower().getWidth() * fieldZoom,
-					towerPlacing.getTower().getHeight() * fieldZoom,
-					fieldZoom);
+		if (towerPicker != null) {
+			final TowerPickerDrawer drawer = new TowerPickerDrawer();
+			drawer.draw(gameField.getTickCount(), graphicsContext, towerPicker,
+					(towerPicker.getPosX() - fieldStartPosX) * fieldZoom,
+					(towerPicker.getPosY() - fieldStartPosY) * fieldZoom,
+					fieldZoom, fieldZoom, fieldZoom
+			);
+		}
+		if (UIContext != null) {
+			final UIEntityDrawer drawer = getUIContextDrawer(UIContext);
+			if (drawer != null) {
+				drawer.draw(gameField.getTickCount(), graphicsContext, UIContext,
+						(UIContext.getPosX() - fieldStartPosX) * fieldZoom,
+						(UIContext.getPosY() - fieldStartPosY) * fieldZoom,
+						UIContext.getWidth() * fieldZoom,
+						UIContext.getHeight() * fieldZoom,
+						fieldZoom
+				);
+			}
 		}
 	}
 
@@ -311,5 +348,13 @@ public final class GameDrawer {
 
 	public static Image getButtonImage () {
 		return buttonImage;
+	}
+
+	public static Image getRankImage() {
+		return rankImage;
+	}
+
+	public static Image getContextIconImage() {
+		return contextIconImage;
 	}
 }

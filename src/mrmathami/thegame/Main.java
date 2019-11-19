@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
+import mrmathami.thegame.audio.GameAudio;
 
 import java.io.FileNotFoundException;
 
@@ -42,6 +43,7 @@ public final class Main extends Application {
 		primaryStage.setTitle(Config.GAME_NAME);
         primaryStage.setScene(mainScene);
 		primaryStage.show();
+		GameAudio.playThemeSong();
         primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
         menuController.start();
 	}

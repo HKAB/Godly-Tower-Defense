@@ -1,10 +1,7 @@
 package mrmathami.thegame;
 
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.tile.Mountain;
-import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Target;
-import mrmathami.thegame.entity.tile.TurnPoint;
+import mrmathami.thegame.entity.tile.*;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
@@ -45,7 +42,7 @@ public final class GameStage {
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
-						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3) {
+						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3 || value == 243 || value == 264 || value == 265 || value == 266 || value == 220 || value == 221) {
 							entities.add(new Road(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
 						else if (value != 0)
@@ -69,11 +66,17 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new NormalSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					}
-					else if ("Mountain".equals(value)) {
+					else if ("Rock".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int gid = scanner.nextInt();
-						entities.add(new Mountain(0, x, y, gid));
+						entities.add(new Rock(0, x, y, gid));
+					}
+					else if ("Bush".equals(value)) {
+						final int x = scanner.nextInt();
+						final int y = scanner.nextInt();
+						final int gid = scanner.nextInt();
+						entities.add(new Bush(0, x, y, gid));
 					} else if ("NormalAircraftSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();

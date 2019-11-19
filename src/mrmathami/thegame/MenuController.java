@@ -2,17 +2,24 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.net.MPConfig;
 import mrmathami.thegame.net.MPSocketController;
+import mrmathami.thegame.ui.menu.CreditsButton;
+import mrmathami.thegame.ui.menu.MultiPlayerButton;
+import mrmathami.thegame.ui.menu.SettingsButton;
+import mrmathami.thegame.ui.menu.SinglePlayerButton;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -117,7 +124,10 @@ public final class MenuController extends AnimationTimer {
         // Draw it out mostly for debug
         final double mspt = (System.nanoTime() - startNs) / 1000000.0;
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 12);
+        graphicsContext.setTextAlign(TextAlignment.LEFT);
+        graphicsContext.setTextBaseline(VPos.TOP);
+        graphicsContext.setFont(new Font(12));
+        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
 
         // if we have time to spend, do a spin
         while (currentTick == tick) Thread.onSpinWait();
@@ -255,18 +265,11 @@ public final class MenuController extends AnimationTimer {
             double endY = startY + entity.getHeight() * drawer.getFieldZoom();
             if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-                final String command = entity.onClick();
-                switch (command) {
-                    case "SinglePlayerButton":
-                        moveToGameScene();
-                        break;
-                    case "MultiPlayerButton":
-                        moveToMPScene();
-                        break;
-                    case "SettingsButton":
-                        break;
-                    case "CreditsButton":
-                        break;
+                if (entity instanceof SinglePlayerButton) {
+                    moveToGameScene();
+                } else if (entity instanceof MultiPlayerButton) {
+                } else if (entity instanceof SettingsButton) {
+                } else if (entity instanceof CreditsButton) {
                 }
             }
         }
