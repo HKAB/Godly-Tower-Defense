@@ -5,14 +5,23 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.concurrent.Executors;
@@ -35,7 +44,7 @@ public final class MenuController extends AnimationTimer {
     /**
      * Root. Needed for changing scene.
      */
-    private Group root;
+    private StackPane root;
 
     /**
      * The screen to draw on. Just don't touch me. Google me if you are curious.
@@ -70,7 +79,7 @@ public final class MenuController extends AnimationTimer {
      *
      * @param graphicsContext the screen to draw on
      */
-    public MenuController(GraphicsContext graphicsContext, Group root) throws FileNotFoundException {
+    public MenuController(GraphicsContext graphicsContext, StackPane root) throws FileNotFoundException {
         this.graphicsContext = graphicsContext;
         this.root = root;
 
@@ -145,8 +154,8 @@ public final class MenuController extends AnimationTimer {
         }
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        root.getChildren().clear();
-        root.getChildren().add(gameCanvas);
+//        root.getChildren().clear();
+//        root.getChildren().add(gameCanvas);
         gameController.start();
     }
 
@@ -232,6 +241,21 @@ public final class MenuController extends AnimationTimer {
                     case "SettingsButton":
                         break;
                     case "CreditsButton":
+                        StackPane bg = new StackPane();
+                        Pane pane = new Pane();
+                        Rectangle rectangle = new Rectangle(0, 0, Config.SCREEN_WIDTH - 100, Config.SCREEN_HEIGHT - 100);
+                        rectangle.setFill(Color.rgb(255, 255, 255));
+                        bg.setStyle("-fx-background-color: rgba(200, 214, 229, 0.7);");
+                        ImageView closeButton = new ImageView(new Image(new File("/home/hkab/Desktop/close-button.png").toURI().toString()));
+//                        HBox vBox = new HBox(rectangle, closeButton);
+                        bg.getChildren().add(rectangle);
+
+                        closeButton.setLayoutX(1166);
+                        closeButton.setLayoutY(50);
+                        pane.getChildren().add(closeButton);
+
+                        bg.getChildren().add(pane);
+                        root.getChildren().add(bg);
                         break;
                 }
             }

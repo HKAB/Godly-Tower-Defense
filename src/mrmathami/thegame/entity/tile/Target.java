@@ -23,6 +23,7 @@ public final class Target extends AbstractTile implements LivingEntity {
 	@Override
 	public void doDestroy() {
 		this.health = Long.MIN_VALUE;
+
 	}
 
 	@Override
