@@ -12,21 +12,17 @@ import mrmathami.thegame.entity.TowerPlacing;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPGameClient;
 import mrmathami.thegame.net.MPGameField;
-import mrmathami.thegame.net.MPGameServer;
+import mrmathami.thegame.net.MPSocketController;
 import mrmathami.thegame.ui.button.TowerButton;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
-import javax.annotation.Nullable;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -83,19 +79,9 @@ public final class MPGameController extends AnimationTimer {
 	private TowerPlacing towerPlacing = null;
 
 	/**
-	 * Role in multi-player. Server or Client.
-	 */
-	private boolean isServer;
-
-	/**
 	 * Game Client socket wrapper. Used to send data to Server.
 	 */
-	@Nullable private MPGameClient client;
-
-	/**
-	 * Game Server socket wrapper. Used to send data to Client.
-	 */
-	@Nullable private MPGameServer server;
+	private MPSocketController socket;
 
 	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -114,17 +100,15 @@ public final class MPGameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
-	public MPGameController(GraphicsContext graphicsContext, boolean isServer) throws FileNotFoundException {
+	public MPGameController(GraphicsContext graphicsContext) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
 
-		// Get socket wrapper instance based on isServer.
-		this.isServer = isServer;
-		if (isServer) this.server = MPGameServer.getInstance();
-		else this.client = MPGameClient.getCurrentInstance();
+		// Get current socket connection instance.
+		this.socket = MPSocketController.getCurrentInstance();
 
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
-		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true), isServer);
+		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 
@@ -247,9 +231,7 @@ public final class MPGameController extends AnimationTimer {
 				else if (tower instanceof MachineGunTower) towerType = "2";
 				else if (tower instanceof RocketLauncherTower) towerType = "3";
 				else towerType = "0";
-				if (!this.isServer) {
-					client.sendCommand(List.of("PLACE", towerType, String.format("%.0f", mousePosX), String.format("%.0f", mousePosY)));
-				}
+				socket.sendCommand(List.of("PLACE", towerType, String.format("%.0f", mousePosX), String.format("%.0f", mousePosY)));
 				towerPlacing = null;
 				drawer.setTowerPlacing(towerPlacing);
 			}

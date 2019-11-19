@@ -1,22 +1,19 @@
 package mrmathami.thegame.net;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.util.List;
+
 public class MPMain {
     public static void main(String[] args) {
-        MPServer server = new MPServer(1337);
-        server.sendLine("Hey this is server");
-        for (int i = 0; i < 20; i++) {
-            System.out.println(i);
-            String data = server.recvLine();
-            if (!data.isBlank()) {
-                System.out.println(data);
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
-                break;
-            }
+        MPSocket socket = null;
+        try {
+            socket = new MPSocket(new Socket("localhost", 1337));
+        } catch (IOException e) {
+            System.exit(1);
         }
-        server.close();
+        socket.sendLine("Hi im server");
+        System.out.println(socket.recvLine());
+        System.exit(2);
     }
 }

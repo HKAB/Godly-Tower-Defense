@@ -12,10 +12,11 @@ import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.MenuDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPGameClient;
+import mrmathami.thegame.net.MPSocketController;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -160,14 +161,18 @@ public final class MenuController extends AnimationTimer {
         this.graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
         this.graphicsContext.fillText("Connecting to server...", Config.SCREEN_WIDTH/2.0, Config.SCREEN_HEIGHT/2.0);
         stop();
-//
-        MPGameClient client = new MPGameClient(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
-        boolean isServer = !client.hasConnection();
+
+        // TODO: Replace later when player can decide which host to connect to.
+        try {
+            MPSocketController socket = new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
+        } catch (IOException e) {
+            MPSocketController socket = new MPSocketController();
+        }
 
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         MPGameController gameController = null;
         try {
-            gameController = new MPGameController(graphicsContext, isServer);
+            gameController = new MPGameController(graphicsContext);
         } catch (Exception e) {
             e.printStackTrace();
         }

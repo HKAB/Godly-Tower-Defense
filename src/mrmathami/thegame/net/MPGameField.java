@@ -15,18 +15,11 @@ import java.util.Collection;
 import java.util.List;
 
 public final class MPGameField extends GameField {
-    private boolean isServer;
-    private MPGameServer gameServer = null;
-    private MPGameClient gameClient = null;
+    MPSocketController socket;
 
-    public MPGameField(@Nonnull GameStage gameStage, boolean isServer) {
+    public MPGameField(@Nonnull GameStage gameStage) {
         super(gameStage);
-        this.isServer = isServer;
-        if (isServer) {
-            this.gameServer = MPGameServer.getInstance();
-        } else {
-            this.gameClient = MPGameClient.getCurrentInstance();
-        }
+        this.socket = MPSocketController.getCurrentInstance();
     }
 
     public final void tick() {
@@ -70,13 +63,11 @@ public final class MPGameField extends GameField {
         }
         spawnEntities.clear();
 
-        if (isServer && gameServer.hasConnection()) {
-            getAndProcessRemoteCommand();
-        }
+        getAndProcessRemoteCommand();
     }
 
     private void getAndProcessRemoteCommand() {
-        List<String> command = this.gameServer.getNextCommand();
+        List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
             if (command.get(0).equals("PLACE")) {
                 switch (command.get(1)) {

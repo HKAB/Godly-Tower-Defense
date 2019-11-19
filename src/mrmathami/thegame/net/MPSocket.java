@@ -1,24 +1,21 @@
 package mrmathami.thegame.net;
 
-import java.io.*;
 import java.net.*;
+import java.io.*;
 
-public class MPServer {
+public class MPSocket {
     private Socket socket;
-    private ServerSocket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
 
-    public MPServer(int port) {
+    public MPSocket(Socket socket) {
+        this.socket = socket;
         try {
-            this.serverSocket = new ServerSocket(port);
-            this.socket = serverSocket.accept();
             this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.output = new PrintWriter(this.socket.getOutputStream(), true);
         } catch (IOException e) {
+            System.out.println("Error creating socket");
             e.printStackTrace();
-            System.out.println("Error when creating serverSocket");
-            System.exit(1);
         }
     }
 
@@ -29,11 +26,13 @@ public class MPServer {
     public String recvLine() {
         String data;
         try {
-            if (this.input.ready()) data = this.input.readLine();
-            else data = "";
+            if (this.input.ready()) {
+                data = this.input.readLine();
+            } else {
+                data = "";
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Return data is empty");
             data = "";
         }
         return data;
@@ -44,7 +43,6 @@ public class MPServer {
             input.close();
             output.close();
             socket.close();
-            serverSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Cannot close connection");
