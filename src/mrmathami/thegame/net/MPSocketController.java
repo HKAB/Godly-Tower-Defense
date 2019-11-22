@@ -67,12 +67,12 @@ public class MPSocketController {
                 String.format("%.0f", posX), String.format("%.0f", posY)));
     }
 
-    public void sendUpgrade(long posX, long posY) {
-
+    public void sendUpgrade(double posX, double posY) {
+        sendCommand(List.of("UPGRADE", String.format("%.0f", posX), String.format("%.0f", posY)));
     }
 
-    public void sendSell(long posX, long posY) {
-
+    public void sendSell(double posX, double posY) {
+        sendCommand(List.of("SELL", String.format("%.0f", posX), String.format("%.0f", posY)));
     }
 
     public void sendState() {

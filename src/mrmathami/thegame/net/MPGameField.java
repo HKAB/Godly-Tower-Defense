@@ -66,6 +66,14 @@ public final class MPGameField extends GameField {
         getAndProcessRemoteCommand();
     }
 
+    private void upgradeAtPosition() {
+
+    }
+
+    private void sellAtPosition() {
+
+    }
+
     private void getAndProcessRemoteCommand() {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
@@ -81,6 +89,10 @@ public final class MPGameField extends GameField {
                         doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
                         break;
                 }
+            } else if (command.get(0).equals("UPGRADE")) {
+                System.out.println("Received UPGRADE");
+            } else if (command.get(0).equals("SELL")) {
+                System.out.println("Received SELL");
             }
         }
     }
