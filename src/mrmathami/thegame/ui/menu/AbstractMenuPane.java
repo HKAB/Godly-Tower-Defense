@@ -17,7 +17,7 @@ public abstract class AbstractMenuPane implements UIEntity {
         this.height = height;
     }
 
-    public abstract String onClick();
+    public abstract void onClick();
 
     @Override
     public long getCreatedTick() {

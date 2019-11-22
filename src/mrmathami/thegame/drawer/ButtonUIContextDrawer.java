@@ -33,7 +33,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
     private final long LINE_HEIGHT = 40;
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
-    private final long FONT_SIZE = 22;
+    private final long FONT_SIZE = 25;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
         Image img = GameDrawer.getContextIconImage();
@@ -102,7 +102,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         /**
          * Firepower
          */
-        icon = new WritableImage(reader, (int)(getIconGID("level") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
+        icon = new WritableImage(reader, (int)(getIconGID("firepower") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.fillText(Long.toString(context.getTower().getFirepower()), leftTextPosX, linePosY, 75);
@@ -110,7 +110,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         /**
          * Speed
          */
-        icon = new WritableImage(reader, (int)(getIconGID("firepower") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
+        icon = new WritableImage(reader, (int)(getIconGID("speed") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, rightIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.fillText(Long.toString(context.getTower().getSpeed()), rightTextPosX, linePosY, 75);

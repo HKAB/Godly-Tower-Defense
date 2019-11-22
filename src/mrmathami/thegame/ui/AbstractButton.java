@@ -58,7 +58,7 @@ public abstract class AbstractButton implements UIEntity {
         return height;
     }
 
-    public abstract String onClick();
+    public abstract void onClick();
 
     public void onFocus() {
         if (this.assetPosX == this.normalAssetPosX) {

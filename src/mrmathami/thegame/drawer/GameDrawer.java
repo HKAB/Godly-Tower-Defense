@@ -113,9 +113,11 @@ public final class GameDrawer {
 	));
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_DRAWER_MAP = new HashMap<>(Map.ofEntries(
-			Map.entry(NavigationButton.class, new GameButtonDrawer()),
-			Map.entry(TowerButton.class, new GameButtonDrawer()),
-			Map.entry(ContextButton.class, new GameButtonDrawer())
+			Map.entry(BackButton.class, new GameButtonDrawer()),
+			Map.entry(PauseButton.class, new GameButtonDrawer()),
+			Map.entry(UpgradeButton.class, new GameButtonDrawer()),
+			Map.entry(SellButton.class, new GameButtonDrawer()),
+			Map.entry(TowerButton.class, new GameButtonDrawer())
 	));
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_CONTEXT_DRAWER_MAP = new HashMap<>(Map.ofEntries(

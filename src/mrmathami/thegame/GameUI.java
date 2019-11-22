@@ -32,12 +32,16 @@ public final class GameUI {
 
                 switch (value) {
                     case "BackButton":
+                        addButton(new BackButton(0, assetX, assetY, x, y, w, h));
+                        break;
                     case "PauseButton":
-                        addButton(new NavigationButton(0, assetX, assetY, x, y, w, h, value));
+                        addButton(new PauseButton(0, assetX, assetY, x, y, w, h));
                         break;
                     case "UpgradeButton":
+                        addButton(new UpgradeButton(0, assetX, assetY, x, y, w, h));
+                        break;
                     case "SellButton":
-                        addButton(new ContextButton(0, assetX, assetY, x, y, w, h, value));
+                        addButton(new SellButton(0, assetX, assetY, x, y, w, h));
                         break;
                     case "TowerButton":
                         final String towerType = scanner.next();

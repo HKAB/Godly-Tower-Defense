@@ -40,7 +40,7 @@ public final class GameField {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
-		this.money = 0;
+		this.money = 10000;
 		entities.addAll(gameStage.getEntities());
 	}
 

@@ -35,7 +35,7 @@ public class TowerButton extends AbstractButton {
     }
 
     @Override
-    public String onClick () {
-        return towerType;
+    public void onClick () {
+
     }
 }

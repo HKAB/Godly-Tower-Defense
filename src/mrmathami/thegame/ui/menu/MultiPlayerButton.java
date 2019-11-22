@@ -11,7 +11,6 @@ public class MultiPlayerButton extends AbstractButton {
     }
 
     @Override
-    public String onClick () {
-        return command;
+    public void onClick () {
     }
 }

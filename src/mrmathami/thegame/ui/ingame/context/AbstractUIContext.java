@@ -79,9 +79,8 @@ public abstract class AbstractUIContext implements UIEntity {
     }
 
     @Override
-    public String onClick() {
+    public void onClick() {
         //Literally nothing to be done here
-        return "";
     }
     @Override
     public void onFocus() {

@@ -33,7 +33,7 @@ public interface UIEntity {
     /**
      * Handle mouse event
      */
-    String onClick();
+    void onClick();
     void onFocus();
     void outFocus();
 }

@@ -33,7 +33,7 @@ public class TowerUIContextDrawer implements UIEntityDrawer {
     private final long LINE_HEIGHT = 40;
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
-    private final long FONT_SIZE = 22;
+    private final long FONT_SIZE = 25;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
         Image img = GameDrawer.getContextIconImage();
@@ -112,12 +112,7 @@ public class TowerUIContextDrawer implements UIEntityDrawer {
         icon = new WritableImage(reader, (int)(getIconGID("speed") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, rightIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
-        if (context.getTower().getLevel() == 2) {
-            graphicsContext.fillText(Long.toString(context.getTower().getSpeed()), rightTextPosX, linePosY, 75);
-        }
-        else {
-            graphicsContext.fillText(context.getTower().getSpeed() + " (+" + context.getTower().getSpeed() + ")", rightTextPosX, linePosY, 75);
-        }
+        graphicsContext.fillText(Long.toString(context.getTower().getSpeed()), rightTextPosX, linePosY, 75);
 
         linePosY += LINE_HEIGHT;
 

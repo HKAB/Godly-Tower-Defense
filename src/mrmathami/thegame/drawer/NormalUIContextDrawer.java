@@ -33,7 +33,7 @@ public class NormalUIContextDrawer implements UIEntityDrawer {
     private final long LINE_HEIGHT = 40;
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
-    private final long FONT_SIZE = 22;
+    private final long FONT_SIZE = 25;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
         Image img = GameDrawer.getContextIconImage();
