@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;

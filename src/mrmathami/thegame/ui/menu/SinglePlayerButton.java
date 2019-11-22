@@ -1,6 +1,6 @@
 package mrmathami.thegame.ui.menu;
 
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 
 public class SinglePlayerButton extends AbstractButton {
     private String command;
