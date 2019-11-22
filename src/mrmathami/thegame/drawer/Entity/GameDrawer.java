@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.Entity;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,17 +14,22 @@ import mrmathami.thegame.drawer.Entity.Enemy.BigAircraftDrawer;
 import mrmathami.thegame.drawer.Entity.Enemy.NormalAircraftDrawer;
 import mrmathami.thegame.drawer.Entity.Enemy.NormalEnemyDrawer;
 import mrmathami.thegame.drawer.Entity.Enemy.TankerDrawer;
-import mrmathami.thegame.drawer.Entity.EntityDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.*;
 import mrmathami.thegame.drawer.Entity.Tile.Effect.ExplosionEffectDrawer;
+import mrmathami.thegame.drawer.Entity.Tile.Effect.TowerDestroyEffectDrawer;
+import mrmathami.thegame.drawer.Entity.Tile.Effect.UpgradeEffectDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Spawner.SpawnerDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Tower.MachineGunTowerDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Tower.NormalTowerDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Tower.RocketLauncherTowerDrawer;
+import mrmathami.thegame.drawer.TowerPickerDrawer;
+import mrmathami.thegame.drawer.TowerUIContextDrawer;
 import mrmathami.thegame.drawer.UI.InGame.ButtonUIContextDrawer;
 import mrmathami.thegame.drawer.UI.InGame.GameButtonDrawer;
 import mrmathami.thegame.drawer.UI.InGame.NormalUIContextDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
+import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
+import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.entity.tile.*;
@@ -66,7 +71,6 @@ public final class GameDrawer {
 			Mountain.class,
 			Rock.class,
 			Bush.class,
-			ExplosionEffect.class,
 			NormalTower.class,
 			RocketLauncherTower.class,
 //			SniperTower.class,
@@ -91,6 +95,9 @@ public final class GameDrawer {
 //			TankerSpawner.class,
 //			BossSpawner.class,
 			Target.class,
+			ExplosionEffect.class,
+			UpgradeEffect.class,
+			TowerDestroyEffect.class,
 			GameButtonDrawer.class
 	);
 	/**
@@ -126,6 +133,8 @@ public final class GameDrawer {
 //			Map.entry(SmallerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
+			Map.entry(UpgradeEffect.class, new UpgradeEffectDrawer()),
+			Map.entry(TowerDestroyEffect.class, new TowerDestroyEffectDrawer()),
 			Map.entry(Target.class, new TargetDrawer())
 	));
 

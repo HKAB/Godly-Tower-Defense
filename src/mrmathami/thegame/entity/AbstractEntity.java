@@ -31,8 +31,9 @@ public abstract class AbstractEntity implements GameEntity {
 	/**
 	 * Set entity field pos x. Should only be called in doUpdate of UpdatableEntity
 	 * @param posX field pos x
+	 *             Why ?
 	 */
-	protected final void setPosX(double posX) {
+	public void setPosX(double posX) {
 		this.posX = posX;
 	}
 
@@ -44,8 +45,9 @@ public abstract class AbstractEntity implements GameEntity {
 	/**
 	 * Set entity field pos y. Should only be called in doUpdate of UpdatableEntity
 	 * @param posY field pos y
+	 *             Why ?
 	 */
-	protected final void setPosY(double posY) {
+	public void setPosY(double posY) {
 		this.posY = posY;
 	}
 

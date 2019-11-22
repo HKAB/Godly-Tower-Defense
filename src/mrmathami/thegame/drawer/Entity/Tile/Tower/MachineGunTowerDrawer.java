@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.Entity.Tile.Tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -6,6 +6,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.EntityDrawer;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 

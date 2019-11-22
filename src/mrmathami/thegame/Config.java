@@ -60,6 +60,12 @@ public final class Config {
 	public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
 	public static final double OFFSET = 45.0;
+
+	//region Popup
+	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
+	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
+	//endregion
+
 	//Other config related to other entities in the game.
 
 	//region Bullet
@@ -227,7 +233,13 @@ public final class Config {
 
 	//region effect
 	public static final int EXPLOSION_GID = 23;
-	public static final int EXPLOSION_TTL = 10;
+	public static final int EXPLOSION_TTL = 6;
+
+	public static final int UPGRADE_GID = 22;
+	public static final int UPGRADE_TTL = 10;
+
+	public static final int TOWER_DESTROY_GID = 20;
+	public static final int TOWER_DESTROY_TTL = 10;
 	//endregion
 
 	private Config() {

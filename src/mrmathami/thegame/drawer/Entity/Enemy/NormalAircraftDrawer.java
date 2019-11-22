@@ -1,5 +1,5 @@
 
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.Entity.Enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -8,6 +8,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.EntityDrawer;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 

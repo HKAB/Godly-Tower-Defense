@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.UI.Menu;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

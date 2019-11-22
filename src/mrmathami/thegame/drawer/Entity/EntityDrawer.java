@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.Entity;
 
 import javafx.scene.canvas.GraphicsContext;
 import mrmathami.thegame.entity.GameEntity;

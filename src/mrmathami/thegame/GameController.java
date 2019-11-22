@@ -7,29 +7,33 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 
+import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Rock;
+import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
+import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
 import mrmathami.thegame.towerpicker.TowerUpgrading;
 import mrmathami.thegame.ui.ingame.button.ContextButton;
 import mrmathami.thegame.ui.ingame.button.TowerButton;
-import mrmathami.thegame.drawer.GameDrawer;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
 import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
 import mrmathami.thegame.ui.ingame.context.NormalUIContext;
 import mrmathami.thegame.ui.ingame.context.TowerUIContext;
+import mrmathami.thegame.ui.popup.GameOverPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -71,6 +75,9 @@ public final class GameController extends AnimationTimer {
 	 */
 	private GameDrawer drawer;
 
+	private StackPane stackPane;
+	private PopupDrawer popupDrawer;
+
 	/**
 	 * Game UI. Contains UI elements.
 	 */
@@ -103,10 +110,10 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
-	public GameController(GraphicsContext graphicsContext) throws FileNotFoundException {
+	public GameController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
-
+		this.stackPane = stackPane;
 		// Just a few acronyms.
 		final long width = Config.TILE_HORIZONTAL;
 		final long height = Config.TILE_VERTICAL;
@@ -124,6 +131,7 @@ public final class GameController extends AnimationTimer {
 		// The drawer. Nothing fun here.
 		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
 
+		this.popupDrawer = null;
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
 		// that the drawer will select and draw everything in it in an self-defined order.
@@ -156,10 +164,20 @@ public final class GameController extends AnimationTimer {
 
 		//update the values in context so it match the current field, as fast as possible
 		UIContext.fieldUpdate(field.getMoney(), field.getTargetHealth(), 0, 0);
-
+		if (field.getTargetHealth() == 0)
+		{
+			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			super.stop();
+		}
 		// draw a new frame, as fast as possible.
 		try {
 			drawer.render();
+			if (stackPane.getChildren().size() > 1)
+			{
+				if (popupDrawer != null)
+					popupDrawer.render();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -323,11 +341,14 @@ public final class GameController extends AnimationTimer {
 						if (towerPicker instanceof TowerUpgrading) {
 							if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
 								((AbstractTower) entity).upgrade();
+								// Effect
+								this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
 								field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 							}
 						}
 						else if (towerPicker instanceof TowerSelling) {
 							((AbstractTower) entity).doDestroy();
+							field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
 							field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 						}
 						break;

@@ -1,10 +1,11 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.UI.InGame;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import mrmathami.thegame.Config;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.ui.AbstractButton;
 import mrmathami.thegame.ui.ingame.button.TowerButton;

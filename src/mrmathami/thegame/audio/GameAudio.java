@@ -33,7 +33,7 @@ public class GameAudio {
     ));
 
 
-    private  GameAudio()
+    private GameAudio()
     {
     }
 

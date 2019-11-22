@@ -1,9 +1,8 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.UI.Menu;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,6 @@ public final class MenuDrawer {
             Map.entry(RectMenuPane.class, new RectMenuPaneDrawer())
     ));
 
-    @Nonnull private final StackPane stackPane;
     @Nonnull private final GraphicsContext graphicsContext;
     @Nonnull private MenuUI menuUI;
     @Nullable private Image backgroundImage;
@@ -42,8 +40,7 @@ public final class MenuDrawer {
     private transient double fieldStartPosY = Float.NaN;
     private transient double fieldZoom = Float.NaN;
 
-    public MenuDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull StackPane stackPane, @Nonnull MenuUI menuUI, String backgroundImageUri, String buttonImageUri) {
-        this.stackPane = stackPane;
+    public MenuDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull MenuUI menuUI, String backgroundImageUri, String buttonImageUri) {
         this.graphicsContext = graphicsContext;
         this.menuUI = menuUI;
         if (!backgroundImageUri.isBlank()) {

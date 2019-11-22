@@ -17,6 +17,8 @@ public final class GameField {
 	@Nonnull private final Set<GameEntity> entities = new LinkedHashSet<>(Config._TILE_MAP_COUNT);
 	@Nonnull private final Collection<GameEntity> unmodifiableEntities = Collections.unmodifiableCollection(entities);
 	@Nonnull private final List<GameEntity> spawnEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+	// This is not a list of EffectEntity, it's a list of AbstractEffect entity
+	@Nonnull private final List<GameEntity> sfxEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 
 	/**
 	 * Field width
@@ -40,7 +42,7 @@ public final class GameField {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
-		this.money = 0;
+		this.money = 10000;
 		entities.addAll(gameStage.getEntities());
 	}
 
@@ -90,6 +92,10 @@ public final class GameField {
 		spawnEntities.add(entity);
 	}
 
+	public final void addSFX(@Nonnull GameEntity entity) {
+		sfxEntities.add(entity);
+	}
+
 	/**
 	 * Do a tick, in other words, update the field after a fixed period of time.
 	 * Current update sequence:
@@ -136,7 +142,7 @@ public final class GameField {
 		for (GameEntity destroyEntity :
 				destroyedEntities) {
 			if (destroyEntity instanceof AbstractEnemy)
-				entities.add(new ExplosionEffect(0, destroyEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE, destroyEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE, Config.EXPLOSION_TTL));
+				sfxEntities.add(new ExplosionEffect(0, destroyEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE, destroyEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE));
 		}
 		entities.removeAll(destroyedEntities);
 
@@ -149,5 +155,8 @@ public final class GameField {
 			if (entity instanceof SpawnListener) ((SpawnListener) entity).onSpawn(this);
 		}
 		spawnEntities.clear();
+
+		entities.addAll(sfxEntities);
+		sfxEntities.clear();
 	}
 }

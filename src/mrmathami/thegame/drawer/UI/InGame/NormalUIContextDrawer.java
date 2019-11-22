@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.UI.InGame;
 
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import mrmathami.thegame.Config;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.ingame.context.NormalUIContext;

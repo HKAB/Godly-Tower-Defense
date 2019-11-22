@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer.UI.Popup;
+package mrmathami.thegame.drawer.UI.Popup.Components;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

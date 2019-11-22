@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public final class MenuUI {
-    private Collection<UIEntity> entities;
+    private static Collection<UIEntity> entities;
 
     public MenuUI(String path) {
         this.entities = new ArrayList<>();
@@ -82,8 +82,8 @@ public final class MenuUI {
         }
     }
 
-    public Collection<UIEntity> getEntities() {
-        return this.entities;
+    public static Collection<UIEntity> getEntities() {
+        return entities;
     }
 
     public void addEntity(UIEntity entity) {

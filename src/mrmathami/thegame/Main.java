@@ -5,6 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
 import mrmathami.thegame.audio.GameAudio;
@@ -22,18 +24,22 @@ public final class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
-	    Group root = new Group();
-
+//	    Group root = new Group();
+		StackPane stackPane = new StackPane();
 	    // Prepare game Canvas
 		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
-		final MenuController menuController = new MenuController(menuGraphicsContext, root);
+//		final MenuController menuController = new MenuController(menuGraphicsContext, stackPane);
 		menuCanvas.setFocusTraversable(true);
 		menuGraphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
 
 		// Creating the scene
-		Scene mainScene = new Scene(root);
-		root.getChildren().add(menuCanvas);
+//		menuPane.getChildren().add(menuCanvas);
+		Scene mainScene = new Scene(stackPane);
+		stackPane.getChildren().add(menuCanvas);
+
+
+		final MenuController menuController = new MenuController(menuGraphicsContext, stackPane);
 
 		// Event handler
 		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);

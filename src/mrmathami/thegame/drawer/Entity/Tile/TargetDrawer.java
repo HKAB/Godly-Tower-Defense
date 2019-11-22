@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.Entity.Tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

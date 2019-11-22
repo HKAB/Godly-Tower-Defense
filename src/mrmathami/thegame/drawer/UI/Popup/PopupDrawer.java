@@ -1,10 +1,17 @@
-package mrmathami.thegame.drawer;
+package mrmathami.thegame.drawer.UI.Popup;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
+import mrmathami.thegame.drawer.UI.Popup.Components.ClosePopupButtonDrawer;
+import mrmathami.thegame.drawer.UI.Popup.Components.PopupImageDrawer;
+import mrmathami.thegame.drawer.UI.Popup.Components.PopupLabelDrawer;
+import mrmathami.thegame.drawer.UI.Popup.Components.PopupPaneDrawer;
+import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.ClosePopupButton;
+import mrmathami.thegame.ui.popup.components.PopupImage;
+import mrmathami.thegame.ui.popup.components.PopupLabel;
 import mrmathami.thegame.ui.popup.components.PopupPane;
 
 import javax.annotation.Nonnull;
@@ -16,7 +23,9 @@ import java.util.Map;
 public class PopupDrawer {
     @Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_POPUP_ENTITY_DRAWER_MAP = new HashMap<>(Map.ofEntries(
             Map.entry(ClosePopupButton.class, new ClosePopupButtonDrawer()),
-            Map.entry(PopupPane.class, new PopupPaneDrawer())
+            Map.entry(PopupPane.class, new PopupPaneDrawer()),
+            Map.entry(PopupLabel.class, new PopupLabelDrawer()),
+            Map.entry(PopupImage.class, new PopupImageDrawer())
     ));
     private GraphicsContext graphicsContext;
     private Collection<UIEntity> popupEntities;

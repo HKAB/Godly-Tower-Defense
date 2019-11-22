@@ -3,25 +3,28 @@ package mrmathami.thegame;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.drawer.MenuDrawer;
+import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
+import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.menu.CreditsButton;
 import mrmathami.thegame.ui.menu.MultiPlayerButton;
 import mrmathami.thegame.ui.menu.SettingsButton;
 import mrmathami.thegame.ui.menu.SinglePlayerButton;
+import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -42,7 +45,7 @@ public final class MenuController extends AnimationTimer {
     /**
      * Root. Needed for changing scene.
      */
-    private Group root;
+    private StackPane stackPane;
 
     /**
      * The screen to draw on. Just don't touch me. Google me if you are curious.
@@ -55,10 +58,12 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuDrawer drawer;
 
+    private PopupDrawer popupDrawer;
     /**
      * Menu UI. Contains UI elements.
      */
     private MenuUI menuUI;
+
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -77,9 +82,10 @@ public final class MenuController extends AnimationTimer {
      *
      * @param graphicsContext the screen to draw on
      */
-    public MenuController(GraphicsContext graphicsContext, Group root) throws FileNotFoundException {
+
+    public MenuController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
         this.graphicsContext = graphicsContext;
-        this.root = root;
+        this.stackPane = stackPane;
 
         // Just a few acronyms.
         final long width = Config.TILE_HORIZONTAL;
@@ -87,7 +93,8 @@ public final class MenuController extends AnimationTimer {
 
         this.menuUI = new MenuUI("/menu/buttonConfig.dat");
         this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png", "/menu/button.png");
-        drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+        this.popupDrawer = null;
+        drawer. setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
     /**
@@ -112,6 +119,11 @@ public final class MenuController extends AnimationTimer {
         // draw a new frame, as fast as possible.
         try {
             drawer.render();
+            if (stackPane.getChildren().size() > 1) {
+                if (popupDrawer != null) {
+                    popupDrawer.render();
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -149,14 +161,14 @@ public final class MenuController extends AnimationTimer {
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         GameController gameController = null;
         try {
-            gameController = new GameController(graphicsContext);
+            gameController = new GameController(graphicsContext, stackPane);
         } catch (Exception e) {
             e.printStackTrace();
         }
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        root.getChildren().clear();
-        root.getChildren().add(gameCanvas);
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
 
@@ -225,7 +237,9 @@ public final class MenuController extends AnimationTimer {
         double mousePosX = mouseEvent.getX();
         double mousePosY = mouseEvent.getY();
 
-        for (UIEntity entity: UIEntities) {
+        Iterator<UIEntity> iterator = UIEntities.iterator();
+        while (iterator.hasNext()){
+            UIEntity entity = iterator.next();
             double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
             double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
             double endX = startX + entity.getWidth() * drawer.getFieldZoom();
@@ -234,9 +248,15 @@ public final class MenuController extends AnimationTimer {
                     && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                 if (entity instanceof SinglePlayerButton) {
                     moveToGameScene();
+                    break;
                 } else if (entity instanceof MultiPlayerButton) {
+                    break;
                 } else if (entity instanceof SettingsButton) {
+                    break;
                 } else if (entity instanceof CreditsButton) {
+                    CreditPopup creditPopup = new CreditPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
+                    popupDrawer = new PopupDrawer(creditPopup.getPopupCanvas().getGraphicsContext2D(), creditPopup.getPopupEntities());
+                    break;
                 }
             }
         }

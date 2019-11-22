@@ -1,4 +1,4 @@
-package mrmathami.thegame.drawer.Entity.Tile;
+package mrmathami.thegame.drawer.Entity.Tile.Spawner;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
