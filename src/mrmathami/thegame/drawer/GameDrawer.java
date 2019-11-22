@@ -139,7 +139,9 @@ public final class GameDrawer {
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nullable GameField opponentGameField, @Nonnull GameField gameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField,
+					  @Nullable GameField opponentGameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker,
+					  AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.towerPicker = towerPicker;

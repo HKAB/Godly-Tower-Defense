@@ -50,7 +50,7 @@ public class MPSocketController {
         }
     }
 
-    public void sendCommand(List<String> command) {
+    private void sendCommand(List<String> command) {
         this.socket.sendLine(String.join(" ", command));
     }
 
@@ -60,5 +60,22 @@ public class MPSocketController {
             return List.of();
         }
         return Arrays.asList(command.split(" "));
+    }
+
+    public void sendPlace(int type, double posX, double posY) {
+        sendCommand(List.of("PLACE", String.format("%d", type),
+                String.format("%.0f", posX), String.format("%.0f", posY)));
+    }
+
+    public void sendUpgrade(long posX, long posY) {
+
+    }
+
+    public void sendSell(long posX, long posY) {
+
+    }
+
+    public void sendState() {
+
     }
 }

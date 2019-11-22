@@ -5,7 +5,6 @@ import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -40,7 +39,7 @@ public class GameField {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
-		this.money = 0;
+		this.money = 1000;
 		entities.addAll(gameStage.getEntities());
 	}
 

@@ -268,6 +268,7 @@ public final class MenuController extends AnimationTimer {
                 if (entity instanceof SinglePlayerButton) {
                     moveToGameScene();
                 } else if (entity instanceof MultiPlayerButton) {
+                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                 } else if (entity instanceof CreditsButton) {
                 }
