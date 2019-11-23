@@ -27,10 +27,7 @@ import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
-import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
-import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
-import mrmathami.thegame.ui.ingame.context.NormalUIContext;
-import mrmathami.thegame.ui.ingame.context.TowerUIContext;
+import mrmathami.thegame.ui.ingame.context.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -122,6 +119,7 @@ public final class GameDrawer {
 
 	@Nonnull private static final Map<Class<? extends UIEntity>, UIEntityDrawer> UI_CONTEXT_DRAWER_MAP = new HashMap<>(Map.ofEntries(
 			Map.entry(NormalUIContext.class, new NormalUIContextDrawer()),
+			Map.entry(MPNormalUIContext.class, new MPNormalUIContextDrawer()),
 			Map.entry(ButtonUIContext.class, new ButtonUIContextDrawer()),
 			Map.entry(TowerUIContext.class, new TowerUIContextDrawer())
 	));
@@ -131,7 +129,7 @@ public final class GameDrawer {
 	@Nullable private GameField opponentGameField;
 	@Nonnull private GameUI gameUI;
 	private AbstractTowerPicker towerPicker;
-	private AbstractUIContext UIContext;
+	private ContextArea contextArea;
 	private static Image sheetImage;
 	private static Image buttonImage;
 	private static Image rankImage;
@@ -143,11 +141,11 @@ public final class GameDrawer {
 
 	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField,
 					  @Nullable GameField opponentGameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker,
-					  AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
+					  ContextArea contextArea, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.towerPicker = towerPicker;
-		this.UIContext = UIContext;
+		this.contextArea = contextArea;
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
@@ -221,8 +219,8 @@ public final class GameDrawer {
 	    this.towerPicker = towerPicker;
     }
 
-	public void setUIContext(AbstractUIContext UIContext) {
-		this.UIContext = UIContext;
+	public void setUIContext(ContextArea contextArea) {
+		this.contextArea = contextArea;
 	}
 
 	/**
@@ -308,6 +306,8 @@ public final class GameDrawer {
 				}
 			}
 		}
+
+		//For tower picker
 		if (towerPicker != null) {
 			final TowerPickerDrawer drawer = new TowerPickerDrawer();
 			drawer.draw(gameField.getTickCount(), graphicsContext, towerPicker,
@@ -316,16 +316,21 @@ public final class GameDrawer {
 					fieldZoom, fieldZoom, fieldZoom
 			);
 		}
-		if (UIContext != null) {
-			final UIEntityDrawer drawer = getUIContextDrawer(UIContext);
-			if (drawer != null) {
-				drawer.draw(gameField.getTickCount(), graphicsContext, UIContext,
-						(UIContext.getPosX() - fieldStartPosX) * fieldZoom,
-						(UIContext.getPosY() - fieldStartPosY) * fieldZoom,
-						UIContext.getWidth() * fieldZoom,
-						UIContext.getHeight() * fieldZoom,
-						fieldZoom
-				);
+
+		//For UI Context
+		List<AbstractUIContext> UIContexts = contextArea.getUIContextsList();
+		for (AbstractUIContext UIContext: UIContexts) {
+			if (UIContext != null) {
+				final UIEntityDrawer drawer = getUIContextDrawer(UIContext);
+				if (drawer != null) {
+					drawer.draw(gameField.getTickCount(), graphicsContext, UIContext,
+							(UIContext.getPosX() - fieldStartPosX) * fieldZoom,
+							(UIContext.getPosY() - fieldStartPosY) * fieldZoom,
+							UIContext.getWidth() * fieldZoom,
+							UIContext.getHeight() * fieldZoom,
+							fieldZoom
+					);
+				}
 			}
 		}
 	}

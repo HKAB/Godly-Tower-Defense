@@ -27,10 +27,7 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
-import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
-import mrmathami.thegame.ui.ingame.context.NormalUIContext;
-import mrmathami.thegame.ui.ingame.context.TowerUIContext;
+import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.awt.*;
@@ -84,9 +81,9 @@ public final class GameController extends AnimationTimer {
 	private AbstractTowerPicker towerPicker;
 
 	/**
-	 * UI Context. Used to display game info on the sidebar
+	 * Context Area. Used to display game info on the sidebar
 	 */
-	private AbstractUIContext UIContext;
+	private ContextArea contextArea;
 
 	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -126,10 +123,12 @@ public final class GameController extends AnimationTimer {
 		this.towerPicker = null;
 		this.pause = false;
 
-		this.UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0,0);
+		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X, Config.UI_CONTEXT_POS_Y);
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), 0,0));
+		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -172,7 +171,7 @@ public final class GameController extends AnimationTimer {
 		field.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		UIContext.fieldUpdate(field.getMoney(), field.getTargetHealth(), 0, 0);
+		contextArea.updateContext(field.getMoney(), field.getTargetHealth(), 0, 0);
 
 		// draw a new frame, as fast as possible.
 		try {
@@ -357,14 +356,12 @@ public final class GameController extends AnimationTimer {
 			mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
 			mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
 
-			UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
-			drawer.setUIContext(UIContext);
+			contextArea.setLowerContext(null);
 
 			if (towerPicker != null) {
 				towerPicker.setPosition((long) mousePosX, (long) mousePosY);
 				if (towerPicker instanceof TowerPlacing) {
-					UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerPlacing) towerPicker).getTowerType());
-					drawer.setUIContext(UIContext);
+					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
 
 					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney()) {
 						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
@@ -388,8 +385,7 @@ public final class GameController extends AnimationTimer {
 				}
 				else if (entity instanceof AbstractTower) {
 					if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
-						UIContext = new TowerUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, (AbstractTower)entity);
-						drawer.setUIContext(UIContext);
+						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), (AbstractTower)entity));
 					}
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
@@ -411,9 +407,8 @@ public final class GameController extends AnimationTimer {
 				}
 			}
 
-			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing) && (!(UIContext instanceof ButtonUIContext))) {
-				UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerPlacing) towerPicker).getTowerType());
-				drawer.setUIContext(UIContext);
+			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing)) {
+				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
 			}
 
 			for (UIEntity entity: UIEntities) {
@@ -434,8 +429,7 @@ public final class GameController extends AnimationTimer {
 						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 					entity.onFocus();
 					if ((entity instanceof TowerButton) && (!((TowerButton)entity).getTowerType().equals("Locked"))) {
-						UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerButton)entity).getTowerType());
-						drawer.setUIContext(UIContext);
+						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerButton) entity).getTowerType()));
 						onTowerButton = true;
 					}
 				} else {
@@ -443,10 +437,8 @@ public final class GameController extends AnimationTimer {
 				}
 			}
 			if (!onTowerButton) {
-				UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
-				drawer.setUIContext(UIContext);
+				contextArea.setLowerContext(null);
 			}
 		}
-
 	}
 }

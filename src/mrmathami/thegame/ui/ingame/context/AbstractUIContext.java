@@ -4,6 +4,10 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 
 public abstract class AbstractUIContext implements UIEntity {
+    private final int POS_X = 0;
+    private final int POS_Y = 1;
+    private final int WIDTH = 2;
+    private final int HEIGHT = 3;
 
     private long createdTick;
     private double posX;
@@ -11,23 +15,12 @@ public abstract class AbstractUIContext implements UIEntity {
     private double width;
     private double height;
 
-    //the always displayed value
-    private long money;
-    private long targetHealth;
-    private long currentWave;
-    private long countdown;
-
-    public AbstractUIContext (long createdTick, long money, long targetHealth, long currentWave, long countdown) {
+    public AbstractUIContext (long createdTick, double[] pos) {
         this.createdTick = createdTick;
-        this.posX = Config.UI_CONTEXT_POS_X;
-        this.posY = Config.UI_CONTEXT_POS_Y;
-        this.width = Config.UI_CONTEXT_WIDTH;
-        this.height = Config.UI_CONTEXT_HEIGHT;
-
-        this.money = money;
-        this.targetHealth = targetHealth;
-        this.currentWave = currentWave;
-        this.countdown = countdown;
+        this.posX = pos[POS_X];
+        this.posY = pos[POS_Y];
+        this.width = pos[WIDTH];
+        this.height = pos[HEIGHT];
     }
 
     @Override
@@ -55,29 +48,6 @@ public abstract class AbstractUIContext implements UIEntity {
         return height;
     }
 
-    public long getMoney() {
-        return money;
-    }
-
-    public long getTargetHealth() {
-        return targetHealth;
-    }
-
-    public long getCurrentWave() {
-        return currentWave;
-    }
-
-    public long getCountdown() {
-        return countdown;
-    }
-
-    public void fieldUpdate(long money, long targetHealth, long currentWave, long countdown) {
-        this.money = money;
-        this.targetHealth = targetHealth;
-        this.currentWave = currentWave;
-        this.countdown = countdown;
-    }
-
     @Override
     public void onClick() {
         //Literally nothing to be done here
@@ -90,4 +60,6 @@ public abstract class AbstractUIContext implements UIEntity {
     public void outFocus() {
         //Literally nothing to be done here
     }
+
+    public abstract void setMoney(long money);
 }

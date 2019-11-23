@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,10 +34,7 @@ import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
 import mrmathami.thegame.towerpicker.TowerUpgrading;
 import mrmathami.thegame.ui.ingame.button.*;
-import mrmathami.thegame.ui.ingame.context.AbstractUIContext;
-import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
-import mrmathami.thegame.ui.ingame.context.NormalUIContext;
-import mrmathami.thegame.ui.ingame.context.TowerUIContext;
+import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -100,9 +98,9 @@ public final class MPGameController extends AnimationTimer {
 	private AbstractTowerPicker towerPicker;
 
 	/**
-	 * UI Context. Used to display game info on the sidebar
+	 * Context Area. Used to display game info on the sidebar
 	 */
-	private AbstractUIContext UIContext;
+	private ContextArea contextArea;
 
 	/**
 	 * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -144,10 +142,12 @@ public final class MPGameController extends AnimationTimer {
 		this.towerPicker = null;
 		this.pause = false;
 
-		this.UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0,0);
+		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X_MP, Config.UI_CONTEXT_POS_Y);
+		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0,0));
+		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, opponentField, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, opponentField, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
@@ -191,7 +191,7 @@ public final class MPGameController extends AnimationTimer {
 		opponentField.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		UIContext.fieldUpdate(field.getMoney(), field.getTargetHealth(), 0, 0);
+		contextArea.updateMPContext(field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0, 0);
 
 		// draw a new frame, as fast as possible.
 		try {
@@ -240,12 +240,65 @@ public final class MPGameController extends AnimationTimer {
 	}
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-		if (mousePosX < MPConfig.OPPONENT_START_PX_X) {
-			Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-			Collection<GameEntity> gameEntities = this.field.getEntities();
-			for (UIEntity entity : UIEntities) {
+
+		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
+				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
+			//infield
+			if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+				if ((towerPicker != null) && (towerPicker.getPickingState() == towerPicker.PICKABLE)) {
+					if (towerPicker instanceof TowerPlacing) {
+						AbstractTower tower = ((TowerPlacing) towerPicker).getTower();
+
+						// START: multi-player
+						int towerType = 0;
+						if (tower instanceof NormalTower) {
+							towerType = 1;
+						} else if (tower instanceof MachineGunTower) {
+							towerType = 2;
+						} else if (tower instanceof RocketLauncherTower) {
+							towerType = 3;
+						} else {
+							towerType = 0;
+						}
+						this.socket.sendPlace(towerType, mousePosX, mousePosY);
+						// END: multi-player
+
+						field.doSpawn(tower);
+						field.setMoney(field.getMoney() - ((TowerPlacing) towerPicker).getTowerPrice());
+					} else {
+						for (GameEntity entity : gameEntities) {
+							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
+								if (towerPicker instanceof TowerUpgrading) {
+									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+										((AbstractTower) entity).upgrade();
+										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
+										this.socket.sendUpgrade(mousePosX, mousePosY);
+									}
+								} else if (towerPicker instanceof TowerSelling) {
+									((AbstractTower) entity).doDestroy();
+									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
+									this.socket.sendSell(mousePosX, mousePosY);
+								}
+								break;
+							}
+						}
+					}
+					towerPicker = null;
+					drawer.setTowerPicker(null);
+				}
+			}
+			else {
+				towerPicker = null;
+				drawer.setTowerPicker(null);
+			}
+		}
+		else {
+			//outfield
+			for (UIEntity entity: UIEntities) {
 				double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
 				double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
 				double endX = startX + entity.getWidth() * drawer.getFieldZoom();
@@ -254,7 +307,7 @@ public final class MPGameController extends AnimationTimer {
 						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 					if (entity instanceof TowerButton) {
 						String towerType = ((TowerButton) entity).getTowerType();
-						if (!towerType.equals("Locked")) {
+						if (!((TowerButton) entity).getTowerType().equals("Locked")) {
 							towerPicker = new TowerPlacing(towerType);
 							drawer.setTowerPicker(towerPicker);
 						}
@@ -276,141 +329,63 @@ public final class MPGameController extends AnimationTimer {
 					return;
 				}
 			}
-			mousePosX = (long) ((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
-			mousePosY = (long) ((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
-			final boolean inField = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
-			if (!inField) return;
-
-			if ((towerPicker != null) && (towerPicker.getPickingState() == towerPicker.PICKABLE)) {
-				if (towerPicker instanceof TowerPlacing) {
-					AbstractTower tower = ((TowerPlacing) towerPicker).getTower();
-
-					// START: multi-player
-					int towerType = 0;
-					if (tower instanceof NormalTower) {
-						towerType = 1;
-					} else if (tower instanceof MachineGunTower) {
-						towerType = 2;
-					} else if (tower instanceof RocketLauncherTower) {
-						towerType = 3;
-					} else {
-						towerType = 0;
-					}
-					this.socket.sendPlace(towerType, mousePosX, mousePosY);
-					// END: multi-player
-
-					field.doSpawn(tower);
-					field.setMoney(field.getMoney() - ((TowerPlacing) towerPicker).getTowerPrice());
-					towerPicker = null;
-					drawer.setTowerPicker(null);
-				} else {
-					for (GameEntity entity : gameEntities) {
-						if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
-							if (towerPicker instanceof TowerUpgrading) {
-								if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
-									((AbstractTower) entity).upgrade();
-									field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
-									this.socket.sendUpgrade(mousePosX, mousePosY);
-								}
-							} else if (towerPicker instanceof TowerSelling) {
-								((AbstractTower) entity).doDestroy();
-								field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
-								this.socket.sendSell(mousePosX, mousePosY);
-							}
-							break;
-						}
-					}
-					towerPicker = null;
-					drawer.setTowerPicker(null);
-				}
-			}
 		}
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-		if (mousePosX < MPConfig.OPPONENT_START_PX_X) {
-			Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-			Collection<GameEntity> gameEntities = this.field.getEntities();
-			boolean onButton = false;
 
-			/*
-			 * Check if the cursor is on any button
-			 */
-			for (UIEntity entity : UIEntities) {
-				double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
-				double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
-				double endX = startX + entity.getWidth() * drawer.getFieldZoom();
-				double endY = startY + entity.getHeight() * drawer.getFieldZoom();
-				if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
-						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-					entity.onFocus();
-					onButton = true;
-					if ((entity instanceof TowerButton) && (!((TowerButton) entity).getTowerType().equals("Locked"))) {
-						UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerButton) entity).getTowerType());
-					} else {
-						UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
-					}
-					drawer.setUIContext(UIContext);
-				} else {
-					entity.outFocus();
-				}
-			}
+		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
+				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
+			//infield
+			mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
+			mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
 
-			if (onButton) {
-				if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
-				return;
-			}
-			UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
-			drawer.setUIContext(UIContext);
-
-			mousePosX = (long) ((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
-			mousePosY = (long) ((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());
-			boolean inField = (mousePosX < Config.TILE_HORIZONTAL) && (mousePosY < Config.TILE_VERTICAL);
+			contextArea.setLowerContext(null);
 
 			if (towerPicker != null) {
-				if (!inField) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
-				else {
-					if (towerPicker instanceof TowerPlacing) {
-						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).PLACEABLE);
-						towerPicker.setPosition((long) mousePosX, (long) mousePosY);
-					} else {
-						towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
-						towerPicker.setPosition((long) mousePosX, (long) mousePosY);
+				towerPicker.setPosition((long) mousePosX, (long) mousePosY);
+				if (towerPicker instanceof TowerPlacing) {
+					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
+
+					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney()) {
+						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+						return;
 					}
+					else {
+						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).PLACEABLE);
+					}
+				}
+				else {
+					towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
 				}
 			}
 
-			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing) && (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney())) {
-				((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
-				return;
-			}
-
-			boolean onTower = false;
 			for (GameEntity entity : gameEntities) {
 				if (entity instanceof Road) {
 					if ((towerPicker != null) && (towerPicker instanceof TowerPlacing) && (towerPicker.isOverlappedWithRoad(entity))) {
 						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
 						break;
 					}
-				} else if (entity instanceof AbstractTower) {
+				}
+				else if (entity instanceof AbstractTower) {
 					if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
-						UIContext = new TowerUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, (AbstractTower) entity);
-						drawer.setUIContext(UIContext);
-						onTower = true;
+						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), (AbstractTower)entity));
 					}
-					if (towerPicker != null) {
-						if (towerPicker.isOverlappedWithTower(entity)) {
-							if (towerPicker instanceof TowerPlacing) {
-								((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
-							} else {
-								towerPicker.setPickingState(towerPicker.PICKABLE);
-							}
-							break;
+					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
+						if (towerPicker instanceof TowerPlacing) {
+							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
 						}
+						else {
+							towerPicker.setPickingState(towerPicker.PICKABLE);
+						}
+						break;
 					}
-				} else if ((entity instanceof Rock) || (entity instanceof Bush)) {
+				}
+				else if (entity instanceof Bush) {
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
 							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
@@ -420,13 +395,37 @@ public final class MPGameController extends AnimationTimer {
 				}
 			}
 
-			if ((towerPicker == null) && (!onTower)) {
-				UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0);
-				drawer.setUIContext(UIContext);
-			}
 			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing)) {
-				UIContext = new ButtonUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0, 0, ((TowerPlacing) towerPicker).getTowerType());
-				drawer.setUIContext(UIContext);
+				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
+			}
+
+			for (UIEntity entity: UIEntities) {
+				entity.outFocus();
+			}
+		}
+		else {
+			//outfield
+			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
+			boolean onTowerButton = false;
+
+			for (UIEntity entity: UIEntities) {
+				double startX = (entity.getPosX() - drawer.getFieldStartPosX()) * drawer.getFieldZoom();
+				double startY = (entity.getPosY() - drawer.getFieldStartPosY()) * drawer.getFieldZoom();
+				double endX = startX + entity.getWidth() * drawer.getFieldZoom();
+				double endY = startY + entity.getHeight() * drawer.getFieldZoom();
+				if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
+						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
+					entity.onFocus();
+					if ((entity instanceof TowerButton) && (!((TowerButton)entity).getTowerType().equals("Locked"))) {
+						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerButton) entity).getTowerType()));
+						onTowerButton = true;
+					}
+				} else {
+					entity.outFocus();
+				}
+			}
+			if (!onTowerButton) {
+				contextArea.setLowerContext(null);
 			}
 		}
 	}

@@ -26,6 +26,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
             Map.entry("firepower", 4),
             Map.entry("level", 5),
             Map.entry("speed", 6),
+            Map.entry("opponent", 7),
             Map.entry("upgrade", 8),
             Map.entry("sell", 9),
             Map.entry("buy", 10)
@@ -51,42 +52,6 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
         graphicsContext.setFont(new Font(FONT_SIZE));
-
-        /**
-         * Money
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("money") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(context.getMoney() + "$", leftTextPosX, linePosY, 75);
-
-        /**
-         * Current wave
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("wave") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, rightIconPosX, linePosY);
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(Long.toString(context.getCurrentWave()), rightTextPosX, linePosY, 75);
-
-        linePosY += LINE_HEIGHT;
-
-        /**
-         * Health
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("lives") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(Long.toString(context.getTargetHealth()), leftTextPosX, linePosY, 75);
-
-        /**
-         * Countdown to next turn
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("countdown") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, rightIconPosX, linePosY);
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(context.getCountdown() + "s", rightTextPosX, linePosY, 75);
-
-        linePosY += (LINE_HEIGHT + 15);
 
         /**
          * Price

@@ -8,9 +8,10 @@ import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
 public class ButtonUIContext extends AbstractUIContext {
 
     private AbstractTower tower;
+    private long money;
 
-    public ButtonUIContext (long createdTick, long money, long targetHealth, long currentWave, long countdown, String towerType) {
-        super(createdTick, money, targetHealth, currentWave, countdown);
+    public ButtonUIContext (long createdTick, double[] pos, long money, String towerType) {
+        super(createdTick, pos);
         switch (towerType) {
             case "NormalTower":
                 this.tower = new NormalTower(0, 0, 0, 90);
@@ -22,9 +23,19 @@ public class ButtonUIContext extends AbstractUIContext {
                 this.tower = new MachineGunTower(0, 0, 0, 90);
                 break;
         }
+        this.money = money;
     }
 
     public AbstractTower getTower() {
         return tower;
+    }
+
+    public long getMoney() {
+        return money;
+    }
+
+    @Override
+    public void setMoney(long money) {
+        this.money = money;
     }
 }
