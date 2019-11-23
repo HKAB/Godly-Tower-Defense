@@ -1,5 +1,6 @@
 package mrmathami.thegame.ui.menu;
 
+
 import mrmathami.thegame.ui.AbstractButton;
 
 public class SettingsButton extends AbstractButton {

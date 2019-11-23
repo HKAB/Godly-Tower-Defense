@@ -128,6 +128,7 @@ public final class GameDrawer {
 
 	@Nonnull private final GraphicsContext graphicsContext;
 	@Nonnull private GameField gameField;
+	@Nullable private GameField opponentGameField;
 	@Nonnull private GameUI gameUI;
 	private AbstractTowerPicker towerPicker;
 	private AbstractUIContext UIContext;
@@ -140,7 +141,9 @@ public final class GameDrawer {
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
 
-	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker, AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
+	public GameDrawer(@Nonnull GraphicsContext graphicsContext, @Nonnull GameField gameField,
+					  @Nullable GameField opponentGameField, @Nonnull GameUI gameUI, AbstractTowerPicker towerPicker,
+					  AbstractUIContext UIContext, String sheetImage, String buttonImage) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
 		this.gameField = gameField;
 		this.towerPicker = towerPicker;
@@ -150,6 +153,7 @@ public final class GameDrawer {
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
 		this.contextIconImage = new Image(getClass().getResourceAsStream("/ui/contextIcon.png"));
 		this.gameUI = gameUI;
+		this.opponentGameField = opponentGameField;
 	}
 
 	/**
@@ -247,7 +251,6 @@ public final class GameDrawer {
 
 		final List<GameEntity> entities = new ArrayList<>(GameEntities.getOverlappedEntities(gameField.getEntities(),
 				fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
-		final Collection<UIEntity> UIEntities = gameUI.getEntities();
 		entities.sort(GameDrawer::entityDrawingOrderComparator);
 
 		graphicsContext.setFill(Color.rgb(152, 118, 90));
@@ -258,7 +261,6 @@ public final class GameDrawer {
 		for (final GameEntity entity : entities) {
 			if (lastEntity != null && entityDrawingOrderComparator(entity, lastEntity) == 0) continue;
 			lastEntity = entity;
-
 			final EntityDrawer drawer = getEntityDrawer(entity);
 			if (drawer != null) {
 				drawer.draw(gameField.getTickCount(), graphicsContext, entity,
@@ -270,6 +272,9 @@ public final class GameDrawer {
 				);
 			}
 		}
+
+		// For game UI
+		final Collection<UIEntity> UIEntities = gameUI.getEntities();
 		for (UIEntity entity : UIEntities) {
 			final UIEntityDrawer drawer = getUIDrawer(entity);
 			if (drawer != null) {
@@ -280,6 +285,27 @@ public final class GameDrawer {
 						entity.getHeight() * fieldZoom,
 						fieldZoom
 				);
+			}
+		}
+
+		// If we're having an opponent
+		if (this.opponentGameField != null) {
+			final List<GameEntity> opponentEntities = new ArrayList<>(GameEntities.getOverlappedEntities(opponentGameField.getEntities(),
+					fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
+			for (final GameEntity entity : opponentEntities) {
+				final EntityDrawer drawer = getEntityDrawer(entity);
+//				if (entity instanceof MachineGunTower) {
+//					System.out.println("Opponent MachineGunTower " + entity.getPosX() + "" + entity.getPosY());
+//				}
+				if (drawer != null) {
+					drawer.draw(opponentGameField.getTickCount(), graphicsContext, entity,
+							(entity.getPosX() - fieldStartPosX) * fieldZoom,
+							(entity.getPosY() - fieldStartPosY) * fieldZoom,
+							entity.getWidth() * fieldZoom,
+							entity.getHeight() * fieldZoom,
+							fieldZoom
+					);
+				}
 			}
 		}
 		if (towerPicker != null) {
