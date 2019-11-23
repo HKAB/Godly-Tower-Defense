@@ -245,8 +245,8 @@ public final class MPGameController extends AnimationTimer {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 
-		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
-				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
+		if ((Double.compare(mousePosX, (double)MPConfig.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
+				&& (Double.compare(mousePosY, (double)MPConfig.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
 			//infield
 			if (mouseEvent.getButton() == MouseButton.PRIMARY) {
 				if ((towerPicker != null) && (towerPicker.getPickingState() == towerPicker.PICKABLE)) {
@@ -338,8 +338,8 @@ public final class MPGameController extends AnimationTimer {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 
-		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
-				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
+		if ((Double.compare(mousePosX, (double)MPConfig.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
+				&& (Double.compare(mousePosY, (double)MPConfig.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
 			//infield
 			mousePosX = (long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom());
 			mousePosY = (long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom());

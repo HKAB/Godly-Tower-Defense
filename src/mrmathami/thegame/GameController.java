@@ -16,6 +16,7 @@ import javafx.stage.WindowEvent;
 
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Rock;
+import mrmathami.thegame.net.MPConfig;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
@@ -275,6 +276,8 @@ public final class GameController extends AnimationTimer {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 
+		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) return;
+
 		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
 			//infield
@@ -349,6 +352,8 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+
+		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) return;
 
 		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
