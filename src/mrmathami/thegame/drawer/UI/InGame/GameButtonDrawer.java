@@ -7,7 +7,7 @@ import javafx.scene.image.WritableImage;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 import mrmathami.thegame.ui.ingame.button.TowerButton;
 import mrmathami.thegame.entity.UIEntity;
 

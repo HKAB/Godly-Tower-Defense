@@ -1,6 +1,6 @@
 package mrmathami.thegame.ui.ingame.button;
 
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 
 public class NavigationButton extends AbstractButton {
     private String command;

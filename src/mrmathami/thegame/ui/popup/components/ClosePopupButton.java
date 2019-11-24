@@ -1,7 +1,7 @@
 package mrmathami.thegame.ui.popup.components;
 
 import mrmathami.thegame.Config;
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 
 public class ClosePopupButton extends AbstractButton {
 

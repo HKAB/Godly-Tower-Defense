@@ -15,6 +15,8 @@ import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.net.MPConfig;
+import mrmathami.thegame.net.MPSocketController;
 import mrmathami.thegame.ui.menu.CreditsButton;
 import mrmathami.thegame.ui.menu.MultiPlayerButton;
 import mrmathami.thegame.ui.menu.SettingsButton;
@@ -23,6 +25,7 @@ import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.Executors;
@@ -63,7 +66,6 @@ public final class MenuController extends AnimationTimer {
      * Menu UI. Contains UI elements.
      */
     private MenuUI menuUI;
-
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -172,6 +174,32 @@ public final class MenuController extends AnimationTimer {
         gameController.start();
     }
 
+    private void moveToMPScene() {
+        scheduledFuture.cancel(true);
+        stop();
+        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+
+        // TODO: Replace later when player can decide which host to connect to.
+        try {
+            MPSocketController socket = new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
+        } catch (IOException e) {
+            MPSocketController socket = new MPSocketController();
+        }
+
+        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
+        MPGameController gameController = null;
+        try {
+            gameController = new MPGameController(graphicsContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
+        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(gameCanvas);
+        gameController.start();
+    }
+
     /**
      * On window close request.
      * Kinda advance, modify if you are sure about your change.
@@ -250,7 +278,7 @@ public final class MenuController extends AnimationTimer {
                     moveToGameScene();
                     break;
                 } else if (entity instanceof MultiPlayerButton) {
-                    break;
+                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                     break;
                 } else if (entity instanceof CreditsButton) {

@@ -45,7 +45,7 @@ public final class Config {
 	/**
 	 * UI Context size and position
 	 */
-	public static final double UI_CONTEXT_POS_X = 16;
+	public static final double UI_CONTEXT_POS_X = 8;
 	public static final double UI_CONTEXT_POS_Y = 3.5;
 	public static final double UI_CONTEXT_WIDTH = 4;
 	public static final double UI_CONTEXT_HEIGHT = 4;

@@ -50,7 +50,6 @@ out
 .idea
 *.ipr
 *.iws
-*.iml
 # atlassian-ide-plugin.xml
 
 # Eclipse specific files/directories

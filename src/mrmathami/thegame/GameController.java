@@ -119,8 +119,7 @@ public final class GameController extends AnimationTimer {
 		final long height = Config.TILE_VERTICAL;
 
 		// The game field. Please consider create another way to load a game field.
-		// TODO: I don't have much time, so, spawn some wall then :)
-		this.field = new GameField(GameStage.load("/stage/map1.txt"));
+		this.field = new GameField(GameStage.load("/stage/map1.txt", false));
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
@@ -129,7 +128,7 @@ public final class GameController extends AnimationTimer {
 		this.UIContext = new NormalUIContext(field.getTickCount(), field.getMoney(), field.getTargetHealth(), 0,0);
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPicker, UIContext,"/stage/sheet.png", "/ui/button.png");
 
 		this.popupDrawer = null;
 		// Field view region is a rectangle region
