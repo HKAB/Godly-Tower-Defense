@@ -22,9 +22,7 @@ public class GameOverPopup extends AbstractPopup {
     }
 
     @Override
-    public void onFocus() {
-
-    }
+    public void onFocus() {}
 
     @Override
     public void outFocus() {
