@@ -227,15 +227,26 @@ public final class GameController extends AnimationTimer {
 	 */
 	final void keyDownHandler(KeyEvent keyEvent) {
 		final KeyCode keyCode = keyEvent.getCode();
-		if (keyCode == KeyCode.W) {
-		} else if (keyCode == KeyCode.S) {
+		if (keyCode == KeyCode.Q) {
+			towerPicker = new TowerPlacing("NormalTower");
+		} else if (keyCode == KeyCode.W) {
+			towerPicker = new TowerPlacing("MachineGunTower");
+		} else if (keyCode == KeyCode.E) {
+			towerPicker = new TowerPlacing("RocketLauncherTower");
+		} else if (keyCode == KeyCode.R) {
+			towerPicker = null;
 		} else if (keyCode == KeyCode.A) {
+			towerPicker = null;
+		} else if (keyCode == KeyCode.S) {
+			towerPicker = null;
 		} else if (keyCode == KeyCode.D) {
-		} else if (keyCode == KeyCode.I) {
-		} else if (keyCode == KeyCode.J) {
-		} else if (keyCode == KeyCode.K) {
-		} else if (keyCode == KeyCode.L) {
+			towerPicker = null;
+		} else if (keyCode == KeyCode.F) {
+			towerPicker = null;
+		} else {
+			towerPicker = null;
 		}
+		drawer.setTowerPicker(towerPicker);
 	}
 
 	/**
@@ -275,8 +286,6 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-
-		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) return;
 
 		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
@@ -352,8 +361,6 @@ public final class GameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
-
-		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) return;
 
 		if ((Double.compare(mousePosX, (double)Config.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)Config.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {

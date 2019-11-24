@@ -245,6 +245,12 @@ public final class MPGameController extends AnimationTimer {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 
+		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
+			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
+			contextArea.setLowerContext(null);
+			return;
+		}
+
 		if ((Double.compare(mousePosX, (double)MPConfig.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)MPConfig.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
 			//infield
@@ -337,6 +343,12 @@ public final class MPGameController extends AnimationTimer {
 		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+
+		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
+			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
+			contextArea.setLowerContext(null);
+			return;
+		}
 
 		if ((Double.compare(mousePosX, (double)MPConfig.TILE_HORIZONTAL * drawer.getFieldZoom()) < 0)
 				&& (Double.compare(mousePosY, (double)MPConfig.TILE_VERTICAL * drawer.getFieldZoom()) < 0)) {
