@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
@@ -67,6 +68,8 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuUI menuUI;
 
+    private GameAudio gameAudio;
+
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
      */
@@ -89,6 +92,11 @@ public final class MenuController extends AnimationTimer {
         this.graphicsContext = graphicsContext;
         this.stackPane = stackPane;
 
+        // Initialize herererereayayaya
+        gameAudio = new GameAudio();
+        gameAudio.playThemeSong();
+//        gameAudio.playSound(GameAudio.getGameSound(), (float)0.5);
+
         // Just a few acronyms.
         final long width = Config.TILE_HORIZONTAL;
         final long height = Config.TILE_VERTICAL;
@@ -96,7 +104,7 @@ public final class MenuController extends AnimationTimer {
         this.menuUI = new MenuUI("/menu/buttonConfig.dat");
         this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png", "/menu/button.png");
         this.popupDrawer = null;
-        drawer. setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+        drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
 
     /**

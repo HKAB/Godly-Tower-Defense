@@ -1,6 +1,7 @@
 
 package mrmathami.thegame.entity.tile.tower;
 
+import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.RocketBullet;
@@ -8,6 +9,7 @@ import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.BigAircraft;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 
 public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAircraft> {
     public int[] GID = new int[] {Config.ROCKET_TOWER_LEVEL1_GID, Config.ROCKET_TOWER_LEVEL2_GID, Config.ROCKET_TOWER_LEVEL3_GID};
@@ -21,7 +23,7 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAi
     @Nonnull
     @Override
     protected final RocketBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-        GameAudio.playSound(RocketBullet.class);
+        GameAudio.getInstance().playSound(new AudioClip(GameAudio.rocketBulletSound), 0.5);
         return new RocketBullet(createdTick, posX - Config.ROCKET_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.ROCKET_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 

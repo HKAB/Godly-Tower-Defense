@@ -2,6 +2,7 @@ package mrmathami.thegame.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
@@ -117,7 +118,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	public final void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
 		field.setMoney(field.getMoney() + 1);
-		GameAudio.playSound(ExplosionEffect.class);
+//		GameAudio.playSound(ExplosionEffect.class);
+		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound), 1.0);
 	}
 
 	@Override

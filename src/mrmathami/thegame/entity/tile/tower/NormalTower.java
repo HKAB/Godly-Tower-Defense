@@ -1,5 +1,6 @@
 package mrmathami.thegame.entity.tile.tower;
 
+import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.NormalBullet;
@@ -7,6 +8,7 @@ import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.enemy.NormalAircraft;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 
 public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraft> {
 	public int[] GID = new int[] {Config.NORMAL_TOWER_LEVEL1_GID, Config.NORMAL_TOWER_LEVEL2_GID, Config.NORMAL_TOWER_LEVEL3_GID};
@@ -20,7 +22,7 @@ public final class NormalTower extends AbstractTower<NormalBullet, NormalAircraf
 	@Nonnull
 	@Override
 	protected final NormalBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-		GameAudio.playSound(NormalBullet.class);
+		GameAudio.getInstance().playSound(new AudioClip(GameAudio.normalBulletSound), 0.5);
 		return new NormalBullet(createdTick, posX - Config.NORMAL_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.NORMAL_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
 	}
 
