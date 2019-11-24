@@ -98,7 +98,7 @@ public final class Config {
 	//endregion
 
 	//region Tower
-	public static final long NORMAL_TOWER_SPEED = 10;
+	public static final long NORMAL_TOWER_SPEED = 20;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
 	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
 	public static final int NORMAL_TOWER_LEVEL2_GID = 227;
@@ -150,7 +150,7 @@ public final class Config {
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
 	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 200;
 	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
-	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.05;
 	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;

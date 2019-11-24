@@ -1,6 +1,9 @@
 package mrmathami.thegame;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +15,8 @@ import javafx.stage.Stage;
 import mrmathami.thegame.audio.GameAudio;
 
 import java.io.FileNotFoundException;
+import java.security.Provider;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Main class. Entry point of the game.
@@ -24,6 +29,7 @@ public final class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
+
 //	    Group root = new Group();
 		StackPane stackPane = new StackPane();
 	    // Prepare game Canvas
@@ -49,7 +55,6 @@ public final class Main extends Application {
 		primaryStage.setTitle(Config.GAME_NAME);
         primaryStage.setScene(mainScene);
 		primaryStage.show();
-		GameAudio.playThemeSong();
         primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
         menuController.start();
 	}

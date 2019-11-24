@@ -22,8 +22,6 @@ public final class MachineGunBulletDrawer implements EntityDrawer {
 		screenPosX += Config.OFFSET;
 		screenPosY += Config.OFFSET;
 
-		System.out.println("screenPosX: " + screenHeight + ",screenPosY: " + screenPosY);
-
 		Image img = GameDrawer.getSheetImage();
 		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
