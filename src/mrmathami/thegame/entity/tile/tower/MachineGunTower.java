@@ -1,6 +1,8 @@
 
 package mrmathami.thegame.entity.tile.tower;
 
+import javafx.application.Platform;
+import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
@@ -21,7 +23,7 @@ public final class MachineGunTower extends AbstractTower<MachineGunBullet, Tanke
     @Nonnull
     @Override
     protected final MachineGunBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-        GameAudio.playSound(MachineGunBullet.class);
+        GameAudio.getInstance().playSound(new AudioClip(GameAudio.machineBulletSound), 0.5);
         return new MachineGunBullet(createdTick, posX - Config.MACHINE_GUN_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.MACHINE_GUN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 

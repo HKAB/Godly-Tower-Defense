@@ -3,7 +3,8 @@ module towerdefense {
 //	exports mrmathami.towerdefense;
 	opens mrmathami.thegame;
 	exports mrmathami.thegame;
-	exports mrmathami.thegame.drawer;
+	exports mrmathami.thegame.drawer.Entity;
+	exports mrmathami.thegame.drawer.UI;
 	exports mrmathami.thegame.entity;
 	exports mrmathami.thegame.entity.tile;
 
@@ -12,6 +13,6 @@ module towerdefense {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires jsr305;
-    requires java.desktop;
-    requires javafx.media;
+	requires java.desktop;
+	requires javafx.media;
 }

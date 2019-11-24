@@ -1,7 +1,7 @@
 package mrmathami.thegame.ui.ingame.button;
 
 import mrmathami.thegame.Config;
-import mrmathami.thegame.ui.AbstractButton;
+import mrmathami.thegame.ui.button.AbstractButton;
 
 public class TowerButton extends AbstractButton {
     private int GID;

@@ -62,6 +62,12 @@ public final class Config {
 	public static final long SCREEN_HEIGHT = TILE_SIZE * TILE_VERTICAL;
 
 	public static final double OFFSET = 45.0;
+
+	//region Popup
+	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
+	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
+	//endregion
+
 	//Other config related to other entities in the game.
 
 	//region Bullet
@@ -94,7 +100,7 @@ public final class Config {
 	//endregion
 
 	//region Tower
-	public static final long NORMAL_TOWER_SPEED = 10;
+	public static final long NORMAL_TOWER_SPEED = 20;
 	public static final double NORMAL_TOWER_RANGE = 2.0;
 	public static final int NORMAL_TOWER_LEVEL1_GID = 204;
 	public static final int NORMAL_TOWER_LEVEL2_GID = 227;
@@ -146,7 +152,7 @@ public final class Config {
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
 	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 200;
 	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
-	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.05;
 	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
@@ -229,7 +235,13 @@ public final class Config {
 
 	//region effect
 	public static final int EXPLOSION_GID = 23;
-	public static final int EXPLOSION_TTL = 10;
+	public static final int EXPLOSION_TTL = 6;
+
+	public static final int UPGRADE_GID = 22;
+	public static final int UPGRADE_TTL = 10;
+
+	public static final int TOWER_DESTROY_GID = 20;
+	public static final int TOWER_DESTROY_TTL = 10;
 	//endregion
 
 	private Config() {

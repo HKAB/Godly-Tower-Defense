@@ -16,12 +16,14 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.GameUI;
-import mrmathami.thegame.drawer.GameDrawer;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.Rock;
+import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
+import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
@@ -239,6 +241,42 @@ public final class MPGameController extends AnimationTimer {
 		System.exit(0);
 	}
 
+	/**
+	 * Key down handler.
+	 *
+	 * @param keyEvent the key that you press down
+	 */
+	final void keyDownHandler(KeyEvent keyEvent) {
+		final KeyCode keyCode = keyEvent.getCode();
+		switch (keyCode) {
+			case Q:
+				towerPicker = new TowerPlacing("NormalTower");
+				break;
+			case W:
+				towerPicker = new TowerPlacing("MachineGunTower");
+				break;
+			case E:
+				towerPicker = new TowerPlacing("RocketLauncherTower");
+				break;
+			case R:
+			case A:
+			case S:
+			case D:
+			case F:
+				break;
+			case Z:
+				towerPicker = new TowerUpgrading();
+				break;
+			case X:
+				towerPicker = new TowerSelling();
+				break;
+			case ESCAPE:
+				towerPicker = null;
+				break;
+		}
+		drawer.setTowerPicker(towerPicker);
+	}
+
 	final void mouseClickHandler(MouseEvent mouseEvent) {
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
 		Collection<GameEntity> gameEntities = this.field.getEntities();
@@ -281,11 +319,14 @@ public final class MPGameController extends AnimationTimer {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
 										((AbstractTower) entity).upgrade();
+										// Effect
+										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
 										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 										this.socket.sendUpgrade(mousePosX, mousePosY);
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
+									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
 									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 									this.socket.sendSell(mousePosX, mousePosY);
 								}
