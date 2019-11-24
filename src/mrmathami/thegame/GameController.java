@@ -227,24 +227,31 @@ public final class GameController extends AnimationTimer {
 	 */
 	final void keyDownHandler(KeyEvent keyEvent) {
 		final KeyCode keyCode = keyEvent.getCode();
-		if (keyCode == KeyCode.Q) {
-			towerPicker = new TowerPlacing("NormalTower");
-		} else if (keyCode == KeyCode.W) {
-			towerPicker = new TowerPlacing("MachineGunTower");
-		} else if (keyCode == KeyCode.E) {
-			towerPicker = new TowerPlacing("RocketLauncherTower");
-		} else if (keyCode == KeyCode.R) {
-			towerPicker = null;
-		} else if (keyCode == KeyCode.A) {
-			towerPicker = null;
-		} else if (keyCode == KeyCode.S) {
-			towerPicker = null;
-		} else if (keyCode == KeyCode.D) {
-			towerPicker = null;
-		} else if (keyCode == KeyCode.F) {
-			towerPicker = null;
-		} else {
-			towerPicker = null;
+		switch (keyCode) {
+			case Q:
+				towerPicker = new TowerPlacing("NormalTower");
+				break;
+			case W:
+				towerPicker = new TowerPlacing("MachineGunTower");
+				break;
+			case E:
+				towerPicker = new TowerPlacing("RocketLauncherTower");
+				break;
+			case R:
+			case A:
+			case S:
+			case D:
+			case F:
+				break;
+			case Z:
+				towerPicker = new TowerUpgrading();
+				break;
+			case X:
+				towerPicker = new TowerSelling();
+				break;
+			case ESCAPE:
+				towerPicker = null;
+				break;
 		}
 		drawer.setTowerPicker(towerPicker);
 	}

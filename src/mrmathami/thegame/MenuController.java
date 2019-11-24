@@ -156,9 +156,10 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        //gameCanvas.addEventFilter(KeyEvent.KEY_PRESSED, gameController::keyDownHandler);
+        gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
         root.getChildren().clear();
         root.getChildren().add(gameCanvas);
         gameController.start();
