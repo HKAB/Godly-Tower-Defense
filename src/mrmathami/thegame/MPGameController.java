@@ -12,16 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.Config;
-import mrmathami.thegame.GameField;
-import mrmathami.thegame.GameStage;
-import mrmathami.thegame.GameUI;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Rock;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
@@ -278,10 +273,10 @@ public final class MPGameController extends AnimationTimer {
 	}
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 
 		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
 			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
@@ -308,7 +303,7 @@ public final class MPGameController extends AnimationTimer {
 						} else {
 							towerType = 0;
 						}
-						this.socket.sendPlace(towerType, mousePosX, mousePosY);
+						this.socket.sendPlace(towerType, mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
 						// END: multi-player
 
 						field.doSpawn(tower);
@@ -322,13 +317,19 @@ public final class MPGameController extends AnimationTimer {
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
 										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
-										this.socket.sendUpgrade(mousePosX, mousePosY);
+
+										// START: multi-player
+										this.socket.sendUpgrade(mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
+										// END: multi-player
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
 									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
 									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
-									this.socket.sendSell(mousePosX, mousePosY);
+
+									// START: multi-player
+									this.socket.sendSell(mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
+									// END: multi-player
 								}
 								break;
 							}
@@ -380,10 +381,10 @@ public final class MPGameController extends AnimationTimer {
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 
 		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
 			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
