@@ -5,6 +5,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
@@ -66,18 +67,34 @@ public final class MPGameField extends GameField {
         getAndProcessRemoteCommand();
     }
 
-    private void upgradeAtPosition() {
-
+    private void upgradeAtPosition(double x, double y) {
+        System.out.println("Processing UPGRADE " + x + " " + y);
+        for (GameEntity entity: entities) {
+            if (entity instanceof AbstractTower) {
+                if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
+                        Double.compare(entity.getPosY(), y) == 0) {
+                    ((AbstractTower) entity).upgrade();
+                }
+            }
+        }
     }
 
-    private void sellAtPosition() {
-
+    private void sellAtPosition(double x, double y) {
+        for (GameEntity entity: entities) {
+            if (entity instanceof AbstractTower) {
+                if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
+                        Double.compare(entity.getPosY(), y) == 0) {
+                    ((AbstractTower) entity).doDestroy();
+                }
+            }
+        }
     }
 
     private void getAndProcessRemoteCommand() {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
             if (command.get(0).equals("PLACE")) {
+                System.out.println(command);
                 switch (command.get(1)) {
                     case "1":
                         doSpawn(new NormalTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
@@ -90,9 +107,11 @@ public final class MPGameField extends GameField {
                         break;
                 }
             } else if (command.get(0).equals("UPGRADE")) {
-                System.out.println("Received UPGRADE");
+                System.out.println("Received UPGRADE " + command.toString());
+                upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             } else if (command.get(0).equals("SELL")) {
-                System.out.println("Received SELL");
+                System.out.println("Received SELL " + command.toString());
+                sellAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             }
         }
     }

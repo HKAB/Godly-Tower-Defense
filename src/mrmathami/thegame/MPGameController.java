@@ -303,7 +303,9 @@ public final class MPGameController extends AnimationTimer {
 						} else {
 							towerType = 0;
 						}
-						this.socket.sendPlace(towerType, mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
+						this.socket.sendPlace(towerType,
+								(long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+								(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
 						// END: multi-player
 
 						field.doSpawn(tower);
@@ -319,7 +321,8 @@ public final class MPGameController extends AnimationTimer {
 										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 
 										// START: multi-player
-										this.socket.sendUpgrade(mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
+										this.socket.sendUpgrade((long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+												(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
 										// END: multi-player
 									}
 								} else if (towerPicker instanceof TowerSelling) {
@@ -328,7 +331,8 @@ public final class MPGameController extends AnimationTimer {
 									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 
 									// START: multi-player
-									this.socket.sendSell(mousePosX / drawer.getFieldZoom(), mousePosY / drawer.getFieldZoom());
+									this.socket.sendSell((long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+											(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
 									// END: multi-player
 								}
 								break;
