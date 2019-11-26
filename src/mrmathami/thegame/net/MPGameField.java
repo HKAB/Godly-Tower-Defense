@@ -110,6 +110,8 @@ public final class MPGameField extends GameField {
                     case "3":
                         doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
                         break;
+                    default:
+                        System.out.println("Unhandled tower code " + command.get(1));
                 }
             } else if (command.get(0).equals("UPGRADE")) {
                 upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
