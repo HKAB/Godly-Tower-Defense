@@ -3,10 +3,7 @@ package mrmathami.thegame.ui.popup;
 import javafx.scene.layout.StackPane;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.popup.components.ClosePopupButton;
-import mrmathami.thegame.ui.popup.components.PopupImage;
-import mrmathami.thegame.ui.popup.components.PopupLabel;
-import mrmathami.thegame.ui.popup.components.PopupPane;
+import mrmathami.thegame.ui.popup.components.*;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,7 +13,8 @@ public class CreditPopup extends AbstractPopup {
         super(createdTick, posX, posY, width, height, stackPane);
         // TODO: make this more easier to calculate position
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-        getPopupEntities().add(new ClosePopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 32.0)/Config.TILE_SIZE, posY/Config.TILE_SIZE));
+//        getPopupEntities().add(new ClosePopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 32.0)/Config.TILE_SIZE, posY/Config.TILE_SIZE));
+        getPopupEntities().add(new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 10)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "X"));
 
         PopupImage author1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/ductung.jpg");
         getPopupEntities().add(author1);
@@ -50,7 +48,7 @@ public class CreditPopup extends AbstractPopup {
                 double endY = startY + entity.getHeight() * Config.TILE_SIZE;
                 if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-                    if (entity instanceof ClosePopupButton) {
+                    if (entity instanceof PopupButton) {
                         getStackPane().getChildren().remove(getPopupCanvas());
                         break;
                     }

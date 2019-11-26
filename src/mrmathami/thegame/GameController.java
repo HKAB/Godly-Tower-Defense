@@ -34,6 +34,7 @@ import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.thegame.ui.popup.GameOverPopup;
+import mrmathami.thegame.ui.popup.WinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.awt.*;
@@ -186,6 +187,12 @@ public final class GameController extends AnimationTimer {
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			super.stop();
+		}
+		else if (field.isWon())
+		{
+			WinPopup winPopup = new WinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
 			super.stop();
 		}
 

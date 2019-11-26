@@ -4,7 +4,6 @@ import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.*;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
 import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
@@ -56,17 +55,7 @@ public final class GameStage {
 
 				for (int i = 0; i < numOfTiles; i++) {
 					final String value = scanner.next();
-					if ("NormalSpawner".equals(value)) {
-						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new NormalSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					}
-					else if ("Rock".equals(value)) {
+					if ("Rock".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int gid = scanner.nextInt();

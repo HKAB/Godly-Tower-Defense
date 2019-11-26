@@ -5,6 +5,7 @@ import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
+import mrmathami.thegame.entity.tile.spawner.AbstractSpawner;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -156,5 +157,24 @@ public class GameField {
 
 		entities.addAll(sfxEntities);
 		sfxEntities.clear();
+	}
+
+	public boolean isWon()
+	{
+		for (GameEntity entity :
+				entities) {
+			if (entity instanceof AbstractSpawner)
+			{
+				if (((AbstractSpawner) entity).getNumOfSpawn() > 0)
+				{
+					return false;
+				}
+			}
+			if (entity instanceof AbstractEnemy)
+			{
+				return false;
+			}
+		}
+		return getTargetHealth() > 0;
 	}
 }

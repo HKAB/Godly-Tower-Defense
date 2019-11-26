@@ -37,6 +37,7 @@ public final class Main extends Application {
 		// Creating the scene
 //		menuPane.getChildren().add(menuCanvas);
 		Scene mainScene = new Scene(stackPane);
+		menuCanvas.setFocusTraversable(false);
 		stackPane.getChildren().add(menuCanvas);
 
 

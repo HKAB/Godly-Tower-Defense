@@ -23,6 +23,7 @@ import mrmathami.thegame.ui.menu.MultiPlayerButton;
 import mrmathami.thegame.ui.menu.SettingsButton;
 import mrmathami.thegame.ui.menu.SinglePlayerButton;
 import mrmathami.thegame.ui.popup.CreditPopup;
+import mrmathami.thegame.ui.popup.MPPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -294,7 +295,10 @@ public final class MenuController extends AnimationTimer {
                     moveToGameScene();
                     break;
                 } else if (entity instanceof MultiPlayerButton) {
-                    moveToMPScene();
+                    MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
+                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
+                    break;
+//                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                     break;
                 } else if (entity instanceof CreditsButton) {

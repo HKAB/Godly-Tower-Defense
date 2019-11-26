@@ -1,5 +1,6 @@
 package mrmathami.thegame.entity.tile.spawner;
 
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.GameEntity;
@@ -7,6 +8,7 @@ import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
 import mrmathami.thegame.entity.tile.Road;
+import mrmathami.thegame.entity.tile.effect.AlertEffect;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -17,11 +19,14 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 	private final long spawnInterval;
 	private long tickDown;
 	private long numOfSpawn;
+	private boolean isNotif = false;
+	private int enemyRepresentGID;
 
-	protected AbstractSpawner(long createdTick, long posX, long posY, long width, long height, double spawningSize, @Nonnull Class<E> spawningClass, long spawnInterval, long initialDelay, long numOfSpawn) {
+	protected AbstractSpawner(long createdTick, long posX, long posY, long width, long height, double spawningSize, @Nonnull Class<E> spawningClass, int enemyRepresentGID, long spawnInterval, long initialDelay, long numOfSpawn) {
 		super(createdTick, posX, posY, width, height, 0);
 		this.spawningSize = spawningSize;
 		this.spawningClass = spawningClass;
+		this.enemyRepresentGID = enemyRepresentGID;
 		this.spawnInterval = spawnInterval;
 		this.tickDown = initialDelay;
 		this.numOfSpawn = numOfSpawn;
@@ -30,6 +35,11 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 	@Override
 	public final void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
+		if (tickDown == 20 && !isNotif)
+		{
+			field.addSFX(new AlertEffect(0, getPosX(), getPosY(), 15, enemyRepresentGID, 1));
+			isNotif = true;
+		}
 		if (tickDown <= 0 && numOfSpawn > 0) {
 			// Check if the spot is valid and then spawn an enemy
 			// Remember to set this.tickDown back to this.spawnInterval
@@ -67,4 +77,8 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 	 */
 	@Nonnull
 	protected abstract E doSpawn(long createdTick, double posX, double posY);
+
+	public long getNumOfSpawn() {
+		return numOfSpawn;
+	}
 }
