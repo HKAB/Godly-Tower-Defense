@@ -69,7 +69,7 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuUI menuUI;
 
-    private GameAudio gameAudio;
+
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -94,8 +94,7 @@ public final class MenuController extends AnimationTimer {
         this.stackPane = stackPane;
 
         // Initialize herererereayayaya
-        gameAudio = new GameAudio();
-        gameAudio.playThemeSong();
+
 //        gameAudio.playSound(GameAudio.getGameSound(), (float)0.5);
 
         // Just a few acronyms.
@@ -180,7 +179,7 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().clear();
+//        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }

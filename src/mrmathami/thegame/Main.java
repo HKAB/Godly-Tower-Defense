@@ -53,5 +53,6 @@ public final class Main extends Application {
 		primaryStage.show();
         primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
         menuController.start();
+		(new GameAudio()).playThemeSong();
 	}
 }

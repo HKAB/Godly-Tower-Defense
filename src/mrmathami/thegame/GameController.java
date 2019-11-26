@@ -186,6 +186,7 @@ public final class GameController extends AnimationTimer {
 		if (field.getTargetHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			gameOverPopup.setGameController(this);
 			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
 			super.stop();
 		}
@@ -489,5 +490,23 @@ public final class GameController extends AnimationTimer {
 				contextArea.setLowerContext(null);
 			}
 		}
+	}
+
+	public void moveToMenuScene() throws FileNotFoundException {
+		scheduledFuture.cancel(true);
+		stop();
+		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		GraphicsContext graphicsContext = menuCanvas.getGraphicsContext2D();
+		GameController gameController = null;
+		MenuController menuController = new MenuController(graphicsContext, stackPane);
+		menuCanvas.setFocusTraversable(true);
+		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
+		menuCanvas.setOnKeyPressed(menuController::keyDownHandler);
+        stackPane.getChildren().clear();
+		stackPane.getChildren().add(menuCanvas);
+		menuController.start();
+//		stackPane.getChildren().get(0).toFront();
+//		start();
 	}
 }
