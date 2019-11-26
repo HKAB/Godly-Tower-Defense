@@ -130,9 +130,11 @@ public final class MPGameController extends AnimationTimer {
 
 		// The game field. Please consider create another way to load a game field.
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
+		field.setMultiplayer(true);
 
 		// Opponent's field, for updating opponent state.
 		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
+		field.setMultiplayer(true);
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 

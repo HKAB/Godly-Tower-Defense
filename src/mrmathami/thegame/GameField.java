@@ -42,6 +42,11 @@ public class GameField {
 	 */
 	protected long health;
 
+	/**
+	 * If the game is multi-player.
+	 */
+	protected boolean isMultiplayer = false;
+
 	public GameField(@Nonnull GameStage gameStage) {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
@@ -81,6 +86,14 @@ public class GameField {
 
 	public final long getTickCount() {
 		return tickCount;
+	}
+
+	public boolean isMultiplayer() {
+		return isMultiplayer;
+	}
+
+	public void setMultiplayer(boolean multiplayer) {
+		isMultiplayer = multiplayer;
 	}
 
 	/**
