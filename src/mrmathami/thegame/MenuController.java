@@ -191,9 +191,9 @@ public final class MenuController extends AnimationTimer {
 
         // TODO: Replace later when player can decide which host to connect to.
         try {
-            MPSocketController socket = new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
+            MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT));
         } catch (IOException e) {
-            MPSocketController socket = new MPSocketController();
+            MPSocketController.setCurrentInstance(new MPSocketController());
         }
 
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
