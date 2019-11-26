@@ -75,7 +75,7 @@ public class MPSocketController {
         sendCommand(List.of("SELL", String.format("%.0f", posX), String.format("%.0f", posY)));
     }
 
-    public void sendState() {
-
+    public void sendState(long health) {
+        sendCommand(List.of("STATE", Long.toString(health)));
     }
 }

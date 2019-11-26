@@ -6,10 +6,14 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.MPGameController;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
+import mrmathami.thegame.net.MPGameField;
+import mrmathami.thegame.net.MPSocket;
+import mrmathami.thegame.net.MPSocketController;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -121,9 +125,12 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 
 	@Override
 	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
-		// TODO: harm the target
 		field.harmPlayer(1);
 		field.setGold(field.getGold() - 1);
+		if (!(field instanceof MPGameField)) {
+			MPSocketController socket = MPSocketController.getCurrentInstance();
+			socket.sendState(field.getHealth());
+		}
 		this.health = Long.MIN_VALUE;
 		return false;
 	}

@@ -75,7 +75,6 @@ public final class MPGameField extends GameField {
     }
 
     private void upgradeAtPosition(double x, double y) {
-        System.out.println("Processing UPGRADE " + x + " " + y);
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
                 if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
@@ -116,6 +115,8 @@ public final class MPGameField extends GameField {
                 upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             } else if (command.get(0).equals("SELL")) {
                 sellAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
+            } else if (command.get(0).equals("STATE")) {
+                setHealth(Long.parseLong(command.get(1)));
             }
         }
     }
