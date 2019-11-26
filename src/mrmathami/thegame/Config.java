@@ -68,6 +68,10 @@ public final class Config {
 	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
 	//endregion
 
+	// Player informations
+	public static final long PLAYER_INITIAL_HEALTH = 20;
+	public static final long PLAYER_INITIAL_GOLD = 10000;
+
 	//Other config related to other entities in the game.
 
 	//region Bullet
