@@ -8,13 +8,10 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
-import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
-import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 
 import javax.annotation.Nonnull;
-import java.math.BigDecimal;
 import java.util.Collection;
 
 public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
@@ -117,7 +114,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
-		field.setMoney(field.getMoney() + 1);
+		field.setGold(field.getGold() + 1);
 //		GameAudio.playSound(ExplosionEffect.class);
 		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound), 1.0);
 	}
@@ -125,8 +122,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		// TODO: harm the target
-		livingEntity.doEffect(-1);
-		field.setMoney(field.getMoney() - 1);
+		field.harmPlayer(1);
+		field.setGold(field.getGold() - 1);
 		this.health = Long.MIN_VALUE;
 		return false;
 	}
