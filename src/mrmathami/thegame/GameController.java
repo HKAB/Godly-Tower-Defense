@@ -112,6 +112,11 @@ public final class GameController extends AnimationTimer {
 	private boolean pause;
 
 	/**
+	 * Current Map count. Use when load a new map
+	 */
+	private int currentMap;
+
+	/**
 	 * The constructor.
 	 *
 	 * @param graphicsContext the screen to draw on
@@ -124,8 +129,10 @@ public final class GameController extends AnimationTimer {
 		final long width = Config.TILE_HORIZONTAL;
 		final long height = Config.TILE_VERTICAL;
 
+		this.currentMap = 1;
+
 		// The game field. Please consider create another way to load a game field.
-		this.field = new GameField(GameStage.load("/stage/map1.txt", false));
+		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
@@ -145,6 +152,21 @@ public final class GameController extends AnimationTimer {
 		// that the drawer will select and draw everything in it in an self-defined order.
 		// Can be modified to support zoom in / zoom out of the map.
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+	}
+
+	private void nextMap() {
+		this.currentMap++;
+		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
+
+		this.towerPicker = null;
+		this.pause = false;
+
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), 0,0));
+		contextArea.setLowerContext(null);
+
+		// The drawer. Nothing fun here.
+		drawer.setTowerPicker(null);
+		drawer.setGameField(field);
 	}
 
 	/**
@@ -258,6 +280,8 @@ public final class GameController extends AnimationTimer {
 				towerPicker = new TowerPlacing("RocketLauncherTower");
 				break;
 			case R:
+				nextMap();
+				break;
 			case A:
 			case S:
 			case D:
