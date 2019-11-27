@@ -12,16 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.Config;
-import mrmathami.thegame.GameField;
-import mrmathami.thegame.GameStage;
-import mrmathami.thegame.GameUI;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Rock;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
@@ -135,9 +130,11 @@ public final class MPGameController extends AnimationTimer {
 
 		// The game field. Please consider create another way to load a game field.
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
+		field.setMultiplayer(true);
 
 		// Opponent's field, for updating opponent state.
 		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
+		field.setMultiplayer(true);
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 
@@ -145,7 +142,7 @@ public final class MPGameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X_MP, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0,0));
+		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getGold(), field.getHealth(), opponentField.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -193,7 +190,7 @@ public final class MPGameController extends AnimationTimer {
 		opponentField.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateMPContext(field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0, 0);
+		contextArea.updateMPContext(field.getGold(), field.getHealth(), opponentField.getHealth(), 0, 0);
 
 		// draw a new frame, as fast as possible.
 		try {
@@ -278,10 +275,10 @@ public final class MPGameController extends AnimationTimer {
 	}
 
 	final void mouseClickHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 
 		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
 			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
@@ -308,27 +305,37 @@ public final class MPGameController extends AnimationTimer {
 						} else {
 							towerType = 0;
 						}
-						this.socket.sendPlace(towerType, mousePosX, mousePosY);
+						this.socket.sendPlace(towerType,
+								(long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+								(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
 						// END: multi-player
 
 						field.doSpawn(tower);
-						field.setMoney(field.getMoney() - ((TowerPlacing) towerPicker).getTowerPrice());
+						field.setGold(field.getGold() - ((TowerPlacing) towerPicker).getTowerPrice());
 					} else {
 						for (GameEntity entity : gameEntities) {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
-									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getGold()) {
 										((AbstractTower) entity).upgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
-										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
-										this.socket.sendUpgrade(mousePosX, mousePosY);
+										field.setGold(field.getGold() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
+
+										// START: multi-player
+										this.socket.sendUpgrade((long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+												(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
+										// END: multi-player
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
 									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
-									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
-									this.socket.sendSell(mousePosX, mousePosY);
+									field.setGold(field.getGold() + ((TowerSelling) towerPicker).getSellPrice(entity));
+
+									// START: multi-player
+									this.socket.sendSell((long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
+											(long)((mousePosY - drawer.getFieldStartPosY()) / drawer.getFieldZoom()));
+									// END: multi-player
 								}
 								break;
 							}
@@ -380,10 +387,10 @@ public final class MPGameController extends AnimationTimer {
 	}
 
 	final void mouseMoveHandler(MouseEvent mouseEvent) {
-		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
-		Collection<GameEntity> gameEntities = this.field.getEntities();
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
+		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
+		Collection<GameEntity> gameEntities = this.field.getEntities();
 
 		if (Double.compare(mousePosX, (double) MPConfig.OPPONENT_START_X * drawer.getFieldZoom()) > 0) {
 			if (towerPicker != null) towerPicker.setPickingState(towerPicker.NOT_BEING_PICKED);
@@ -402,9 +409,9 @@ public final class MPGameController extends AnimationTimer {
 			if (towerPicker != null) {
 				towerPicker.setPosition((long) mousePosX, (long) mousePosY);
 				if (towerPicker instanceof TowerPlacing) {
-					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
+					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerPlacing) towerPicker).getTowerType()));
 
-					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney()) {
+					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getGold()) {
 						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
 						return;
 					}
@@ -426,7 +433,7 @@ public final class MPGameController extends AnimationTimer {
 				}
 				else if (entity instanceof AbstractTower) {
 					if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
-						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), (AbstractTower)entity));
+						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), (AbstractTower)entity));
 					}
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
@@ -449,7 +456,7 @@ public final class MPGameController extends AnimationTimer {
 			}
 
 			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing)) {
-				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
+				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerPlacing) towerPicker).getTowerType()));
 			}
 
 			for (UIEntity entity: UIEntities) {
@@ -470,7 +477,7 @@ public final class MPGameController extends AnimationTimer {
 						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 					entity.onFocus();
 					if ((entity instanceof TowerButton) && (!((TowerButton)entity).getTowerType().equals("Locked"))) {
-						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerButton) entity).getTowerType()));
+						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerButton) entity).getTowerType()));
 						onTowerButton = true;
 					}
 				} else {

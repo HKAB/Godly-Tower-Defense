@@ -33,24 +33,35 @@ public class GameField {
 	protected long tickCount;
 
 	/**
-	 * Field money
+	 * Player gold
 	 */
-	protected long money;
+	protected long gold;
+
+	/**
+	 * Player health
+	 */
+	protected long health;
+
+	/**
+	 * If the game is multi-player.
+	 */
+	protected boolean isMultiplayer = false;
 
 	public GameField(@Nonnull GameStage gameStage) {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
-		this.money = 10000;
+		this.gold = Config.PLAYER_INITIAL_GOLD;
+		this.health = Config.PLAYER_INITIAL_HEALTH;
 		entities.addAll(gameStage.getEntities());
 	}
 
-	public long getMoney() {
-		return money;
+	public long getGold() {
+		return gold;
 	}
 
-	public void setMoney(long money) {
-		this.money = money;
+	public void setGold(long gold) {
+		this.gold = gold;
 	}
 
 	public final double getWidth() {
@@ -61,17 +72,28 @@ public class GameField {
 		return height;
 	}
 
+	public final long getHealth() {
+		return health;
+	}
+
+	public final void setHealth(long health) {
+		this.health = health;
+	}
+
+	public void harmPlayer(long damage) {
+		this.health -= damage;
+	}
+
 	public final long getTickCount() {
 		return tickCount;
 	}
 
-	public long getTargetHealth () {
-		for (GameEntity entity: entities) {
-			if (entity instanceof Target) {
-				return ((Target) entity).getHealth();
-			}
-		}
-		return 0;
+	public boolean isMultiplayer() {
+		return isMultiplayer;
+	}
+
+	public void setMultiplayer(boolean multiplayer) {
+		isMultiplayer = multiplayer;
 	}
 
 	/**

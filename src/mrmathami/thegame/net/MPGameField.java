@@ -5,6 +5,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
@@ -21,6 +22,13 @@ public final class MPGameField extends GameField {
         super(gameStage);
         this.socket = MPSocketController.getCurrentInstance();
     }
+
+    /**
+     * Overridden to doing nothing, we'll get player health from the opponent.
+     * @param damage
+     */
+    @Override
+    public void harmPlayer(long damage) { }
 
     public final void tick() {
         this.tickCount += 1;
@@ -66,12 +74,26 @@ public final class MPGameField extends GameField {
         getAndProcessRemoteCommand();
     }
 
-    private void upgradeAtPosition() {
-
+    private void upgradeAtPosition(double x, double y) {
+        for (GameEntity entity: entities) {
+            if (entity instanceof AbstractTower) {
+                if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
+                        Double.compare(entity.getPosY(), y) == 0) {
+                    ((AbstractTower) entity).upgrade();
+                }
+            }
+        }
     }
 
-    private void sellAtPosition() {
-
+    private void sellAtPosition(double x, double y) {
+        for (GameEntity entity: entities) {
+            if (entity instanceof AbstractTower) {
+                if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
+                        Double.compare(entity.getPosY(), y) == 0) {
+                    ((AbstractTower) entity).doDestroy();
+                }
+            }
+        }
     }
 
     private void getAndProcessRemoteCommand() {
@@ -88,11 +110,15 @@ public final class MPGameField extends GameField {
                     case "3":
                         doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
                         break;
+                    default:
+                        System.out.println("Unhandled tower code " + command.get(1));
                 }
             } else if (command.get(0).equals("UPGRADE")) {
-                System.out.println("Received UPGRADE");
+                upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             } else if (command.get(0).equals("SELL")) {
-                System.out.println("Received SELL");
+                sellAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
+            } else if (command.get(0).equals("STATE")) {
+                setHealth(Long.parseLong(command.get(1)));
             }
         }
     }
