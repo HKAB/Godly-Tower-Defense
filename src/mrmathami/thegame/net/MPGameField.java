@@ -23,6 +23,13 @@ public final class MPGameField extends GameField {
         this.socket = MPSocketController.getCurrentInstance();
     }
 
+    /**
+     * Overridden to doing nothing, we'll get player health from the opponent.
+     * @param damage
+     */
+    @Override
+    public void harmPlayer(long damage) { }
+
     public final void tick() {
         this.tickCount += 1;
 
@@ -68,7 +75,6 @@ public final class MPGameField extends GameField {
     }
 
     private void upgradeAtPosition(double x, double y) {
-        System.out.println("Processing UPGRADE " + x + " " + y);
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
                 if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
@@ -94,7 +100,6 @@ public final class MPGameField extends GameField {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
             if (command.get(0).equals("PLACE")) {
-                System.out.println(command);
                 switch (command.get(1)) {
                     case "1":
                         doSpawn(new NormalTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
@@ -105,13 +110,15 @@ public final class MPGameField extends GameField {
                     case "3":
                         doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
                         break;
+                    default:
+                        System.out.println("Unhandled tower code " + command.get(1));
                 }
             } else if (command.get(0).equals("UPGRADE")) {
-                System.out.println("Received UPGRADE " + command.toString());
                 upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             } else if (command.get(0).equals("SELL")) {
-                System.out.println("Received SELL " + command.toString());
                 sellAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
+            } else if (command.get(0).equals("STATE")) {
+                setHealth(Long.parseLong(command.get(1)));
             }
         }
     }

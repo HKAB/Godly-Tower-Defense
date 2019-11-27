@@ -130,9 +130,11 @@ public final class MPGameController extends AnimationTimer {
 
 		// The game field. Please consider create another way to load a game field.
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
+		field.setMultiplayer(true);
 
 		// Opponent's field, for updating opponent state.
 		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
+		field.setMultiplayer(true);
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 
@@ -140,7 +142,7 @@ public final class MPGameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X_MP, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0,0));
+		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), opponentField.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -188,7 +190,7 @@ public final class MPGameController extends AnimationTimer {
 		opponentField.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateMPContext(field.getMoney(), field.getTargetHealth(), opponentField.getTargetHealth(), 0, 0);
+		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), 0, 0);
 
 		// draw a new frame, as fast as possible.
 		try {

@@ -68,6 +68,10 @@ public final class Config {
 	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
 	//endregion
 
+	// Player informations
+	public static final long PLAYER_INITIAL_HEALTH = 20;
+	public static final long PLAYER_INITIAL_MONEY = 10000;
+
 	//Other config related to other entities in the game.
 
 	//region Bullet
@@ -172,10 +176,10 @@ public final class Config {
 
 
 	public static final double TANKER_ENEMY_SIZE = 1;
-	public static final long TANKER_ENEMY_HEALTH = 500;
+	public static final long TANKER_ENEMY_HEALTH = 400;
 	public static final long TANKER_ENEMY_ARMOR = 2;
 	public static final double TANKER_ENEMY_SPEED = 0.1;
-	public static final long TANKER_ENEMY_REWARD = 1;
+	public static final long TANKER_ENEMY_REWARD = 35;
 	public static final int[] TANKER_ENEMY_GID = {269, 270};
 	public static final double TANKER_ENEMY_WIDTH = 54.0;
 	public static final double TANKER_ENEMY_HEIGHT = 36.0;

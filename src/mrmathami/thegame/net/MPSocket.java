@@ -21,7 +21,6 @@ public class MPSocket {
 
     public void sendLine(String data) {
         this.output.println(data);
-        System.out.println("Sending: " + data);
     }
 
     public String recvLine() {

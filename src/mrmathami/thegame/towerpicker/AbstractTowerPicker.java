@@ -3,6 +3,9 @@ package mrmathami.thegame.towerpicker;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class AbstractTowerPicker {
     private long posX;
     private long posY;
@@ -46,35 +49,38 @@ public abstract class AbstractTowerPicker {
                 {0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
                 {-1.0, -1.0}, {1.0, 1.0}, {1.0, -1.0}, {-1.0, 1.0}
         };
+        final Map<Integer, int[]> DELTA_INDEX_MAP = new HashMap<>(Map.ofEntries(
+                Map.entry(26 , new int[] {0, 3}),
+                Map.entry(164, new int[] {0, 3}),
+                Map.entry(233, new int[] {0, 3}),
+                Map.entry(48 , new int[] {0, 1}),
+                Map.entry(186, new int[] {0, 1}),
+                Map.entry(255, new int[] {0, 1}),
+                Map.entry(4  , new int[] {0, 5}),
+                Map.entry(142, new int[] {0, 5}),
+                Map.entry(211, new int[] {0, 5}),
+                Map.entry(47 , new int[] {0, 1, 7}),
+                Map.entry(185, new int[] {0, 1, 7}),
+                Map.entry(254, new int[] {0, 1, 7}),
+                Map.entry(3  , new int[] {0, 3, 8}),
+                Map.entry(141, new int[] {0, 3, 8}),
+                Map.entry(210, new int[] {0, 3, 8}),
+                Map.entry(49 , new int[] {0, 1, 3, 5}),
+                Map.entry(187, new int[] {0, 1, 3, 5}),
+                Map.entry(256, new int[] {0, 1, 3, 5})
+        ));
 
         final Road road = (Road)entity;
         int[] deltaIndex = {0};
 
-        switch (road.getGID()) {
-            case 26:
-            case 243:
-                deltaIndex = new int[] {0, 3};
-                break;
-            case 48:
-            case 265:
-                deltaIndex = new int[] {0, 1};
-                break;
-            case 4:
-            case 221:
-                deltaIndex = new int[] {0, 5};
-                break;
-            case 47:
-            case 264:
-                deltaIndex = new int[] {0, 1, 7};
-                break;
-            case 49:
-            case 266:
-                deltaIndex = new int[] {0, 1, 3, 5};
-                break;
-            case 3:
-            case 220:
-                deltaIndex = new int[] {0, 3, 8};
-                break;
+        if (DELTA_INDEX_MAP.containsKey(road.getGID())) {
+            deltaIndex = DELTA_INDEX_MAP.get(road.getGID());
+        }
+        else if (DELTA_INDEX_MAP.containsKey(road.getGID() - 5)) {
+            deltaIndex = DELTA_INDEX_MAP.get(road.getGID() - 5);
+        }
+        else if (DELTA_INDEX_MAP.containsKey(road.getGID() - 10)) {
+            deltaIndex = DELTA_INDEX_MAP.get(road.getGID() - 10);
         }
         for (int index: deltaIndex) {
             double[] deltaDirection = DELTA_DIRECTION_ARRAY[index];

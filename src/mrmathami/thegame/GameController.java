@@ -3,7 +3,6 @@ package mrmathami.thegame;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,8 +16,6 @@ import javafx.stage.WindowEvent;
 
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.tile.Bush;
-import mrmathami.thegame.entity.tile.Rock;
-import mrmathami.thegame.net.MPConfig;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
@@ -37,7 +34,6 @@ import mrmathami.thegame.ui.popup.GameOverPopup;
 import mrmathami.thegame.ui.popup.WinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.concurrent.Executors;
@@ -113,6 +109,11 @@ public final class GameController extends AnimationTimer {
 	private boolean pause;
 
 	/**
+	 * Current Map count. Use when load a new map
+	 */
+	private int currentMap;
+
+	/**
 	 * The constructor.
 	 *
 	 * @param graphicsContext the screen to draw on
@@ -125,8 +126,10 @@ public final class GameController extends AnimationTimer {
 		final long width = Config.TILE_HORIZONTAL;
 		final long height = Config.TILE_VERTICAL;
 
+		this.currentMap = 1;
+
 		// The game field. Please consider create another way to load a game field.
-		this.field = new GameField(GameStage.load("/stage/map1.txt", false));
+		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
 		this.gameUI = new GameUI("/ui/buttonConfig.dat");
 
@@ -134,7 +137,7 @@ public final class GameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), 0,0));
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -146,6 +149,21 @@ public final class GameController extends AnimationTimer {
 		// that the drawer will select and draw everything in it in an self-defined order.
 		// Can be modified to support zoom in / zoom out of the map.
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+	}
+
+	private void nextMap() {
+		this.currentMap++;
+		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
+
+		this.towerPicker = null;
+		this.pause = false;
+
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
+		contextArea.setLowerContext(null);
+
+		// The drawer. Nothing fun here.
+		drawer.setTowerPicker(null);
+		drawer.setGameField(field);
 	}
 
 	/**
@@ -182,8 +200,8 @@ public final class GameController extends AnimationTimer {
 		field.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateContext(field.getMoney(), field.getTargetHealth(), 0, 0);
-		if (field.getTargetHealth() == 0)
+		contextArea.updateContext(field.getMoney(), field.getHealth(), 0, 0);
+		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			gameOverPopup.setGameController(this);
@@ -266,6 +284,8 @@ public final class GameController extends AnimationTimer {
 				towerPicker = new TowerPlacing("RocketLauncherTower");
 				break;
 			case R:
+				nextMap();
+				break;
 			case A:
 			case S:
 			case D:
