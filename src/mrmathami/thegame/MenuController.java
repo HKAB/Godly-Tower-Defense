@@ -93,10 +93,6 @@ public final class MenuController extends AnimationTimer {
         this.graphicsContext = graphicsContext;
         this.stackPane = stackPane;
 
-        // Initialize herererereayayaya
-
-//        gameAudio.playSound(GameAudio.getGameSound(), (float)0.5);
-
         // Just a few acronyms.
         final long width = Config.TILE_HORIZONTAL;
         final long height = Config.TILE_VERTICAL;
@@ -175,7 +171,7 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameCanvas.setFocusTraversable(true);
+        gameCanvas.setFocusTraversable(false);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
@@ -207,7 +203,7 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameCanvas.setFocusTraversable(true);
+        gameCanvas.setFocusTraversable(false);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);

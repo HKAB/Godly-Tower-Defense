@@ -31,7 +31,7 @@ public class PopupButtonDrawer implements UIEntityDrawer {
         graphicsContext.setFill(Color.rgb(0, 0, 0));
         graphicsContext.setTextAlign(TextAlignment.CENTER);
         graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setFont(Font.loadFont(new File("res/menu/shitfont.ttf").toURI().toString(), ((PopupButton)entity).getFontSize()));
+        graphicsContext.setFont(Font.loadFont(new File("res/menu/icon.ttf").toURI().toString(), ((PopupButton)entity).getFontSize()));
         graphicsContext.fillText(((PopupButton)entity).getContent(), screenPosX + screenWidth/2, screenPosY  + screenHeight/2);
     }
 }
