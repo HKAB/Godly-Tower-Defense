@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 public final class NormalEnemyDrawer implements EntityDrawer {
 	@Override
 	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+		if (((NormalEnemy) entity).getAngle() == Double.MIN_VALUE) return;
 		graphicsContext.setFill(Color.DARKMAGENTA);
 		graphicsContext.fillRoundRect(screenPosX, screenPosY, screenWidth, screenHeight, 4, 4);
 

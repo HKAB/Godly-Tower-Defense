@@ -1,8 +1,13 @@
 package mrmathami.thegame.drawer.Entity.Tile;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.EntityDrawer;
+import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 
 import javax.annotation.Nonnull;
@@ -10,8 +15,18 @@ import javax.annotation.Nonnull;
 public final class TargetDrawer implements EntityDrawer {
 	@Override
 	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
-		graphicsContext.setStroke(Color.DARKRED);
-		graphicsContext.setLineWidth(4);
-		graphicsContext.strokeRect(screenPosX, screenPosY, screenWidth, screenHeight);
+//		graphicsContext.setStroke(Color.DARKRED);
+//		graphicsContext.setLineWidth(4);
+//		graphicsContext.strokeRect(screenPosX, screenPosY, screenWidth, screenHeight);
+		screenPosX += Config.TILE_SIZE/2.0;
+		screenPosY += Config.TILE_SIZE/2.0;
+		Image img = GameDrawer.getSheetImage();
+		int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
+		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
+		PixelReader reader = img.getPixelReader();
+
+		WritableImage roadImage = new WritableImage(reader, (Config.TARGET_GID - 1) % maxTileWidth * (int)screenWidth, (Config.TARGET_GID - 1)/maxTileWidth * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+
+		graphicsContext.drawImage(roadImage, screenPosX, screenPosY);
 	}
 }

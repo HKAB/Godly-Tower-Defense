@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 public final class TankerDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
-
+        if (((Tanker) entity).getAngle() == Double.MIN_VALUE) return;
         screenPosX += Config.OFFSET;
         screenPosY += Config.OFFSET;
 

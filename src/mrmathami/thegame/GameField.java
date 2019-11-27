@@ -198,6 +198,6 @@ public class GameField {
 				return false;
 			}
 		}
-		return getTargetHealth() > 0;
+		return getHealth() > 0;
 	}
 }

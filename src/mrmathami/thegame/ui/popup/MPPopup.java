@@ -20,13 +20,13 @@ public class MPPopup extends AbstractPopup {
         PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 300, 50, 25);
         getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 40)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 27)/Config.TILE_SIZE, 27, "IP"));
         getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 60)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 27)/Config.TILE_SIZE, 30, "PORT"));
-        PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 10)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
+        PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
         getPopupEntities().add(closeButton);
         getPopupEntities().add(popupIPInput);
         getPopupEntities().add(popupPortInput);
-        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uecf9 ");
+        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uecf9 ");
         getPopupEntities().add(clientButton);
-        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*4 - 10)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uef0e ");
+        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uef0e ");
         getPopupEntities().add(serverButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {

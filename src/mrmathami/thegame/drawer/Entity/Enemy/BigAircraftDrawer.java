@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 public final class BigAircraftDrawer implements EntityDrawer {
     @Override
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+        if (((BigAircraft) entity).getAngle() == Double.MIN_VALUE) return;
         screenPosX += 45;
         screenPosY += 45;
         Image img = GameDrawer.getSheetImage();

@@ -89,7 +89,7 @@ public final class MenuController extends AnimationTimer {
      * @param graphicsContext the screen to draw on
      */
 
-    public MenuController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
+    public MenuController(GraphicsContext graphicsContext, StackPane stackPane) {
         this.graphicsContext = graphicsContext;
         this.stackPane = stackPane;
 
@@ -171,7 +171,7 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameCanvas.setFocusTraversable(false);
+        gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);

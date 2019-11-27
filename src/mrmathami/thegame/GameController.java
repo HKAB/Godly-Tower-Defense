@@ -3,6 +3,7 @@ package mrmathami.thegame;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -151,13 +152,12 @@ public final class GameController extends AnimationTimer {
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
 	}
 
-	private void nextMap() {
+	public void nextMap() {
 		this.currentMap++;
 		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
 		this.towerPicker = null;
-		this.pause = false;
-
+		if (pause) gamePause();
 		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
@@ -206,13 +206,14 @@ public final class GameController extends AnimationTimer {
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			gameOverPopup.setGameController(this);
 			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
-			super.stop();
+			gamePause();
 		}
 		else if (field.isWon())
 		{
 			WinPopup winPopup = new WinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
-			super.stop();
+			winPopup.setGameController(this);
+			gamePause();
 		}
 
 		// draw a new frame, as fast as possible.
@@ -395,7 +396,7 @@ public final class GameController extends AnimationTimer {
 						}
 					}
 					else if (entity instanceof BackButton) {
-
+						moveToMenuScene();
 					}
 					else if (entity instanceof PauseButton) {
 						gamePause();
@@ -512,7 +513,7 @@ public final class GameController extends AnimationTimer {
 		}
 	}
 
-	public void moveToMenuScene() throws FileNotFoundException {
+	public void moveToMenuScene() {
 		scheduledFuture.cancel(true);
 		stop();
 		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
@@ -527,7 +528,7 @@ public final class GameController extends AnimationTimer {
         stackPane.getChildren().clear();
 		stackPane.getChildren().add(menuCanvas);
 		menuController.start();
-//		stackPane.getChildren().get(0).toFront();
+		stackPane.getChildren().get(0).toFront();
 //		start();
 	}
 }

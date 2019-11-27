@@ -14,7 +14,7 @@ public class CreditPopup extends AbstractPopup {
         // TODO: make this more easier to calculate position
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
 //        getPopupEntities().add(new ClosePopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 32.0)/Config.TILE_SIZE, posY/Config.TILE_SIZE));
-        getPopupEntities().add(new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 10)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "X"));
+        getPopupEntities().add(new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4"));
 
         PopupImage author1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/ductung.jpg");
         getPopupEntities().add(author1);

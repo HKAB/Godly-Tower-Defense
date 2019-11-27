@@ -248,6 +248,11 @@ public final class Config {
 	public static final int TOWER_DESTROY_TTL = 10;
 	//endregion
 
+	//region spawner target
+	public static int SPAWNER_GID = 21;
+	public static int TARGET_GID = 46;
+	//endregion
+
 	private Config() {
 	}
 
