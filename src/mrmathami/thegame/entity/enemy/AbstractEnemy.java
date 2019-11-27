@@ -118,7 +118,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
-		field.setGold(field.getGold() + 1);
+		field.setMoney(field.getMoney() + 1);
 //		GameAudio.playSound(ExplosionEffect.class);
 		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound), 1.0);
 	}
@@ -126,7 +126,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		field.harmPlayer(1);
-		field.setGold(field.getGold() - 1);
+		field.setMoney(field.getMoney() - 1);
 		if (field.isMultiplayer() && !(field instanceof MPGameField)) {
 			MPSocketController socket = MPSocketController.getCurrentInstance();
 			socket.sendState(field.getHealth());

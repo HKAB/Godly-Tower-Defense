@@ -136,7 +136,7 @@ public final class GameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getGold(), field.getHealth(), 0,0));
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -157,7 +157,7 @@ public final class GameController extends AnimationTimer {
 		this.towerPicker = null;
 		this.pause = false;
 
-		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getTargetHealth(), 0,0));
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -199,7 +199,7 @@ public final class GameController extends AnimationTimer {
 		field.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateContext(field.getGold(), field.getHealth(), 0, 0);
+		contextArea.updateContext(field.getMoney(), field.getHealth(), 0, 0);
 		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
@@ -341,21 +341,21 @@ public final class GameController extends AnimationTimer {
 				if ((towerPicker != null) && (towerPicker.getPickingState() == towerPicker.PICKABLE)) {
 					if (towerPicker instanceof TowerPlacing) {
 						field.doSpawn(((TowerPlacing) towerPicker).getTower());
-						field.setGold(field.getGold() - ((TowerPlacing) towerPicker).getTowerPrice());
+						field.setMoney(field.getMoney() - ((TowerPlacing) towerPicker).getTowerPrice());
 					} else {
 						for (GameEntity entity : gameEntities) {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
-									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getGold()) {
+									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
 										((AbstractTower) entity).upgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
-										field.setGold(field.getGold() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
+										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
 									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
-									field.setGold(field.getGold() + ((TowerSelling) towerPicker).getSellPrice(entity));
+									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 								}
 								break;
 							}
@@ -423,9 +423,9 @@ public final class GameController extends AnimationTimer {
 			if (towerPicker != null) {
 				towerPicker.setPosition((long) mousePosX, (long) mousePosY);
 				if (towerPicker instanceof TowerPlacing) {
-					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerPlacing) towerPicker).getTowerType()));
+					contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
 
-					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getGold()) {
+					if (((TowerPlacing) towerPicker).getTowerPrice() > field.getMoney()) {
 						((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
 						return;
 					}
@@ -447,7 +447,7 @@ public final class GameController extends AnimationTimer {
 				}
 				else if (entity instanceof AbstractTower) {
 					if (entity.isBeingOverlapped(mousePosX, mousePosY, 1, 1)) {
-						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), (AbstractTower)entity));
+						contextArea.setLowerContext(new TowerUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), (AbstractTower)entity));
 					}
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
@@ -470,7 +470,7 @@ public final class GameController extends AnimationTimer {
 			}
 
 			if ((towerPicker != null) && (towerPicker instanceof TowerPlacing)) {
-				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerPlacing) towerPicker).getTowerType()));
+				contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerPlacing) towerPicker).getTowerType()));
 			}
 
 			for (UIEntity entity: UIEntities) {
@@ -491,7 +491,7 @@ public final class GameController extends AnimationTimer {
 						&& Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
 					entity.onFocus();
 					if ((entity instanceof TowerButton) && (!((TowerButton)entity).getTowerType().equals("Locked"))) {
-						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getGold(), ((TowerButton) entity).getTowerType()));
+						contextArea.setLowerContext(new ButtonUIContext(field.getTickCount(), contextArea.getLowerContextPos(), field.getMoney(), ((TowerButton) entity).getTowerType()));
 						onTowerButton = true;
 					}
 				} else {

@@ -33,9 +33,9 @@ public class GameField {
 	protected long tickCount;
 
 	/**
-	 * Player gold
+	 * Player money
 	 */
-	protected long gold;
+	protected long money;
 
 	/**
 	 * Player health
@@ -51,17 +51,17 @@ public class GameField {
 		this.width = gameStage.getWidth();
 		this.height = gameStage.getHeight();
 		this.tickCount = 0;
-		this.gold = Config.PLAYER_INITIAL_GOLD;
+		this.money = Config.PLAYER_INITIAL_MONEY;
 		this.health = Config.PLAYER_INITIAL_HEALTH;
 		entities.addAll(gameStage.getEntities());
 	}
 
-	public long getGold() {
-		return gold;
+	public long getMoney() {
+		return money;
 	}
 
-	public void setGold(long gold) {
-		this.gold = gold;
+	public void setMoney(long money) {
+		this.money = money;
 	}
 
 	public final double getWidth() {
