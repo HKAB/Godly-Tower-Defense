@@ -23,7 +23,7 @@ public final class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws FileNotFoundException {
+	public void start(Stage primaryStage) {
 
 //	    Group root = new Group();
 		StackPane stackPane = new StackPane();
@@ -39,7 +39,6 @@ public final class Main extends Application {
 		Scene mainScene = new Scene(stackPane);
 		menuCanvas.setFocusTraversable(false);
 		stackPane.getChildren().add(menuCanvas);
-
 
 		final MenuController menuController = new MenuController(menuGraphicsContext, stackPane);
 

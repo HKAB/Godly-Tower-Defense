@@ -12,11 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.net.MPConfig;
+import mrmathami.thegame.net.MPGameController;
 import mrmathami.thegame.net.MPSocketController;
 import mrmathami.thegame.ui.menu.CreditsButton;
 import mrmathami.thegame.ui.menu.MultiPlayerButton;
@@ -193,7 +193,11 @@ public final class MenuController extends AnimationTimer {
         try {
             MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT));
         } catch (IOException e) {
-            MPSocketController.setCurrentInstance(new MPSocketController());
+            try {
+                MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_LISTEN_PORT));
+            } catch (IOException f) {
+                System.out.println("Failed to listen");
+            }
         }
 
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
@@ -293,7 +297,6 @@ public final class MenuController extends AnimationTimer {
                     MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
                     popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
                     break;
-//                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                     break;
                 } else if (entity instanceof CreditsButton) {

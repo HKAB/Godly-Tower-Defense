@@ -1,4 +1,4 @@
-package mrmathami.thegame;
+package mrmathami.thegame.net;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -12,6 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
+import mrmathami.thegame.Config;
+import mrmathami.thegame.GameField;
+import mrmathami.thegame.GameStage;
+import mrmathami.thegame.GameUI;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
@@ -243,7 +247,7 @@ public final class MPGameController extends AnimationTimer {
 	 *
 	 * @param keyEvent the key that you press down
 	 */
-	final void keyDownHandler(KeyEvent keyEvent) {
+	public final void keyDownHandler(KeyEvent keyEvent) {
 		final KeyCode keyCode = keyEvent.getCode();
 		switch (keyCode) {
 			case Q:
@@ -274,7 +278,7 @@ public final class MPGameController extends AnimationTimer {
 		drawer.setTowerPicker(towerPicker);
 	}
 
-	final void mouseClickHandler(MouseEvent mouseEvent) {
+	public final void mouseClickHandler(MouseEvent mouseEvent) {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
@@ -386,7 +390,7 @@ public final class MPGameController extends AnimationTimer {
 		}
 	}
 
-	final void mouseMoveHandler(MouseEvent mouseEvent) {
+	public final void mouseMoveHandler(MouseEvent mouseEvent) {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
