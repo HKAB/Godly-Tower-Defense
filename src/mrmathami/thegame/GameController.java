@@ -151,11 +151,13 @@ public final class GameController extends AnimationTimer {
 	}
 
 	private void nextMap() {
+		if (this.currentMap == Config.MAX_LEVEL_COUNT) return;
+
 		this.currentMap++;
 		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
 		this.towerPicker = null;
-		this.pause = false;
+		if (pause) gamePause();
 
 		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);

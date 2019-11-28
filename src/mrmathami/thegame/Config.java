@@ -63,6 +63,8 @@ public final class Config {
 
 	public static final double OFFSET = 45.0;
 
+	public static final int MAX_LEVEL_COUNT = 2;
+
 	//region Popup
 	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
 	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
