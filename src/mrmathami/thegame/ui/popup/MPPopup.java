@@ -27,8 +27,8 @@ public class MPPopup extends AbstractPopup {
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
         PopupInput popupIPInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 300, 50, 25);
         PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 300, 50, 25);
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 40)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 27)/Config.TILE_SIZE, 27, "IP ADDRESS"));
-        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 60)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 27)/Config.TILE_SIZE, 30, "PORT"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 110)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 37)/Config.TILE_SIZE, 27, "IP ADDRESS"));
+        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 60)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 37)/Config.TILE_SIZE, 30, "PORT"));
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
         getPopupEntities().add(closeButton);
         getPopupEntities().add(popupIPInput);
