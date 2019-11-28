@@ -12,12 +12,13 @@ public class MPSocketController {
     /**
      * Constructor for listening
      */
-    public MPSocketController() {
+    public MPSocketController(int port) throws IOException {
         try {
-            ServerSocket serverSocket = new ServerSocket(MPConfig.DEFAULT_LISTEN_PORT);
+            ServerSocket serverSocket = new ServerSocket(port);
             this.socket = new MPSocket(serverSocket.accept());
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
     }
 
@@ -28,7 +29,9 @@ public class MPSocketController {
      */
     public MPSocketController(String host, int port) throws IOException {
         try {
-            this.socket = new MPSocket(new Socket(host, port));
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(host, port), MPConfig.DEFAULT_CONNECTION_TIMEOUT);
+            this.socket = new MPSocket(socket);
         } catch (IOException e) {
             e.printStackTrace();
             throw e;

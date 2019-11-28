@@ -6,13 +6,11 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
-import mrmathami.thegame.MPGameController;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
 import mrmathami.thegame.net.MPGameField;
-import mrmathami.thegame.net.MPSocket;
 import mrmathami.thegame.net.MPSocketController;
 
 import javax.annotation.Nonnull;
