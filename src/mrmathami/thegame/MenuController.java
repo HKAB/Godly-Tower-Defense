@@ -180,41 +180,6 @@ public final class MenuController extends AnimationTimer {
         gameController.start();
     }
 
-    private void moveToMPScene() {
-        scheduledFuture.cancel(true);
-        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
-        this.graphicsContext.setFill(Color.rgb(0, 0, 0, 0.5));
-        this.graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-        this.graphicsContext.fillText("Connecting to server...", Config.SCREEN_WIDTH/2.0, Config.SCREEN_HEIGHT/2.0);
-        stop();
-
-        // TODO: Replace later when player can decide which host to connect to.
-        try {
-            MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT));
-        } catch (IOException e) {
-            try {
-                MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_LISTEN_PORT));
-            } catch (IOException f) {
-                System.out.println("Failed to listen");
-            }
-        }
-
-        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
-        MPGameController gameController = null;
-        try {
-            gameController = new MPGameController(graphicsContext);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        gameCanvas.setFocusTraversable(false);
-        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
-        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add(gameCanvas);
-        gameController.start();
-    }
 
     /**
      * On window close request.
