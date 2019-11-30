@@ -529,6 +529,5 @@ public final class GameController extends AnimationTimer {
 		stackPane.getChildren().add(menuCanvas);
 		menuController.start();
 		stackPane.getChildren().get(0).toFront();
-//		start();
 	}
 }

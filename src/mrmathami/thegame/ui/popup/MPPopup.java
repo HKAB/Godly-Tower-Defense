@@ -146,15 +146,16 @@ public class MPPopup extends AbstractPopup {
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         MPGameController gameController = null;
         try {
-            gameController = new MPGameController(graphicsContext);
+            gameController = new MPGameController(graphicsContext, getStackPane());
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
         gameCanvas.setFocusTraversable(false);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        super.getStackPane().getChildren().add(gameCanvas);
+        getStackPane().getChildren().add(gameCanvas);
         gameController.start();
     }
 

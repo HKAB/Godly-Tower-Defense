@@ -3,20 +3,20 @@ package mrmathami.thegame.net;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.Config;
-import mrmathami.thegame.GameField;
-import mrmathami.thegame.GameStage;
-import mrmathami.thegame.GameUI;
+import mrmathami.thegame.*;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
+import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Bush;
@@ -27,15 +27,14 @@ import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
 import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
-import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPGameField;
-import mrmathami.thegame.net.MPSocketController;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
 import mrmathami.thegame.towerpicker.TowerUpgrading;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.ui.ingame.context.*;
+import mrmathami.thegame.ui.popup.MPGameOverPopup;
+import mrmathami.thegame.ui.popup.MPWinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -46,7 +45,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A game controller. Everything about the game should be managed in here.
+ * A game controller for Multi-Player. Everything about the game should be managed in here.
  */
 public final class MPGameController extends AnimationTimer {
 	/**
@@ -78,10 +77,16 @@ public final class MPGameController extends AnimationTimer {
 	private GameField opponentField;
 
 	/**
+	 * Main StackPane. Used for changing scene.
+	 */
+	private StackPane stackPane;
+
+	/**
 	 * Game drawer. Responsible to draw the field every tick.
 	 * Kinda advance, modify if you are sure about your change.
 	 */
 	private GameDrawer drawer;
+	private PopupDrawer popupDrawer;
 
 	/**
 	 * Game UI. Contains UI elements.
@@ -125,20 +130,21 @@ public final class MPGameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
-	public MPGameController(GraphicsContext graphicsContext) throws FileNotFoundException {
-		// The screen to draw on
+	public MPGameController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
 		this.graphicsContext = graphicsContext;
+		this.stackPane = stackPane;
 
 		// Socket. To send data between peers.
 		this.socket = MPSocketController.getCurrentInstance();
 
-		// The game field. Please consider create another way to load a game field.
+		// The game field.
 		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
+
+		// Set the multi-player mode for our main game field, this will be checked when our target is harmed by enemy.
 		field.setMultiplayer(true);
 
-		// Opponent's field, for updating opponent state.
+		// Opponent's field, for updating opponent state, run like a separated game.
 		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
-		field.setMultiplayer(true);
 
 		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
 
@@ -193,12 +199,31 @@ public final class MPGameController extends AnimationTimer {
 		field.tick();
 		opponentField.tick();
 
+		// Check if one of the players died.
+		if (opponentField.isLoss()) {
+			MPWinPopup winPopup = new MPWinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
+			winPopup.setGameController(this);
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
+			gamePause();
+		} else if (field.isLoss()) {
+			MPGameOverPopup gameOverPopup = new MPGameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
+			gameOverPopup.setGameController(this);
+			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			gamePause();
+		}
+
+
 		//update the values in context so it match the current field, as fast as possible
 		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), 0, 0);
 
 		// draw a new frame, as fast as possible.
 		try {
 			drawer.render();
+			if (stackPane.getChildren().size() > 1)
+			{
+				if (popupDrawer != null)
+					popupDrawer.render();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -229,6 +254,24 @@ public final class MPGameController extends AnimationTimer {
 		super.start();
 	}
 
+	public void moveToMenuScene() {
+		this.socket.closeConnection();
+		scheduledFuture.cancel(true);
+		stop();
+		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		GraphicsContext graphicsContext = menuCanvas.getGraphicsContext2D();
+		MenuController menuController = new MenuController(graphicsContext, stackPane);
+		// prevent user press tab to change focus
+		menuCanvas.setFocusTraversable(false);
+		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
+		menuCanvas.setOnKeyPressed(menuController::keyDownHandler);
+		stackPane.getChildren().clear();
+		stackPane.getChildren().add(menuCanvas);
+		menuController.start();
+		stackPane.getChildren().get(0).toFront();
+	}
+
 	/**
 	 * On window close request.
 	 * Kinda advance, modify if you are sure about your change.
@@ -248,6 +291,7 @@ public final class MPGameController extends AnimationTimer {
 	 * @param keyEvent the key that you press down
 	 */
 	public final void keyDownHandler(KeyEvent keyEvent) {
+        System.out.println("keyDownHandler called");
 		final KeyCode keyCode = keyEvent.getCode();
 		switch (keyCode) {
 			case Q:
@@ -371,7 +415,7 @@ public final class MPGameController extends AnimationTimer {
 						}
 					}
 					else if (entity instanceof BackButton) {
-
+						moveToMenuScene();
 					}
 					else if (entity instanceof PauseButton) {
 						gamePause();

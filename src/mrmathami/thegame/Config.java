@@ -69,7 +69,7 @@ public final class Config {
 	//endregion
 
 	// Player informations
-	public static final long PLAYER_INITIAL_HEALTH = 20;
+	public static final long PLAYER_INITIAL_HEALTH = 1;
 	public static final long PLAYER_INITIAL_MONEY = 10000;
 
 	//Other config related to other entities in the game.

@@ -2,7 +2,6 @@ package mrmathami.thegame;
 
 
 import mrmathami.thegame.entity.*;
-import mrmathami.thegame.entity.tile.Target;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.spawner.AbstractSpawner;
@@ -21,30 +20,31 @@ public class GameField {
 	@Nonnull private final List<GameEntity> sfxEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 
 	/**
-	 * Field width
+	 * Field width.
 	 */
 	protected final double width;
 	/**
-	 * Field height
+	 * Field height.
 	 */
 	protected final double height;
 	/**
-	 * Field tick count
+	 * Field tick count.
 	 */
 	protected long tickCount;
 
 	/**
-	 * Player money
+	 * Player money.
 	 */
 	protected long money;
 
 	/**
-	 * Player health
+	 * Player health.
 	 */
 	protected long health;
 
 	/**
 	 * If the game is multi-player.
+	 * We will check for it when an enemy harm the target to decide whether to subtract player health OR send state to opponent.
 	 */
 	protected boolean isMultiplayer = false;
 
@@ -83,6 +83,10 @@ public class GameField {
 
 	public void harmPlayer(long damage) {
 		this.health -= damage;
+	}
+
+	public boolean isLoss() {
+		return this.health <= 0;
 	}
 
 	public final long getTickCount() {

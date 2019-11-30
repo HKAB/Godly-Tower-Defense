@@ -38,6 +38,10 @@ public class MPSocketController {
         }
     }
 
+    public void closeConnection() {
+        socket.close();
+    }
+
     /**
      * Return an static instance, so we don't have to use DI everywhere.
      * @return current instance
