@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.MPGameController;
@@ -11,6 +12,7 @@ import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.net.MPGameField;
 import mrmathami.thegame.net.MPSocket;
 import mrmathami.thegame.net.MPSocketController;
@@ -31,6 +33,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	protected int GID;
 	private double angle = Double.MIN_VALUE;
 	private double t_bezier = 0;
+	private double speed_coef = 1;
 
 	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
 		super(createdTick, posX, posY, width, height);
@@ -116,11 +119,12 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	}
 
 	@Override
-	public final void onDestroy(@Nonnull GameField field) {
+	public void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
 		field.setMoney(field.getMoney() + 1);
 //		GameAudio.playSound(ExplosionEffect.class);
 		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound), 1.0);
+		field.addSFX(new ExplosionEffect(0, getPosX() + Config.OFFSET/Config.TILE_SIZE, getPosY() + Config.OFFSET/Config.TILE_SIZE));
 	}
 
 	@Override
@@ -140,8 +144,12 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		return health;
 	}
 
+	public void setHealth(long health) {
+		this.health = health;
+	}
+
 	@Override
-	public final void doEffect(long value) {
+	public void doEffect(long value) {
 		if (health != Long.MIN_VALUE && (value < -armor || value > 0)) this.health += value;
 	}
 
@@ -171,5 +179,21 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public String toString() {
 		return "[Enemy@x=" + getPosX() + ",y=" + getPosY() + ",w=" + getWidth() + ",h=" + getHeight() + "]";
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
+	public long getArmor() {
+		return armor;
+	}
+
+	public void setArmor(long armor) {
+		this.armor = armor;
 	}
 }

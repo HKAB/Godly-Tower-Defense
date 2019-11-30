@@ -1,4 +1,4 @@
-16 9 19
+16 9 20
 25 25 25 25 25 25 25 25 25 25 25 25 25 25 25 25
 163 163 163 163 163 4 48 48 48 48 48 48 5 163 163 163
 163 25 163 163 163 26 1 2 2 2 2 3 24 163 25 25
@@ -9,9 +9,10 @@
 163 26 24 25 232 25 25 25 25 163 25 242 242 242 242 242
 163 26 24 25 25 25 25 25 25 25 25 242 242 242 242 242
 Target 14 5 1 1 20
-NormalAircraftSpawner 1 7 1 1 30 25 1
-BigAircraftSpawner 1 7 1 1 30 40 1
-TankerSpawner 1 7 1 1 20 30 1
+BossAxolotlSpawner 1 7 1 1 30 10 1
+BigAircraftSpawner 1 7 1 1 30 40 0
+NormalAircraftSpawner 1 7 1 1 40 300 1
+TankerSpawner 1 7 1 1 30 30 0
 TurnPoint 1 5 1 4 2 4
 TurnPoint 4 4 5 4 5 3
 TurnPoint 5 2 5 1 6 1
