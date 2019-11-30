@@ -366,7 +366,7 @@ public final class GameController extends AnimationTimer {
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
-									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
+									((AbstractTower) entity).onDestroy(field);
 									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 								}
 								break;

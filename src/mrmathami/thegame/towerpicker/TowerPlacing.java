@@ -3,10 +3,7 @@ package mrmathami.thegame.towerpicker;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.tower.*;
 
 public class TowerPlacing extends AbstractTowerPicker {
     public final int NOT_BEING_PLACED = 0;
@@ -40,7 +37,7 @@ public class TowerPlacing extends AbstractTowerPicker {
     public AbstractTower getTower() {
         switch (towerType) {
             case "NormalTower":
-                return new NormalTower(0, getPosX(), getPosY(), 90);
+                return new RobotPoliceTower(0, getPosX(), getPosY(), 90);
             case "RocketLauncherTower":
                 return new RocketLauncherTower(0, getPosX(), getPosY(), 90);
             case "MachineGunTower":
