@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 public final class MPGameField extends GameField {
-    MPSocketController socket;
+    private MPSocketController socket;
 
     public MPGameField(@Nonnull GameStage gameStage) {
         super(gameStage);

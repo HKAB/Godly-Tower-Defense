@@ -175,7 +175,6 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-//        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
@@ -234,7 +233,7 @@ public final class MenuController extends AnimationTimer {
      *
      * @param keyEvent the key that you press down
      */
-    final void keyDownHandler(KeyEvent keyEvent) { }
+    public final void keyDownHandler(KeyEvent keyEvent) { }
 
     /**
      * Key up handler.
@@ -257,7 +256,7 @@ public final class MenuController extends AnimationTimer {
      */
     final void mouseUpHandler(MouseEvent mouseEvent) { }
 
-    final void mouseMoveHandler(MouseEvent mouseEvent) {
+    public final void mouseMoveHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
         double mousePosX = mouseEvent.getX();
         double mousePosY = mouseEvent.getY();
@@ -276,7 +275,7 @@ public final class MenuController extends AnimationTimer {
         }
     }
 
-    final void mouseClickHandler(MouseEvent mouseEvent) {
+    public final void mouseClickHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
         double mousePosX = mouseEvent.getX();
         double mousePosY = mouseEvent.getY();
