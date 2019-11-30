@@ -23,6 +23,7 @@ import mrmathami.thegame.ui.menu.MultiPlayerButton;
 import mrmathami.thegame.ui.menu.SettingsButton;
 import mrmathami.thegame.ui.menu.SinglePlayerButton;
 import mrmathami.thegame.ui.popup.CreditPopup;
+import mrmathami.thegame.ui.popup.MPPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -68,7 +69,7 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuUI menuUI;
 
-    private GameAudio gameAudio;
+
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -88,14 +89,9 @@ public final class MenuController extends AnimationTimer {
      * @param graphicsContext the screen to draw on
      */
 
-    public MenuController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
+    public MenuController(GraphicsContext graphicsContext, StackPane stackPane) {
         this.graphicsContext = graphicsContext;
         this.stackPane = stackPane;
-
-        // Initialize herererereayayaya
-        gameAudio = new GameAudio();
-        gameAudio.playThemeSong();
-//        gameAudio.playSound(GameAudio.getGameSound(), (float)0.5);
 
         // Just a few acronyms.
         final long width = Config.TILE_HORIZONTAL;
@@ -179,7 +175,7 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().clear();
+//        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
@@ -207,7 +203,7 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameCanvas.setFocusTraversable(true);
+        gameCanvas.setFocusTraversable(false);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
@@ -294,7 +290,10 @@ public final class MenuController extends AnimationTimer {
                     moveToGameScene();
                     break;
                 } else if (entity instanceof MultiPlayerButton) {
-                    moveToMPScene();
+                    MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
+                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
+                    break;
+//                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                     break;
                 } else if (entity instanceof CreditsButton) {

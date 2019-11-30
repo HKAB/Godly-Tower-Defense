@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public final class NormalAircraftSpawner extends AbstractSpawner<NormalAircraft> {
     public NormalAircraftSpawner(long createdTick, long posX, long posY, long width, long height, long spawnInterval, long initialDelay, long numOfSpawn) {
-        super(createdTick, posX, posY, width, height, Config.NORMAL_AIRCRAFT_ENEMY_SIZE, NormalAircraft.class, spawnInterval, initialDelay, numOfSpawn);
+        super(createdTick, posX, posY, width, height, Config.NORMAL_AIRCRAFT_ENEMY_SIZE, NormalAircraft.class, Config.NORMAL_AIRCRAFT_ENEMY_GID[0], spawnInterval, initialDelay, numOfSpawn);
     }
 
     @Nonnull

@@ -8,10 +8,10 @@
 163 26 24 25 25 25 25 25 25 25 25 244 219 219 219 219
 163 26 24 25 232 25 25 25 25 163 25 242 242 242 242 242
 163 26 24 25 25 25 25 25 25 25 25 242 242 242 242 242
-Target 15 5 1 1 20
-NormalAircraftSpawner 1 8 1 1 30 5 10
-BigAircraftSpawner 1 8 1 1 30 20 10
-TankerSpawner 1 8 1 1 20 30 0
+Target 14 5 1 1 20
+NormalAircraftSpawner 1 7 1 1 30 25 1
+BigAircraftSpawner 1 7 1 1 30 40 1
+TankerSpawner 1 7 1 1 20 30 1
 TurnPoint 1 5 1 4 2 4
 TurnPoint 4 4 5 4 5 3
 TurnPoint 5 2 5 1 6 1

@@ -31,12 +31,13 @@ public final class Main extends Application {
 		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
 //		final MenuController menuController = new MenuController(menuGraphicsContext, stackPane);
-		menuCanvas.setFocusTraversable(true);
+//		menuCanvas.setFocusTraversable(true);
 		menuGraphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
 
 		// Creating the scene
 //		menuPane.getChildren().add(menuCanvas);
 		Scene mainScene = new Scene(stackPane);
+		menuCanvas.setFocusTraversable(false);
 		stackPane.getChildren().add(menuCanvas);
 
 
@@ -52,5 +53,6 @@ public final class Main extends Application {
 		primaryStage.show();
         primaryStage.setOnCloseRequest(menuController::closeRequestHandler);
         menuController.start();
+		(new GameAudio()).playThemeSong();
 	}
 }

@@ -32,7 +32,6 @@ import mrmathami.thegame.entity.enemy.NormalEnemy;
 import mrmathami.thegame.entity.enemy.Tanker;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
 import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
 import mrmathami.thegame.entity.tile.tower.MachineGunTower;
 import mrmathami.thegame.entity.tile.tower.NormalTower;
@@ -67,7 +66,6 @@ public final class GameDrawer {
 //			SmallerEnemy.class,
 //			TankerEnemy.class,
 //			BossEnemy.class,
-			NormalSpawner.class,
 			NormalAircraftSpawner.class,
 			BigAircraftSpawner.class,
 			TankerSpawner.class,
@@ -82,6 +80,7 @@ public final class GameDrawer {
 			ExplosionEffect.class,
 			UpgradeEffect.class,
 			TowerDestroyEffect.class,
+			AlertEffect.class,
 			GameButtonDrawer.class
 	);
 	/**
@@ -110,7 +109,6 @@ public final class GameDrawer {
 //			Map.entry(SmallerEnemy.class, new SmallerEnemyDrawer()),
 //			Map.entry(TankerEnemy.class, new TankerEnemyDrawer()),
 //			Map.entry(BossEnemy.class, new BossEnemyDrawer()),
-			Map.entry(NormalSpawner.class, new SpawnerDrawer()),
 			Map.entry(NormalAircraftSpawner.class, new SpawnerDrawer()),
 			Map.entry(BigAircraftSpawner.class, new SpawnerDrawer()),
 			Map.entry(TankerSpawner.class, new SpawnerDrawer()),
@@ -119,6 +117,7 @@ public final class GameDrawer {
 //			Map.entry(BossSpawner.class, new SpawnerDrawer()),
 			Map.entry(UpgradeEffect.class, new UpgradeEffectDrawer()),
 			Map.entry(TowerDestroyEffect.class, new TowerDestroyEffectDrawer()),
+			Map.entry(AlertEffect.class, new AlertEffectDrawer()),
 			Map.entry(Target.class, new TargetDrawer())
 	));
 
@@ -148,6 +147,12 @@ public final class GameDrawer {
 	private static Image rankImage;
 	private static Image contextIconImage;
 
+	public static Image getEmoteImage() {
+		return emoteImage;
+	}
+
+	private static Image emoteImage;
+
 	private transient double fieldStartPosX = Float.NaN;
 	private transient double fieldStartPosY = Float.NaN;
 	private transient double fieldZoom = Float.NaN;
@@ -163,6 +168,7 @@ public final class GameDrawer {
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
 		this.contextIconImage = new Image(getClass().getResourceAsStream("/ui/contextIcon.png"));
+		this.emoteImage = new Image(getClass().getResourceAsStream("/stage/notif.png"));
 		this.gameUI = gameUI;
 		this.opponentGameField = opponentGameField;
 	}

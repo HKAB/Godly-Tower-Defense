@@ -3,6 +3,7 @@ package mrmathami.thegame;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,6 +32,7 @@ import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.thegame.ui.popup.GameOverPopup;
+import mrmathami.thegame.ui.popup.WinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -150,7 +152,7 @@ public final class GameController extends AnimationTimer {
 		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
 	}
 
-	private void nextMap() {
+	public void nextMap() {
 		if (this.currentMap == Config.MAX_LEVEL_COUNT) return;
 
 		this.currentMap++;
@@ -205,8 +207,16 @@ public final class GameController extends AnimationTimer {
 		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			gameOverPopup.setGameController(this);
 			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
-			super.stop();
+			gamePause();
+		}
+		else if (field.isWon())
+		{
+			WinPopup winPopup = new WinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
+			winPopup.setGameController(this);
+			gamePause();
 		}
 
 		// draw a new frame, as fast as possible.
@@ -389,7 +399,7 @@ public final class GameController extends AnimationTimer {
 						}
 					}
 					else if (entity instanceof BackButton) {
-
+						moveToMenuScene();
 					}
 					else if (entity instanceof PauseButton) {
 						gamePause();
@@ -504,5 +514,24 @@ public final class GameController extends AnimationTimer {
 				contextArea.setLowerContext(null);
 			}
 		}
+	}
+
+	public void moveToMenuScene() {
+		scheduledFuture.cancel(true);
+		stop();
+		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		GraphicsContext graphicsContext = menuCanvas.getGraphicsContext2D();
+		GameController gameController = null;
+		MenuController menuController = new MenuController(graphicsContext, stackPane);
+		// prevent user press tab to change focus
+		menuCanvas.setFocusTraversable(false);
+		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
+		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
+		menuCanvas.setOnKeyPressed(menuController::keyDownHandler);
+        stackPane.getChildren().clear();
+		stackPane.getChildren().add(menuCanvas);
+		menuController.start();
+		stackPane.getChildren().get(0).toFront();
+//		start();
 	}
 }
