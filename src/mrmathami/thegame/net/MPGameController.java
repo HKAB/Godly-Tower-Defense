@@ -291,6 +291,7 @@ public final class MPGameController extends AnimationTimer {
 	 * @param keyEvent the key that you press down
 	 */
 	public final void keyDownHandler(KeyEvent keyEvent) {
+        System.out.println("keyDownHandler called");
 		final KeyCode keyCode = keyEvent.getCode();
 		switch (keyCode) {
 			case Q:
