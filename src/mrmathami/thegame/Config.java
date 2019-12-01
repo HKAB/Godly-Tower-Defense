@@ -63,6 +63,8 @@ public final class Config {
 
 	public static final double OFFSET = 45.0;
 
+	public static final int MAX_LEVEL_COUNT = 2;
+
 	//region Popup
 	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
 	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
@@ -89,6 +91,13 @@ public final class Config {
 	public static final int MACHINE_GUN_BULLET_GID = 274;
 	public static final double MACHINE_GUN_BULLET_WIDTH = 16.0;
 	public static final double MACHINE_GUN_BULLET_HEIGHT = 16.0;
+
+	public static final long STOP_SIGN_BULLET_TTL = 15;
+	public static final long STOP_SIGN_BULLET_STRENGTH = 10;
+	public static final double STOP_SIGN_BULLET_SPEED = 0.5;
+	public static final int STOP_SIGN_BULLET_GID = 276;
+	public static final double STOP_SIGN_BULLET_WIDTH = 32.0;
+	public static final double STOP_SIGN_BULLET_HEIGHT = 32.0;
 
 	public static final long SNIPER_BULLET_TTL = 60;
 	public static final long SNIPER_BULLET_STRENGTH = 120;
@@ -130,6 +139,19 @@ public final class Config {
 	public static final long MACHINE_GUN_TOWER_LEVEL2_UPGRADE_PRICE = 400;
 	public static final long MACHINE_GUN_TOWER_LEVEL3_SELL_PRICE = 400;
 
+	public static final long ROBOT_POLICE_TOWER_SPEED = 5;
+	public static final double ROBOT_POLICE_TOWER_RANGE = 4.0;
+	public static final int ROBOT_POLICE_TOWER_LEVEL1_GID = 161;
+	public static final int ROBOT_POLICE_TOWER_LEVEL2_GID = 160;
+	public static final int ROBOT_POLICE_TOWER_LEVEL3_GID = 159;
+
+	public static final long ROBOT_POLICE_TOWER_PRICE = 175;
+	public static final long ROBOT_POLICE_TOWER_LEVEL1_SELL_PRICE = 125;
+	public static final long ROBOT_POLICE_TOWER_LEVEL1_UPGRADE_PRICE = 250;
+	public static final long ROBOT_POLICE_TOWER_LEVEL2_SELL_PRICE = 250;
+	public static final long ROBOT_POLICE_TOWER_LEVEL2_UPGRADE_PRICE = 400;
+	public static final long ROBOT_POLICE_TOWER_LEVEL3_SELL_PRICE = 400;
+
 	public static final long ROCKET_TOWER_SPEED = 20;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
@@ -161,7 +183,7 @@ public final class Config {
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
 	public static final double NORMAL_AIRCRAFT_ENEMY_HEIGHT = 28.0;
-	public static final double NORMAL_AIRCRAFT_ENEMY_DAMAGE = 1.0;
+	public static final long NORMAL_AIRCRAFT_ENEMY_DAMAGE = 1;
 
 
 	public static final double BIG_AIRCRAFT_ENEMY_SIZE = 1;
@@ -172,7 +194,7 @@ public final class Config {
 	public static final int[] BIG_AIRCRAFT_ENEMY_GID = {271, 272};
 	public static final double BIG_AIRCRAFT_ENEMY_WIDTH = 55.0;
 	public static final double BIG_AIRCRAFT_ENEMY_HEIGHT = 60.0;
-	public static final double BIG_AIRCRAFT_ENEMY_DAMAGE = 2.0;
+	public static final long BIG_AIRCRAFT_ENEMY_DAMAGE = 2;
 
 
 	public static final double TANKER_ENEMY_SIZE = 1;
@@ -185,19 +207,57 @@ public final class Config {
 	public static final double TANKER_ENEMY_HEIGHT = 36.0;
 	public static final double TANKER_BARREL_ENEMY_WIDTH = 54.0;
 	public static final double TANKER_BARREL_ENEMY_HEIGHT = 20.0;
-	public static final double TANKER_ENEMY_DAMAGE = 4;
+	public static final long TANKER_ENEMY_DAMAGE = 4;
 
-	public static final double SMALLER_ENEMY_SIZE = 0.7;
-	public static final long SMALLER_ENEMY_HEALTH = 50;
-	public static final long SMALLER_ENEMY_ARMOR = 0;
-	public static final double SMALLER_ENEMY_SPEED = 0.4;
-	public static final long SMALLER_ENEMY_REWARD = 2;
+	public static final double JOHN_CENA_BOSS_ENEMY_SIZE = 1.0;
+	public static final long JOHN_CENA_BOSS_ENEMY_HEALTH = 1500;
+	public static final long JOHN_CENA_BOSS_ENEMY_ARMOR = 10;
+	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.07;
+	public static final long JOHN_CENA_BOSS_ENEMY_REWARD = 100;
+	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 30.0;
+	public static final double JOHN_CENA_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int JOHN_CENA_BOSS_ENEMY_GID = 223;
+	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
+	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
+	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 250;
 
-	public static final double BOSS_ENEMY_SIZE = 1.3;
-	public static final long BOSS_ENEMY_HEALTH = 500;
-	public static final long BOSS_ENEMY_ARMOR = 8;
-	public static final double BOSS_ENEMY_SPEED = 0.3;
-	public static final long BOSS_ENEMY_REWARD = 10;
+	public static final double BIN_LADEN_BOSS_ENEMY_SIZE = 1.0;
+	public static final long BIN_LADEN_BOSS_ENEMY_HEALTH = 1000;
+	public static final long BIN_LADEN_BOSS_ENEMY_ARMOR = 5;
+	public static final double BIN_LADEN_BOSS_ENEMY_SPEED = 0.05;
+	public static final long BIN_LADEN_BOSS_ENEMY_REWARD = 100;
+	public static final double BIN_LADEN_BOSS_ENEMY_WIDTH = 40.0;
+	public static final double BIN_LADEN_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int BIN_LADEN_BOSS_ENEMY_GID = 155;
+
+	public static final double GRAB_ENEMY_SIZE = 1;
+	public static final long GRAB_ENEMY_HEALTH = 100;
+	public static final long GRAB_ENEMY_ARMOR = 2;
+	public static final double GRAB_ENEMY_SPEED = 0.05;
+	public static final long GRAB_ENEMY_REWARD = 1;
+	public static final int GRAB_ENEMY_GID = 225;
+	public static final double GRAB_ENEMY_WIDTH = 40.0;
+	public static final double GRAB_ENEMY_HEIGHT = 18.0;
+	public static final long GRAB_ENEMY_DAMAGE = 4;
+
+	public static final double PIRATE_ENEMY_SIZE = 1;
+	public static final long PIRATE_ENEMY_HEALTH = 300;
+	public static final long PIRATE_ENEMY_ARMOR = 2;
+	public static final double PIRATE_ENEMY_SPEED = 0.1;
+	public static final long PIRATE_ENEMY_REWARD = 1;
+	public static final int PIRATE_ENEMY_GID = 226;
+	public static final double PIRATE_ENEMY_WIDTH = 64.0;
+	public static final double PIRATE_ENEMY_HEIGHT = 37.0;
+
+	public static final double BOSS_CRAB_SIZE = 1;
+	public static final long BOSS_CRAB_HEALTH = 1000;
+	public static final long BOSS_CRAB_ARMOR = 2;
+	public static final double BOSS_CRAB_SPEED = 0.05;
+	public static final long BOSS_CRAB_REWARD = 1;
+	public static final int BOSS_CRAB_GID = 154;
+	public static final double BOSS_CRAB_WIDTH = 38.0;
+	public static final double BOSS_CRAB_HEIGHT = 64.0;
+	public static final long BOSS_CRAB_DAMAGE = 20;
 	//endregion
 
 

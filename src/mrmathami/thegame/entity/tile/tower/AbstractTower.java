@@ -6,29 +6,31 @@ import javafx.scene.transform.Rotate;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
-import mrmathami.thegame.entity.DestroyableEntity;
+import mrmathami.thegame.entity.*;
 import mrmathami.thegame.audio.GameAudio;
-import mrmathami.thegame.entity.RotatableEntity;
-import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.bullet.AbstractBullet;
+import mrmathami.thegame.entity.bullet.MachineGunBullet;
+import mrmathami.thegame.entity.bullet.NormalBullet;
+import mrmathami.thegame.entity.bullet.StopSignBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
+import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-public abstract class AbstractTower<E extends AbstractBullet, T extends AbstractEnemy> extends AbstractTile implements UpdatableEntity, RotatableEntity, DestroyableEntity {
+public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTile implements UpdatableEntity, RotatableEntity, DestroyableEntity, DestroyListener {
 	private double range;
 	private long speed;
 	private double angle;
 	private double defaultAngle;
 	protected int GID;
-	private Class<T> target;
+	private Class<E> bulletType;
 	private long tickDown;
 	private int level;
 	private boolean sold;
 
-	protected AbstractTower(long createdTick, long posX, long posY, double range, long speed, double angle, int GID, Class<T> target) {
+	protected AbstractTower(long createdTick, long posX, long posY, double range, long speed, double angle, int GID, Class<E> bulletType) {
 		super(createdTick, posX, posY, 1L, 1L, GID);
 		this.range = range;
 		this.speed = speed;
@@ -36,7 +38,7 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 		this.defaultAngle = angle;
 		this.tickDown = 0;
 		this.GID = GID;
-		this.target = target;
+		this.bulletType = bulletType;
 		this.level = 0;
 		this.sold = false;
 	}
@@ -44,28 +46,29 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	@Override
 	public void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
-		final Collection<T> overlappedEntities = GameEntities.getFilteredOverlappedEntities(field.getEntities(), target,
-				this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
-		for (T normalEnemy :
+		final Collection<LivingEntity> overlappedEntities = GameEntities.getAffectedEntities(field.getEntities(), bulletType,this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
+		for (LivingEntity livingEntity :
 				overlappedEntities) {
-			this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
+			this.angle = this.defaultAngle + Math.atan2((livingEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getHeight()/2 - this.getPosY() - this.getWidth()/2), (livingEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
 			break;
 		}
 		if (tickDown <= 0) {
-			for (T normalEnemy :
+			for (LivingEntity livingEntity :
 					overlappedEntities) {
 				// Remember the freaking OFFSET
-				this.angle = this.defaultAngle + Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
+				this.angle = this.defaultAngle + Math.atan2((livingEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getHeight()/2 - this.getPosY() - this.getWidth()/2), (livingEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;
 				// Using polar coordinate system, dont forget to add width/2 and height/2 to posX and posY with specific bullet
-				field.doSpawn(doSpawn(getCreatedTick(),
-						(getPosX() - Config.OFFSET/(Config.TILE_SIZE) + this.getWidth()/2 + this.getWidth()/2*Math.cos(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2)))),
-						(getPosY() - Config.OFFSET/(Config.TILE_SIZE) + this.getHeight()/2) + this.getWidth()/2*Math.sin(Math.atan2((normalEnemy.getPosY() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getHeight()/2 - this.getPosY() - this.getWidth()/2), (normalEnemy.getPosX() + Config.OFFSET/Config.TILE_SIZE + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2))),
-						normalEnemy.getPosX() + normalEnemy.getWidth()/2 - this.getPosX() - this.getWidth()/2,
-						normalEnemy.getPosY() + normalEnemy.getHeight()/2 - this.getPosY() - this.getHeight()/2,
-						normalEnemy));
-				break;
+				if (livingEntity instanceof AbstractEnemy) {
+					field.doSpawn(doSpawn(getCreatedTick(),
+							(getPosX() - Config.OFFSET / (Config.TILE_SIZE) + this.getWidth() / 2 + this.getWidth() / 2 * Math.cos(Math.atan2((livingEntity.getPosY() + Config.OFFSET / Config.TILE_SIZE + livingEntity.getHeight() / 2 - this.getPosY() - this.getWidth() / 2), (livingEntity.getPosX() + Config.OFFSET / Config.TILE_SIZE + livingEntity.getWidth() / 2 - this.getPosX() - this.getWidth() / 2)))),
+							(getPosY() - Config.OFFSET / (Config.TILE_SIZE) + this.getHeight() / 2) + this.getWidth() / 2 * Math.sin(Math.atan2((livingEntity.getPosY() + Config.OFFSET / Config.TILE_SIZE + livingEntity.getHeight() / 2 - this.getPosY() - this.getWidth() / 2), (livingEntity.getPosX() + Config.OFFSET / Config.TILE_SIZE + livingEntity.getWidth() / 2 - this.getPosX() - this.getWidth() / 2))),
+							livingEntity.getPosX() + livingEntity.getWidth() / 2 - this.getPosX() - this.getWidth() / 2,
+							livingEntity.getPosY() + livingEntity.getHeight() / 2 - this.getPosY() - this.getHeight() / 2,
+							(AbstractEnemy) livingEntity));
+					break;
+				}
 			}
-			 this.tickDown = speed;
+			this.tickDown = speed;
 		}
 	}
 
@@ -124,6 +127,11 @@ public abstract class AbstractTower<E extends AbstractBullet, T extends Abstract
 	@Override
 	public void doDestroy () {
 		this.sold = true;
+	}
+
+	@Override
+	public void onDestroy(@Nonnull GameField field) {
+		field.addSFX(new TowerDestroyEffect(0, getPosX(), getPosY()));
 	}
 
 	@Override

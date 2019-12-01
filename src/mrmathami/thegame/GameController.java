@@ -153,11 +153,14 @@ public final class GameController extends AnimationTimer {
 	}
 
 	public void nextMap() {
+		if (this.currentMap == Config.MAX_LEVEL_COUNT) return;
+
 		this.currentMap++;
 		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
 		this.towerPicker = null;
 		if (pause) gamePause();
+
 		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
 		contextArea.setLowerContext(null);
 
@@ -363,7 +366,7 @@ public final class GameController extends AnimationTimer {
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
-									field.addSFX(new TowerDestroyEffect(0, entity.getPosX(), entity.getPosY()));
+									((AbstractTower) entity).onDestroy(field);
 									field.setMoney(field.getMoney() + ((TowerSelling) towerPicker).getSellPrice(entity));
 								}
 								break;

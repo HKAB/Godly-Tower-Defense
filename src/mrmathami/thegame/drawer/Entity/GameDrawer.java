@@ -15,8 +15,11 @@ import mrmathami.thegame.drawer.Entity.Tile.Spawner.SpawnerDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Tower.*;
 import mrmathami.thegame.drawer.UI.InGame.*;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
+import mrmathami.thegame.entity.bullet.StopSignBullet;
+import mrmathami.thegame.entity.enemy.*;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
+import mrmathami.thegame.entity.tile.tower.RobotPoliceTower;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.entity.tile.*;
@@ -26,10 +29,6 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.NormalBullet;
 import mrmathami.thegame.entity.bullet.RocketBullet;
-import mrmathami.thegame.entity.enemy.BigAircraft;
-import mrmathami.thegame.entity.enemy.NormalAircraft;
-import mrmathami.thegame.entity.enemy.NormalEnemy;
-import mrmathami.thegame.entity.enemy.Tanker;
 import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
 import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
@@ -58,9 +57,11 @@ public final class GameDrawer {
 			RocketLauncherTower.class,
 //			SniperTower.class,
 			MachineGunTower.class,
+			RobotPoliceTower.class,
 			NormalBullet.class,
 			MachineGunBullet.class,
 			RocketBullet.class,
+			StopSignBullet.class,
 //			SniperBullet.class,
 			NormalEnemy.class,
 //			SmallerEnemy.class,
@@ -73,6 +74,11 @@ public final class GameDrawer {
 			NormalAircraft.class,
 			BigAircraft.class,
 			Tanker.class,
+			PirateEnemy.class,
+			GrabEnemy.class,
+			BossCrab.class,
+			JohnCenaBossEnemy.class,
+			BinLadenBossEnemy.class,
 //			SmallerSpawner.class,
 //			TankerSpawner.class,
 //			BossSpawner.class,
@@ -96,16 +102,23 @@ public final class GameDrawer {
 			Map.entry(ExplosionEffect.class, new ExplosionEffectDrawer()),
 			Map.entry(NormalTower.class, new NormalTowerDrawer()),
 			Map.entry(RocketLauncherTower.class, new RocketLauncherTowerDrawer()),
+			Map.entry(RobotPoliceTower.class, new RobotPoliceTowerDrawer()),
 //			Map.entry(SniperTower.class, new SniperTowerDrawer()),
 			Map.entry(MachineGunTower.class, new MachineGunTowerDrawer()),
 			Map.entry(NormalBullet.class, new NormalBulletDrawer()),
 			Map.entry(MachineGunBullet.class, new MachineGunBulletDrawer()),
 			Map.entry(RocketBullet.class, new RocketBulletDrawer()),
+			Map.entry(StopSignBullet.class, new StopSignBulletDrawer()),
 //			Map.entry(SniperBullet.class, new SniperBulletDrawer()),
 			Map.entry(NormalEnemy.class, new NormalEnemyDrawer()),
 			Map.entry(NormalAircraft.class, new NormalAircraftDrawer()),
 			Map.entry(BigAircraft.class, new BigAircraftDrawer()),
 			Map.entry(Tanker.class, new TankerDrawer()),
+			Map.entry(PirateEnemy.class, new PirateEnemyDrawer()),
+			Map.entry(GrabEnemy.class, new GrabEnemyDrawer()),
+			Map.entry(BossCrab.class, new BossCrabDrawer()),
+			Map.entry(JohnCenaBossEnemy.class, new JohnCenaBossDrawer()),
+			Map.entry(BinLadenBossEnemy.class, new BinLadenBossDrawer()),
 //			Map.entry(SmallerEnemy.class, new SmallerEnemyDrawer()),
 //			Map.entry(TankerEnemy.class, new TankerEnemyDrawer()),
 //			Map.entry(BossEnemy.class, new BossEnemyDrawer()),

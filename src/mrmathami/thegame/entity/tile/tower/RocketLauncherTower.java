@@ -11,13 +11,13 @@ import mrmathami.thegame.entity.enemy.BigAircraft;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-public final class RocketLauncherTower extends AbstractTower<RocketBullet, BigAircraft> {
+public final class RocketLauncherTower extends AbstractTower<RocketBullet> {
     public int[] GID = new int[] {Config.ROCKET_TOWER_LEVEL1_GID, Config.ROCKET_TOWER_LEVEL2_GID, Config.ROCKET_TOWER_LEVEL3_GID};
     private long[] SELL_PRICE = {Config.ROCKET_TOWER_LEVEL1_SELL_PRICE, Config.ROCKET_TOWER_LEVEL2_SELL_PRICE, Config.ROCKET_TOWER_LEVEL3_SELL_PRICE};
     private long[] UPGRADE_PRICE = {Config.ROCKET_TOWER_LEVEL1_UPGRADE_PRICE, Config.ROCKET_TOWER_LEVEL2_UPGRADE_PRICE, 0};
 
     public RocketLauncherTower(long createdTick, long posX, long posY, double angle) {
-        super(createdTick, posX, posY, Config.ROCKET_TOWER_RANGE, Config.ROCKET_TOWER_SPEED, angle, Config.ROCKET_TOWER_LEVEL1_GID, BigAircraft.class);
+        super(createdTick, posX, posY, Config.ROCKET_TOWER_RANGE, Config.ROCKET_TOWER_SPEED, angle, Config.ROCKET_TOWER_LEVEL1_GID, RocketBullet.class);
     }
 
     @Nonnull

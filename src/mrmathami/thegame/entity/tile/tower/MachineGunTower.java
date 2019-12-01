@@ -11,13 +11,13 @@ import mrmathami.thegame.entity.enemy.Tanker;
 
 import javax.annotation.Nonnull;
 
-public final class MachineGunTower extends AbstractTower<MachineGunBullet, Tanker> {
+public final class MachineGunTower extends AbstractTower<MachineGunBullet> {
     public int[] GID = new int[] {Config.MACHINE_GUN_TOWER_LEVEL1_GID, Config.MACHINE_GUN_TOWER_LEVEL2_GID, Config.MACHINE_GUN_TOWER_LEVEL3_GID};
     private long[] SELL_PRICE = {Config.MACHINE_GUN_TOWER_LEVEL1_SELL_PRICE, Config.MACHINE_GUN_TOWER_LEVEL2_SELL_PRICE, Config.MACHINE_GUN_TOWER_LEVEL3_SELL_PRICE};
     private long[] UPGRADE_PRICE = {Config.MACHINE_GUN_TOWER_LEVEL1_UPGRADE_PRICE, Config.MACHINE_GUN_TOWER_LEVEL2_UPGRADE_PRICE, 0};
 
     public MachineGunTower(long createdTick, long posX, long posY, double angle) {
-        super(createdTick, posX, posY, Config.MACHINE_GUN_TOWER_RANGE, Config.MACHINE_GUN_TOWER_SPEED, angle, Config.MACHINE_GUN_TOWER_LEVEL1_GID, Tanker.class);
+        super(createdTick, posX, posY, Config.MACHINE_GUN_TOWER_RANGE, Config.MACHINE_GUN_TOWER_SPEED, angle, Config.MACHINE_GUN_TOWER_LEVEL1_GID, MachineGunBullet.class);
     }
 
     @Nonnull
