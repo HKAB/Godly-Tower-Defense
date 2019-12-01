@@ -15,19 +15,12 @@ import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPGameController;
-import mrmathami.thegame.net.MPSocketController;
-import mrmathami.thegame.ui.menu.CreditsButton;
-import mrmathami.thegame.ui.menu.MultiPlayerButton;
-import mrmathami.thegame.ui.menu.SettingsButton;
-import mrmathami.thegame.ui.menu.SinglePlayerButton;
+import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.thegame.ui.popup.MPPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.Executors;
@@ -63,13 +56,15 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuDrawer drawer;
 
+    /**
+     * Popup Drawer. Draw popup every tick if exist.
+     */
     private PopupDrawer popupDrawer;
+
     /**
      * Menu UI. Contains UI elements.
      */
     private MenuUI menuUI;
-
-
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -175,42 +170,6 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().add(gameCanvas);
-        gameController.start();
-    }
-
-    private void moveToMPScene() {
-        scheduledFuture.cancel(true);
-        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
-        this.graphicsContext.setFill(Color.rgb(0, 0, 0, 0.5));
-        this.graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-        this.graphicsContext.fillText("Connecting to server...", Config.SCREEN_WIDTH/2.0, Config.SCREEN_HEIGHT/2.0);
-        stop();
-
-        // TODO: Replace later when player can decide which host to connect to.
-        try {
-            MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT));
-        } catch (IOException e) {
-            try {
-                MPSocketController.setCurrentInstance(new MPSocketController(MPConfig.DEFAULT_LISTEN_PORT));
-            } catch (IOException f) {
-                System.out.println("Failed to listen");
-            }
-        }
-
-        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
-        MPGameController gameController = null;
-        try {
-            gameController = new MPGameController(graphicsContext);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        gameCanvas.setFocusTraversable(false);
-        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
-        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
