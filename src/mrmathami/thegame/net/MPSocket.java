@@ -3,6 +3,10 @@ package mrmathami.thegame.net;
 import java.net.*;
 import java.io.*;
 
+/**
+ * Multi-player socket.
+ * A wrapper around JavaSocket library to help us perform game actions easier.
+ */
 public class MPSocket {
     private Socket socket;
     private BufferedReader input;
@@ -19,10 +23,18 @@ public class MPSocket {
         }
     }
 
+    /**
+     * Send a line to the remote host.
+     * @param data data to send.
+     */
     public void sendLine(String data) {
         this.output.println(data);
     }
 
+    /**
+     * Read a line sent from the remote host. If the buffer is empty, return an empty string.
+     * @return A String if the input buffer is not empty, empty String otherwise.
+     */
     public String recvLine() {
         String data;
         try {
@@ -38,6 +50,9 @@ public class MPSocket {
         return data;
     }
 
+    /**
+     * Close all currently open socket or streams.
+     */
     public void close() {
         try {
             input.close();

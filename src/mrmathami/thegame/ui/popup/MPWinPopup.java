@@ -4,6 +4,7 @@ import javafx.scene.layout.StackPane;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameController;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.net.MPGameController;
 import mrmathami.thegame.ui.popup.components.PopupButton;
 import mrmathami.thegame.ui.popup.components.PopupImage;
 import mrmathami.thegame.ui.popup.components.PopupInput;
@@ -12,22 +13,20 @@ import mrmathami.thegame.ui.popup.components.PopupLabel;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class WinPopup extends AbstractPopup implements CanControlGame {
-    GameController gameController = null;
-    public WinPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
+public class MPWinPopup extends AbstractPopup implements CanControlGame {
+    private MPGameController mpGameController;
+    public MPWinPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
+        PopupButton backButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
         getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150)/Config.TILE_SIZE, 150, "WIN"));
         getPopupEntities().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/menu/sleepy.png"));
-        PopupButton nextButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
-        getPopupEntities().add(nextButton);
+        getPopupEntities().add(backButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
-            Collection<UIEntity> UIEntities = getPopupEntities();
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
-            Iterator<UIEntity> iterator = UIEntities.iterator();
-            while (iterator.hasNext()){
-                UIEntity entity = iterator.next();
+            Collection<UIEntity> UIEntities = getPopupEntities();
+            for (UIEntity entity : UIEntities) {
                 double startX = (entity.getPosX()) * Config.TILE_SIZE;
                 double startY = (entity.getPosY()) * Config.TILE_SIZE;
                 double endX = startX + entity.getWidth();
@@ -35,16 +34,13 @@ public class WinPopup extends AbstractPopup implements CanControlGame {
                 if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                     if (entity instanceof PopupInput) {
-                        ((PopupInput)entity).setFocus(true);
+                        ((PopupInput) entity).setFocus(true);
                         break;
                     }
-                    //TODO: Event handle
-                    if (entity instanceof PopupButton)
-                    {
-                        if (entity.hashCode() == nextButton.hashCode())
-                        {
-                            this.gameController.nextMap();
+                    if (entity instanceof PopupButton) {
+                        if (entity.hashCode() == backButton.hashCode()) {
                             getStackPane().getChildren().remove(getPopupCanvas());
+                            mpGameController.moveToMenuScene();
                         }
                     }
                 }
@@ -58,7 +54,9 @@ public class WinPopup extends AbstractPopup implements CanControlGame {
     }
 
     @Override
-    public void onFocus() {}
+    public void onFocus() {
+
+    }
 
     @Override
     public void outFocus() {
@@ -67,6 +65,10 @@ public class WinPopup extends AbstractPopup implements CanControlGame {
 
     @Override
     public void setGameController(GameController gameController) {
-        this.gameController = gameController;
+
+    }
+
+    public void setGameController(MPGameController gameController) {
+        this.mpGameController = gameController;
     }
 }

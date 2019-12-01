@@ -12,22 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
-import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPSocketController;
-import mrmathami.thegame.ui.menu.CreditsButton;
-import mrmathami.thegame.ui.menu.MultiPlayerButton;
-import mrmathami.thegame.ui.menu.SettingsButton;
-import mrmathami.thegame.ui.menu.SinglePlayerButton;
+import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.thegame.ui.popup.MPPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.Executors;
@@ -63,13 +56,15 @@ public final class MenuController extends AnimationTimer {
      */
     private MenuDrawer drawer;
 
+    /**
+     * Popup Drawer. Draw popup every tick if exist.
+     */
     private PopupDrawer popupDrawer;
+
     /**
      * Menu UI. Contains UI elements.
      */
     private MenuUI menuUI;
-
-
 
     /**
      * Beat-keeper Manager. Just don't touch me. Google me if you are curious.
@@ -175,39 +170,6 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-//        stackPane.getChildren().clear();
-        stackPane.getChildren().add(gameCanvas);
-        gameController.start();
-    }
-
-    private void moveToMPScene() {
-        scheduledFuture.cancel(true);
-        Canvas gameCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-
-        this.graphicsContext.setFill(Color.rgb(0, 0, 0, 0.5));
-        this.graphicsContext.fillRect(0.0, 0.0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-        this.graphicsContext.fillText("Connecting to server...", Config.SCREEN_WIDTH/2.0, Config.SCREEN_HEIGHT/2.0);
-        stop();
-
-        // TODO: Replace later when player can decide which host to connect to.
-        try {
-            MPSocketController socket = new MPSocketController(MPConfig.DEFAULT_SERVER_HOST, MPConfig.DEFAULT_LISTEN_PORT);
-        } catch (IOException e) {
-            MPSocketController socket = new MPSocketController();
-        }
-
-        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
-        MPGameController gameController = null;
-        try {
-            gameController = new MPGameController(graphicsContext);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        gameCanvas.setFocusTraversable(false);
-        gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
-        gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
-        gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
@@ -230,7 +192,7 @@ public final class MenuController extends AnimationTimer {
      *
      * @param keyEvent the key that you press down
      */
-    final void keyDownHandler(KeyEvent keyEvent) { }
+    public final void keyDownHandler(KeyEvent keyEvent) { }
 
     /**
      * Key up handler.
@@ -253,7 +215,7 @@ public final class MenuController extends AnimationTimer {
      */
     final void mouseUpHandler(MouseEvent mouseEvent) { }
 
-    final void mouseMoveHandler(MouseEvent mouseEvent) {
+    public final void mouseMoveHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
         double mousePosX = mouseEvent.getX();
         double mousePosY = mouseEvent.getY();
@@ -272,7 +234,7 @@ public final class MenuController extends AnimationTimer {
         }
     }
 
-    final void mouseClickHandler(MouseEvent mouseEvent) {
+    public final void mouseClickHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
         double mousePosX = mouseEvent.getX();
         double mousePosY = mouseEvent.getY();
@@ -293,7 +255,6 @@ public final class MenuController extends AnimationTimer {
                     MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
                     popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
                     break;
-//                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
                     break;
                 } else if (entity instanceof CreditsButton) {

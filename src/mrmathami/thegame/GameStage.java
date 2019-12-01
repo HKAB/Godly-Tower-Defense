@@ -3,9 +3,7 @@ package mrmathami.thegame;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.*;
 import mrmathami.thegame.entity.tile.spawner.*;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.tower.*;
 import mrmathami.thegame.net.MPConfig;
 
 import javax.annotation.Nonnull;

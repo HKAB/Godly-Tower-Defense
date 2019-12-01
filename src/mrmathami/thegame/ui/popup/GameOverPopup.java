@@ -8,12 +8,11 @@ import mrmathami.thegame.ui.popup.components.PopupButton;
 import mrmathami.thegame.ui.popup.components.PopupImage;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
 
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class GameOverPopup extends AbstractPopup implements CanControlGame {
-    GameController gameController = null;
+    private GameController gameController = null;
     public GameOverPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 150)/Config.TILE_SIZE, 150, "GAME OVER"));

@@ -5,18 +5,20 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.entity.*;
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.tower.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Multi-player game field.
+ * Responsible for update opponent state to the player.
+ * The field will play itself, important information such as player actions and heath will be fetch from remote host.
+ */
 public final class MPGameField extends GameField {
-    MPSocketController socket;
+    private MPSocketController socket;
 
     public MPGameField(@Nonnull GameStage gameStage) {
         super(gameStage);
@@ -25,7 +27,7 @@ public final class MPGameField extends GameField {
 
     /**
      * Overridden to doing nothing, we'll get player health from the opponent.
-     * @param damage
+     * @param damage damage deal to player.
      */
     @Override
     public void harmPlayer(long damage) { }
@@ -74,6 +76,11 @@ public final class MPGameField extends GameField {
         getAndProcessRemoteCommand();
     }
 
+    /**
+     * Handler for UPGRADE command from opponent.
+     * @param x X position of tower on the field to upgrade tower.
+     * @param y Y position of tower on the field to upgrade tower.
+     */
     private void upgradeAtPosition(double x, double y) {
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
@@ -85,6 +92,11 @@ public final class MPGameField extends GameField {
         }
     }
 
+    /**
+     * Handler for SELL command from opponent.
+     * @param x X position of tower on the field to sell tower.
+     * @param y Y position of tower on the field to sell tower.
+     */
     private void sellAtPosition(double x, double y) {
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
@@ -96,10 +108,15 @@ public final class MPGameField extends GameField {
         }
     }
 
+    /**
+     * Main opponent-field command controller.
+     * Responsible for getting remote command every tick and change the field accordingly.
+     */
     private void getAndProcessRemoteCommand() {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
             if (command.get(0).equals("PLACE")) {
+                System.out.println("Get command " + command);
                 switch (command.get(1)) {
                     case "1":
                         doSpawn(new NormalTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
@@ -109,6 +126,9 @@ public final class MPGameField extends GameField {
                         break;
                     case "3":
                         doSpawn(new RocketLauncherTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
+                        break;
+                    case "4":
+                        doSpawn(new RobotPoliceTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
                         break;
                     default:
                         System.out.println("Unhandled tower code " + command.get(1));
