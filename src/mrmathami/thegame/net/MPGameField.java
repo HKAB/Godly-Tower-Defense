@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Multi-player game field.
+ * Responsible for update opponent state to the player.
+ * The field will play itself, important information such as player actions and heath will be fetch from remote host.
+ */
 public final class MPGameField extends GameField {
     private MPSocketController socket;
 
@@ -22,7 +27,7 @@ public final class MPGameField extends GameField {
 
     /**
      * Overridden to doing nothing, we'll get player health from the opponent.
-     * @param damage
+     * @param damage damage deal to player.
      */
     @Override
     public void harmPlayer(long damage) { }
@@ -71,6 +76,11 @@ public final class MPGameField extends GameField {
         getAndProcessRemoteCommand();
     }
 
+    /**
+     * Handler for UPGRADE command from opponent.
+     * @param x X position of tower on the field to upgrade tower.
+     * @param y Y position of tower on the field to upgrade tower.
+     */
     private void upgradeAtPosition(double x, double y) {
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
@@ -82,6 +92,11 @@ public final class MPGameField extends GameField {
         }
     }
 
+    /**
+     * Handler for SELL command from opponent.
+     * @param x X position of tower on the field to sell tower.
+     * @param y Y position of tower on the field to sell tower.
+     */
     private void sellAtPosition(double x, double y) {
         for (GameEntity entity: entities) {
             if (entity instanceof AbstractTower) {
@@ -93,6 +108,10 @@ public final class MPGameField extends GameField {
         }
     }
 
+    /**
+     * Main opponent-field command controller.
+     * Responsible for getting remote command every tick and change the field accordingly.
+     */
     private void getAndProcessRemoteCommand() {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {

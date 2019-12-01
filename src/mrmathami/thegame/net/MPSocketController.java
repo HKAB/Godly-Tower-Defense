@@ -5,6 +5,15 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Socket controller.
+ * Connect directly with the game flow to send and receive commands.
+ *
+ *      Usage: MPSocketController.setCurrentInstance(new MPSocketController(ip, port))
+ *
+ * This implementation helps us add multi-player to the game without having to pass the socket object everywhere.
+ * Peace!
+ */
 public class MPSocketController {
     private MPSocket socket;
     private static MPSocketController currentInstance = null;
@@ -38,12 +47,16 @@ public class MPSocketController {
         }
     }
 
+    /**
+     * Close connection.
+     * Super important when player want to start another MP game, as the old connection still exist and take that port.
+     */
     public void closeConnection() {
         socket.close();
     }
 
     /**
-     * Return an static instance, so we don't have to use DI everywhere.
+     * Return an static instance, so we don't have to implement DI everywhere.
      * @return current instance
      */
     public static MPSocketController getCurrentInstance() {

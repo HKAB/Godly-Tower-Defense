@@ -9,10 +9,6 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.stage.Stage;
 import mrmathami.thegame.audio.GameAudio;
 
-import java.io.FileNotFoundException;
-import java.security.Provider;
-import java.util.concurrent.CountDownLatch;
-
 /**
  * Main class. Entry point of the game.
  */

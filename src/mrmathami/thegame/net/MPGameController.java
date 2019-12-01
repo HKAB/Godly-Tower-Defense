@@ -25,9 +25,7 @@ import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.entity.tile.tower.*;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
-import mrmathami.thegame.towerpicker.TowerPlacing;
-import mrmathami.thegame.towerpicker.TowerSelling;
-import mrmathami.thegame.towerpicker.TowerUpgrading;
+import mrmathami.thegame.towerpicker.*;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.thegame.ui.popup.MPGameOverPopup;
@@ -83,7 +81,6 @@ public final class MPGameController extends AnimationTimer {
 	 * Kinda advance, modify if you are sure about your change.
 	 */
 	private GameDrawer drawer;
-	private PopupDrawer popupDrawer;
 
 	/**
 	 * Popup Drawer. Draw popup every tick if exist.
@@ -256,6 +253,9 @@ public final class MPGameController extends AnimationTimer {
 		super.start();
 	}
 
+	/**
+	 * Move from game scene to menu scene.
+	 */
 	public void moveToMenuScene() {
 		this.socket.closeConnection();
 		scheduledFuture.cancel(true);
@@ -324,6 +324,11 @@ public final class MPGameController extends AnimationTimer {
 		drawer.setTowerPicker(towerPicker);
 	}
 
+	/**
+	 * Mouse click handler.
+	 *
+	 * @param mouseEvent the mouse event
+	 */
 	public final void mouseClickHandler(MouseEvent mouseEvent) {
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();

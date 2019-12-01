@@ -3,6 +3,10 @@ package mrmathami.thegame.net;
 import java.net.*;
 import java.io.*;
 
+/**
+ * Multi-player socket.
+ * A wrapper around JavaSocket library to help us perform game actions easier.
+ */
 public class MPSocket {
     private Socket socket;
     private BufferedReader input;
