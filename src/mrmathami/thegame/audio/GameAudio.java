@@ -40,6 +40,8 @@ public class GameAudio {
     public static String stopSignBulletSound = new File("res/audio/signbullet.mp3").toURI().toString();
     public static String explosionSound = new File("res/audio/explosion.mp3").toURI().toString();
     public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
+    public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.wav").toURI().toString();
+    public static String binLadenSkillSound = new File("res/audio/binladenskillsound.wav").toURI().toString();
 
 
     private static final GameAudio INSTANCE = new GameAudio();

@@ -73,6 +73,9 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		final double enemyPosY = getPosY();
 		final double enemyWidth = 1.0;
 		final double enemyHeight = 1.0;
+
+		if (this instanceof BossEnemy) ((BossEnemy) this).skillCheck(field);
+
 		final Collection<GameEntity> overlappableEntities = GameEntities.getOverlappedEntities(field.getEntities(),
 				getPosX() - speed, getPosY() - speed, speed + 1.0 + speed, speed + 1.0 + speed);
 		double minimumDistance = Double.MAX_VALUE;
@@ -121,7 +124,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public void onDestroy(@Nonnull GameField field) {
 		// TODO: reward
-		field.setMoney(field.getMoney() + 1);
+		field.setMoney(field.getMoney() + reward);
+		if (this instanceof BossEnemy) ((BossEnemy) this).skillCheck(field);
 //		GameAudio.playSound(ExplosionEffect.class);
 		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound), 1.0);
 		field.addSFX(new ExplosionEffect(0, getPosX() + Config.OFFSET/Config.TILE_SIZE, getPosY() + Config.OFFSET/Config.TILE_SIZE));

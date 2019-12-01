@@ -68,7 +68,7 @@ public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTi
 					break;
 				}
 			}
-			 this.tickDown = speed;
+			this.tickDown = speed;
 		}
 	}
 

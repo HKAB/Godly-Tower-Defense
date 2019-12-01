@@ -1,4 +1,4 @@
-16 9 8
+16 9 20
 25 25 25 25 25 25 25 25 25 25 25 25 25 25 25 25
 48 48 48 48 48 48 48 48 48 48 48 48 5  25 25 25
 2  2  2  2  2  2  2  2  2  2  2  3  24 25 25 25
@@ -11,8 +11,20 @@
 Target 14 7 1 1 20
 NormalAircraftSpawner 0 1 1 1 30 5 0
 BigAircraftSpawner 0 1 1 1 30 20 0
-TankerSpawner 0 1 1 1 20 30 300
+TankerSpawner 0 1 1 1 20 30 10
+JohnCenaBossSpawner 0 1 1 1 30 150 1
 TurnPoint 10 1 11 1 11 2
 TurnPoint 11 3 11 4 10 4
 TurnPoint 5 4 4 4 4 5
 TurnPoint 4 6 4 7 5 7
+Bush 14 3 132
+Bush 1 4 131
+Bush 1 5 131
+Bush 1 6 131
+Bush 2 4 131
+Bush 2 6 131
+Bush 3 4 131
+Bush 3 5 131
+Bush 3 6 131
+Bush 14 6 135
+Bush 15 6 135

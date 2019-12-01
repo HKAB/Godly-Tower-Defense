@@ -209,6 +209,27 @@ public final class Config {
 	public static final double TANKER_BARREL_ENEMY_HEIGHT = 20.0;
 	public static final long TANKER_ENEMY_DAMAGE = 4;
 
+	public static final double JOHN_CENA_BOSS_ENEMY_SIZE = 1.0;
+	public static final long JOHN_CENA_BOSS_ENEMY_HEALTH = 1500;
+	public static final long JOHN_CENA_BOSS_ENEMY_ARMOR = 10;
+	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.07;
+	public static final long JOHN_CENA_BOSS_ENEMY_REWARD = 100;
+	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 30.0;
+	public static final double JOHN_CENA_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int JOHN_CENA_BOSS_ENEMY_GID = 223;
+	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
+	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
+	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 250;
+
+	public static final double BIN_LADEN_BOSS_ENEMY_SIZE = 1.0;
+	public static final long BIN_LADEN_BOSS_ENEMY_HEALTH = 1000;
+	public static final long BIN_LADEN_BOSS_ENEMY_ARMOR = 5;
+	public static final double BIN_LADEN_BOSS_ENEMY_SPEED = 0.05;
+	public static final long BIN_LADEN_BOSS_ENEMY_REWARD = 100;
+	public static final double BIN_LADEN_BOSS_ENEMY_WIDTH = 40.0;
+	public static final double BIN_LADEN_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int BIN_LADEN_BOSS_ENEMY_GID = 155;
+
 	public static final double GRAB_ENEMY_SIZE = 1;
 	public static final long GRAB_ENEMY_HEALTH = 100;
 	public static final long GRAB_ENEMY_ARMOR = 2;

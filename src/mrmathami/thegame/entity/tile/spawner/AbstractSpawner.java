@@ -58,7 +58,7 @@ public abstract class AbstractSpawner<E extends AbstractEnemy> extends AbstractT
 				}
 			}
 			if (valid) {
-				field.doSpawn(doSpawn(getCreatedTick(), getPosX(), getPosY()));
+				field.doSpawn(doSpawn(field.getTickCount(), getPosX(), getPosY()));
 				this.tickDown = spawnInterval;
 				this.numOfSpawn -= 1;
 			}

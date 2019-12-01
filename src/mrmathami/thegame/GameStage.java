@@ -118,6 +118,24 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new BossCrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("JohnCenaBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new JohnCenaBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("BinLadenBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new BinLadenBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("NormalTower".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();

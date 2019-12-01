@@ -50,6 +50,12 @@ public final class GameEntities {
 			Pair.immutableOf(RocketBullet.class, BigAircraft.class),
 			Pair.immutableOf(StopSignBullet.class, GrabEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, Tanker.class),
+			Pair.immutableOf(NormalBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, BinLadenBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, BinLadenBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, BinLadenBossEnemy.class),
 			Pair.immutableOf(NormalBullet.class, BossCrab.class),
 			Pair.immutableOf(MachineGunBullet.class, BossCrab.class),
 			Pair.immutableOf(RocketBullet.class, BossCrab.class),
@@ -59,7 +65,9 @@ public final class GameEntities {
 			Pair.immutableOf(Tanker.class, Target.class),
 			Pair.immutableOf(GrabEnemy.class, Target.class),
 			Pair.immutableOf(PirateEnemy.class, Target.class),
-			Pair.immutableOf(BossCrab.class, Target.class)//,
+			Pair.immutableOf(BossCrab.class, Target.class),
+			Pair.immutableOf(JohnCenaBossEnemy.class, Target.class),
+			Pair.immutableOf(BinLadenBossEnemy.class, Target.class)
 	));
 
 	private GameEntities() {
@@ -256,7 +264,11 @@ public final class GameEntities {
 		for (final GameEntity entity : entities) {
 			if (entity instanceof LivingEntity && entity.isBeingOverlapped(posX, posY, width, height)) {
 				final LivingEntity livingEntity = (LivingEntity) entity;
-				if (isAffectable(entityClass, livingEntity.getClass())) outputEntities.add(livingEntity);
+				if (isAffectable(entityClass, livingEntity.getClass())) {
+					if (!((livingEntity instanceof BossEnemy) && (((BossEnemy) livingEntity).isInvisible()))) {
+						outputEntities.add(livingEntity);
+					}
+				}
 			}
 		}
 		return outputEntities;
