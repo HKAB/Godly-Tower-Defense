@@ -109,7 +109,7 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new GrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					} else if ("BossAxolotlSpawner".equals(value)) {
+					} else if ("BossCrabSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();

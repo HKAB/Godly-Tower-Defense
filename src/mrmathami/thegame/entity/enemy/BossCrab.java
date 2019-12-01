@@ -31,9 +31,11 @@ public final class BossCrab extends AbstractEnemy {
     @Override
     public void onDestroy(@Nonnull GameField field) {
         super.onDestroy(field);
-        for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(), AbstractTower.class, getPosX() - 1, getPosY() - 1, 3, 3))
+
+        for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(), AbstractTower.class, getPosX() + Config.OFFSET/Config.TILE_SIZE - 1, getPosY() + Config.OFFSET/Config.TILE_SIZE - 1, 3, 3))
         {
             towerEntity.doDestroy();
+            towerEntity.onDestroy(field);
             field.addSFX(new ExplosionEffect(0, towerEntity.getPosX(), towerEntity.getPosY()));
         }
     }

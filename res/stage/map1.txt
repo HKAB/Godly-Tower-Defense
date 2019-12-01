@@ -9,7 +9,7 @@
 163 26 24 25 232 25 25 25 25 163 25 242 242 242 242 242
 163 26 24 25 25 25 25 25 25 25 25 242 242 242 242 242
 Target 14 5 1 1 20
-BossAxolotlSpawner 1 7 1 1 30 10 1
+BossCrabSpawner 1 7 1 1 30 10 1
 BigAircraftSpawner 1 7 1 1 30 40 0
 NormalAircraftSpawner 1 7 1 1 40 300 1
 TankerSpawner 1 7 1 1 30 30 0

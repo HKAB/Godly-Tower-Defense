@@ -152,7 +152,7 @@ public class GameAudio {
     {
         AudioClip themeSong = new AudioClip(gameSound);
         themeSong.setCycleCount(AudioClip.INDEFINITE);
-        audioChannels[0] = new AudioChannel(themeSong, 1.0);
+        audioChannels[0] = new AudioChannel(themeSong, 0.1);
         audioChannels[0].play();
     }
 }
