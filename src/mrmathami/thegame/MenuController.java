@@ -15,17 +15,7 @@ import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
-<<<<<<< HEAD
 import mrmathami.thegame.ui.menu.*;
-=======
-import mrmathami.thegame.net.MPConfig;
-import mrmathami.thegame.net.MPGameController;
-import mrmathami.thegame.net.MPSocketController;
-import mrmathami.thegame.ui.menu.CreditsButton;
-import mrmathami.thegame.ui.menu.MultiPlayerButton;
-import mrmathami.thegame.ui.menu.SettingsButton;
-import mrmathami.thegame.ui.menu.SinglePlayerButton;
->>>>>>> a0e807c48e1cb079850b1d248c731f9fc9997635
 import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.thegame.ui.popup.MPPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
@@ -183,10 +173,6 @@ public final class MenuController extends AnimationTimer {
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> a0e807c48e1cb079850b1d248c731f9fc9997635
 
     /**
      * On window close request.

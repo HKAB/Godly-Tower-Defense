@@ -23,14 +23,7 @@ import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
-<<<<<<< HEAD:src/mrmathami/thegame/net/MPGameController.java
 import mrmathami.thegame.entity.tile.tower.*;
-=======
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
->>>>>>> a0e807c48e1cb079850b1d248c731f9fc9997635:src/mrmathami/thegame/MPGameController.java
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
