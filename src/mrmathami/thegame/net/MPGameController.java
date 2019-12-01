@@ -23,10 +23,7 @@ import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.tower.*;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.TowerPlacing;
 import mrmathami.thegame.towerpicker.TowerSelling;
@@ -86,6 +83,10 @@ public final class MPGameController extends AnimationTimer {
 	 * Kinda advance, modify if you are sure about your change.
 	 */
 	private GameDrawer drawer;
+
+	/**
+	 * Popup Drawer. Draw popup every tick if exist.
+	 */
 	private PopupDrawer popupDrawer;
 
 	/**
@@ -350,6 +351,8 @@ public final class MPGameController extends AnimationTimer {
 							towerType = 2;
 						} else if (tower instanceof RocketLauncherTower) {
 							towerType = 3;
+						} else if (tower instanceof RobotPoliceTower) {
+							towerType = 4;
 						} else {
 							towerType = 0;
 						}
