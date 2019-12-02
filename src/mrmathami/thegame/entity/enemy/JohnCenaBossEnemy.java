@@ -14,7 +14,7 @@ public class JohnCenaBossEnemy extends BossEnemy {
     public void skillCheck(GameField field) {
         if ((field.getTickCount() - getCreatedTick()) == Config.JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.johnCenaSkillSound), 0.7);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.johnCenaSkillSound));
             setGID(Config.JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID);
             setInvisible(true);
         }

@@ -31,17 +31,23 @@ public class TowerPlacing extends AbstractTowerPicker {
                 this.GID = Config.MACHINE_GUN_TOWER_LEVEL1_GID;
                 this.towerPrice = Config.MACHINE_GUN_TOWER_PRICE;
                 break;
+            case "RobotPoliceTower":
+                this.GID = Config.ROBOT_POLICE_TOWER_LEVEL1_GID;
+                this.towerPrice = Config.ROBOT_POLICE_TOWER_PRICE;
+                break;
         }
     }
 
     public AbstractTower getTower() {
         switch (towerType) {
             case "NormalTower":
-                return new RobotPoliceTower(0, getPosX(), getPosY(), 90);
+                return new NormalTower(0, getPosX(), getPosY(), 90);
             case "RocketLauncherTower":
                 return new RocketLauncherTower(0, getPosX(), getPosY(), 90);
             case "MachineGunTower":
                 return new MachineGunTower(0, getPosX(), getPosY(), 90);
+            case "RobotPoliceTower":
+                return new RobotPoliceTower(0, getPosX(), getPosY(), 90);
         }
         return null;
     }

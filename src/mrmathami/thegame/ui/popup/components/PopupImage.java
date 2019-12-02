@@ -70,7 +70,15 @@ public class PopupImage implements UIEntity {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(String imagePath) {
+        this.image = new Image(new File(imagePath).toURI().toString());
+    }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
     }
 }

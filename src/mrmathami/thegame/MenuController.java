@@ -24,6 +24,7 @@ import mrmathami.thegame.ui.menu.SettingsButton;
 import mrmathami.thegame.ui.menu.SinglePlayerButton;
 import mrmathami.thegame.ui.popup.CreditPopup;
 import mrmathami.thegame.ui.popup.MPPopup;
+import mrmathami.thegame.ui.popup.SettingPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -175,7 +176,7 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
-//        stackPane.getChildren().clear();
+        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }
@@ -295,6 +296,8 @@ public final class MenuController extends AnimationTimer {
                     break;
 //                    moveToMPScene();
                 } else if (entity instanceof SettingsButton) {
+                    SettingPopup settingPopup = new SettingPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
+                    popupDrawer = new PopupDrawer(settingPopup.getPopupCanvas().getGraphicsContext2D(), settingPopup.getPopupEntities());
                     break;
                 } else if (entity instanceof CreditsButton) {
                     CreditPopup creditPopup = new CreditPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);

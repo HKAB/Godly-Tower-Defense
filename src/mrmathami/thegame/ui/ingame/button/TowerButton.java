@@ -21,6 +21,9 @@ public class TowerButton extends AbstractButton {
             case "MachineGunTower":
                 this.GID = Config.MACHINE_GUN_TOWER_LEVEL1_GID;
                 break;
+            case "RobotPoliceTower":
+                this.GID = Config.ROBOT_POLICE_TOWER_LEVEL1_GID;
+                break;
             default:
                 this.GID = Config.LOCKED_GID;
         }

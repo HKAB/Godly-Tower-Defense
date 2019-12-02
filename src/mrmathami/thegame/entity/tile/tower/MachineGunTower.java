@@ -23,7 +23,7 @@ public final class MachineGunTower extends AbstractTower<MachineGunBullet> {
     @Nonnull
     @Override
     protected final MachineGunBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
-        GameAudio.getInstance().playSound(new AudioClip(GameAudio.machineBulletSound), 0.5);
+        GameAudio.getInstance().playSound(new AudioClip(GameAudio.machineBulletSound));
         return new MachineGunBullet(createdTick, posX - Config.MACHINE_GUN_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.MACHINE_GUN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 

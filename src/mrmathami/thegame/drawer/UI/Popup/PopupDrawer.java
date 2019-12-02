@@ -20,7 +20,8 @@ public class PopupDrawer {
             Map.entry(PopupLabel.class, new PopupLabelDrawer()),
             Map.entry(PopupImage.class, new PopupImageDrawer()),
             Map.entry(PopupInput.class, new PopupInputDrawer()),
-            Map.entry(PopupButton.class, new PopupButtonDrawer())
+            Map.entry(PopupButton.class, new PopupButtonDrawer()),
+            Map.entry(PopupSlideBar.class, new PopupSlideBarDrawer())
     ));
     private GraphicsContext graphicsContext;
     private Collection<UIEntity> popupEntities;
@@ -36,7 +37,7 @@ public class PopupDrawer {
         graphicsContext.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
         for (UIEntity uiEntity:
              popupEntities) {
-            UI_POPUP_ENTITY_DRAWER_MAP.get(uiEntity.getClass()).draw(0, graphicsContext, uiEntity, uiEntity.getPosX()*64, uiEntity.getPosY()*64, uiEntity.getWidth(),  uiEntity.getHeight(), 0);
+            UI_POPUP_ENTITY_DRAWER_MAP.get(uiEntity.getClass()).draw(0, graphicsContext, uiEntity, uiEntity.getPosX()*Config.TILE_SIZE, uiEntity.getPosY()*Config.TILE_SIZE, uiEntity.getWidth(),  uiEntity.getHeight(), 0);
         }
     }
 }

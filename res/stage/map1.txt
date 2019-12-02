@@ -10,9 +10,9 @@
 163 26 24 25 25 25 25 25 25 25 25 242 242 242 242 242
 Target 14 5 1 1 20
 BinLadenBossSpawner 1 7 1 1 30 100 1
-BigAircraftSpawner 1 7 1 1 30 40 0
-NormalAircraftSpawner 1 7 1 1 40 300 1
-TankerSpawner 1 7 1 1 30 30 0
+BigAircraftSpawner 1 7 1 1 30 40 1
+NormalAircraftSpawner 1 7 1 1 40 30 1
+GrabSpawner 1 7 1 1 30 30 500
 TurnPoint 1 5 1 4 2 4
 TurnPoint 4 4 5 4 5 3
 TurnPoint 5 2 5 1 6 1

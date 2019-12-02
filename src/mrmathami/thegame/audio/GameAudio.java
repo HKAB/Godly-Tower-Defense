@@ -1,5 +1,10 @@
 package mrmathami.thegame.audio;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import mrmathami.thegame.Config;
+
 import java.io.File;
 
 class AudioChannel
@@ -22,7 +27,8 @@ class AudioChannel
      * @return state of this channel
      */
     public boolean isAvailable() {
-        if (audioClip.isPlaying()) return false;
+        if (audioClip.isPlaying())
+            return false;
         return true;
     }
 
@@ -33,23 +39,26 @@ class AudioChannel
 }
 
 public class GameAudio {
+    private double mainVolume = Config.INITIAL_MAIN_VOLUME;
 
-    public static String normalBulletSound = new File("res/audio/normalbullet.wav").toURI().toString();
-    public static String rocketBulletSound = new File("res/audio/rocketbullet.wav").toURI().toString();
-    public static String machineBulletSound = new File("res/audio/machinegunbullet.wav").toURI().toString();
+    public static String normalBulletSound = new File("res/audio/normalbullet.mp3").toURI().toString();
+    public static String rocketBulletSound = new File("res/audio/rocketbullet.mp3").toURI().toString();
+    public static String machineBulletSound = new File("res/audio/machinegunbullet.mp3").toURI().toString();
     public static String stopSignBulletSound = new File("res/audio/signbullet.mp3").toURI().toString();
     public static String explosionSound = new File("res/audio/explosion.mp3").toURI().toString();
     public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
-    public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.wav").toURI().toString();
-    public static String binLadenSkillSound = new File("res/audio/binladenskillsound.wav").toURI().toString();
+    public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.mp3").toURI().toString();
+    public static String binLadenSkillSound = new File("res/audio/binladenskillsound.mp3").toURI().toString();
 
+    private AudioClip themeSong = new AudioClip(gameSound);
+    private static MediaPlayer mediaPlayer = new MediaPlayer(new Media(gameSound));
 
     private static final GameAudio INSTANCE = new GameAudio();
     // 10 - the magic number xD
-    private static final int MAX_PENDING = 10;
+    private static final int MAX_PENDING = 16;
     private int headIndex;
     private int tailIndex;
-    // Good explaination of volatile: http://tutorials.jenkov.com/java-concurrency/volatile.html
+    // Good explanation of volatile: http://tutorials.jenkov.com/java-concurrency/volatile.html
     private volatile Thread updateThread = null;
 
     private PlayMessage[] pendingAudio = new PlayMessage[MAX_PENDING];
@@ -101,9 +110,8 @@ public class GameAudio {
     /**
      * Add audio to queue if possible
      * @param audioClip
-     * @param volume
      */
-    public void playSound(AudioClip audioClip, double volume)
+    public void playSound(AudioClip audioClip)
     {
         if ((tailIndex + 1)%MAX_PENDING != headIndex) {
             init();
@@ -113,7 +121,7 @@ public class GameAudio {
 //                    return;
 //                }
 //            }
-            getPendingAudio()[tailIndex] = new PlayMessage(audioClip, volume);
+            getPendingAudio()[tailIndex] = new PlayMessage(audioClip, mainVolume);
             tailIndex = (tailIndex + 1) % MAX_PENDING;
         }
     }
@@ -140,7 +148,7 @@ public class GameAudio {
             System.out.println("OUT OF CHANNEL!");
             return;
         }
-        audioChannels[channel] = new AudioChannel(audioClip, 1.0);
+        audioChannels[channel] = new AudioChannel(audioClip, mainVolume);
         audioChannels[channel].play();
         headIndex = (headIndex + 1) % MAX_PENDING;
     }
@@ -152,9 +160,19 @@ public class GameAudio {
 
     public void playThemeSong()
     {
-        AudioClip themeSong = new AudioClip(gameSound);
-        themeSong.setCycleCount(AudioClip.INDEFINITE);
-        audioChannels[0] = new AudioChannel(themeSong, 1.0);
-        audioChannels[0].play();
+        mediaPlayer.setVolume(mainVolume);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
+    }
+
+    public void setMainVolume(double mainVolume)
+    {
+        mediaPlayer.setVolume(mainVolume);
+        this.mainVolume = mainVolume;
+    }
+
+    public double getMainVolume()
+    {
+        return mainVolume;
     }
 }

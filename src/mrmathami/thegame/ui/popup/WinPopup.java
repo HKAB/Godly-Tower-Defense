@@ -34,17 +34,13 @@ public class WinPopup extends AbstractPopup implements CanControlGame {
                 double endY = startY + entity.getHeight();
                 if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
-                    if (entity instanceof PopupInput) {
-                        ((PopupInput)entity).setFocus(true);
-                        break;
-                    }
                     //TODO: Event handle
                     if (entity instanceof PopupButton)
                     {
-                        if (entity.hashCode() == nextButton.hashCode())
+                        if (entity == nextButton)
                         {
-                            this.gameController.nextMap();
                             getStackPane().getChildren().remove(getPopupCanvas());
+                            this.gameController.nextMap();
                         }
                     }
                 }

@@ -31,6 +31,7 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.*;
+import mrmathami.thegame.ui.popup.AfterCreditPopup;
 import mrmathami.thegame.ui.popup.GameOverPopup;
 import mrmathami.thegame.ui.popup.WinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
@@ -119,6 +120,8 @@ public final class GameController extends AnimationTimer {
 	 *
 	 * @param graphicsContext the screen to draw on
 	 */
+
+	private boolean isWonPopupShowUp = false;
 	public GameController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
@@ -153,20 +156,26 @@ public final class GameController extends AnimationTimer {
 	}
 
 	public void nextMap() {
-		if (this.currentMap == Config.MAX_LEVEL_COUNT) return;
-
 		this.currentMap++;
-		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
+		if (this.currentMap >= Config.MAX_LEVEL_COUNT){
+			AfterCreditPopup afterCreditPopup = new AfterCreditPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+			afterCreditPopup.setGameController(this);
+			popupDrawer = new PopupDrawer(afterCreditPopup.getPopupCanvas().getGraphicsContext2D(), afterCreditPopup.getPopupEntities());
+			afterCreditPopup.getPopupCanvas().toFront();
+		}
+		else {
+			isWonPopupShowUp = false;
+			this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
 
-		this.towerPicker = null;
-		if (pause) gamePause();
+			this.towerPicker = null;
+			if (pause) gamePause();
 
-		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
-		contextArea.setLowerContext(null);
-
-		// The drawer. Nothing fun here.
-		drawer.setTowerPicker(null);
-		drawer.setGameField(field);
+			contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0, 0));
+			contextArea.setLowerContext(null);
+			// The drawer. Nothing fun here.
+			drawer.setTowerPicker(null);
+			drawer.setGameField(field);
+		}
 	}
 
 	/**
@@ -211,12 +220,12 @@ public final class GameController extends AnimationTimer {
 			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
 			gamePause();
 		}
-		else if (field.isWon())
+		else if (field.isWon() && !isWonPopupShowUp)
 		{
+			isWonPopupShowUp = true;
 			WinPopup winPopup = new WinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
 			winPopup.setGameController(this);
-			gamePause();
 		}
 
 		// draw a new frame, as fast as possible.

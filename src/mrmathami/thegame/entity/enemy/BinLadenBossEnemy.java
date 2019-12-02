@@ -16,7 +16,7 @@ public class BinLadenBossEnemy extends BossEnemy {
     @Override
     public void skillCheck(GameField field) {
         if (this.isDestroyed()) {
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound), 0.7);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound));
             for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(), AbstractTower.class, getPosX() - 1, getPosY() - 1, 3, 3)) {
                 towerEntity.doDestroy();
                 field.addSFX(new ExplosionEffect(0, towerEntity.getPosX(), towerEntity.getPosY()));

@@ -71,4 +71,12 @@ public class PopupLabel implements UIEntity {
     public void setFontSize(double fontSize) {
         this.fontSize = fontSize;
     }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
+    }
 }

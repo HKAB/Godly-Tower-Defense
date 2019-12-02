@@ -1,9 +1,6 @@
 package mrmathami.thegame.ui.ingame.context;
 
-import mrmathami.thegame.entity.tile.tower.AbstractTower;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.tower.*;
 
 public class ButtonUIContext extends AbstractUIContext {
 
@@ -21,6 +18,9 @@ public class ButtonUIContext extends AbstractUIContext {
                 break;
             case "MachineGunTower":
                 this.tower = new MachineGunTower(0, 0, 0, 90);
+                break;
+            case "RobotPoliceTower":
+                this.tower = new RobotPoliceTower(0, 0, 0, 90);
                 break;
         }
         this.money = money;
