@@ -1,6 +1,7 @@
 package mrmathami.thegame.ui.popup;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameController;
 import mrmathami.thegame.entity.UIEntity;
@@ -18,7 +19,7 @@ public class MPWinPopup extends AbstractPopup implements CanControlGame {
     public MPWinPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         PopupButton backButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
-        getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150)/Config.TILE_SIZE, 150, "WIN"));
+        getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150)/Config.TILE_SIZE, 150, Color.BLACK, "WIN"));
         getPopupEntities().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/menu/sleepy.png"));
         getPopupEntities().add(backButton);
 
