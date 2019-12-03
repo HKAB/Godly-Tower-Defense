@@ -149,7 +149,7 @@ public final class GameController extends AnimationTimer {
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]
 		// that the drawer will select and draw everything in it in an self-defined order.
 		// Can be modified to support zoom in / zoom out of the map.
-		drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
+		drawer.setFieldViewRegion(Config.FIELD_START_POS_X, Config.FIELD_START_POS_Y, Config.TILE_SIZE);
 	}
 
 	public void nextMap() {

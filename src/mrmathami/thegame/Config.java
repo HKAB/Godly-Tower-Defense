@@ -43,6 +43,12 @@ public final class Config {
 	public static final long SIDEBAR_VERTICAL = TILE_VERTICAL;
 
 	/**
+	 * Field Position on screen
+	 */
+	public static final double FIELD_START_POS_X = 0.0;
+	public static final double FIELD_START_POS_Y = 0.0;
+
+	/**
 	 * UI Context size and position
 	 */
 	public static final double UI_CONTEXT_POS_X = 16;
@@ -212,7 +218,7 @@ public final class Config {
 	public static final double JOHN_CENA_BOSS_ENEMY_SIZE = 1.0;
 	public static final long JOHN_CENA_BOSS_ENEMY_HEALTH = 1500;
 	public static final long JOHN_CENA_BOSS_ENEMY_ARMOR = 10;
-	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.07;
+	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.05;
 	public static final long JOHN_CENA_BOSS_ENEMY_REWARD = 100;
 	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 30.0;
 	public static final double JOHN_CENA_BOSS_ENEMY_HEIGHT = 64.0;
@@ -220,15 +226,64 @@ public final class Config {
 	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
 	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
 	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 250;
+	public static final String JOHN_CENA_BOSS_ENEMY_CUT_IN_URI = "/stage/johncenacutin.png";
 
 	public static final double BIN_LADEN_BOSS_ENEMY_SIZE = 1.0;
 	public static final long BIN_LADEN_BOSS_ENEMY_HEALTH = 1000;
 	public static final long BIN_LADEN_BOSS_ENEMY_ARMOR = 5;
-	public static final double BIN_LADEN_BOSS_ENEMY_SPEED = 0.05;
+	public static final double BIN_LADEN_BOSS_ENEMY_SPEED = 0.07;
 	public static final long BIN_LADEN_BOSS_ENEMY_REWARD = 100;
 	public static final double BIN_LADEN_BOSS_ENEMY_WIDTH = 40.0;
 	public static final double BIN_LADEN_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int BIN_LADEN_BOSS_ENEMY_GID = 155;
+	public static final String BIN_LADEN_BOSS_ENEMY_CUT_IN_URI = "/stage/binladencutin.png";
+
+	public static final double KIM_JONG_UN_BOSS_ENEMY_SIZE = 1.0;
+	public static final long KIM_JONG_UN_BOSS_ENEMY_HEALTH = 2000;
+	public static final long KIM_JONG_UN_BOSS_ENEMY_ARMOR = 10;
+	public static final double KIM_JONG_UN_BOSS_ENEMY_SPEED = 0.07;
+	public static final long KIM_JONG_UN_BOSS_ENEMY_REWARD = 100;
+	public static final double KIM_JONG_UN_BOSS_ENEMY_WIDTH = 48.0;
+	public static final double KIM_JONG_UN_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int KIM_JONG_UN_BOSS_ENEMY_GID = 154;
+	public static final long KIM_JONG_UN_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
+	public static final String KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI = "/stage/kimjonguncutin.png";
+
+	public static final double SON_GOKU_BOSS_ENEMY_SIZE = 1.0;
+	public static final long SON_GOKU_BOSS_ENEMY_HEALTH = 1400;
+	public static final long SON_GOKU_BOSS_ENEMY_ARMOR = 6;
+	public static final double SON_GOKU_BOSS_ENEMY_SPEED = 0.05;
+	public static final long SON_GOKU_BOSS_ENEMY_REWARD = 100;
+	public static final double SON_GOKU_BOSS_ENEMY_WIDTH = 54.0;
+	public static final double SON_GOKU_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int SON_GOKU_BOSS_ENEMY_GID = 156;
+	public static final String SON_GOKU_BOSS_ENEMY_CUT_IN_URI = "/stage/songokucutin.png";
+
+	public static final double ELON_MUSK_BOSS_ENEMY_SIZE = 1.0;
+	public static final long ELON_MUSK_BOSS_ENEMY_HEALTH = 1500;
+	public static final long ELON_MUSK_BOSS_ENEMY_ARMOR = 8;
+	public static final double ELON_MUSK_BOSS_ENEMY_SPEED = 0.07;
+	public static final long ELON_MUSK_BOSS_ENEMY_REWARD = 100;
+	public static final double ELON_MUSK_BOSS_ENEMY_WIDTH = 42.0;
+	public static final double ELON_MUSK_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int ELON_MUSK_BOSS_ENEMY_GID = 179;
+	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.5;
+	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 75;
+	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 200;
+	public static final String ELON_MUSK_BOSS_ENEMY_CUT_IN_URI = "/stage/elonmuskcutin.png";
+
+	public static final double MEDIC_BOSS_ENEMY_SIZE = 1.0;
+	public static final long MEDIC_BOSS_ENEMY_HEALTH = 1500;
+	public static final long MEDIC_BOSS_ENEMY_ARMOR = 8;
+	public static final double MEDIC_BOSS_ENEMY_SPEED = 0.05;
+	public static final long MEDIC_BOSS_ENEMY_REWARD = 100;
+	public static final double MEDIC_BOSS_ENEMY_WIDTH = 45.0;
+	public static final double MEDIC_BOSS_ENEMY_HEIGHT = 64.0;
+	public static final int MEDIC_BOSS_ENEMY_GID = 177;
+	public static final int MEDIC_BOSS_ENEMY_UBER_GID = 178;
+	public static final long MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 125;
+	public static final long MEDIC_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 225;
+	public static final String MEDIC_BOSS_ENEMY_CUT_IN_URI = "/stage/mediccutin.png";
 
 	public static final double GRAB_ENEMY_SIZE = 1;
 	public static final long GRAB_ENEMY_HEALTH = 100;
@@ -239,25 +294,6 @@ public final class Config {
 	public static final double GRAB_ENEMY_WIDTH = 40.0;
 	public static final double GRAB_ENEMY_HEIGHT = 18.0;
 	public static final long GRAB_ENEMY_DAMAGE = 4;
-
-	public static final double PIRATE_ENEMY_SIZE = 1;
-	public static final long PIRATE_ENEMY_HEALTH = 300;
-	public static final long PIRATE_ENEMY_ARMOR = 2;
-	public static final double PIRATE_ENEMY_SPEED = 0.1;
-	public static final long PIRATE_ENEMY_REWARD = 1;
-	public static final int PIRATE_ENEMY_GID = 226;
-	public static final double PIRATE_ENEMY_WIDTH = 64.0;
-	public static final double PIRATE_ENEMY_HEIGHT = 37.0;
-
-	public static final double BOSS_CRAB_SIZE = 1;
-	public static final long BOSS_CRAB_HEALTH = 1000;
-	public static final long BOSS_CRAB_ARMOR = 2;
-	public static final double BOSS_CRAB_SPEED = 0.05;
-	public static final long BOSS_CRAB_REWARD = 1;
-	public static final int BOSS_CRAB_GID = 154;
-	public static final double BOSS_CRAB_WIDTH = 38.0;
-	public static final double BOSS_CRAB_HEIGHT = 64.0;
-	public static final long BOSS_CRAB_DAMAGE = 20;
 	//endregion
 
 
@@ -306,6 +342,8 @@ public final class Config {
 
 	public static final int TOWER_DESTROY_GID = 20;
 	public static final int TOWER_DESTROY_TTL = 10;
+
+	public static final int BOSS_CUT_IN_TTL = 50;
 	//endregion
 
 	//region spawner target

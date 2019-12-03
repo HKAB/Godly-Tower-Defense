@@ -42,6 +42,10 @@ public class GameAudio {
     public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
     public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.wav").toURI().toString();
     public static String binLadenSkillSound = new File("res/audio/binladenskillsound.wav").toURI().toString();
+    public static String sonGokuSkillSound = new File("res/audio/songokuskillsound.mp3").toURI().toString();
+    public static String kimJongUnSkillSound = new File("res/audio/kimjongunskillsound.mp3").toURI().toString();
+    public static String elonMuskSkillSound = new File("res/audio/elonmuskskillsound.mp3").toURI().toString();
+    public static String medicSkillSound = new File("res/audio/medicskillsound.mp3").toURI().toString();
 
 
     private static final GameAudio INSTANCE = new GameAudio();

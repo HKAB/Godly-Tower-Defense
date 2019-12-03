@@ -1,5 +1,4 @@
-BackButton 0 1 8 0 2 1
-PauseButton 0 2 10 0 2 1
+BackButton 0 5 8 0 4 1
 TowerButton 0 0 8 1.5 1 1 NormalTower
 TowerButton 0 0 9 1.5 1 1 MachineGunTower
 TowerButton 0 0 10 1.5 1 1 RocketLauncherTower

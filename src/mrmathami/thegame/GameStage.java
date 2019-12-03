@@ -91,15 +91,6 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new TankerSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					} else if ("PirateSpawner".equals(value)) {
-						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new PirateSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("GrabSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
@@ -109,15 +100,6 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new GrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					} else if ("BossAxolotlSpawner".equals(value)) {
-						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new BossCrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("JohnCenaBossSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
@@ -136,6 +118,42 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new BinLadenBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("KimJongUnBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new KimJongUnBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("SonGokuBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new SonGokuBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("ElonMuskBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new ElonMuskBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("MedicBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new MedicBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("NormalTower".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
