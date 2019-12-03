@@ -23,20 +23,20 @@ public class MPPopup extends AbstractPopup {
     public MPPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-        PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 300, 50, 25);
-        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 300, 50, 25);
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTIPLAYER"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
+        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 37)/Config.TILE_SIZE, 300, 50, 25);
+        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 37)/Config.TILE_SIZE, 300, 50, 25);
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 180)/Config.TILE_SIZE, 40, Color.BLACK, "MULTIPLAYER"));
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 37)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
-        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 37)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uecf9 ");
+        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uef0e ");
+        popupAddressInput.setText(MPConfig.DEFAULT_SERVER_HOST);
+        popupPortInput.setText(Integer.toString(MPConfig.DEFAULT_LISTEN_PORT));
         getPopupEntities().add(closeButton);
         getPopupEntities().add(popupAddressInput);
         getPopupEntities().add(popupPortInput);
-        popupAddressInput.setText(MPConfig.DEFAULT_SERVER_HOST);
-        popupPortInput.setText(Integer.toString(MPConfig.DEFAULT_LISTEN_PORT));
-        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uecf9 ");
         getPopupEntities().add(clientButton);
-        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uef0e ");
         getPopupEntities().add(serverButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
@@ -153,7 +153,7 @@ public class MPPopup extends AbstractPopup {
 
     private void showErrorMessage(String text) {
         if (this.errorLabel == null) {
-            this.errorLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 80)/Config.TILE_SIZE, 27, Color.RED, TextAlignment.LEFT, text);
+            this.errorLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.RED, text);
             getPopupEntities().add(this.errorLabel);
             return;
         }
