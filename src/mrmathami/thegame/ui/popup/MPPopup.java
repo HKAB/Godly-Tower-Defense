@@ -24,13 +24,15 @@ public class MPPopup extends AbstractPopup {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
         getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTIPLAYER"));
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
-        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
-        PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 37)/Config.TILE_SIZE, 300, 50, 25);
-        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 37)/Config.TILE_SIZE, 300, 50, 25);
+        // START: Input field
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
+        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 27)/Config.TILE_SIZE, 300, 50, 25);
+        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 27)/Config.TILE_SIZE, 300, 50, 25);
+        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 10)/Config.TILE_SIZE, 20, " \uecf9 ");
+        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 10)/Config.TILE_SIZE, 20, " \uef0e ");
+        // END: Input field
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
-        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uecf9 ");
-        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uef0e ");
         popupAddressInput.setText(MPConfig.DEFAULT_SERVER_HOST);
         popupPortInput.setText(Integer.toString(MPConfig.DEFAULT_LISTEN_PORT));
         getPopupEntities().add(closeButton);
@@ -63,13 +65,19 @@ public class MPPopup extends AbstractPopup {
                             String address = popupAddressInput.getText().toLowerCase();
                             if (isNumeric(popupPortInput.getText())) {
                                 int port = Integer.parseInt(popupPortInput.getText());
-                                if (isValidAddress(address) && isValidPort(port)) {
-                                    try {
-                                        MPSocketController.setCurrentInstance(new MPSocketController(address, port));
-                                        moveToMPScene();
-                                    } catch (IOException e) {
-                                        showErrorMessage("Failed to connect to the remote host");
+                                if (isValidPort(port)) {
+                                    if (isValidAddress(address)) {
+                                        try {
+                                            MPSocketController.setCurrentInstance(new MPSocketController(address, port));
+                                            moveToMPScene();
+                                        } catch (IOException e) {
+                                            showErrorMessage("Failed to connect to the remote host");
+                                        }
+                                    } else {
+                                        showErrorMessage("Invalid address");
                                     }
+                                } else {
+                                    showErrorMessage("Invalid port number");
                                 }
                             } else {
                                 showErrorMessage("Invalid port number");
