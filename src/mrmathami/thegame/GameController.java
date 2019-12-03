@@ -288,7 +288,7 @@ public final class GameController extends AnimationTimer {
 				towerPicker = new TowerPlacing("RocketLauncherTower");
 				break;
 			case R:
-				nextMap();
+				towerPicker = new TowerPlacing("RobotPoliceTower");
 				break;
 			case A:
 			case S:
@@ -303,6 +303,9 @@ public final class GameController extends AnimationTimer {
 				break;
 			case ESCAPE:
 				towerPicker = null;
+				break;
+			case T:
+				nextMap();
 				break;
 		}
 		drawer.setTowerPicker(towerPicker);
