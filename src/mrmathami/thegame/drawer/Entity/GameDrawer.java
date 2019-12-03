@@ -10,6 +10,7 @@ import mrmathami.thegame.GameUI;
 import mrmathami.thegame.drawer.Entity.Bullet.*;
 import mrmathami.thegame.drawer.Entity.Enemy.*;
 import mrmathami.thegame.drawer.Entity.Tile.*;
+import mrmathami.thegame.drawer.Entity.Tile.CutInEffect.BossCutInEffectDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Effect.*;
 import mrmathami.thegame.drawer.Entity.Tile.Spawner.SpawnerDrawer;
 import mrmathami.thegame.drawer.Entity.Tile.Tower.*;
@@ -17,6 +18,7 @@ import mrmathami.thegame.drawer.UI.InGame.*;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.bullet.StopSignBullet;
 import mrmathami.thegame.entity.enemy.*;
+import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.entity.tile.tower.RobotPoliceTower;
@@ -77,6 +79,10 @@ public final class GameDrawer {
 			GrabEnemy.class,
 			JohnCenaBossEnemy.class,
 			BinLadenBossEnemy.class,
+			KimJongUnBossEnemy.class,
+			SonGokuBossEnemy.class,
+			ElonMuskBossEnemy.class,
+			MedicBossEnemy.class,
 //			SmallerSpawner.class,
 //			TankerSpawner.class,
 //			BossSpawner.class,
@@ -85,6 +91,7 @@ public final class GameDrawer {
 			UpgradeEffect.class,
 			TowerDestroyEffect.class,
 			AlertEffect.class,
+			BossCutInEffect.class,
 			GameButtonDrawer.class
 	);
 	/**
@@ -113,8 +120,12 @@ public final class GameDrawer {
 			Map.entry(BigAircraft.class, new BigAircraftDrawer()),
 			Map.entry(Tanker.class, new TankerDrawer()),
 			Map.entry(GrabEnemy.class, new GrabEnemyDrawer()),
-			Map.entry(JohnCenaBossEnemy.class, new JohnCenaBossDrawer()),
-			Map.entry(BinLadenBossEnemy.class, new BinLadenBossDrawer()),
+			Map.entry(JohnCenaBossEnemy.class, new BossEnemyDrawer()),
+			Map.entry(BinLadenBossEnemy.class, new BossEnemyDrawer()),
+			Map.entry(KimJongUnBossEnemy.class, new BossEnemyDrawer()),
+			Map.entry(SonGokuBossEnemy.class, new BossEnemyDrawer()),
+			Map.entry(ElonMuskBossEnemy.class, new BossEnemyDrawer()),
+			Map.entry(MedicBossEnemy.class, new BossEnemyDrawer()),
 //			Map.entry(SmallerEnemy.class, new SmallerEnemyDrawer()),
 //			Map.entry(TankerEnemy.class, new TankerEnemyDrawer()),
 //			Map.entry(BossEnemy.class, new BossEnemyDrawer()),
@@ -127,6 +138,7 @@ public final class GameDrawer {
 			Map.entry(UpgradeEffect.class, new UpgradeEffectDrawer()),
 			Map.entry(TowerDestroyEffect.class, new TowerDestroyEffectDrawer()),
 			Map.entry(AlertEffect.class, new AlertEffectDrawer()),
+			Map.entry(BossCutInEffect.class, new BossCutInEffectDrawer()),
 			Map.entry(Target.class, new TargetDrawer())
 	));
 

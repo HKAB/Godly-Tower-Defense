@@ -1,5 +1,6 @@
 package mrmathami.thegame.entity.enemy;
 
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
 
 import javax.annotation.Nonnull;
@@ -7,9 +8,15 @@ import javax.annotation.Nonnull;
 public abstract class BossEnemy extends AbstractEnemy {
     private boolean invisible;
     private boolean immortal;
+    private double bossWidth;
+    private double bossHeight;
+    private double maxHealth;
 
     public BossEnemy (long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
-        super(createdTick, posX, posY, width, height, health, armor, speed, reward, GID);
+        super(createdTick, posX, posY, width / Config.TILE_SIZE, height / Config.TILE_SIZE, health, armor, speed, reward, GID);
+        this.bossHeight = height;
+        this.bossWidth = width;
+        this.maxHealth = health;
         this.invisible = false;
         this.immortal = false;
     }
@@ -28,6 +35,18 @@ public abstract class BossEnemy extends AbstractEnemy {
 
     public void setImmortal(boolean immortal) {
         this.immortal = immortal;
+    }
+
+    public double getBossWidth() {
+        return bossWidth;
+    }
+
+    public double getBossHeight() {
+        return bossHeight;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
     }
 
     public int getGID() {

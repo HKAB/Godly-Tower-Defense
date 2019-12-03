@@ -152,7 +152,9 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 
 	@Override
 	public void doEffect(long value) {
-		if (health != Long.MIN_VALUE && (value < -armor || value > 0)) this.health += value;
+		if (health != Long.MIN_VALUE && (value < -armor || value > 0) && (!((this instanceof BossEnemy) && (((BossEnemy)this).isImmortal())))) {
+			this.health += value;
+		}
 	}
 
 	@Override

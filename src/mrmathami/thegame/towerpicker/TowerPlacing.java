@@ -52,6 +52,20 @@ public class TowerPlacing extends AbstractTowerPicker {
         return null;
     }
 
+    public double getRange() {
+        switch (towerType) {
+            case "NormalTower":
+                return Config.NORMAL_TOWER_RANGE;
+            case "RocketLauncherTower":
+                return Config.ROCKET_TOWER_RANGE;
+            case "MachineGunTower":
+                return Config.MACHINE_GUN_TOWER_RANGE;
+            case "RobotPoliceTower":
+                return Config.ROBOT_POLICE_TOWER_RANGE;
+        }
+        return 0;
+    }
+
     public String getTowerType() {
         return towerType;
     }
