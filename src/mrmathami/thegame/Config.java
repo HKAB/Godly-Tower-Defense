@@ -63,7 +63,7 @@ public final class Config {
 
 	public static final double OFFSET = 45.0;
 
-	public static final int MAX_LEVEL_COUNT = 3;
+	public static final int MAX_LEVEL_COUNT = 4;
 
 
 	//region Audio
@@ -81,15 +81,15 @@ public final class Config {
 	//Other config related to other entities in the game.
 
 	//region Bullet
-	public static final long NORMAL_BULLET_TTL = 30;
-	public static final long NORMAL_BULLET_STRENGTH = 30;
+	public static final long NORMAL_BULLET_TTL = 20;
+	public static final long NORMAL_BULLET_STRENGTH = 10;
 	public static final double NORMAL_BULLET_SPEED = 0.3;
 	public static final int NORMAL_BULLET_GID = 273;
 	public static final double NORMAL_BULLET_WIDTH = 16.0;
 	public static final double NORMAL_BULLET_HEIGHT = 16.0;
 
 
-	public static final long MACHINE_GUN_BULLET_TTL = 15;
+	public static final long MACHINE_GUN_BULLET_TTL = 20;
 	public static final long MACHINE_GUN_BULLET_STRENGTH = 20;
 	public static final double MACHINE_GUN_BULLET_SPEED = 0.4;
 	public static final int MACHINE_GUN_BULLET_GID = 274;
@@ -98,7 +98,7 @@ public final class Config {
 
 	public static final long STOP_SIGN_BULLET_TTL = 15;
 	public static final long STOP_SIGN_BULLET_STRENGTH = 10;
-	public static final double STOP_SIGN_BULLET_SPEED = 0.5;
+	public static final double STOP_SIGN_BULLET_SPEED = 0.6;
 	public static final int STOP_SIGN_BULLET_GID = 276;
 	public static final double STOP_SIGN_BULLET_WIDTH = 32.0;
 	public static final double STOP_SIGN_BULLET_HEIGHT = 32.0;
@@ -108,8 +108,8 @@ public final class Config {
 	public static final double SNIPER_BULLET_SPEED = 0.5;
 
 	public static final long ROCKET_BULLET_TTL = 60;
-	public static final long ROCKET_BULLET_STRENGTH = 300;
-	public static final double ROCKET_BULLET_SPEED = 0.2;
+	public static final long ROCKET_BULLET_STRENGTH = 60;
+	public static final double ROCKET_BULLET_SPEED = 0.3;
 	public static final int ROCKET_BULLET_GID = 252;
 	public static final double ROCKET_BULLET_WIDTH = 12.0;
 	public static final double ROCKET_BULLET_HEIGHT = 36.0;
@@ -130,8 +130,8 @@ public final class Config {
 	public static final long NORMAL_TOWER_LEVEL2_UPGRADE_PRICE = 250;
 	public static final long NORMAL_TOWER_LEVEL3_SELL_PRICE = 250;
 
-	public static final long MACHINE_GUN_TOWER_SPEED = 5;
-	public static final double MACHINE_GUN_TOWER_RANGE = 4.0;
+	public static final long MACHINE_GUN_TOWER_SPEED = 10;
+	public static final double MACHINE_GUN_TOWER_RANGE = 3.0;
 	public static final int MACHINE_GUN_TOWER_LEVEL1_GID = 250;
 	public static final int MACHINE_GUN_TOWER_LEVEL2_GID = 251;
 	public static final int MACHINE_GUN_TOWER_LEVEL3_GID = 253;
@@ -143,8 +143,8 @@ public final class Config {
 	public static final long MACHINE_GUN_TOWER_LEVEL2_UPGRADE_PRICE = 400;
 	public static final long MACHINE_GUN_TOWER_LEVEL3_SELL_PRICE = 400;
 
-	public static final long ROBOT_POLICE_TOWER_SPEED = 5;
-	public static final double ROBOT_POLICE_TOWER_RANGE = 4.0;
+	public static final long ROBOT_POLICE_TOWER_SPEED = 20;
+	public static final double ROBOT_POLICE_TOWER_RANGE = 2.0;
 	public static final int ROBOT_POLICE_TOWER_LEVEL1_GID = 161;
 	public static final int ROBOT_POLICE_TOWER_LEVEL2_GID = 160;
 	public static final int ROBOT_POLICE_TOWER_LEVEL3_GID = 159;
@@ -156,7 +156,7 @@ public final class Config {
 	public static final long ROBOT_POLICE_TOWER_LEVEL2_UPGRADE_PRICE = 400;
 	public static final long ROBOT_POLICE_TOWER_LEVEL3_SELL_PRICE = 400;
 
-	public static final long ROCKET_TOWER_SPEED = 20;
+	public static final long ROCKET_TOWER_SPEED = 30;
 	public static final double ROCKET_TOWER_RANGE = 4.0;
 	public static final int ROCKET_TOWER_LEVEL1_GID = 205;
 	public static final int ROCKET_TOWER_LEVEL2_GID = 206;
@@ -180,9 +180,9 @@ public final class Config {
 	public static final long NORMAL_ENEMY_REWARD = 1;
 
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
-	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 200;
-	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 3;
-	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.05;
+	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 20;
+	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 0;
+	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.1;
 	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
@@ -191,9 +191,9 @@ public final class Config {
 
 
 	public static final double BIG_AIRCRAFT_ENEMY_SIZE = 1;
-	public static final long BIG_AIRCRAFT_ENEMY_HEALTH = 300;
-	public static final long BIG_AIRCRAFT_ENEMY_ARMOR = 2;
-	public static final double BIG_AIRCRAFT_ENEMY_SPEED = 0.2;
+	public static final long BIG_AIRCRAFT_ENEMY_HEALTH = 120;
+	public static final long BIG_AIRCRAFT_ENEMY_ARMOR = 0;
+	public static final double BIG_AIRCRAFT_ENEMY_SPEED = 0.15;
 	public static final long BIG_AIRCRAFT_ENEMY_REWARD = 1;
 	public static final int[] BIG_AIRCRAFT_ENEMY_GID = {271, 272};
 	public static final double BIG_AIRCRAFT_ENEMY_WIDTH = 55.0;
@@ -202,9 +202,9 @@ public final class Config {
 
 
 	public static final double TANKER_ENEMY_SIZE = 1;
-	public static final long TANKER_ENEMY_HEALTH = 400;
+	public static final long TANKER_ENEMY_HEALTH = 300;
 	public static final long TANKER_ENEMY_ARMOR = 2;
-	public static final double TANKER_ENEMY_SPEED = 0.1;
+	public static final double TANKER_ENEMY_SPEED = 0.07;
 	public static final long TANKER_ENEMY_REWARD = 35;
 	public static final int[] TANKER_ENEMY_GID = {269, 270};
 	public static final double TANKER_ENEMY_WIDTH = 54.0;
@@ -235,33 +235,14 @@ public final class Config {
 	public static final int BIN_LADEN_BOSS_ENEMY_GID = 155;
 
 	public static final double GRAB_ENEMY_SIZE = 1;
-	public static final long GRAB_ENEMY_HEALTH = 100;
+	public static final long GRAB_ENEMY_HEALTH = 20;
 	public static final long GRAB_ENEMY_ARMOR = 2;
-	public static final double GRAB_ENEMY_SPEED = 0.05;
+	public static final double GRAB_ENEMY_SPEED = 0.11;
 	public static final long GRAB_ENEMY_REWARD = 1;
 	public static final int GRAB_ENEMY_GID = 225;
 	public static final double GRAB_ENEMY_WIDTH = 40.0;
 	public static final double GRAB_ENEMY_HEIGHT = 18.0;
 	public static final long GRAB_ENEMY_DAMAGE = 4;
-
-	public static final double PIRATE_ENEMY_SIZE = 1;
-	public static final long PIRATE_ENEMY_HEALTH = 300;
-	public static final long PIRATE_ENEMY_ARMOR = 2;
-	public static final double PIRATE_ENEMY_SPEED = 0.1;
-	public static final long PIRATE_ENEMY_REWARD = 1;
-	public static final int PIRATE_ENEMY_GID = 226;
-	public static final double PIRATE_ENEMY_WIDTH = 64.0;
-	public static final double PIRATE_ENEMY_HEIGHT = 37.0;
-
-	public static final double BOSS_CRAB_SIZE = 1;
-	public static final long BOSS_CRAB_HEALTH = 1000;
-	public static final long BOSS_CRAB_ARMOR = 2;
-	public static final double BOSS_CRAB_SPEED = 0.05;
-	public static final long BOSS_CRAB_REWARD = 1;
-	public static final int BOSS_CRAB_GID = 154;
-	public static final double BOSS_CRAB_WIDTH = 38.0;
-	public static final double BOSS_CRAB_HEIGHT = 64.0;
-	public static final long BOSS_CRAB_DAMAGE = 20;
 	//endregion
 
 

@@ -56,16 +56,11 @@ public final class GameEntities {
 			Pair.immutableOf(NormalBullet.class, BinLadenBossEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, BinLadenBossEnemy.class),
 			Pair.immutableOf(RocketBullet.class, BinLadenBossEnemy.class),
-			Pair.immutableOf(NormalBullet.class, BossCrab.class),
-			Pair.immutableOf(MachineGunBullet.class, BossCrab.class),
-			Pair.immutableOf(RocketBullet.class, BossCrab.class),
 			Pair.immutableOf(NormalEnemy.class, Target.class),
 			Pair.immutableOf(NormalAircraft.class, Target.class),
 			Pair.immutableOf(BigAircraft.class, Target.class),
 			Pair.immutableOf(Tanker.class, Target.class),
 			Pair.immutableOf(GrabEnemy.class, Target.class),
-			Pair.immutableOf(PirateEnemy.class, Target.class),
-			Pair.immutableOf(BossCrab.class, Target.class),
 			Pair.immutableOf(JohnCenaBossEnemy.class, Target.class),
 			Pair.immutableOf(BinLadenBossEnemy.class, Target.class)
 	));

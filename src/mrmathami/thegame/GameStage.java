@@ -39,7 +39,10 @@ public final class GameStage {
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
-						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3 || value == 243 || value == 264 || value == 265 || value == 266 || value == 220 || value == 221) {
+						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3 // map 1 part 1 road id
+								|| value == 243 || value == 264 || value == 265 || value == 266 || value == 220 || value == 221// map 1 part 2 road id
+								|| value == 169 || value == 190 || value == 191 || value == 260 || value == 261 || value == 238 ||  value == 233 || value == 211 || value == 255 // map 2
+								|| value == 58 || value == 59 || value == 36 || value == 13 || value == 56 || value == 57) {
 							entities.add(new Road(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
 						else if (value != 0)
@@ -91,15 +94,6 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new TankerSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					} else if ("PirateSpawner".equals(value)) {
-						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new PirateSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("GrabSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
@@ -109,15 +103,6 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new GrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					} else if ("BossAxolotlSpawner".equals(value)) {
-						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new BossCrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("JohnCenaBossSpawner".equals(value)) {
 						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();

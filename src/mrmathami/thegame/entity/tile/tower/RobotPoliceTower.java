@@ -36,7 +36,7 @@ public final class RobotPoliceTower extends AbstractTower<StopSignBullet> {
         {
             setLevel(getLevel() + 1);
             setRange(getRange() + 1);
-            setSpeed((long) (getSpeed()/Math.pow(2, getLevel())));
+            setSpeed((getSpeed()/(2)));
             setGID(GID[getLevel()]);
             return true;
         }
