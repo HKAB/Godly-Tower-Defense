@@ -166,7 +166,7 @@ public final class MenuController extends AnimationTimer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameCanvas.setFocusTraversable(true);
+        gameCanvas.setFocusTraversable(false);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
@@ -192,7 +192,9 @@ public final class MenuController extends AnimationTimer {
      *
      * @param keyEvent the key that you press down
      */
-    public final void keyDownHandler(KeyEvent keyEvent) { }
+    public final void keyDownHandler(KeyEvent keyEvent) {
+        System.out.println("Key down handler in main menu called");
+    }
 
     /**
      * Key up handler.

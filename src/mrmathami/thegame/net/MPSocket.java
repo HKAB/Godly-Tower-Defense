@@ -44,7 +44,6 @@ public class MPSocket {
                 data = "";
             }
         } catch (IOException e) {
-            e.printStackTrace();
             data = "";
         }
         return data;
@@ -59,7 +58,6 @@ public class MPSocket {
             output.close();
             socket.close();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Cannot close connection");
         }
     }
