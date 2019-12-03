@@ -2,6 +2,7 @@ package mrmathami.thegame.ui.popup;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameController;
 import mrmathami.thegame.entity.UIEntity;
@@ -25,6 +26,7 @@ public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
                 (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE,
                 (Config.SCREEN_HEIGHT/2.0 + 150)/Config.TILE_SIZE,
                 50,
+                Color.rgb(0, 0, 0),
                 "Life is more fun if you play games\n\nAuthor\nNguyen Phu Truong\nLe Tran Hai Tung\nLe Duc Tung\n\nWith the help of\nKenney.nl\nflaticon.com\nfreesound.org\n\n");
         PopupImage patreonImage = new PopupImage(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, 1250.0/Config.TILE_SIZE, "res/stage/patreot.png");
         PopupImage scrollImage = new PopupImage(0, (Config.SCREEN_WIDTH - 32.0)/Config.TILE_SIZE, 10.0/Config.TILE_SIZE, "res/stage/scroll.png");
@@ -35,6 +37,7 @@ public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
                 (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE,
                 (1250.0 + patreonImage.getHeight() + 50 + 10)/Config.TILE_SIZE,
                 50,
+                Color.rgb(0, 0, 0),
                 "https://www.patreon.com/hkab\n\n\nThank YOU for playing!");
         getPopupEntities().add(afterCreditText1);
 

@@ -17,12 +17,9 @@ import javafx.stage.WindowEvent;
 
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.tile.Bush;
-import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import mrmathami.thegame.entity.tile.effect.UpgradeEffect;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
-import mrmathami.thegame.towerpicker.TowerPlacing;
-import mrmathami.thegame.towerpicker.TowerSelling;
-import mrmathami.thegame.towerpicker.TowerUpgrading;
+import mrmathami.thegame.towerpicker.*;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.ui.ingame.button.TowerButton;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
@@ -69,13 +66,21 @@ public final class GameController extends AnimationTimer {
 	 * Kinda advance, modify if you are sure about your change.
 	 */
 	private GameField field;
+
+	/**
+	 * Main StackPane. Used for changing scene.
+	 */
+	private StackPane stackPane;
+
 	/**
 	 * Game drawer. Responsible to draw the field every tick.
 	 * Kinda advance, modify if you are sure about your change.
 	 */
 	private GameDrawer drawer;
 
-	private StackPane stackPane;
+	/**
+	 * Popup Drawer. Draw popup every tick if exist.
+	 */
 	private PopupDrawer popupDrawer;
 
 	/**
@@ -541,6 +546,5 @@ public final class GameController extends AnimationTimer {
 		stackPane.getChildren().add(menuCanvas);
 		menuController.start();
 		stackPane.getChildren().get(0).toFront();
-//		start();
 	}
 }

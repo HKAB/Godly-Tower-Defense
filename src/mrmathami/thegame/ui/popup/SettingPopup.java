@@ -1,6 +1,7 @@
 package mrmathami.thegame.ui.popup;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.UIEntity;
@@ -18,9 +19,9 @@ public class SettingPopup extends AbstractPopup {
         //                                                                                                                 30 here is size of button
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + padding)/Config.TILE_SIZE, 20, "\ueee4");
         getPopupEntities().add(closeButton);
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (posY + 40)/Config.TILE_SIZE, 30, "Setting"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (posY + 40)/Config.TILE_SIZE, 30, Color.rgb(0, 0, 0), "Setting"));
 
-        getPopupEntities().add(new PopupLabel(0, (posX + width/3)/Config.TILE_SIZE, (posY + height/3)/Config.TILE_SIZE, 30, "Music"));
+        getPopupEntities().add(new PopupLabel(0, (posX + width/3)/Config.TILE_SIZE, (posY + height/3)/Config.TILE_SIZE, 30, Color.rgb(0, 0, 0), "Music"));
         PopupButton volumeDownButton = new PopupButton(0, 0, 0, (posX + width/3 + 150/2 + padding)/Config.TILE_SIZE, (posY + height/3 - 30)/Config.TILE_SIZE, 20, "\uef99");
         getPopupEntities().add(volumeDownButton);
         PopupSlideBar popupSlideBar = new PopupSlideBar((posX + width/3 + 150/2 + padding + 30 + padding)/Config.TILE_SIZE, (posY + height/3 - 30)/Config.TILE_SIZE, 300, 40, GameAudio.getInstance().getMainVolume()*100);

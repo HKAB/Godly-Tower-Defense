@@ -3,6 +3,7 @@ package mrmathami.thegame.ui.popup;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 

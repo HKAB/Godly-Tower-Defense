@@ -1,19 +1,32 @@
 package mrmathami.thegame.ui.popup.components;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.menu.AbstractMenuPane;
 
 public class PopupLabel implements UIEntity {
     private String text;
+    private Color color;
+    private TextAlignment textAlignment = TextAlignment.CENTER;
     private double fontSize;
     private double posX;
     private double posY;
     private double createdTick;
-    public PopupLabel(long createdTick, double posX, double posY, double fontSize, String text) {
+    public PopupLabel(long createdTick, double posX, double posY, double fontSize, Color color, String text) {
         this.posX = posX;
         this.posY = posY;
         this.text = text;
         this.fontSize = fontSize;
+        this.color = color;
+    }
+
+    public PopupLabel(long createdTick, double posX, double posY, double fontSize, Color color, TextAlignment textAlignment, String text) {
+        this.posX = posX;
+        this.posY = posY;
+        this.text = text;
+        this.fontSize = fontSize;
+        this.color = color;
+        this.textAlignment = textAlignment;
     }
 
     @Override
@@ -60,12 +73,24 @@ public class PopupLabel implements UIEntity {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public double getFontSize() {
         return fontSize;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public Color getColor() {
+        return color;
+    }
+
+    public TextAlignment getTextAlignment() {
+        return textAlignment;
+    }
+
+    public void setTextAlignment(TextAlignment textAlignment) {
+        this.textAlignment = textAlignment;
     }
 
     public void setFontSize(double fontSize) {
