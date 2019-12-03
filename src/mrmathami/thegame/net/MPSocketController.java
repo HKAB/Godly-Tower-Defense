@@ -19,32 +19,22 @@ public class MPSocketController {
     private static MPSocketController currentInstance = null;
 
     /**
-     * Constructor for listening
+     * Constructor for listening.
      */
     public MPSocketController(int port) throws IOException {
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            this.socket = new MPSocket(serverSocket.accept());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        ServerSocket serverSocket = new ServerSocket(port);
+        this.socket = new MPSocket(serverSocket.accept());
     }
 
     /**
-     * Constructor for connecting
+     * Constructor for connecting.
      * @param host Address to connect to
      * @param port Port to connect to
      */
     public MPSocketController(String host, int port) throws IOException {
-        try {
-            Socket socket = new Socket();
-            socket.connect(new InetSocketAddress(host, port), MPConfig.DEFAULT_CONNECTION_TIMEOUT);
-            this.socket = new MPSocket(socket);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress(host, port), MPConfig.DEFAULT_CONNECTION_TIMEOUT);
+        this.socket = new MPSocket(socket);
     }
 
     /**

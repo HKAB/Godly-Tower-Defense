@@ -1,11 +1,11 @@
 package mrmathami.thegame.ui.popup;
 
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.net.MPGameController;
 import mrmathami.thegame.entity.UIEntity;
@@ -13,42 +13,40 @@ import mrmathami.thegame.net.MPConfig;
 import mrmathami.thegame.net.MPSocketController;
 import mrmathami.thegame.ui.popup.components.*;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.regex.Matcher;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 
 public class MPPopup extends AbstractPopup {
 
+    private PopupLabel errorLabel = null;
     public MPPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-        PopupInput popupIPInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 300, 50, 25);
-        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 300, 50, 25);
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 110)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 37)/Config.TILE_SIZE, 27, "IP ADDRESS"));
-        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 60)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 37)/Config.TILE_SIZE, 30, "PORT"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTIPLAYER"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
+        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 37)/Config.TILE_SIZE, 300, 50, 25);
+        PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 37)/Config.TILE_SIZE, 300, 50, 25);
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
-        getPopupEntities().add(closeButton);
-        getPopupEntities().add(popupIPInput);
-        getPopupEntities().add(popupPortInput);
-        popupIPInput.setText(MPConfig.DEFAULT_SERVER_HOST);
+        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uecf9 ");
+        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 20)/Config.TILE_SIZE, 20, " \uef0e ");
+        popupAddressInput.setText(MPConfig.DEFAULT_SERVER_HOST);
         popupPortInput.setText(Integer.toString(MPConfig.DEFAULT_LISTEN_PORT));
-        PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uecf9 ");
+        getPopupEntities().add(closeButton);
+        getPopupEntities().add(popupAddressInput);
+        getPopupEntities().add(popupPortInput);
         getPopupEntities().add(clientButton);
-        PopupButton serverButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3*2)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60)/Config.TILE_SIZE, 20, " \uef0e ");
         getPopupEntities().add(serverButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
-            popupIPInput.setFocus(false);
+            popupAddressInput.setFocus(false);
             popupPortInput.setFocus(false);
-            Collection<UIEntity> UIEntities = getPopupEntities();
+            // To avoid ConcurrentModificationException caused by adding error message.
+            CopyOnWriteArrayList<UIEntity> UIEntities = new CopyOnWriteArrayList<>(getPopupEntities());;
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
-            Iterator<UIEntity> iterator = UIEntities.iterator();
-            while (iterator.hasNext()){
-                UIEntity entity = iterator.next();
+            for (UIEntity entity : UIEntities) {
                 double startX = (entity.getPosX()) * Config.TILE_SIZE;
                 double startY = (entity.getPosY()) * Config.TILE_SIZE;
                 double endX = startX + entity.getWidth();
@@ -56,14 +54,13 @@ public class MPPopup extends AbstractPopup {
                 if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                     if (entity instanceof PopupInput) {
-                        ((PopupInput)entity).setFocus(true);
+                        ((PopupInput) entity).setFocus(true);
                         break;
                     }
                     //TODO: Event handle
                     if (entity instanceof PopupButton) {
                         if (entity.hashCode() == clientButton.hashCode()) {
-                            System.out.println("Connecting.....");
-                            String address = popupIPInput.getText().toLowerCase();
+                            String address = popupAddressInput.getText().toLowerCase();
                             if (isNumeric(popupPortInput.getText())) {
                                 int port = Integer.parseInt(popupPortInput.getText());
                                 if (isValidAddress(address) && isValidPort(port)) {
@@ -71,16 +68,13 @@ public class MPPopup extends AbstractPopup {
                                         MPSocketController.setCurrentInstance(new MPSocketController(address, port));
                                         moveToMPScene();
                                     } catch (IOException e) {
-                                        System.out.println("Failed to connect to the remote host");
-                                        System.exit(1);
+                                        showErrorMessage("Failed to connect to the remote host");
                                     }
                                 }
                             } else {
-                                System.out.println("Invalid host or port");
+                                showErrorMessage("Invalid port number");
                             }
-                        }
-                        else if (entity.hashCode() == serverButton.hashCode()) {
-                            System.out.println("Creating.....");
+                        } else if (entity.hashCode() == serverButton.hashCode()) {
                             if (isNumeric(popupPortInput.getText())) {
                                 int port = Integer.parseInt(popupPortInput.getText());
                                 if (isValidPort(port)) {
@@ -88,17 +82,15 @@ public class MPPopup extends AbstractPopup {
                                         MPSocketController.setCurrentInstance(new MPSocketController(port));
                                         moveToMPScene();
                                     } catch (IOException e) {
-                                        System.out.println("Failed to listen on 127.0.0.1:" + port);
-                                        System.exit(1);
+                                        showErrorMessage("Port already in use");
                                     }
                                 } else {
-                                    System.out.println("Invalid port number");
+                                    showErrorMessage("Invalid port number");
                                 }
                             } else {
-                                System.out.println("Invalid port number");
+                                showErrorMessage("Invalid port number");
                             }
-                        }
-                        else if (entity == closeButton) {
+                        } else if (entity == closeButton) {
                             backToMain();
                         }
                     }
@@ -112,8 +104,8 @@ public class MPPopup extends AbstractPopup {
         getPopupCanvas().setOnKeyPressed(e -> {
             final KeyCode keyCode = e.getCode();
             PopupInput elementFocus = null;
-            if (popupIPInput.isFocus())
-                elementFocus = popupIPInput;
+            if (popupAddressInput.isFocus())
+                elementFocus = popupAddressInput;
             else if (popupPortInput.isFocus())
                 elementFocus = popupPortInput;
             if (elementFocus != null)
@@ -157,6 +149,15 @@ public class MPPopup extends AbstractPopup {
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
         getStackPane().getChildren().add(gameCanvas);
         gameController.start();
+    }
+
+    private void showErrorMessage(String text) {
+        if (this.errorLabel == null) {
+            this.errorLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.RED, text);
+            getPopupEntities().add(this.errorLabel);
+            return;
+        }
+        this.errorLabel.setText(text);
     }
 
     @Override

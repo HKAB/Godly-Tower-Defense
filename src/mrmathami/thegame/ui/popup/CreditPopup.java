@@ -1,6 +1,7 @@
 package mrmathami.thegame.ui.popup;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.*;
@@ -18,19 +19,19 @@ public class CreditPopup extends AbstractPopup {
 
         PopupImage author1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/ductung.jpg");
         getPopupEntities().add(author1);
-        getPopupEntities().add(new PopupLabel(0,(posX + width/6)/Config.TILE_SIZE, (posY + 64 + author1.getHeight() + 27)/Config.TILE_SIZE, 27, "Le Duc Tung"));
+        getPopupEntities().add(new PopupLabel(0,(posX + width/6)/Config.TILE_SIZE, (posY + 64 + author1.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Le Duc Tung"));
         PopupImage badgeAuthor1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64 + author1.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
         getPopupEntities().add(badgeAuthor1);
 
         PopupImage author2 = new PopupImage(0, (posX + width/2)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/bh.jpg");
         getPopupEntities().add(author2);
-        getPopupEntities().add(new PopupLabel(0,(posX + width/2)/Config.TILE_SIZE, (posY + 64 + author2.getHeight() + 27)/Config.TILE_SIZE, 27, "Le Tran Hai Tung"));
+        getPopupEntities().add(new PopupLabel(0,(posX + width/2)/Config.TILE_SIZE, (posY + 64 + author2.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Le Tran Hai Tung"));
         PopupImage badgeAuthor2 = new PopupImage(0, (posX + width/2)/Config.TILE_SIZE, (posY + 64 + author2.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
         getPopupEntities().add(badgeAuthor2);
 
         PopupImage author3 = new PopupImage(0, (posX + 5*width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/truong.jpg");
         getPopupEntities().add(author3);
-        getPopupEntities().add(new PopupLabel(0,(posX + 5*width/6)/Config.TILE_SIZE, (posY + 64 + author3.getHeight() + 27)/Config.TILE_SIZE, 27, "Nguyen Phu Truong"));
+        getPopupEntities().add(new PopupLabel(0,(posX + 5*width/6)/Config.TILE_SIZE, (posY + 64 + author3.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Nguyen Phu Truong"));
         PopupImage badgeAuthor3 = new PopupImage(0, (posX + 5*width/6)/Config.TILE_SIZE, (posY + 64 + author3.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
         getPopupEntities().add(badgeAuthor3);
 
