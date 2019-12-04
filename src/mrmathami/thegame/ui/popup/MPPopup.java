@@ -19,11 +19,11 @@ import java.util.regex.Pattern;
 
 public class MPPopup extends AbstractPopup {
 
-    private PopupLabel errorLabel = null;
+    private PopupLabel messageLabel = null;
     public MPPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTIPLAYER"));
+        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTI-PLAYER"));
         // START: Input field
         getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
         getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
@@ -59,7 +59,6 @@ public class MPPopup extends AbstractPopup {
                         ((PopupInput) entity).setFocus(true);
                         break;
                     }
-                    //TODO: Event handle
                     if (entity instanceof PopupButton) {
                         if (entity.hashCode() == clientButton.hashCode()) {
                             String address = popupAddressInput.getText().toLowerCase();
@@ -105,7 +104,6 @@ public class MPPopup extends AbstractPopup {
                 }
             }
         });
-
 
         getPopupCanvas().setFocusTraversable(false);
         getPopupCanvas().requestFocus();
@@ -160,12 +158,29 @@ public class MPPopup extends AbstractPopup {
     }
 
     private void showErrorMessage(String text) {
-        if (this.errorLabel == null) {
-            this.errorLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.RED, text);
-            getPopupEntities().add(this.errorLabel);
+        if (this.messageLabel == null) {
+            this.messageLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.RED, text);
+            getPopupEntities().add(this.messageLabel);
             return;
         }
-        this.errorLabel.setText(text);
+        this.messageLabel.setColor(Color.RED);
+        this.messageLabel.setText(text);
+    }
+
+    private void showNotificationMessage(String text) {
+        if (this.messageLabel == null) {
+            this.messageLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.DODGERBLUE, text);
+            getPopupEntities().add(this.messageLabel);
+            return;
+        }
+        this.messageLabel.setColor(Color.DODGERBLUE);
+        this.messageLabel.setText(text);
+    }
+
+    private void clearMessage() {
+        if (this.messageLabel != null) {
+            this.messageLabel.setText("");
+        }
     }
 
     @Override
