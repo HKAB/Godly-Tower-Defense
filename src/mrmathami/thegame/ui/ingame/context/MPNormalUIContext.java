@@ -3,25 +3,19 @@ package mrmathami.thegame.ui.ingame.context;
 public class MPNormalUIContext extends AbstractUIContext {
     private long money;
     private long targetHealth;
-    private long currentWave;
-    private long countdown;
     private long opponentHealth;
 
-    public MPNormalUIContext (long createdTick, double[] pos, long money, long targetHealth, long opponentHealth, long currentWave, long countdown) {
+    public MPNormalUIContext (long createdTick, double[] pos, long money, long targetHealth, long opponentHealth) {
         super(createdTick, pos);
         this.money = money;
         this.targetHealth = targetHealth;
         this.opponentHealth = opponentHealth;
-        this.currentWave = currentWave;
-        this.countdown = countdown;
     }
 
-    public void fieldUpdate(long money, long targetHealth, long opponentHealth, long currentWave, long countdown) {
+    public void fieldUpdate(long money, long targetHealth, long opponentHealth) {
         this.money = money;
         this.targetHealth = targetHealth;
         this.opponentHealth = opponentHealth;
-        this.currentWave = currentWave;
-        this.countdown = countdown;
     }
 
     public long getMoney() {
@@ -46,21 +40,5 @@ public class MPNormalUIContext extends AbstractUIContext {
 
     public void setOpponentHealth(long opponentHealth) {
         this.opponentHealth = opponentHealth;
-    }
-
-    public long getCurrentWave() {
-        return currentWave;
-    }
-
-    public void setCurrentWave(long currentWave) {
-        this.currentWave = currentWave;
-    }
-
-    public long getCountdown() {
-        return countdown;
-    }
-
-    public void setCountdown(long countdown) {
-        this.countdown = countdown;
     }
 }

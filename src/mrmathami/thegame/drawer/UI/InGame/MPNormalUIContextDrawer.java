@@ -15,6 +15,7 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.ingame.context.MPNormalUIContext;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class MPNormalUIContextDrawer implements UIEntityDrawer {
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
     private final long FONT_SIZE = 25;
+    private final long OFF_SET = 3;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
         Image img = GameDrawer.getContextIconImage();
@@ -54,21 +56,21 @@ public class MPNormalUIContextDrawer implements UIEntityDrawer {
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
-        graphicsContext.setFont(new Font(FONT_SIZE));
+        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Regular.ttf").toURI().toString(), FONT_SIZE));
 
         /**
          * Health
          */
         icon = new WritableImage(reader, (int)(getIconGID("lives") * fieldZoom), 0, (int) Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.fillText(Long.toString(context.getTargetHealth()), leftTextPosX, linePosY, 75);
+        graphicsContext.fillText(Long.toString(context.getTargetHealth()), leftTextPosX, linePosY - OFF_SET, 75);
 
         /**
          * Opponent health
          */
         icon = new WritableImage(reader, (int)(getIconGID("opponent") * fieldZoom), 0, (int) Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, rightIconPosX, linePosY);
-        graphicsContext.fillText(Long.toString(context.getOpponentHealth()), rightTextPosX, linePosY, 75);
+        graphicsContext.fillText(Long.toString(context.getOpponentHealth()), rightTextPosX, linePosY - OFF_SET, 75);
 
         linePosY += LINE_HEIGHT;
 
@@ -77,23 +79,7 @@ public class MPNormalUIContextDrawer implements UIEntityDrawer {
          */
         icon = new WritableImage(reader, (int)(getIconGID("money") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.fillText(context.getMoney() + "$", leftTextPosX, linePosY, 75);
-
-        /**
-         * Current wave
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("wave") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, rightIconPosX, linePosY);
-        graphicsContext.fillText(Long.toString(context.getCurrentWave()), rightTextPosX, linePosY, 75);
-
-        linePosY += LINE_HEIGHT;
-
-        /**
-         * Countdown to next turn
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("countdown") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.fillText(context.getCountdown() + "s", leftTextPosX, linePosY, 75);
+        graphicsContext.fillText(context.getMoney() + "$", leftTextPosX, linePosY - OFF_SET, 175);
     }
 
     private int getIconGID (String icon) {

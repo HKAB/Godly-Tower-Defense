@@ -15,6 +15,7 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
     private final long FONT_SIZE = 25;
+    private final long OFF_SET = 3;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
         Image img = GameDrawer.getContextIconImage();
@@ -48,12 +50,13 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         final double rightIconPosX = screenPosX + context.getWidth() * fieldZoom / 2;
         final double leftTextPosX = leftIconPosX + TEXT_TAB;
         final double rightTextPosX = rightIconPosX + TEXT_TAB;
-        double linePosY = screenPosY + EDGE_SIZE;
+        //double linePosY = screenPosY + EDGE_SIZE;
+        double linePosY = screenPosY;
         WritableImage icon;
 
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
-        graphicsContext.setFont(new Font(FONT_SIZE));
+        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Regular.ttf").toURI().toString(), FONT_SIZE));
 
         /**
          * Price
@@ -62,7 +65,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
         if (context.getTower().getPrice() > context.getMoney()) graphicsContext.setFill(Color.RED);
         else graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(context.getTower().getPrice() + "$", leftTextPosX, linePosY, 75);
+        graphicsContext.fillText(context.getTower().getPrice() + "$", leftTextPosX, linePosY - OFF_SET, 75);
 
         linePosY += LINE_HEIGHT;
 
@@ -72,7 +75,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         icon = new WritableImage(reader, (int)(getIconGID("firepower") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, leftIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(Long.toString(context.getTower().getFirepower()), leftTextPosX, linePosY, 75);
+        graphicsContext.fillText(Long.toString(context.getTower().getFirepower()), leftTextPosX, linePosY - OFF_SET, 75);
 
         /**
          * Speed
@@ -80,7 +83,7 @@ public class ButtonUIContextDrawer implements UIEntityDrawer {
         icon = new WritableImage(reader, (int)(getIconGID("speed") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
         graphicsContext.drawImage(icon, rightIconPosX, linePosY);
         graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillText(Long.toString(context.getTower().getSpeed()), rightTextPosX, linePosY, 75);
+        graphicsContext.fillText(Long.toString(context.getTower().getSpeed()), rightTextPosX, linePosY - OFF_SET, 75);
     }
 
     private int getIconGID (String icon) {

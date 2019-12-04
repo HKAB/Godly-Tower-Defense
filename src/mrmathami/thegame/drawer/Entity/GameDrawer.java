@@ -154,7 +154,8 @@ public final class GameDrawer {
 			Map.entry(NormalUIContext.class, new NormalUIContextDrawer()),
 			Map.entry(MPNormalUIContext.class, new MPNormalUIContextDrawer()),
 			Map.entry(ButtonUIContext.class, new ButtonUIContextDrawer()),
-			Map.entry(TowerUIContext.class, new TowerUIContextDrawer())
+			Map.entry(TowerUIContext.class, new TowerUIContextDrawer()),
+			Map.entry(MessageUIContext.class, new MessageUIContextDrawer())
 	));
 
 	@Nonnull private final GraphicsContext graphicsContext;

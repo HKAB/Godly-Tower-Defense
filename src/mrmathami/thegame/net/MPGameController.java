@@ -151,7 +151,7 @@ public final class MPGameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X_MP, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), opponentField.getHealth(), 0,0));
+		contextArea.setUpperContext(new MPNormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), opponentField.getHealth()));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -213,7 +213,7 @@ public final class MPGameController extends AnimationTimer {
 
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), 0, 0);
+		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), towerPicker);
 
 		// draw a new frame, as fast as possible.
 		try {

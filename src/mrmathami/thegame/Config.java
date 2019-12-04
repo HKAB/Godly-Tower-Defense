@@ -55,8 +55,9 @@ public final class Config {
 	public static final double UI_CONTEXT_POS_X_MP = 8;
 	public static final double UI_CONTEXT_POS_Y = 3.5;
 	public static final double UI_CONTEXT_WIDTH = 4;
-	public static final double UPPER_UI_CONTEXT_HEIGHT = 2;
-	public static final double LOWER_UI_CONTEXT_HEIGHT = 2.5;
+	public static final double UPPER_UI_CONTEXT_HEIGHT = 1.5;
+	public static final double LOWER_UI_CONTEXT_HEIGHT = 2;
+	public static final double MESSAGE_UI_CONTEXT_HEIGHT = 1;
 
 	/**
 	 * Size of the screen.
