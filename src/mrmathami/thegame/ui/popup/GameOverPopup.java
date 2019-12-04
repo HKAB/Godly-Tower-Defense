@@ -37,7 +37,6 @@ public class GameOverPopup extends AbstractPopup implements CanControlGame {
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                     if (entity == backMenuButton) {
                         getStackPane().getChildren().remove(getPopupCanvas());
-//                        gameController.start();
                             gameController.moveToMenuScene();
                         break;
                     }

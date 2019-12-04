@@ -35,7 +35,7 @@ public class MPSocket {
      * Read a line sent from the remote host. If the buffer is empty, return an empty string.
      * @return A String if the input buffer is not empty, empty String otherwise.
      */
-    public String recvLine() {
+    public String receiveLine() {
         String data;
         try {
             if (this.input.ready()) {

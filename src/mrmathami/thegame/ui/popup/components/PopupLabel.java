@@ -85,6 +85,10 @@ public class PopupLabel implements UIEntity {
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public TextAlignment getTextAlignment() {
         return textAlignment;
     }

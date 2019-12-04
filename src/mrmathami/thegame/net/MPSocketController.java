@@ -20,6 +20,7 @@ public class MPSocketController {
 
     /**
      * Constructor for listening.
+     * @param port Port to listen on.
      */
     public MPSocketController(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
@@ -28,8 +29,8 @@ public class MPSocketController {
 
     /**
      * Constructor for connecting.
-     * @param host Address to connect to
-     * @param port Port to connect to
+     * @param host Address to connect to.
+     * @param port Port to connect to.
      */
     public MPSocketController(String host, int port) throws IOException {
         Socket socket = new Socket();
@@ -43,11 +44,12 @@ public class MPSocketController {
      */
     public void closeConnection() {
         socket.close();
+        setCurrentInstance(null);
     }
 
     /**
      * Return an static instance, so we don't have to implement DI everywhere.
-     * @return current instance
+     * @return current instance.
      */
     public static MPSocketController getCurrentInstance() {
         return currentInstance;
@@ -82,7 +84,7 @@ public class MPSocketController {
      * @return List of String which is space-separated from a line received from socket.
      */
     public List<String> getNextCommand() {
-        String command = this.socket.recvLine();
+        String command = this.socket.receiveLine();
         if (command.isBlank()) {
             return List.of();
         }
