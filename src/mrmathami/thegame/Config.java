@@ -251,6 +251,7 @@ public final class Config {
 	public static final double KIM_JONG_UN_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int KIM_JONG_UN_BOSS_ENEMY_GID = 154;
 	public static final long KIM_JONG_UN_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
+	public static final int KIM_JONG_UN_BOSS_ENEMY_SKILL_RANGE = 3;
 	public static final String KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI = "/stage/kimjonguncutin.png";
 
 	public static final double SON_GOKU_BOSS_ENEMY_SIZE = 1.0;

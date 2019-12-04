@@ -25,10 +25,8 @@ public class TowerPickerDrawer {
 
         if (towerPicker instanceof TowerPlacing) {
             graphicsContext.setFill(Color.rgb(255, 255, 255, 0.2));
-            System.out.println(screenPosX / fieldZoom + " " + screenPosY / fieldZoom);
             int tilePosX = (int)(screenPosX / fieldZoom);
             int tilePosY = (int)(screenPosY / fieldZoom);
-            System.out.println(((TowerPlacing) towerPicker).getRange() + " " + tilePosX + " " + tilePosY);
             for (int posX = (int)Math.max(0, tilePosX - ((TowerPlacing) towerPicker).getRange()); posX <= Math.min(Config.TILE_HORIZONTAL, tilePosX + ((TowerPlacing) towerPicker).getRange()); posX++)
                 for (int posY = (int)Math.max(0, tilePosY - ((TowerPlacing) towerPicker).getRange()); posY <= Math.min(Config.TILE_VERTICAL, tilePosY + ((TowerPlacing) towerPicker).getRange()); posY++)
                     if (!((posX == tilePosX) && (posY == tilePosY))) {

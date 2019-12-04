@@ -18,7 +18,7 @@ public class BinLadenBossEnemy extends BossEnemy {
     public void skillCheck(GameField field) {
         if (this.isDestroyed()) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.BIN_LADEN_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound), 1);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound));
             for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(), AbstractTower.class, getPosX() - 1, getPosY() - 1, 3, 3)) {
                 towerEntity.doDestroy();
                 field.addSFX(new ExplosionEffect(0, towerEntity.getPosX(), towerEntity.getPosY()));

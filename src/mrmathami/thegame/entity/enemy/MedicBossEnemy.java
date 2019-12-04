@@ -17,7 +17,7 @@ public class MedicBossEnemy extends BossEnemy {
         if ((field.getTickCount() - getCreatedTick()) == Config.MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.MEDIC_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.medicSkillSound), 1);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.medicSkillSound));
             setGID(Config.MEDIC_BOSS_ENEMY_UBER_GID);
             setImmortal(true);
         }

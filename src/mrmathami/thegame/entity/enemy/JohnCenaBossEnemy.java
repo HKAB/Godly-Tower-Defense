@@ -16,7 +16,7 @@ public class JohnCenaBossEnemy extends BossEnemy {
         if ((field.getTickCount() - getCreatedTick()) == Config.JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.JOHN_CENA_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.johnCenaSkillSound), 1);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.johnCenaSkillSound));
             setGID(Config.JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID);
             setInvisible(true);
         }

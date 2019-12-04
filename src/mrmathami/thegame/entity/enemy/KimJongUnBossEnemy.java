@@ -21,8 +21,8 @@ public class KimJongUnBossEnemy extends BossEnemy {
     public void skillCheck(GameField field) {
         if ((field.getTickCount() - getCreatedTick()) == Config.KIM_JONG_UN_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.kimJongUnSkillSound), 1);
-            int explosionBorder = 2;
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.kimJongUnSkillSound));
+            int explosionBorder = Config.KIM_JONG_UN_BOSS_ENEMY_SKILL_RANGE;
             int explosionPosX = new Random().nextInt((int)Config.TILE_HORIZONTAL - 2 * explosionBorder) + explosionBorder;
             int explosionPosY = new Random().nextInt((int)Config.TILE_VERTICAL - 2 * explosionBorder) + explosionBorder;
             for (int posX = explosionPosX - explosionBorder; posX <= explosionPosX + explosionBorder; posX++)

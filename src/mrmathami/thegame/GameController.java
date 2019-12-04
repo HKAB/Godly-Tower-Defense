@@ -162,7 +162,7 @@ public final class GameController extends AnimationTimer {
 
 	public void nextMap() {
 		this.currentMap++;
-		if (this.currentMap >= Config.MAX_LEVEL_COUNT){
+		if (this.currentMap > Config.MAX_LEVEL_COUNT){
 			AfterCreditPopup afterCreditPopup = new AfterCreditPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			afterCreditPopup.setGameController(this);
 			popupDrawer = new PopupDrawer(afterCreditPopup.getPopupCanvas().getGraphicsContext2D(), afterCreditPopup.getPopupEntities());

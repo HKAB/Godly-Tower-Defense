@@ -143,7 +143,7 @@ public class MPPopup extends AbstractPopup {
             e.printStackTrace();
             System.exit(1);
         }
-        gameCanvas.setFocusTraversable(false);
+        gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);

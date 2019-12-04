@@ -21,7 +21,7 @@ public class SonGokuBossEnemy extends BossEnemy {
     public void skillCheck(GameField field) {
         if (this.isDestroyed() && (!reborn)) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.SON_GOKU_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.sonGokuSkillSound), 1);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.sonGokuSkillSound));
             field.doSpawn(new SonGokuBossEnemy(field.getTickCount(), this.getPosX(), this.getPosY(), true));
         }
     }

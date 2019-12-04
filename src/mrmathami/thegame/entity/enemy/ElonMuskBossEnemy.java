@@ -16,7 +16,7 @@ public class ElonMuskBossEnemy extends BossEnemy {
         if ((field.getTickCount() - getCreatedTick()) == Config.ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.ELON_MUSK_BOSS_ENEMY_CUT_IN_URI));
-            GameAudio.getInstance().playSound(new AudioClip(GameAudio.elonMuskSkillSound), 1);
+            GameAudio.getInstance().playSound(new AudioClip(GameAudio.elonMuskSkillSound));
             setSpeed(getSpeed() * Config.ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY);
         }
         if ((field.getTickCount() - getCreatedTick()) == Config.ELON_MUSK_BOSS_ENEMY_SKILL_DEACTIVATE_TIME) {

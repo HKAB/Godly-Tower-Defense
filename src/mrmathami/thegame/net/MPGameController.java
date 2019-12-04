@@ -293,7 +293,6 @@ public final class MPGameController extends AnimationTimer {
 	 * @param keyEvent the key that you press down
 	 */
 	public final void keyDownHandler(KeyEvent keyEvent) {
-        System.out.println("keyDownHandler called");
 		final KeyCode keyCode = keyEvent.getCode();
 		switch (keyCode) {
 			case Q:
@@ -306,6 +305,8 @@ public final class MPGameController extends AnimationTimer {
 				towerPicker = new TowerPlacing("RocketLauncherTower");
 				break;
 			case R:
+				towerPicker = new TowerPlacing("RobotPoliceTower");
+				break;
 			case A:
 			case S:
 			case D:
