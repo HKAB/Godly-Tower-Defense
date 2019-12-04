@@ -331,7 +331,6 @@ public final class MPGameController extends AnimationTimer {
 	 * @param mouseEvent the mouse event
 	 */
 	public final void mouseClickHandler(MouseEvent mouseEvent) {
-		System.out.println("Mouse Click handler called");
 		double mousePosX = mouseEvent.getX();
 		double mousePosY = mouseEvent.getY();
 		Collection<UIEntity> UIEntities = this.gameUI.getEntities();
