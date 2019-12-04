@@ -21,7 +21,8 @@ public class PopupDrawer {
             Map.entry(PopupImage.class, new PopupImageDrawer()),
             Map.entry(PopupInput.class, new PopupInputDrawer()),
             Map.entry(PopupButton.class, new PopupButtonDrawer()),
-            Map.entry(PopupSlideBar.class, new PopupSlideBarDrawer())
+            Map.entry(PopupSlideBar.class, new PopupSlideBarDrawer()),
+            Map.entry(PopupText.class, new PopupTextDrawer())
     ));
     private GraphicsContext graphicsContext;
     private Collection<UIEntity> popupEntities;

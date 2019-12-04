@@ -6,10 +6,26 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.*;
 
+import javax.swing.*;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class CreditPopup extends AbstractPopup {
+    private double LOGO_POS_X = 202;
+    private double LOGO_POS_Y = 29;
+    private double TEXT_POS_X = 379;
+    private double TEXT_POS_Y = 8;
+    private double IMAGE_POS_Y = 213;
+    private double NAME_POS_Y = 433;
+    private String MESSAGE =
+            "Tower Defense: The Game is a fun project, created by Team Admin \n" +
+            "- a passionate dev team from Ha Noi, Viet Nam. After days of coding\n" +
+            "and debuging in frustration and rage, sometimes they want to give\n" +
+            "up, but with the endless passion for coding and the game itself, they\n" +
+            "have overcome all the difficulties and challenges to finish the game...\n" +
+            "\n" +
+            "Thank you for playing!";
+
     public CreditPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         // TODO: make this more easier to calculate position
@@ -17,23 +33,29 @@ public class CreditPopup extends AbstractPopup {
 //        getPopupEntities().add(new ClosePopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 32.0)/Config.TILE_SIZE, posY/Config.TILE_SIZE));
         getPopupEntities().add(new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4"));
 
-        PopupImage author1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/ductung.jpg");
-        getPopupEntities().add(author1);
-        getPopupEntities().add(new PopupLabel(0,(posX + width/6)/Config.TILE_SIZE, (posY + 64 + author1.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Le Duc Tung"));
-        PopupImage badgeAuthor1 = new PopupImage(0, (posX + width/6)/Config.TILE_SIZE, (posY + 64 + author1.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
-        getPopupEntities().add(badgeAuthor1);
+        PopupImage logo = new PopupImage(0, (posX + LOGO_POS_X) / Config.TILE_SIZE, (posY + LOGO_POS_Y) / Config.TILE_SIZE, "res/menu/logo.png");
+        getPopupEntities().add(logo);
 
-        PopupImage author2 = new PopupImage(0, (posX + width/2)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/bh.jpg");
-        getPopupEntities().add(author2);
-        getPopupEntities().add(new PopupLabel(0,(posX + width/2)/Config.TILE_SIZE, (posY + 64 + author2.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Le Tran Hai Tung"));
-        PopupImage badgeAuthor2 = new PopupImage(0, (posX + width/2)/Config.TILE_SIZE, (posY + 64 + author2.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
-        getPopupEntities().add(badgeAuthor2);
+        PopupText message = new PopupText(0, (posX + TEXT_POS_X) / Config.TILE_SIZE, (posY + TEXT_POS_Y) / Config.TILE_SIZE, 23, Color.BLACK, MESSAGE);
+        getPopupEntities().add(message);
 
-        PopupImage author3 = new PopupImage(0, (posX + 5*width/6)/Config.TILE_SIZE, (posY + 64)/Config.TILE_SIZE, "res/menu/truong.jpg");
-        getPopupEntities().add(author3);
-        getPopupEntities().add(new PopupLabel(0,(posX + 5*width/6)/Config.TILE_SIZE, (posY + 64 + author3.getHeight() + 27)/Config.TILE_SIZE, 27, Color.BLACK, "Nguyen Phu Truong"));
-        PopupImage badgeAuthor3 = new PopupImage(0, (posX + 5*width/6)/Config.TILE_SIZE, (posY + 64 + author3.getHeight() + 27 + 10)/Config.TILE_SIZE, "res/menu/badge.png");
-        getPopupEntities().add(badgeAuthor3);
+        PopupImage authorImage = null;
+        PopupLabel authorName = null;
+
+        authorImage = new PopupImage(0, (posX + width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/ultoxtung.png");
+        getPopupEntities().add(authorImage);
+        authorName = new PopupLabel(0,(posX + width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Le Duc Tung");
+        getPopupEntities().add(authorName);
+
+        authorImage = new PopupImage(0, (posX + 3 * width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/tacbliw.png");
+        getPopupEntities().add(authorImage);
+        authorName = new PopupLabel(0,(posX + 3 * width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Le Tran Hai Tung");
+        getPopupEntities().add(authorName);
+
+        authorImage = new PopupImage(0, (posX + 5 * width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/hkab.png");
+        getPopupEntities().add(authorImage);
+        authorName = new PopupLabel(0,(posX + 5 * width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Nguyen Phu Truong");
+        getPopupEntities().add(authorName);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
 
