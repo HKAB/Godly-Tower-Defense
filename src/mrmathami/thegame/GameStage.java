@@ -63,7 +63,7 @@ public final class GameStage {
 						entities.add(new Rock(0, x, y, gid));
 					}
 					else if ("Bush".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int gid = scanner.nextInt();
 						entities.add(new Bush(0, x, y, gid));
