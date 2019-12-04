@@ -1,6 +1,7 @@
 package mrmathami.thegame.ui.ingame.context;
 
 import mrmathami.thegame.Config;
+import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class ContextArea {
     private AbstractUIContext upperContext;
     private AbstractUIContext lowerContext;
+    private AbstractUIContext messageContext;
 
     private double posX;
     private double posY;
@@ -22,6 +24,7 @@ public class ContextArea {
 
         this.upperContext = null;
         this.lowerContext = null;
+        this.messageContext = null;
     }
 
     public double[] getUpperContextPos() {
@@ -31,6 +34,11 @@ public class ContextArea {
 
     public double[] getLowerContextPos() {
         double[] pos = new double[] {posX, posY + Config.UPPER_UI_CONTEXT_HEIGHT, Config.UI_CONTEXT_WIDTH, Config.LOWER_UI_CONTEXT_HEIGHT};
+        return pos;
+    }
+
+    public double[] getMessageContextPos() {
+        double[] pos = new double[] {posX, posY + Config.UPPER_UI_CONTEXT_HEIGHT + Config.LOWER_UI_CONTEXT_HEIGHT, Config.UI_CONTEXT_WIDTH, Config.MESSAGE_UI_CONTEXT_HEIGHT};
         return pos;
     }
 
@@ -50,14 +58,22 @@ public class ContextArea {
         this.lowerContext = lowerContext;
     }
 
-    public void updateContext (long money, long targetHealth, long currentWave, long countdown) {
-        if (upperContext != null) ((NormalUIContext) upperContext).fieldUpdate(money, targetHealth, currentWave, countdown);
+    public void updateContext (long money, long targetHealth, AbstractTowerPicker towerPicker) {
+        if (upperContext != null) ((NormalUIContext) upperContext).fieldUpdate(money, targetHealth);
         if (lowerContext != null) lowerContext.setMoney(money);
+        if (towerPicker != null) {
+            if (messageContext == null) messageContext = new MessageUIContext(0, getMessageContextPos());
+        }
+        else messageContext = null;
     }
 
-    public void updateMPContext (long money, long targetHealth, long enemyHealth, long currentWave, long countdown) {
-        if (upperContext != null) ((MPNormalUIContext) upperContext).fieldUpdate(money, targetHealth, enemyHealth, currentWave, countdown);
+    public void updateMPContext (long money, long targetHealth, long enemyHealth, AbstractTowerPicker towerPicker) {
+        if (upperContext != null) ((MPNormalUIContext) upperContext).fieldUpdate(money, targetHealth, enemyHealth);
         if (lowerContext != null) lowerContext.setMoney(money);
+        if (towerPicker != null) {
+            if (messageContext == null) messageContext = new MessageUIContext(0, getMessageContextPos());
+        }
+        else messageContext = null;
     }
 
     public double getPosX() {
@@ -80,6 +96,7 @@ public class ContextArea {
         List<AbstractUIContext> UIContexts = new ArrayList<AbstractUIContext>();
         UIContexts.add(upperContext);
         UIContexts.add(lowerContext);
+        UIContexts.add(messageContext);
         return UIContexts;
     }
 }

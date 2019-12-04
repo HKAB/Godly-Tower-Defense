@@ -12,8 +12,8 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.ingame.context.NormalUIContext;
-import mrmathami.thegame.ui.popup.components.PopupInput;
+import mrmathami.thegame.ui.ingame.context.ButtonUIContext;
+import mrmathami.thegame.ui.ingame.context.MessageUIContext;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NormalUIContextDrawer implements UIEntityDrawer {
+public class MessageUIContextDrawer implements UIEntityDrawer {
     private final Map<String, Integer> ICON_GID = new HashMap<>(Map.ofEntries(
             Map.entry("money", 0),
             Map.entry("lives", 1),
@@ -38,44 +38,23 @@ public class NormalUIContextDrawer implements UIEntityDrawer {
     private final long LINE_HEIGHT = 40;
     private final long TEXT_TAB = 30;
     private final long EDGE_SIZE = 10;
-    private final long FONT_SIZE = 27;
-    private final long OFF_SET = 3;
+    private final long FONT_SIZE = 22;
 
     public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
-        //System.out.println(screenPosX + " " + screenPosY);
-
         Image img = GameDrawer.getContextIconImage();
         PixelReader reader = img.getPixelReader();
 
-        NormalUIContext context = (NormalUIContext)entity;
+        MessageUIContext context = (MessageUIContext) entity;
 
-        final double leftIconPosX = screenPosX + EDGE_SIZE;
-        final double rightIconPosX = screenPosX + context.getWidth() * fieldZoom / 2;
-        final double leftTextPosX = leftIconPosX + TEXT_TAB;
-        final double rightTextPosX = rightIconPosX + TEXT_TAB;
-        double linePosY = screenPosY + EDGE_SIZE;
+        final double linePosX = screenPosX + EDGE_SIZE;
+        double linePosY = screenPosY;
         WritableImage icon;
 
-        graphicsContext.setFill(Color.WHITE);
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
-        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Regular.ttf").toURI().toString(), FONT_SIZE));
+        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Italic.ttf").toURI().toString(), FONT_SIZE));
 
-        /**
-         * Health
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("lives") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.fillText(Long.toString(context.getTargetHealth()), leftTextPosX, linePosY - OFF_SET, 175);
-
-        linePosY += LINE_HEIGHT;
-
-        /**
-         * Money
-         */
-        icon = new WritableImage(reader, (int)(getIconGID("money") * fieldZoom), 0, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
-        graphicsContext.drawImage(icon, leftIconPosX, linePosY);
-        graphicsContext.fillText(context.getMoney() + "$", leftTextPosX, linePosY - OFF_SET, 175);
+        graphicsContext.fillText(context.getMessage(), linePosX, linePosY, screenWidth - 2 * EDGE_SIZE);
     }
 
     private int getIconGID (String icon) {

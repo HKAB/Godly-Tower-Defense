@@ -146,7 +146,7 @@ public final class GameController extends AnimationTimer {
 		this.pause = false;
 
 		this.contextArea = new ContextArea(Config.UI_CONTEXT_POS_X, Config.UI_CONTEXT_POS_Y);
-		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0,0));
+		contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth()));
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
@@ -175,7 +175,7 @@ public final class GameController extends AnimationTimer {
 			this.towerPicker = null;
 			if (pause) gamePause();
 
-			contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth(), 0, 0));
+			contextArea.setUpperContext(new NormalUIContext(field.getTickCount(), contextArea.getUpperContextPos(), field.getMoney(), field.getHealth()));
 			contextArea.setLowerContext(null);
 			// The drawer. Nothing fun here.
 			drawer.setTowerPicker(null);
@@ -217,7 +217,7 @@ public final class GameController extends AnimationTimer {
 		field.tick();
 
 		//update the values in context so it match the current field, as fast as possible
-		contextArea.updateContext(field.getMoney(), field.getHealth(), 0, 0);
+		contextArea.updateContext(field.getMoney(), field.getHealth(), towerPicker);
 		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
