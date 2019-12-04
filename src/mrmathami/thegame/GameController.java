@@ -30,6 +30,7 @@ import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.*;
 import mrmathami.thegame.ui.popup.AfterCreditPopup;
 import mrmathami.thegame.ui.popup.GameOverPopup;
+import mrmathami.thegame.ui.popup.GamePausePopup;
 import mrmathami.thegame.ui.popup.WinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
@@ -127,6 +128,7 @@ public final class GameController extends AnimationTimer {
 	 */
 
 	private boolean isWonPopupShowUp = false;
+	private boolean isPopupPauseShowUp = false;
 	public GameController(GraphicsContext graphicsContext, StackPane stackPane) throws FileNotFoundException {
 		// The screen to draw on
 		this.graphicsContext = graphicsContext;
@@ -191,7 +193,7 @@ public final class GameController extends AnimationTimer {
 		this.tick += 1;
 	}
 
-	private void gamePause() {
+	public void gamePause() {
 		if (pause) {
 			super.start();
 		}
@@ -241,6 +243,10 @@ public final class GameController extends AnimationTimer {
 				if (popupDrawer != null)
 					popupDrawer.render();
 			}
+			else
+			{
+				isWonPopupShowUp = false;
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -257,6 +263,8 @@ public final class GameController extends AnimationTimer {
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
+
+		if (isPopupPauseShowUp) gamePause();
 	}
 
 	/**
@@ -419,7 +427,12 @@ public final class GameController extends AnimationTimer {
 						moveToMenuScene();
 					}
 					else if (entity instanceof PauseButton) {
+						GamePausePopup gameOverPopup = new GamePausePopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
+						gameOverPopup.setGameController(this);
+						popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+						popupDrawer.render();
 						gamePause();
+//						this.isPopupPauseShowUp = true;
 					}
 					else if (entity instanceof UpgradeButton) {
 						towerPicker = new TowerUpgrading();

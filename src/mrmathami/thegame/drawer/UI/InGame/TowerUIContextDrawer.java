@@ -40,7 +40,7 @@ public class TowerUIContextDrawer implements UIEntityDrawer {
     private final long FONT_SIZE = 25;
     private final long OFF_SET = 3;
 
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) throws FileNotFoundException {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         Image img = GameDrawer.getContextIconImage();
         PixelReader reader = img.getPixelReader();
 

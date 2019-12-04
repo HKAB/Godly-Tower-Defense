@@ -9,6 +9,6 @@ import java.io.FileNotFoundException;
 
 public class CreditPopupDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
     }
 }

@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 public class PopupSlideBarDrawer implements UIEntityDrawer{
 
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setFill(Color.TRANSPARENT);
         graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);

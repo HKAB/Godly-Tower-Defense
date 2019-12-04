@@ -31,7 +31,7 @@ public class PopupDrawer {
         this.popupEntities = popupEntities;
     }
 
-    public void render() throws FileNotFoundException {
+    public void render() {
         graphicsContext.clearRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
         Color bgColor = Color.rgb(178, 190, 195,0.6);
         graphicsContext.setFill(bgColor);
