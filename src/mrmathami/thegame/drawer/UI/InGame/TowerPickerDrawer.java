@@ -23,8 +23,13 @@ public class TowerPickerDrawer {
         WritableImage newImage = new WritableImage(reader, (towerPicker.getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((towerPicker.getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
         graphicsContext.drawImage(newImage, screenPosX, screenPosY);
 
-        if (towerPicker instanceof TowerPlacing) {
-            graphicsContext.setFill(Color.rgb(255, 255, 255, 0.2));
+        if ((towerPicker instanceof TowerPlacing) && (towerPicker.getPickingState() != towerPicker.NOT_BEING_PICKED)) {
+            if (towerPicker.getPickingState() == towerPicker.PICKABLE) {
+                graphicsContext.setFill(Color.rgb(255, 255, 255, 0.2));
+            }
+            else if (towerPicker.getPickingState() == towerPicker.NOT_PICKABLE) {
+                graphicsContext.setFill(Color.rgb(255, 0, 0, 0.2));
+            }
             int tilePosX = (int)(screenPosX / fieldZoom);
             int tilePosY = (int)(screenPosY / fieldZoom);
             for (int posX = (int)Math.max(0, tilePosX - ((TowerPlacing) towerPicker).getRange()); posX <= Math.min(Config.TILE_HORIZONTAL, tilePosX + ((TowerPlacing) towerPicker).getRange()); posX++)
