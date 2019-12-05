@@ -16,7 +16,7 @@ public class MPSocket {
         this.socket = socket;
         try {
             this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            this.output = new PrintWriter(this.socket.getOutputStream(), true);
+            this.output = new PrintWriter(this.socket.getOutputStream());
         } catch (IOException e) {
             System.out.println("Error creating socket");
             e.printStackTrace();
@@ -27,8 +27,9 @@ public class MPSocket {
      * Send a line to the remote host.
      * @param data data to send.
      */
-    public void sendLine(String data) {
+    public boolean sendLine(String data) {
         this.output.println(data);
+        return !(output.checkError());
     }
 
     /**
@@ -38,8 +39,8 @@ public class MPSocket {
     public String receiveLine() {
         String data;
         try {
-            if (this.input.ready()) {
-                data = this.input.readLine();
+            if (input.ready()) {
+                data = input.readLine();
             } else {
                 data = "";
             }

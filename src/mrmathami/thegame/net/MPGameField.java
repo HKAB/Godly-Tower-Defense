@@ -116,7 +116,6 @@ public final class MPGameField extends GameField {
         List<String> command = this.socket.getNextCommand();
         if (!command.isEmpty()) {
             if (command.get(0).equals("PLACE")) {
-                System.out.println("Get command " + command);
                 switch (command.get(1)) {
                     case "1":
                         doSpawn(new NormalTower(0, MPConfig.OPPONENT_START_X + Integer.parseInt(command.get(2)), Integer.parseInt(command.get(3)), 90));
