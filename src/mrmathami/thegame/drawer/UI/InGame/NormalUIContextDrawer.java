@@ -13,11 +13,9 @@ import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.ingame.context.NormalUIContext;
-import mrmathami.thegame.ui.popup.components.PopupInput;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 

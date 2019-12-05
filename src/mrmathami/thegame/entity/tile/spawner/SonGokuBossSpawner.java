@@ -2,7 +2,6 @@ package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.enemy.SonGokuBossEnemy;
-import mrmathami.thegame.entity.enemy.SonGokuBossEnemy;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

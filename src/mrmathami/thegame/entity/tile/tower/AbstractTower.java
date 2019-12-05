@@ -139,7 +139,7 @@ public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTi
 		return sold;
 	}
 
-	public abstract boolean upgrade();
+	public abstract boolean doUpgrade();
 
 	/**
 	 * used by context

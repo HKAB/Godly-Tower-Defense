@@ -1,7 +1,6 @@
 package mrmathami.thegame.drawer.UI.Menu;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 

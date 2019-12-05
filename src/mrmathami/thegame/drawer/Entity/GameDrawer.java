@@ -28,15 +28,9 @@ import mrmathami.thegame.entity.tile.*;
 import mrmathami.thegame.entity.tile.effect.*;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.entity.bullet.MachineGunBullet;
-import mrmathami.thegame.entity.bullet.NormalBullet;
-import mrmathami.thegame.entity.bullet.RocketBullet;
-import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.bullet.*;
+import mrmathami.thegame.entity.tile.spawner.*;
+import mrmathami.thegame.entity.tile.tower.*;
 import mrmathami.thegame.ui.ingame.context.*;
 
 import javax.annotation.Nonnull;

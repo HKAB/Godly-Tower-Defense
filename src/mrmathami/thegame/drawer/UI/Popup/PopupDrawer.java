@@ -9,7 +9,6 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.*;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

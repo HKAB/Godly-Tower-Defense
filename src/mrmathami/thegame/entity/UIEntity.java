@@ -1,6 +1,5 @@
 package mrmathami.thegame.entity;
 
-
 /**
  * A game entity
  */

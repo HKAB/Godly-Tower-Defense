@@ -9,7 +9,6 @@ import mrmathami.thegame.drawer.Entity.EntityDrawer;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.bullet.StopSignBullet;
-import mrmathami.thegame.entity.tile.tower.RobotPoliceTower;
 
 import javax.annotation.Nonnull;
 

@@ -3,7 +3,6 @@ package mrmathami.thegame.ui.popup.components;
 import javafx.scene.image.Image;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.menu.AbstractMenuPane;
 
 import java.io.File;
 

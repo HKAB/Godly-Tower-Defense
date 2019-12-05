@@ -1,13 +1,11 @@
 package mrmathami.thegame.entity.tile.spawner;
 
-import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.UpdatableEntity;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.AbstractTile;
-import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.effect.AlertEffect;
 
 import javax.annotation.Nonnull;

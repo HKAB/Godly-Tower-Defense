@@ -12,7 +12,6 @@ import mrmathami.thegame.ui.popup.components.PopupInput;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class MPWinPopup extends AbstractPopup implements CanControlGame {
     private MPGameController mpGameController;

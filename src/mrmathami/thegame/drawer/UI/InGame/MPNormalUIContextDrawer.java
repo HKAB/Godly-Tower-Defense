@@ -16,7 +16,6 @@ import mrmathami.thegame.ui.ingame.context.MPNormalUIContext;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 

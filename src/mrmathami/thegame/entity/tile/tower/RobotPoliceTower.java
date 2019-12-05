@@ -1,15 +1,11 @@
 
 package mrmathami.thegame.entity.tile.tower;
 
-import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
-import mrmathami.thegame.entity.bullet.MachineGunBullet;
 import mrmathami.thegame.entity.bullet.StopSignBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
-import mrmathami.thegame.entity.enemy.GrabEnemy;
-import mrmathami.thegame.entity.enemy.Tanker;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +26,7 @@ public final class RobotPoliceTower extends AbstractTower<StopSignBullet> {
     }
 
     @Override
-    public boolean upgrade() {
+    public boolean doUpgrade() {
         if (getLevel() == 2) return false;
         else
         {

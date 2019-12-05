@@ -393,7 +393,7 @@ public final class MPGameController extends AnimationTimer {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
-										((AbstractTower) entity).upgrade();
+										((AbstractTower) entity).doUpgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
 										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));

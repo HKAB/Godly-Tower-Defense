@@ -2,7 +2,6 @@ package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.enemy.BigAircraft;
-import mrmathami.thegame.entity.enemy.NormalAircraft;
 
 import javax.annotation.Nonnull;
 

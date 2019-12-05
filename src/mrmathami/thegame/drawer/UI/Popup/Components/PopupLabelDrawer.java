@@ -10,7 +10,6 @@ import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class PopupLabelDrawer implements UIEntityDrawer {
     @Override

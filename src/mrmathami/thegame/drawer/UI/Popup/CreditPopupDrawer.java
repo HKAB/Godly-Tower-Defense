@@ -5,7 +5,6 @@ import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public class CreditPopupDrawer implements UIEntityDrawer {
     @Override

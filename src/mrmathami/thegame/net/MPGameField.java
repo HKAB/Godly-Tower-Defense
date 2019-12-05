@@ -86,7 +86,7 @@ public final class MPGameField extends GameField {
             if (entity instanceof AbstractTower) {
                 if (Double.compare(entity.getPosX(), x + MPConfig.OPPONENT_START_X) == 0 &&
                         Double.compare(entity.getPosY(), y) == 0) {
-                    ((AbstractTower) entity).upgrade();
+                    ((AbstractTower) entity).doUpgrade();
                 }
             }
         }

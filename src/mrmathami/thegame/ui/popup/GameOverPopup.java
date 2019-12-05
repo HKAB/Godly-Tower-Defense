@@ -10,7 +10,6 @@ import mrmathami.thegame.ui.popup.components.PopupImage;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class GameOverPopup extends AbstractPopup implements CanControlGame {
     private GameController gameController = null;
@@ -26,9 +25,7 @@ public class GameOverPopup extends AbstractPopup implements CanControlGame {
             Collection<UIEntity> UIEntities = getPopupEntities();
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
-            Iterator<UIEntity> iterator = UIEntities.iterator();
-            while (iterator.hasNext()){
-                UIEntity entity = iterator.next();
+            for (UIEntity entity : UIEntities) {
                 double startX = (entity.getPosX()) * Config.TILE_SIZE;
                 double startY = (entity.getPosY()) * Config.TILE_SIZE;
                 double endX = startX + entity.getWidth() * Config.TILE_SIZE;
@@ -37,7 +34,7 @@ public class GameOverPopup extends AbstractPopup implements CanControlGame {
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                     if (entity == backMenuButton) {
                         getStackPane().getChildren().remove(getPopupCanvas());
-                            gameController.moveToMenuScene();
+                        gameController.moveToMenuScene();
                         break;
                     }
                 }

@@ -24,8 +24,5 @@ public final class RockDrawer implements EntityDrawer {
         WritableImage rockImage = new WritableImage(reader, (((Rock)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((((Rock)entity).getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
 
         graphicsContext.drawImage(rockImage, screenPosX, screenPosY);
-
-//		graphicsContext.setFill(Color.RED);
-//		graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);
     }
 }

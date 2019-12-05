@@ -7,7 +7,6 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.PopupSlideBar;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public class PopupSlideBarDrawer implements UIEntityDrawer{
 
