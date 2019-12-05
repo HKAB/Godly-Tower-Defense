@@ -5,15 +5,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.PopupButton;
-import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class PopupButtonDrawer implements UIEntityDrawer {
     @Override

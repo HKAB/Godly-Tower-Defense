@@ -3,8 +3,6 @@ package mrmathami.thegame.entity.enemy;
 
 import mrmathami.thegame.Config;
 
-import java.util.Random;
-
 public final class GrabEnemy extends AbstractEnemy {
     public GrabEnemy(long createdTick, double posX, double posY) {
         super(createdTick,

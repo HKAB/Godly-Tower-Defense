@@ -1,7 +1,5 @@
 package mrmathami.thegame.entity.tile.effect;
 
-import mrmathami.thegame.Config;
-
 public class AlertEffect extends AbstractEffect {
     private int contentGID;
     public AlertEffect(long createdTick, double posX, double posY, long timeToLive, int contentGID, int alertGID) {

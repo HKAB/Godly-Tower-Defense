@@ -7,7 +7,6 @@ import mrmathami.thegame.GameController;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.PopupButton;
 import mrmathami.thegame.ui.popup.components.PopupImage;
-import mrmathami.thegame.ui.popup.components.PopupInput;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import java.util.Collection;

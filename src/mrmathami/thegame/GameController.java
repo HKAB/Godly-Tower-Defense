@@ -28,10 +28,7 @@ import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 import mrmathami.thegame.ui.ingame.context.*;
-import mrmathami.thegame.ui.popup.AfterCreditPopup;
-import mrmathami.thegame.ui.popup.GameOverPopup;
-import mrmathami.thegame.ui.popup.GamePausePopup;
-import mrmathami.thegame.ui.popup.WinPopup;
+import mrmathami.thegame.ui.popup.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;
@@ -384,7 +381,7 @@ public final class GameController extends AnimationTimer {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
-										((AbstractTower) entity).upgrade();
+										((AbstractTower) entity).doUpgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
 										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
@@ -432,7 +429,6 @@ public final class GameController extends AnimationTimer {
 						popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
 						popupDrawer.render();
 						gamePause();
-//						this.isPopupPauseShowUp = true;
 					}
 					else if (entity instanceof UpgradeButton) {
 						towerPicker = new TowerUpgrading();

@@ -21,7 +21,6 @@ public class MPDisconnectPopup extends AbstractPopup implements CanControlGame {
         getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 120)/Config.TILE_SIZE, 42, Color.BLACK, "OPPONENT DISCONNECTED"));
         getPopupEntities().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/menu/disconnected_dino.png"));
         getPopupEntities().add(backButton);
-
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();

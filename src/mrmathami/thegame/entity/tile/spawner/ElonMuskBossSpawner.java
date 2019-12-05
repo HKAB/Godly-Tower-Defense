@@ -2,7 +2,6 @@ package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.enemy.ElonMuskBossEnemy;
-import mrmathami.thegame.entity.enemy.ElonMuskBossEnemy;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

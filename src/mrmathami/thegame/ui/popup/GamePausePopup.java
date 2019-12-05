@@ -14,7 +14,6 @@ import java.util.Iterator;
 
 public class GamePausePopup extends AbstractPopup implements CanControlGame {
     private GameController gameController = null;
-    private boolean isPopupPauseShowUp;
     public GamePausePopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 150)/Config.TILE_SIZE, 150, Color.BLACK, "PAUSE"));

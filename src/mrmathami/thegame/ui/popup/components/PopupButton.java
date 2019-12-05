@@ -13,9 +13,7 @@ public class PopupButton extends AbstractButton {
     }
 
     @Override
-    public void onClick() {
-
-    }
+    public void onClick() { }
 
     public String getContent() {
         return content;

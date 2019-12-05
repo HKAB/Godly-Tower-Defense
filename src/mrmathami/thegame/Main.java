@@ -12,7 +12,6 @@ import mrmathami.thegame.audio.GameAudio;
 /**
  * Main class. Entry point of the game.
  */
-
 public final class Main extends Application {
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -21,17 +20,13 @@ public final class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-//	    Group root = new Group();
 		StackPane stackPane = new StackPane();
 	    // Prepare game Canvas
 		final Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		final GraphicsContext menuGraphicsContext = menuCanvas.getGraphicsContext2D();
-//		final MenuController menuController = new MenuController(menuGraphicsContext, stackPane);
-//		menuCanvas.setFocusTraversable(true);
 		menuGraphicsContext.setFontSmoothingType(FontSmoothingType.LCD);
 
 		// Creating the scene
-//		menuPane.getChildren().add(menuCanvas);
 		Scene mainScene = new Scene(stackPane);
 		menuCanvas.setFocusTraversable(false);
 		stackPane.getChildren().add(menuCanvas);

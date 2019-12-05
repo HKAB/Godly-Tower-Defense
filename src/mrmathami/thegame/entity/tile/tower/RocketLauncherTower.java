@@ -6,10 +6,8 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.bullet.RocketBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
-import mrmathami.thegame.entity.enemy.BigAircraft;
 
 import javax.annotation.Nonnull;
-import java.io.File;
 
 public final class RocketLauncherTower extends AbstractTower<RocketBullet> {
     public int[] GID = new int[] {Config.ROCKET_TOWER_LEVEL1_GID, Config.ROCKET_TOWER_LEVEL2_GID, Config.ROCKET_TOWER_LEVEL3_GID};
@@ -28,7 +26,7 @@ public final class RocketLauncherTower extends AbstractTower<RocketBullet> {
     }
 
     @Override
-    public boolean upgrade() {
+    public boolean doUpgrade() {
         if (getLevel() == 2) return false;
         else
         {

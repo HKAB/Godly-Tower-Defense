@@ -1,11 +1,7 @@
 package mrmathami.thegame.entity.tile.effect;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.transform.Rotate;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.*;
-import mrmathami.thegame.entity.enemy.AbstractEnemy;
 
 import javax.annotation.Nonnull;
 

@@ -2,17 +2,11 @@ package mrmathami.thegame.drawer.UI.Popup.Components;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.PopupImage;
-import mrmathami.thegame.ui.popup.components.PopupLabel;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 public class PopupImageDrawer implements UIEntityDrawer {
     @Override

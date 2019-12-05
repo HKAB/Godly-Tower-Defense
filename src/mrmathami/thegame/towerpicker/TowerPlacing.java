@@ -1,8 +1,6 @@
 package mrmathami.thegame.towerpicker;
 
 import mrmathami.thegame.Config;
-import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.*;
 
 public class TowerPlacing extends AbstractTowerPicker {

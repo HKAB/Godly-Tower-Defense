@@ -5,18 +5,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameController;
-import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.popup.components.PopupButton;
 import mrmathami.thegame.ui.popup.components.PopupImage;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
-
-import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.Iterator;
 
 public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
     GameController gameController = null;
@@ -45,12 +35,9 @@ public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
             afterCreditText.setPosY(afterCreditText.getPosY() + event.getDeltaY()*0.005);
             patreonImage.setPosY(patreonImage.getPosY() + event.getDeltaY()*0.005);
             afterCreditText1.setPosY(afterCreditText1.getPosY() + event.getDeltaY()*0.005);
-            if (afterCreditText1.getPosY() < (Config.SCREEN_HEIGHT - 50.0)/Config.TILE_SIZE)
-            {
+            if (afterCreditText1.getPosY() < (Config.SCREEN_HEIGHT - 50.0)/Config.TILE_SIZE) {
                 scrollImage.setImage("res/stage/esc.png");
-            }
-            else
-            {
+            } else {
                 scrollImage.setImage("res/stage/scroll.png");
             }
         });

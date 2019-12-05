@@ -16,9 +16,7 @@ import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.menu.*;
-import mrmathami.thegame.ui.popup.CreditPopup;
-import mrmathami.thegame.ui.popup.MPPopup;
-import mrmathami.thegame.ui.popup.SettingPopup;
+import mrmathami.thegame.ui.popup.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
 import java.io.FileNotFoundException;

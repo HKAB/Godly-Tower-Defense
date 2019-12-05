@@ -17,7 +17,6 @@ import java.util.*;
 
 public final class GameEntities {
 	/**
-	 * TODO: This is a list contains Pair of Entities that can collide with each other.
 	 * Remember, if an entity can collide with itself, you should put that here too.
 	 */
 	private static final Set<UnorderedPair<Class<? extends GameEntity>, Class<? extends GameEntity>>> COLLISION_PAIR_SET

@@ -7,7 +7,6 @@ import mrmathami.thegame.ui.menu.RectMenuPane;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public class RectMenuPaneDrawer implements UIEntityDrawer {
     @Override
