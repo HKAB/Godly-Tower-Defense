@@ -42,6 +42,7 @@ public class MPConfig {
     public static final String DEFAULT_SERVER_HOST = "localhost";
     public static final int DEFAULT_LISTEN_PORT = 1337;
     public static final int DEFAULT_CONNECTION_TIMEOUT = 2000; // in millisecond.
+    public static final int TICK_PER_KEEPALIVE = 30;
 
     /**
      * UI Context size and position

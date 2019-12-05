@@ -76,7 +76,7 @@ public class MPSocketController {
      * @param command remote command to send.
      */
     private void sendCommand(List<String> command) {
-        this.socket.sendLine(String.join(" ", command));
+        this.socket.sendLine(String.join(" ", command));  // Ignore the return value
     }
 
     /**
@@ -126,5 +126,9 @@ public class MPSocketController {
      */
     public void sendState(long health) {
         sendCommand(List.of("STATE", Long.toString(health)));
+    }
+
+    public boolean sendKeepAlive() {
+        return this.socket.sendLine("KEEPALIVE");
     }
 }

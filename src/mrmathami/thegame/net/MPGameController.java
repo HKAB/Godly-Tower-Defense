@@ -28,6 +28,7 @@ import mrmathami.thegame.towerpicker.AbstractTowerPicker;
 import mrmathami.thegame.towerpicker.*;
 import mrmathami.thegame.ui.ingame.button.*;
 import mrmathami.thegame.ui.ingame.context.*;
+import mrmathami.thegame.ui.popup.MPDisconnectPopup;
 import mrmathami.thegame.ui.popup.MPGameOverPopup;
 import mrmathami.thegame.ui.popup.MPWinPopup;
 import mrmathami.utilities.ThreadFactoryBuilder;
@@ -93,7 +94,7 @@ public final class MPGameController extends AnimationTimer {
 	private GameUI gameUI;
 
 	/**
-	 * Game Client socket wrapper. Used to send data to Server.
+	 * Socket wrapper. Used to send and receive data from opponent.
 	 */
 	private MPSocketController socket;
 
@@ -211,6 +212,8 @@ public final class MPGameController extends AnimationTimer {
 			gamePause();
 		}
 
+		// Check connection status.
+		ensureConnection();
 
 		//update the values in context so it match the current field, as fast as possible
 		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), towerPicker);
@@ -251,6 +254,21 @@ public final class MPGameController extends AnimationTimer {
 		this.scheduledFuture = SCHEDULER.scheduleAtFixedRate(this::tick, 0, Config.GAME_NSPT, TimeUnit.NANOSECONDS);
 		// start the JavaFX loop.
 		super.start();
+	}
+
+	/**
+	 * Send keep-alive packets. Makesure the opponent is still connected.
+	 */
+	private void ensureConnection() {
+		if (this.tick % MPConfig.TICK_PER_KEEPALIVE == 0) {
+			boolean isConnected = this.socket.sendKeepAlive();
+			if (!isConnected) {
+				MPDisconnectPopup disconnectPopup = new MPDisconnectPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
+				disconnectPopup.setGameController(this);
+				popupDrawer = new PopupDrawer(disconnectPopup.getPopupCanvas().getGraphicsContext2D(), disconnectPopup.getPopupEntities());
+				gamePause();
+			}
+		}
 	}
 
 	/**
