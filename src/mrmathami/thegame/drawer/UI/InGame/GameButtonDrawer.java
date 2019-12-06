@@ -51,7 +51,7 @@ public class GameButtonDrawer implements UIEntityDrawer {
                 graphicsContext.setFill(Color.rgb(0, 0, 0));
                 graphicsContext.setTextAlign(TextAlignment.CENTER);
                 graphicsContext.setTextBaseline(VPos.BOTTOM);
-                graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Regular.ttf").toURI().toString(), 8));
+                graphicsContext.setFont(Font.loadFont(new File("res/font/Tomorrow-Regular.ttf").toURI().toString(), 8));
                 graphicsContext.fillText(((TowerButton) entity).getKeyBinding(), screenPosX + 5, screenPosY + screenHeight);
             }
         }

@@ -231,7 +231,7 @@ public final class Config {
 	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
 	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
 	public static final long JOHN_CENA_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 250;
-	public static final String JOHN_CENA_BOSS_ENEMY_CUT_IN_URI = "/stage/johncenacutin.png";
+	public static final String JOHN_CENA_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/johncenacutin.png";
 
 	public static final double BIN_LADEN_BOSS_ENEMY_SIZE = 1.0;
 	public static final long BIN_LADEN_BOSS_ENEMY_HEALTH = 1000;
@@ -241,7 +241,7 @@ public final class Config {
 	public static final double BIN_LADEN_BOSS_ENEMY_WIDTH = 40.0;
 	public static final double BIN_LADEN_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int BIN_LADEN_BOSS_ENEMY_GID = 155;
-	public static final String BIN_LADEN_BOSS_ENEMY_CUT_IN_URI = "/stage/binladencutin.png";
+	public static final String BIN_LADEN_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/binladencutin.png";
 
 	public static final double KIM_JONG_UN_BOSS_ENEMY_SIZE = 1.0;
 	public static final long KIM_JONG_UN_BOSS_ENEMY_HEALTH = 2000;
@@ -253,7 +253,7 @@ public final class Config {
 	public static final int KIM_JONG_UN_BOSS_ENEMY_GID = 154;
 	public static final long KIM_JONG_UN_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 100;
 	public static final int KIM_JONG_UN_BOSS_ENEMY_SKILL_RANGE = 3;
-	public static final String KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI = "/stage/kimjonguncutin.png";
+	public static final String KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/kimjonguncutin.png";
 
 	public static final double SON_GOKU_BOSS_ENEMY_SIZE = 1.0;
 	public static final long SON_GOKU_BOSS_ENEMY_HEALTH = 1400;
@@ -263,7 +263,7 @@ public final class Config {
 	public static final double SON_GOKU_BOSS_ENEMY_WIDTH = 54.0;
 	public static final double SON_GOKU_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int SON_GOKU_BOSS_ENEMY_GID = 156;
-	public static final String SON_GOKU_BOSS_ENEMY_CUT_IN_URI = "/stage/songokucutin.png";
+	public static final String SON_GOKU_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/songokucutin.png";
 
 	public static final double ELON_MUSK_BOSS_ENEMY_SIZE = 1.0;
 	public static final long ELON_MUSK_BOSS_ENEMY_HEALTH = 1500;
@@ -276,7 +276,7 @@ public final class Config {
 	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.5;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 75;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 200;
-	public static final String ELON_MUSK_BOSS_ENEMY_CUT_IN_URI = "/stage/elonmuskcutin.png";
+	public static final String ELON_MUSK_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/elonmuskcutin.png";
 
 	public static final double MEDIC_BOSS_ENEMY_SIZE = 1.0;
 	public static final long MEDIC_BOSS_ENEMY_HEALTH = 1500;
@@ -289,7 +289,7 @@ public final class Config {
 	public static final int MEDIC_BOSS_ENEMY_UBER_GID = 178;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 125;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 225;
-	public static final String MEDIC_BOSS_ENEMY_CUT_IN_URI = "/stage/mediccutin.png";
+	public static final String MEDIC_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/mediccutin.png";
 
 	public static final double GRAB_ENEMY_SIZE = 1;
 	public static final long GRAB_ENEMY_HEALTH = 20;

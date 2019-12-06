@@ -138,15 +138,15 @@ public final class MPGameController extends AnimationTimer {
 		this.socket = MPSocketController.getCurrentInstance();
 
 		// The game field.
-		this.field = new GameField(GameStage.load("/stage/mapMP.txt", false));
+		this.field = new GameField(GameStage.load("/maps/mapMP.txt", false));
 
 		// Set the multi-player mode for our main game field, this will be checked when our target is harmed by enemy.
 		field.setMultiplayer(true);
 
 		// Opponent's field, for updating opponent state, run like a separated game.
-		this.opponentField = new MPGameField(GameStage.load("/stage/mapMP.txt", true));
+		this.opponentField = new MPGameField(GameStage.load("/maps/mapMP.txt", true));
 
-		this.gameUI = new GameUI("/ui/MPButtonConfig.dat");
+		this.gameUI = new GameUI("/stage/ui/MPButtonConfig.dat");
 
 		this.towerPicker = null;
 		this.pause = false;
@@ -156,7 +156,7 @@ public final class MPGameController extends AnimationTimer {
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, opponentField, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, opponentField, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/stage/ui/button.png");
 
 		// Field view region is a rectangle region
 		// [(posX, posY), (posX + SCREEN_WIDTH / zoom, posY + SCREEN_HEIGHT / zoom)]

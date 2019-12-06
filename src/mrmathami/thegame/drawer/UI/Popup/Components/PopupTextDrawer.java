@@ -19,7 +19,7 @@ public class PopupTextDrawer implements UIEntityDrawer {
         graphicsContext.setTextBaseline(VPos.TOP);
 //        Color paneColor = Color.rgb(255, 255,255);
 //        graphicsContext.setFill(paneColor);
-        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Italic.ttf").toURI().toString(), ((PopupText)entity).getFontSize()));
+        graphicsContext.setFont(Font.loadFont(new File("res/font/Tomorrow-Italic.ttf").toURI().toString(), ((PopupText)entity).getFontSize()));
         graphicsContext.setFill(((PopupText) entity).getColor());
         graphicsContext.fillText(((PopupText)entity).getText(), screenPosX, screenPosY);
     }

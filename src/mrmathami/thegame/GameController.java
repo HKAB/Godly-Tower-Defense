@@ -137,9 +137,9 @@ public final class GameController extends AnimationTimer {
 		this.currentMap = 1;
 
 		// The game field. Please consider create another way to load a game field.
-		this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
+		this.field = new GameField(GameStage.load("/maps/map" + currentMap + ".txt", false));
 
-		this.gameUI = new GameUI("/ui/buttonConfig.dat");
+		this.gameUI = new GameUI("/stage/ui/buttonConfig.dat");
 
 		this.towerPicker = null;
 		this.pause = false;
@@ -149,7 +149,7 @@ public final class GameController extends AnimationTimer {
 		contextArea.setLowerContext(null);
 
 		// The drawer. Nothing fun here.
-		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/ui/button.png");
+		this.drawer = new GameDrawer(graphicsContext, field, null, gameUI, towerPicker, contextArea,"/stage/sheet.png", "/stage/ui/button.png");
 
 		this.popupDrawer = null;
 		// Field view region is a rectangle region
@@ -169,7 +169,7 @@ public final class GameController extends AnimationTimer {
 		}
 		else {
 			isWonPopupShowUp = false;
-			this.field = new GameField(GameStage.load("/stage/map" + currentMap + ".txt", false));
+			this.field = new GameField(GameStage.load("/maps/map" + currentMap + ".txt", false));
 
 			this.towerPicker = null;
 			if (pause) gamePause();

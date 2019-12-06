@@ -183,8 +183,8 @@ public final class GameDrawer {
 		this.sheetImage = new Image(getClass().getResourceAsStream(sheetImage));
 		this.buttonImage = new Image(getClass().getResourceAsStream(buttonImage));
 		this.rankImage = new Image(getClass().getResourceAsStream("/stage/default_gold.png"));
-		this.contextIconImage = new Image(getClass().getResourceAsStream("/ui/contextIcon.png"));
-		this.emoteImage = new Image(getClass().getResourceAsStream("/stage/notif.png"));
+		this.contextIconImage = new Image(getClass().getResourceAsStream("/stage/ui/contextIcon.png"));
+		this.emoteImage = new Image(getClass().getResourceAsStream("/stage/popup/notif.png"));
 		this.gameUI = gameUI;
 		this.opponentGameField = opponentGameField;
 	}

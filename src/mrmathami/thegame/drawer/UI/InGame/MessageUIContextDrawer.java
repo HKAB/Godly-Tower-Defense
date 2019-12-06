@@ -48,7 +48,7 @@ public class MessageUIContextDrawer implements UIEntityDrawer {
 
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
-        graphicsContext.setFont(Font.loadFont(new File("res/ui/Tomorrow-Italic.ttf").toURI().toString(), FONT_SIZE));
+        graphicsContext.setFont(Font.loadFont(new File("res/font/Tomorrow-Italic.ttf").toURI().toString(), FONT_SIZE));
 
         graphicsContext.fillText(context.getMessage(), linePosX, linePosY, screenWidth - 2 * EDGE_SIZE);
     }

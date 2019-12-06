@@ -18,7 +18,7 @@ public class PopupLabelDrawer implements UIEntityDrawer {
         graphicsContext.setTextBaseline(VPos.BASELINE);
         Color paneColor = Color.rgb(255, 255,255);
         graphicsContext.setFill(paneColor);
-        graphicsContext.setFont(Font.loadFont(new File("res/menu/shitfont.ttf").toURI().toString(), ((PopupLabel)entity).getFontSize()));
+        graphicsContext.setFont(Font.loadFont(new File("res/font/shitfont.ttf").toURI().toString(), ((PopupLabel)entity).getFontSize()));
         graphicsContext.setFill(((PopupLabel) entity).getColor());
         graphicsContext.fillText(((PopupLabel)entity).getText(), screenPosX, screenPosY);
     }

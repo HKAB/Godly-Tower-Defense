@@ -18,8 +18,8 @@ public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
                 50,
                 Color.rgb(0, 0, 0),
                 "Life is more fun if you play games\n\nAuthor\nNguyen Phu Truong\nLe Tran Hai Tung\nLe Duc Tung\n\nWith the help of\nKenney.nl\nflaticon.com\nfreesound.org\n\n");
-        PopupImage patreonImage = new PopupImage(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, 1250.0/Config.TILE_SIZE, "res/stage/patreot.png");
-        PopupImage scrollImage = new PopupImage(0, (Config.SCREEN_WIDTH - 32.0)/Config.TILE_SIZE, 10.0/Config.TILE_SIZE, "res/stage/scroll.png");
+        PopupImage patreonImage = new PopupImage(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, 1250.0/Config.TILE_SIZE, "res/stage/popup/patreot.png");
+        PopupImage scrollImage = new PopupImage(0, (Config.SCREEN_WIDTH - 32.0)/Config.TILE_SIZE, 10.0/Config.TILE_SIZE, "res/stage/popup/scroll.png");
         getPopupEntities().add(patreonImage);
         getPopupEntities().add(scrollImage);
         getPopupEntities().add(afterCreditText);
@@ -36,9 +36,9 @@ public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
             patreonImage.setPosY(patreonImage.getPosY() + event.getDeltaY()*0.005);
             afterCreditText1.setPosY(afterCreditText1.getPosY() + event.getDeltaY()*0.005);
             if (afterCreditText1.getPosY() < (Config.SCREEN_HEIGHT - 50.0)/Config.TILE_SIZE) {
-                scrollImage.setImage("res/stage/esc.png");
+                scrollImage.setImage("res/stage/popup/esc.png");
             } else {
-                scrollImage.setImage("res/stage/scroll.png");
+                scrollImage.setImage("res/stage/popup/scroll.png");
             }
         });
 

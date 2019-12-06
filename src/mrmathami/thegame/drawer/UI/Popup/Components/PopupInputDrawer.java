@@ -27,7 +27,7 @@ public class PopupInputDrawer implements UIEntityDrawer {
         graphicsContext.setFill(Color.rgb(0, 0, 0));
         graphicsContext.setTextAlign(TextAlignment.CENTER);
         graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setFont(Font.loadFont(new File("res/menu/shitfont.ttf").toURI().toString(), ((PopupInput)entity).getFontSize()));
+        graphicsContext.setFont(Font.loadFont(new File("res/font/shitfont.ttf").toURI().toString(), ((PopupInput)entity).getFontSize()));
         graphicsContext.fillText(((PopupInput)entity).getText(), screenPosX + screenWidth/2, screenPosY  + screenHeight/2);
     }
 }

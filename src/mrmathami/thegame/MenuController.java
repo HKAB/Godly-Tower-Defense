@@ -91,8 +91,8 @@ public final class MenuController extends AnimationTimer {
         final long width = Config.TILE_HORIZONTAL;
         final long height = Config.TILE_VERTICAL;
 
-        this.menuUI = new MenuUI("/menu/buttonConfig.dat");
-        this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/background.png", "/menu/button.png");
+        this.menuUI = new MenuUI("/menu/mainmenu/buttonConfig.dat");
+        this.drawer = new MenuDrawer(graphicsContext, menuUI, "/menu/mainmenu/background.png", "/menu/mainmenu/button.png");
         this.popupDrawer = null;
         drawer.setFieldViewRegion(0.0, 0.0, Config.TILE_SIZE);
     }
