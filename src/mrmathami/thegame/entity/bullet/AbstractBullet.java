@@ -30,7 +30,7 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 		this.GID = GID;
 		this.enemyTarget = enemyTarget;
 		this.speed = speed;
-		setAngle(90 + Math.atan2((deltaY), (deltaX))*180/Math.PI);
+		setAngle(Double.MAX_VALUE);
 	}
 
 	@Override
