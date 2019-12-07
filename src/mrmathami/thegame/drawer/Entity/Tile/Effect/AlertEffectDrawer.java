@@ -10,12 +10,12 @@ import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.effect.AlertEffect;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 
 public final class AlertEffectDrawer implements EntityDrawer {
     private int offset = 0;
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) throws FileNotFoundException {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         screenPosX += Config.OFFSET;
         Image imgSheet = GameDrawer.getSheetImage();
         Image imgEmote = GameDrawer.getEmoteImage();
@@ -24,14 +24,19 @@ public final class AlertEffectDrawer implements EntityDrawer {
         int maxTileHeight = (int)Math.round(imgEmote.getHeight()/38);
         PixelReader imgEmotePixelReader = imgEmote.getPixelReader();
 
-        WritableImage emoteImage = new WritableImage(imgEmotePixelReader, (((AlertEffect)entity).getGID() - 1) % maxTileWidth * (int)screenWidth, (((AlertEffect)entity).getGID() - 1) / maxTileWidth * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+        WritableImage emoteImage = new WritableImage(imgEmotePixelReader,
+                (((AlertEffect)entity).getGID() - 1) % maxTileWidth * (int)screenWidth,
+                (((AlertEffect)entity).getGID() - 1) / maxTileWidth * (int)screenHeight,
+                (int)screenWidth, (int)screenHeight);
         PixelReader emoteImagePixelReader = emoteImage.getPixelReader();
         PixelWriter emoteImagePixelWriter = emoteImage.getPixelWriter();
 
         for (int y = 0; y < emoteImage.getHeight(); y++) {
             for (int x = 0; x < emoteImage.getWidth(); x++) {
                 if (!emoteImagePixelReader.getColor(x, y).equals(Color.rgb(0, 0, 0, 0))) {
-                    emoteImagePixelWriter.setColor(x, y, Color.rgb((int) (emoteImagePixelReader.getColor(x, y).getRed() * 255), (int) (emoteImagePixelReader.getColor(x, y).getGreen() * 255), (int) (emoteImagePixelReader.getColor(x, y).getBlue() * 255)));
+                    emoteImagePixelWriter.setColor(x, y, Color.rgb((int) (emoteImagePixelReader.getColor(x, y).getRed() * 255),
+                            (int)(emoteImagePixelReader.getColor(x, y).getGreen() * 255),
+                            (int)(emoteImagePixelReader.getColor(x, y).getBlue() * 255)));
                 }
             }
         }

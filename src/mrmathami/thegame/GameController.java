@@ -547,7 +547,6 @@ public final class GameController extends AnimationTimer {
 		stop();
 		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		GraphicsContext graphicsContext = menuCanvas.getGraphicsContext2D();
-		GameController gameController = null;
 		MenuController menuController = new MenuController(graphicsContext, stackPane);
 		// prevent user press tab to change focus
 		menuCanvas.setFocusTraversable(false);

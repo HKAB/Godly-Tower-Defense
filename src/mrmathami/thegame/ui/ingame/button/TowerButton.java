@@ -17,12 +17,12 @@ public class TowerButton extends AbstractButton {
                 this.GID = Config.NORMAL_TOWER_LEVEL1_GID;
                 this.keyBinding = "Q";
                 break;
-            case "RocketLauncherTower":
-                this.GID = Config.ROCKET_TOWER_LEVEL1_GID;
-                this.keyBinding = "W";
-                break;
             case "MachineGunTower":
                 this.GID = Config.MACHINE_GUN_TOWER_LEVEL1_GID;
+                this.keyBinding = "W";
+                break;
+            case "RocketLauncherTower":
+                this.GID = Config.ROCKET_TOWER_LEVEL1_GID;
                 this.keyBinding = "E";
                 break;
             case "RobotPoliceTower":

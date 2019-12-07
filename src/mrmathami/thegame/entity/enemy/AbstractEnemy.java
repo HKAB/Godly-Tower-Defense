@@ -121,10 +121,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 
 	@Override
 	public void onDestroy(@Nonnull GameField field) {
-		// TODO: reward
 		field.setMoney(field.getMoney() + reward);
 		if (this instanceof BossEnemy) ((BossEnemy) this).skillCheck(field);
-//		GameAudio.playSound(ExplosionEffect.class);
 		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound));
 		field.addSFX(new ExplosionEffect(0, getPosX() + Config.OFFSET/Config.TILE_SIZE, getPosY() + Config.OFFSET/Config.TILE_SIZE));
 	}

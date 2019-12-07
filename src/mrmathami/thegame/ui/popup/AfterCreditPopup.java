@@ -8,7 +8,7 @@ import mrmathami.thegame.GameController;
 import mrmathami.thegame.ui.popup.components.PopupImage;
 import mrmathami.thegame.ui.popup.components.PopupLabel;
 
-public class AfterCreditPopup extends AbstractPopup implements CanControlGame{
+public class AfterCreditPopup extends AbstractPopup implements CanControlGame {
     GameController gameController = null;
     public AfterCreditPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);

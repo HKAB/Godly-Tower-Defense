@@ -281,7 +281,7 @@ public final class MPGameController extends AnimationTimer {
 		Canvas menuCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
 		GraphicsContext graphicsContext = menuCanvas.getGraphicsContext2D();
 		MenuController menuController = new MenuController(graphicsContext, stackPane);
-		// prevent user press tab to change focus
+		// Prevent user from pressing 'tab' to change focus
 		menuCanvas.setFocusTraversable(false);
 		menuCanvas.setOnMouseClicked(menuController::mouseClickHandler);
 		menuCanvas.setOnMouseMoved(menuController::mouseMoveHandler);
