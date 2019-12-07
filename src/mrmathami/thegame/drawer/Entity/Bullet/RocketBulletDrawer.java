@@ -54,7 +54,8 @@ public final class RocketBulletDrawer implements EntityDrawer {
 //        graphicsContext.setLineWidth(4);
 //        graphicsContext.strokeRect(screenPosX, screenPosY, (int)Config.FIRE1_WIDTH, (int)(Config.FIRE1_HEIGHT  + Config.ROCKET_BULLET_HEIGHT));
 
-
-        ((RocketBullet)entity).rotate(graphicsContext, rocketAndFireImage, screenPosX, screenPosY, ((RocketBullet)entity).getAngle());
+        if (((RocketBullet) entity).getAngle() != Double.MAX_VALUE) {
+            ((RocketBullet) entity).rotate(graphicsContext, rocketAndFireImage, screenPosX, screenPosY, ((RocketBullet) entity).getAngle());
+        }
     }
 }
