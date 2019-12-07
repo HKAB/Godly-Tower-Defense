@@ -310,6 +310,7 @@ public final class GameController extends AnimationTimer {
 				towerPicker = new TowerPlacing("RobotPoliceTower");
 				break;
 			case A:
+				towerPicker = new TowerPlacing("CardboardBoxTower");
 			case S:
 			case D:
 			case F:
