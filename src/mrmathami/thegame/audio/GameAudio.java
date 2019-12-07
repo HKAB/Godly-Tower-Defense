@@ -1,5 +1,4 @@
 package mrmathami.thegame.audio;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,12 +40,12 @@ class AudioChannel
 public class GameAudio {
     private double mainVolume = Config.INITIAL_MAIN_VOLUME;
 
+    public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
     public static String normalBulletSound = new File("res/audio/normalbullet.mp3").toURI().toString();
     public static String rocketBulletSound = new File("res/audio/rocketbullet.mp3").toURI().toString();
     public static String machineBulletSound = new File("res/audio/machinegunbullet.mp3").toURI().toString();
     public static String stopSignBulletSound = new File("res/audio/signbullet.mp3").toURI().toString();
     public static String explosionSound = new File("res/audio/explosion.mp3").toURI().toString();
-    public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
     public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.mp3").toURI().toString();
     public static String binLadenSkillSound = new File("res/audio/binladenskillsound.mp3").toURI().toString();
     public static String sonGokuSkillSound = new File("res/audio/songokuskillsound.mp3").toURI().toString();
@@ -59,7 +58,7 @@ public class GameAudio {
 
     private static final GameAudio INSTANCE = new GameAudio();
     // 10 - the magic number xD
-    private static final int MAX_PENDING = 16;
+    private static final int MAX_PENDING = Config.AUDIO_MAX_PENDING;
     private int headIndex;
     private int tailIndex;
     // Good explanation of volatile: http://tutorials.jenkov.com/java-concurrency/volatile.html

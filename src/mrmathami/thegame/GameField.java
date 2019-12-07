@@ -118,7 +118,7 @@ public class GameField {
 		spawnEntities.add(entity);
 	}
 
-	public final void addSFX(@Nonnull GameEntity entity) {
+	public void addSFX(@Nonnull GameEntity entity) {
 		sfxEntities.add(entity);
 	}
 
