@@ -1,5 +1,4 @@
 package mrmathami.thegame.audio;
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,13 +40,13 @@ class AudioChannel
 public class GameAudio {
     private double mainVolume = Config.INITIAL_MAIN_VOLUME;
 
+    public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
     public static String normalBulletSound = new File("res/audio/normalbullet.mp3").toURI().toString();
     public static String rocketBulletSound = new File("res/audio/rocketbullet.mp3").toURI().toString();
     public static String machineBulletSound = new File("res/audio/machinegunbullet.mp3").toURI().toString();
     public static String nyanCatBulletSound = new File("res/audio/nyancatbullet.mp3").toURI().toString();
     public static String stopSignBulletSound = new File("res/audio/signbullet.mp3").toURI().toString();
     public static String explosionSound = new File("res/audio/explosion.mp3").toURI().toString();
-    public static String gameSound = new File("res/audio/tavern.mp3").toURI().toString();
     public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.mp3").toURI().toString();
     public static String binLadenSkillSound = new File("res/audio/binladenskillsound.mp3").toURI().toString();
     public static String sonGokuSkillSound = new File("res/audio/songokuskillsound.mp3").toURI().toString();
@@ -60,7 +59,7 @@ public class GameAudio {
 
     private static final GameAudio INSTANCE = new GameAudio();
     // 10 - the magic number xD
-    private static final int MAX_PENDING = 16;
+    private static final int MAX_PENDING = Config.AUDIO_MAX_PENDING;
     private int headIndex;
     private int tailIndex;
     // Good explanation of volatile: http://tutorials.jenkov.com/java-concurrency/volatile.html
@@ -88,13 +87,10 @@ public class GameAudio {
         return updateThread != null && updateThread.isAlive();
     }
 
-    public void init()
-    {
-        if (updateThread == null)
-        {
+    public void init() {
+        if (updateThread == null) {
             updateThread = new Thread(() -> {
-                while (!Thread.currentThread().isInterrupted())
-                {
+                while (!Thread.currentThread().isInterrupted()) {
                     update();
                 }
             });
@@ -102,10 +98,8 @@ public class GameAudio {
         startThread();
     }
 
-    private void startThread()
-    {
-        if (!updateThread.isAlive())
-        {
+    private void startThread() {
+        if (!updateThread.isAlive()) {
             updateThread.start();
             headIndex = 0;
             tailIndex = 0;
@@ -116,8 +110,7 @@ public class GameAudio {
      * Add audio to queue if possible
      * @param audioClip
      */
-    public void playSound(AudioClip audioClip)
-    {
+    public void playSound(AudioClip audioClip) {
         if ((tailIndex + 1)%MAX_PENDING != headIndex) {
             init();
 //            for (int i = headIndex; i != tailIndex; i = (i + 1) % MAX_PENDING) {
@@ -163,15 +156,13 @@ public class GameAudio {
         return pendingAudio;
     }
 
-    public void playThemeSong()
-    {
+    public void playThemeSong() {
         mediaPlayer.setVolume(mainVolume);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
 
-    public void setMainVolume(double mainVolume)
-    {
+    public void setMainVolume(double mainVolume) {
         mediaPlayer.setVolume(mainVolume);
         this.mainVolume = mainVolume;
     }

@@ -35,9 +35,11 @@ public class PopupDrawer {
         Color bgColor = Color.rgb(178, 190, 195,0.6);
         graphicsContext.setFill(bgColor);
         graphicsContext.fillRect(0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
-        for (UIEntity uiEntity:
-             popupEntities) {
-            UI_POPUP_ENTITY_DRAWER_MAP.get(uiEntity.getClass()).draw(0, graphicsContext, uiEntity, uiEntity.getPosX()*Config.TILE_SIZE, uiEntity.getPosY()*Config.TILE_SIZE, uiEntity.getWidth(),  uiEntity.getHeight(), 0);
+        for (UIEntity uiEntity: popupEntities) {
+            UI_POPUP_ENTITY_DRAWER_MAP.get(uiEntity.getClass()).draw(0, graphicsContext, uiEntity,
+                    uiEntity.getPosX()*Config.TILE_SIZE,
+                    uiEntity.getPosY()*Config.TILE_SIZE,
+                    uiEntity.getWidth(),  uiEntity.getHeight(), 0);
         }
     }
 }

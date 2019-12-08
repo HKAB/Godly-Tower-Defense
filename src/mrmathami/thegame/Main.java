@@ -11,6 +11,15 @@ import mrmathami.thegame.audio.GameAudio;
 
 /**
  * Main class. Entry point of the game.
+ *
+ * Team:
+ *  █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
+ * ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
+ * ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
+ * ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
+ * ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
+ * ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
+ *
  */
 public final class Main extends Application {
 	public static void main(String[] args) {

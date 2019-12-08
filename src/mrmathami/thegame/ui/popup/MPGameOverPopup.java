@@ -17,9 +17,9 @@ public class MPGameOverPopup extends AbstractPopup implements CanControlGame {
     private MPGameController mpGameController;
     public MPGameOverPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
-        PopupButton backButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
         getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 125)/Config.TILE_SIZE, 100, Color.BLACK, "GAME OVER"));
         getPopupEntities().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/stage/popup/images/sad.png"));
+        PopupButton backButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
         getPopupEntities().add(backButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {

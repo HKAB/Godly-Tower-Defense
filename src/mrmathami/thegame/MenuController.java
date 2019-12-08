@@ -117,15 +117,11 @@ public final class MenuController extends AnimationTimer {
         final long startNs = System.nanoTime();
 
         // draw a new frame, as fast as possible.
-        try {
-            drawer.render();
-            if (stackPane.getChildren().size() > 1) {
-                if (popupDrawer != null) {
-                    popupDrawer.render();
-                }
+        drawer.render();
+        if (stackPane.getChildren().size() > 1) {
+            if (popupDrawer != null) {
+                popupDrawer.render();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
         // MSPT display. MSPT stand for Milliseconds Per Tick.
@@ -169,6 +165,7 @@ public final class MenuController extends AnimationTimer {
         gameCanvas.setOnMouseClicked(gameController::mouseClickHandler);
         gameCanvas.setOnMouseMoved(gameController::mouseMoveHandler);
         gameCanvas.setOnKeyPressed(gameController::keyDownHandler);
+        stackPane.getChildren().clear();
         stackPane.getChildren().add(gameCanvas);
         gameController.start();
     }

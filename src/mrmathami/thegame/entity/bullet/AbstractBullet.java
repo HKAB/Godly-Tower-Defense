@@ -30,7 +30,7 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 		this.GID = GID;
 		this.enemyTarget = enemyTarget;
 		this.speed = speed;
-		setAngle(90 + Math.atan2((deltaY), (deltaX))*180/Math.PI);
+		setAngle(Double.MAX_VALUE);
 	}
 
 	@Override
@@ -42,13 +42,21 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 			double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 			deltaX = deltaX * normalize;
 			deltaY = deltaY * normalize;
-
+			if ((getPosX() + deltaX)*Config.TILE_SIZE + Config.OFFSET + getWidth()*Config.TILE_SIZE > Config.TILE_SIZE*Config.TILE_HORIZONTAL)
+			{
+				doDestroy();
+				return;
+			}
 			setPosX(getPosX() + deltaX);
 			setPosY(getPosY() + deltaY);
 			setAngle(90 + Math.atan2(deltaY, deltaX) * 180 / Math.PI);
 		}
 		else
 		{
+			if ((getPosX() + deltaX)*Config.TILE_SIZE + Config.OFFSET + getWidth()*Config.TILE_SIZE > Config.TILE_SIZE*Config.TILE_HORIZONTAL) {
+				doDestroy();
+				return;
+			}
 			setPosX(getPosX() + deltaX);
 			setPosY(getPosY() + deltaY);
 		}

@@ -5,7 +5,6 @@ import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.UIEntity;
 
 import javax.annotation.Nonnull;
-import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import mrmathami.thegame.Config;
@@ -87,7 +86,7 @@ public final class MenuDrawer {
         this.fieldZoom = fieldZoom;
     }
 
-    public final void render() throws FileNotFoundException {
+    public final void render() {
         final MenuUI menuUI = this.menuUI;
         final double fieldZoom = this.fieldZoom;
         final double fieldStartPosX = this.fieldStartPosX;
@@ -106,15 +105,13 @@ public final class MenuDrawer {
         for (UIEntity entity : entities) {
             final UIEntityDrawer drawer = getUIEntityDrawer(entity);
             if (drawer != null) {
-                if (drawer != null) {
-                    drawer.draw(0, graphicsContext, entity,
-                            (entity.getPosX() - fieldStartPosX) * fieldZoom,
-                            (entity.getPosY() - fieldStartPosY) * fieldZoom,
-                            entity.getWidth() * fieldZoom,
-                            entity.getHeight() * fieldZoom,
-                            fieldZoom
-                    );
-                }
+                drawer.draw(0, graphicsContext, entity,
+                        (entity.getPosX() - fieldStartPosX) * fieldZoom,
+                        (entity.getPosY() - fieldStartPosY) * fieldZoom,
+                        entity.getWidth() * fieldZoom,
+                        entity.getHeight() * fieldZoom,
+                        fieldZoom
+                );
             }
         }
     }

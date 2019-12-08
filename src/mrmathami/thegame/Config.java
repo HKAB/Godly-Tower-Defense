@@ -75,6 +75,7 @@ public final class Config {
 
 	//region Audio
 	public static double INITIAL_MAIN_VOLUME = 0.1;
+	public static final int AUDIO_MAX_PENDING = 16;
 	//endregion
 	//region Popup
 	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
