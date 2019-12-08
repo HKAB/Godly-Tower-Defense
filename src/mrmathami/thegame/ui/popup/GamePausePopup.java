@@ -31,8 +31,8 @@ public class GamePausePopup extends AbstractPopup implements CanControlGame {
                 UIEntity entity = iterator.next();
                 double startX = (entity.getPosX()) * Config.TILE_SIZE;
                 double startY = (entity.getPosY()) * Config.TILE_SIZE;
-                double endX = startX + entity.getWidth() * Config.TILE_SIZE;
-                double endY = startY + entity.getHeight() * Config.TILE_SIZE;
+                double endX = startX + entity.getWidth();
+                double endY = startY + entity.getHeight();
                 if (Double.compare(mousePosX, startX) >= 0 && Double.compare(mousePosX, endX) <= 0
                         && Double.compare(mousePosY, startY) >= 0 && Double.compare(mousePosY, endY) <= 0) {
                     if (entity == pauseButton) {

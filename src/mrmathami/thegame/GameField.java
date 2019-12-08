@@ -2,6 +2,7 @@ package mrmathami.thegame;
 
 
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.bullet.AbstractBullet;
 import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.spawner.AbstractSpawner;
@@ -17,7 +18,7 @@ public class GameField {
 	@Nonnull protected final Collection<GameEntity> unmodifiableEntities = Collections.unmodifiableCollection(entities);
 	@Nonnull protected final List<GameEntity> spawnEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 	// This is not a list of EffectEntity, it's a list of AbstractEffect entity
-	@Nonnull private final List<GameEntity> sfxEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+	@Nonnull protected final List<GameEntity> sfxEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
 
 	/**
 	 * Field width.
@@ -136,7 +137,7 @@ public class GameField {
 	 */
 	public void tick() {
 		this.tickCount += 1;
-		if ((this.tickCount % 10) == 0) this.money++;
+		if ((this.tickCount % Config.TICK_COUNT_PER_MONEY) == 0) this.money++;
 
 		// 1.1. Update UpdatableEntity
 		for (final GameEntity entity : entities) {
@@ -156,7 +157,7 @@ public class GameField {
 		}
 		// 1.3. Update DestroyableEntity
 		final List<GameEntity> destroyedEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
-		final List<GameEntity> effectEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+
 		for (final GameEntity entity : entities) {
 			if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroyed()) {
 				if (entity instanceof DestroyListener) ((DestroyListener) entity).onDestroy(this);
@@ -173,8 +174,19 @@ public class GameField {
 		entities.removeAll(destroyedEntities);
 
 		// 2.2. Destroy entities (removed becuz it deleting my entities :<)
-//		entities.removeIf(entity -> !entity.isBeingOverlapped(0.0, 0.0, width, height));
-
+//		entities.removeIf(entity -> !entity.isBeingOverlapped(0.0 - Config.OFFSET/Config.TILE_SIZE, 0.0 - Config.OFFSET/Config.TILE_SIZE, width - Config.OFFSET/Config.TILE_SIZE, height + Config.OFFSET/Config.TILE_SIZE));
+		final List<GameEntity> removeBulletEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+		for (GameEntity entity :
+				entities) {
+			if (entity instanceof AbstractBullet)
+			{
+				if (!entity.isBeingOverlapped(0.0 - Config.OFFSET/Config.TILE_SIZE, 0.0 - Config.OFFSET/Config.TILE_SIZE, width - entity.getWidth(), height))
+				{
+					removeBulletEntities.add(entity);
+				}
+			}
+		}
+		entities.removeAll(removeBulletEntities);
 		// 3. Spawn entities
 		for (GameEntity entity : spawnEntities) {
 			entities.add(entity);

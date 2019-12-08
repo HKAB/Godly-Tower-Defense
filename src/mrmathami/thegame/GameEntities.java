@@ -22,7 +22,6 @@ public final class GameEntities {
 	 */
 	private static final Set<UnorderedPair<Class<? extends GameEntity>, Class<? extends GameEntity>>> COLLISION_PAIR_SET
 			= new HashSet<>(Set.of(
-			UnorderedPair.immutableOf(Mountain.class, NormalEnemy.class),
 			UnorderedPair.immutableOf(Mountain.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, Tanker.class),
@@ -30,7 +29,6 @@ public final class GameEntities {
 			UnorderedPair.immutableOf(Bush.class, RocketLauncherTower.class),
 			UnorderedPair.immutableOf(Bush.class, MachineGunTower.class),
 			UnorderedPair.immutableOf(Bush.class, RobotPoliceTower.class),
-			UnorderedPair.immutableOf(NormalEnemy.class, NormalEnemy.class),
 			UnorderedPair.immutableOf(NormalAircraft.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(BigAircraft.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Tanker.class, Tanker.class)
@@ -38,7 +36,6 @@ public final class GameEntities {
 
 	private static final Set<Pair<Class<? extends EffectEntity>, Class<? extends LivingEntity>>> EFFECT_LIVING_SET
 			= new HashSet<>(Set.of(
-			Pair.immutableOf(NormalBullet.class, NormalEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, NormalAircraft.class),
 			Pair.immutableOf(NormalBullet.class, NormalAircraft.class),
 			Pair.immutableOf(RocketBullet.class, BigAircraft.class),
@@ -62,7 +59,6 @@ public final class GameEntities {
 			Pair.immutableOf(NormalBullet.class, MedicBossEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, MedicBossEnemy.class),
 			Pair.immutableOf(RocketBullet.class, MedicBossEnemy.class),
-			Pair.immutableOf(NormalEnemy.class, Target.class),
 			Pair.immutableOf(NormalAircraft.class, Target.class),
 			Pair.immutableOf(BigAircraft.class, Target.class),
 			Pair.immutableOf(Tanker.class, Target.class),
