@@ -12,6 +12,7 @@ import mrmathami.thegame.audio.GameAudio;
 /**
  * Main class. Entry point of the game.
  *
+ * Team:
  *  █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
  * ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
  * ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║

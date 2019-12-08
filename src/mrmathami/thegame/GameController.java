@@ -257,6 +257,7 @@ public final class GameController extends AnimationTimer {
 		graphicsContext.setTextBaseline(VPos.TOP);
 		graphicsContext.setFont(new Font(12));
 		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+		graphicsContext.fillText(String.format("Tick: %d", tick), 0, 20);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();

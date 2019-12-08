@@ -86,13 +86,10 @@ public class GameAudio {
         return updateThread != null && updateThread.isAlive();
     }
 
-    public void init()
-    {
-        if (updateThread == null)
-        {
+    public void init() {
+        if (updateThread == null) {
             updateThread = new Thread(() -> {
-                while (!Thread.currentThread().isInterrupted())
-                {
+                while (!Thread.currentThread().isInterrupted()) {
                     update();
                 }
             });
@@ -100,10 +97,8 @@ public class GameAudio {
         startThread();
     }
 
-    private void startThread()
-    {
-        if (!updateThread.isAlive())
-        {
+    private void startThread() {
+        if (!updateThread.isAlive()) {
             updateThread.start();
             headIndex = 0;
             tailIndex = 0;
@@ -114,8 +109,7 @@ public class GameAudio {
      * Add audio to queue if possible
      * @param audioClip
      */
-    public void playSound(AudioClip audioClip)
-    {
+    public void playSound(AudioClip audioClip) {
         if ((tailIndex + 1)%MAX_PENDING != headIndex) {
             init();
 //            for (int i = headIndex; i != tailIndex; i = (i + 1) % MAX_PENDING) {
@@ -161,15 +155,13 @@ public class GameAudio {
         return pendingAudio;
     }
 
-    public void playThemeSong()
-    {
+    public void playThemeSong() {
         mediaPlayer.setVolume(mainVolume);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
 
-    public void setMainVolume(double mainVolume)
-    {
+    public void setMainVolume(double mainVolume) {
         mediaPlayer.setVolume(mainVolume);
         this.mainVolume = mainVolume;
     }
