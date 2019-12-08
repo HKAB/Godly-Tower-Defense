@@ -217,6 +217,10 @@ public final class GameController extends AnimationTimer {
 
 		//update the values in context so it match the current field, as fast as possible
 		contextArea.updateContext(field.getMoney(), field.getHealth(), towerPicker);
+
+		//update the tower picker to match the current field, as fast as possible
+		if (towerPicker != null) towerPicker.update(field);
+
 		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);

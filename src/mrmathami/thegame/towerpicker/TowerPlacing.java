@@ -1,7 +1,13 @@
 package mrmathami.thegame.towerpicker;
 
 import mrmathami.thegame.Config;
+import mrmathami.thegame.GameField;
+import mrmathami.thegame.entity.GameEntity;
+import mrmathami.thegame.entity.tile.Bush;
+import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.tower.*;
+
+import java.util.Collection;
 
 public class TowerPlacing extends AbstractTowerPicker {
     public final int NOT_BEING_PLACED = 0;
@@ -83,5 +89,32 @@ public class TowerPlacing extends AbstractTowerPicker {
     @Override
     public int getGID() {
         return GID;
+    }
+
+    @Override
+    public void update(GameField field) {
+        if (getPlacingState() != NOT_BEING_PLACED) {
+            if (field.getMoney() < getTowerPrice()) {
+                setPlacingState(NOT_PLACEABLE);
+                return;
+            }
+
+            Collection<GameEntity> gameEntities = field.getEntities();
+            setPlacingState(PLACEABLE);
+            for (GameEntity entity : gameEntities) {
+                if (entity instanceof Road) {
+                    if (isOverlappedWithRoad(entity)) {
+                        setPlacingState(NOT_PLACEABLE);
+                        return;
+                    }
+                }
+                else if ((entity instanceof AbstractTower) || (entity instanceof Bush)) {
+                    if (isOverlappedWithTower(entity)) {
+                        setPlacingState(NOT_PLACEABLE);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
