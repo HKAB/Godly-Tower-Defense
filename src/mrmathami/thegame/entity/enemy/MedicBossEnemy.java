@@ -13,7 +13,7 @@ public class MedicBossEnemy extends BossEnemy {
 
     @Override
     public void skillCheck(GameField field) {
-        if (!isDestroyed()) setHealth(getHealth() + 2);
+        if (!isDestroyed()) setHealth(getHealth() + Config.MEDIC_BOSS_ENEMY_HEALTH_REGENERATE);
         if ((field.getTickCount() - getCreatedTick()) == Config.MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.MEDIC_BOSS_ENEMY_CUT_IN_URI));

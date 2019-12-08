@@ -382,10 +382,10 @@ public final class GameController extends AnimationTimer {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 										((AbstractTower) entity).doUpgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
-										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
@@ -491,6 +491,14 @@ public final class GameController extends AnimationTimer {
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
 							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+						}
+						else if (towerPicker instanceof TowerUpgrading) {
+//							if (field.getMoney() >= ((TowerUpgrading) towerPicker).getUpgradePrice(entity)) {
+								towerPicker.setPickingState(towerPicker.PICKABLE);
+//							}
+//							else {
+//								towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
+//							}
 						}
 						else {
 							towerPicker.setPickingState(towerPicker.PICKABLE);
