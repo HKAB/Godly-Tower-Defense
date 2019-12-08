@@ -5,6 +5,9 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.GameStage;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.bullet.AbstractBullet;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.tower.*;
 
 import javax.annotation.Nonnull;
@@ -61,7 +64,25 @@ public final class MPGameField extends GameField {
         }
 
         // 2.1. Destroy entities
+        for (GameEntity destroyEntity :
+                destroyedEntities) {
+            if (destroyEntity instanceof AbstractEnemy)
+                sfxEntities.add(new ExplosionEffect(0, destroyEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE, destroyEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE));
+        }
         entities.removeAll(destroyedEntities);
+
+        final List<GameEntity> removeBulletEntities = new ArrayList<>(Config._TILE_MAP_COUNT);
+        for (GameEntity entity :
+                entities) {
+            if (entity instanceof AbstractBullet)
+            {
+                if (!entity.isBeingOverlapped(0.0 - Config.OFFSET/Config.TILE_SIZE, 0.0 - Config.OFFSET/Config.TILE_SIZE, MPConfig.TILE_HORIZONTAL - entity.getWidth(), MPConfig.TILE_VERTICAL) && !entity.isBeingOverlapped(MPConfig.OPPONENT_START_X - Config.OFFSET/Config.TILE_SIZE, 0.0 - Config.OFFSET/Config.TILE_SIZE, MPConfig.TILE_VERTICAL - entity.getWidth(), MPConfig.TILE_HORIZONTAL))
+                {
+                    removeBulletEntities.add(entity);
+                }
+            }
+        }
+        entities.removeAll(removeBulletEntities);
 
         // 2.2. Destroy entities (removed becuz it deleting my entities :<)
 //		entities.removeIf(entity -> !entity.isBeingOverlapped(0.0, 0.0, width, height));
@@ -72,6 +93,8 @@ public final class MPGameField extends GameField {
             if (entity instanceof SpawnListener) ((SpawnListener) entity).onSpawn(this);
         }
         spawnEntities.clear();
+        entities.addAll(sfxEntities);
+        sfxEntities.clear();
 
         getAndProcessRemoteCommand();
     }
