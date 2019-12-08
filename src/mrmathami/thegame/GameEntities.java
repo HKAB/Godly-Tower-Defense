@@ -5,6 +5,7 @@ import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.LivingEntity;
 import mrmathami.thegame.entity.bullet.*;
 import mrmathami.thegame.entity.enemy.*;
+import mrmathami.thegame.entity.enemy.boss.*;
 import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Target;

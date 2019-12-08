@@ -203,12 +203,12 @@ public final class MPGameController extends AnimationTimer {
 		if (opponentField.isLoss()) {
 			MPWinPopup winPopup = new MPWinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 			winPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupComponents());
 			gamePause();
 		} else if (field.isLoss()) {
 			MPGameOverPopup gameOverPopup = new MPGameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 			gameOverPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupComponents());
 			gamePause();
 		}
 
@@ -265,7 +265,7 @@ public final class MPGameController extends AnimationTimer {
 			if (!isConnected) {
 				MPDisconnectPopup disconnectPopup = new MPDisconnectPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 				disconnectPopup.setGameController(this);
-				popupDrawer = new PopupDrawer(disconnectPopup.getPopupCanvas().getGraphicsContext2D(), disconnectPopup.getPopupEntities());
+				popupDrawer = new PopupDrawer(disconnectPopup.getPopupCanvas().getGraphicsContext2D(), disconnectPopup.getPopupComponents());
 				gamePause();
 			}
 		}

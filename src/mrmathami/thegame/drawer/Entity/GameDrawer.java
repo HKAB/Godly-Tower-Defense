@@ -18,6 +18,7 @@ import mrmathami.thegame.drawer.UI.InGame.*;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.bullet.StopSignBullet;
 import mrmathami.thegame.entity.enemy.*;
+import mrmathami.thegame.entity.enemy.boss.*;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 import mrmathami.thegame.entity.tile.tower.RobotPoliceTower;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;

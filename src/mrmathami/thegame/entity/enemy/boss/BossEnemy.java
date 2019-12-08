@@ -1,7 +1,8 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.boss;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
 
 import javax.annotation.Nonnull;
 

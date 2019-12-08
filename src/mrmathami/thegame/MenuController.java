@@ -19,7 +19,6 @@ import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.ui.popup.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.Executors;
@@ -251,15 +250,15 @@ public final class MenuController extends AnimationTimer {
                     break;
                 } else if (entity instanceof MultiPlayerButton) {
                     MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupComponents());
                     break;
                 } else if (entity instanceof SettingsButton) {
                     SettingPopup settingPopup = new SettingPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(settingPopup.getPopupCanvas().getGraphicsContext2D(), settingPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(settingPopup.getPopupCanvas().getGraphicsContext2D(), settingPopup.getPopupComponents());
                     break;
                 } else if (entity instanceof CreditsButton) {
                     CreditPopup creditPopup = new CreditPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(creditPopup.getPopupCanvas().getGraphicsContext2D(), creditPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(creditPopup.getPopupCanvas().getGraphicsContext2D(), creditPopup.getPopupComponents());
                     break;
                 }
             }

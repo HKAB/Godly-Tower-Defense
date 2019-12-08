@@ -1,7 +1,7 @@
 package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.Config;
-import mrmathami.thegame.entity.enemy.BinLadenBossEnemy;
+import mrmathami.thegame.entity.enemy.boss.BinLadenBossEnemy;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

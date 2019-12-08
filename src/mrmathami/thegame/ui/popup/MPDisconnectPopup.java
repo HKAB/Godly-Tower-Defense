@@ -17,14 +17,14 @@ public class MPDisconnectPopup extends AbstractPopup implements CanControlGame {
     private MPGameController mpGameController;
     public MPDisconnectPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
-        getPopupEntities().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 120)/Config.TILE_SIZE, 42, Color.BLACK, "OPPONENT DISCONNECTED"));
-        getPopupEntities().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/stage/popup/images/disconnected_dino.png"));
+        getPopupComponents().add(new PopupLabel(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 120)/Config.TILE_SIZE, 42, Color.BLACK, "OPPONENT DISCONNECTED"));
+        getPopupComponents().add(new PopupImage(0, (width/2.0)/Config.TILE_SIZE, (height/2.0 - 256)/Config.TILE_SIZE, "res/stage/popup/images/disconnected_dino.png"));
         PopupButton backButton = new PopupButton(0, 0, 0, (width/2.0)/Config.TILE_SIZE, (height/2.0 + 150 + 20)/Config.TILE_SIZE, 20, " \ueab8 ");
-        getPopupEntities().add(backButton);
+        getPopupComponents().add(backButton);
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
-            Collection<UIEntity> UIEntities = getPopupEntities();
+            Collection<UIEntity> UIEntities = getPopupComponents();
             for (UIEntity entity : UIEntities) {
                 double startX = (entity.getPosX()) * Config.TILE_SIZE;
                 double startY = (entity.getPosY()) * Config.TILE_SIZE;

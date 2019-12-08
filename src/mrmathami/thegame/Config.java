@@ -77,13 +77,14 @@ public final class Config {
 	public static double INITIAL_MAIN_VOLUME = 0.1;
 	public static final int AUDIO_MAX_PENDING = 16;
 	//endregion
+
 	//region Popup
 	public static final double CREDIT_POPUP_WIDTH = SCREEN_WIDTH - 100;
 	public static final double CREDIT_POPUP_HEIGHT = SCREEN_HEIGHT - 100;
 	//endregion
 
 	// Player informations
-	public static final long PLAYER_INITIAL_HEALTH = 10;
+	public static final long PLAYER_INITIAL_HEALTH = 100;
 	public static final long PLAYER_INITIAL_MONEY = 10000;
 
 	//Other config related to other entities in the game.

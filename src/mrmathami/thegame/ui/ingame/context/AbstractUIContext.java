@@ -1,6 +1,5 @@
 package mrmathami.thegame.ui.ingame.context;
 
-import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 
 public abstract class AbstractUIContext implements UIEntity {

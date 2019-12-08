@@ -9,7 +9,7 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.EntityDrawer;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.enemy.BossEnemy;
+import mrmathami.thegame.entity.enemy.boss.BossEnemy;
 
 import javax.annotation.Nonnull;
 

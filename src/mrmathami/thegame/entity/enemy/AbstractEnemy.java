@@ -9,6 +9,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.enemy.boss.BossEnemy;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;

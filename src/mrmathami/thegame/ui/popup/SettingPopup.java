@@ -15,22 +15,22 @@ public class SettingPopup extends AbstractPopup {
         super(createdTick, posX, posY, width, height, stackPane);
         // TODO: make this more easier to calculate position
         double padding = 10;
-        getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
+        getPopupComponents().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
         //                                                                                                                 30 here is size of button
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + padding)/Config.TILE_SIZE, 20, "\ueee4");
-        getPopupEntities().add(closeButton);
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (posY + 80)/Config.TILE_SIZE, 42, Color.rgb(0, 0, 0), "SETTING"));
+        getPopupComponents().add(closeButton);
+        getPopupComponents().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (posY + 80)/Config.TILE_SIZE, 42, Color.rgb(0, 0, 0), "SETTING"));
 
-        getPopupEntities().add(new PopupLabel(0, (posX + width/3)/Config.TILE_SIZE, (posY + height/3)/Config.TILE_SIZE, 30, Color.rgb(0, 0, 0), "Music"));
+        getPopupComponents().add(new PopupLabel(0, (posX + width/3)/Config.TILE_SIZE, (posY + height/3)/Config.TILE_SIZE, 30, Color.rgb(0, 0, 0), "Music"));
         PopupButton volumeDownButton = new PopupButton(0, 0, 0, (posX + width/3 + 150/2 + padding)/Config.TILE_SIZE, (posY + height/3 - 30)/Config.TILE_SIZE, 20, "\uef99");
-        getPopupEntities().add(volumeDownButton);
+        getPopupComponents().add(volumeDownButton);
         PopupSlideBar popupSlideBar = new PopupSlideBar((posX + width/3 + 150/2 + padding + 30 + padding)/Config.TILE_SIZE, (posY + height/3 - 30)/Config.TILE_SIZE, 300, 40, GameAudio.getInstance().getMainVolume()*100);
-        getPopupEntities().add(popupSlideBar);
+        getPopupComponents().add(popupSlideBar);
         PopupButton volumeUpButton = new PopupButton(0, 0, 0, (posX + width/3 + 150/2 + padding + 30 + padding + 300 + 30 + padding)/Config.TILE_SIZE, (posY + height/3 - 30)/Config.TILE_SIZE, 20, "\uefc1");
-        getPopupEntities().add(volumeUpButton);
+        getPopupComponents().add(volumeUpButton);
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
 
-            Collection<UIEntity> UIEntities = getPopupEntities();
+            Collection<UIEntity> UIEntities = getPopupComponents();
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
             Iterator<UIEntity> iterator = UIEntities.iterator();

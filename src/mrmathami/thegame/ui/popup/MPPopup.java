@@ -22,11 +22,11 @@ public class MPPopup extends AbstractPopup {
     private PopupLabel messageLabel = null;
     public MPPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
-        getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTI-PLAYER"));
+        getPopupComponents().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
+        getPopupComponents().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTI-PLAYER"));
         // START: Input field
-        getPopupEntities().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
-        getPopupEntities().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        getPopupComponents().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
+        getPopupComponents().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
         PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 27)/Config.TILE_SIZE, 300, 50, 25);
         PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 27)/Config.TILE_SIZE, 300, 50, 25);
         PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 10)/Config.TILE_SIZE, 20, " \uecf9 ");
@@ -35,17 +35,17 @@ public class MPPopup extends AbstractPopup {
         PopupButton closeButton = new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4");
         popupAddressInput.setText(MPConfig.DEFAULT_SERVER_HOST);
         popupPortInput.setText(Integer.toString(MPConfig.DEFAULT_LISTEN_PORT));
-        getPopupEntities().add(closeButton);
-        getPopupEntities().add(popupAddressInput);
-        getPopupEntities().add(popupPortInput);
-        getPopupEntities().add(clientButton);
-        getPopupEntities().add(serverButton);
+        getPopupComponents().add(closeButton);
+        getPopupComponents().add(popupAddressInput);
+        getPopupComponents().add(popupPortInput);
+        getPopupComponents().add(clientButton);
+        getPopupComponents().add(serverButton);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
             popupAddressInput.setFocus(false);
             popupPortInput.setFocus(false);
             // To avoid ConcurrentModificationException caused by adding error message.
-            CopyOnWriteArrayList<UIEntity> UIEntities = new CopyOnWriteArrayList<>(getPopupEntities());;
+            CopyOnWriteArrayList<UIEntity> UIEntities = new CopyOnWriteArrayList<>(getPopupComponents());;
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
             for (UIEntity entity : UIEntities) {
@@ -160,7 +160,7 @@ public class MPPopup extends AbstractPopup {
     private void showErrorMessage(String text) {
         if (this.messageLabel == null) {
             this.messageLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.RED, text);
-            getPopupEntities().add(this.messageLabel);
+            getPopupComponents().add(this.messageLabel);
             return;
         }
         this.messageLabel.setColor(Color.RED);
@@ -170,7 +170,7 @@ public class MPPopup extends AbstractPopup {
     private void showNotificationMessage(String text) {
         if (this.messageLabel == null) {
             this.messageLabel = new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 180)/Config.TILE_SIZE, 27, Color.DODGERBLUE, text);
-            getPopupEntities().add(this.messageLabel);
+            getPopupComponents().add(this.messageLabel);
             return;
         }
         this.messageLabel.setColor(Color.DODGERBLUE);

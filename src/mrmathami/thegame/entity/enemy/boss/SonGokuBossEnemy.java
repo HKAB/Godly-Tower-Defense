@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.boss;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;

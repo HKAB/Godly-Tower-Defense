@@ -1,7 +1,7 @@
 package mrmathami.thegame.entity.tile.spawner;
 
 import mrmathami.thegame.Config;
-import mrmathami.thegame.entity.enemy.KimJongUnBossEnemy;
+import mrmathami.thegame.entity.enemy.boss.KimJongUnBossEnemy;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

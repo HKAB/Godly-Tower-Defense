@@ -26,9 +26,7 @@ class AudioChannel
      * @return state of this channel
      */
     public boolean isAvailable() {
-        if (audioClip.isPlaying())
-            return false;
-        return true;
+        return !audioClip.isPlaying();
     }
 
     public AudioClip getAudioClip() {
