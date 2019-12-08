@@ -217,6 +217,10 @@ public final class GameController extends AnimationTimer {
 
 		//update the values in context so it match the current field, as fast as possible
 		contextArea.updateContext(field.getMoney(), field.getHealth(), towerPicker);
+
+		//update the tower picker to match the current field, as fast as possible
+		if (towerPicker != null) towerPicker.update(field);
+
 		if (field.getHealth() == 0)
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
@@ -257,6 +261,7 @@ public final class GameController extends AnimationTimer {
 		graphicsContext.setTextBaseline(VPos.TOP);
 		graphicsContext.setFont(new Font(12));
 		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+		graphicsContext.fillText(String.format("Tick: %d", tick), 0, 20);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
@@ -381,10 +386,10 @@ public final class GameController extends AnimationTimer {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 										((AbstractTower) entity).doUpgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
-										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 									}
 								} else if (towerPicker instanceof TowerSelling) {
 									((AbstractTower) entity).doDestroy();
@@ -490,6 +495,14 @@ public final class GameController extends AnimationTimer {
 					if ((towerPicker != null) && (towerPicker.isOverlappedWithTower(entity))) {
 						if (towerPicker instanceof TowerPlacing) {
 							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
+						}
+						else if (towerPicker instanceof TowerUpgrading) {
+//							if (field.getMoney() >= ((TowerUpgrading) towerPicker).getUpgradePrice(entity)) {
+								towerPicker.setPickingState(towerPicker.PICKABLE);
+//							}
+//							else {
+//								towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
+//							}
 						}
 						else {
 							towerPicker.setPickingState(towerPicker.PICKABLE);

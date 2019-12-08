@@ -1,5 +1,6 @@
 package mrmathami.thegame.towerpicker;
 
+import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.tile.Road;
 
@@ -92,7 +93,8 @@ public abstract class AbstractTowerPicker {
     }
 
     public boolean isOverlappedWithTower (GameEntity entity) {
-        if (entity.isBeingOverlapped(posX, posY, 1, 1)) return true;
-        else return false;
+        return entity.isBeingOverlapped(posX, posY, 1, 1);
     }
+
+    public abstract void update (GameField field);
 }

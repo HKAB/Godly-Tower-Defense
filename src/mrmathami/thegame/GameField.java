@@ -119,7 +119,7 @@ public class GameField {
 		spawnEntities.add(entity);
 	}
 
-	public final void addSFX(@Nonnull GameEntity entity) {
+	public void addSFX(@Nonnull GameEntity entity) {
 		sfxEntities.add(entity);
 	}
 
@@ -137,7 +137,7 @@ public class GameField {
 	 */
 	public void tick() {
 		this.tickCount += 1;
-		if ((this.tickCount % 10) == 0) this.money++;
+		if ((this.tickCount % Config.TICK_COUNT_PER_MONEY) == 0) this.money++;
 
 		// 1.1. Update UpdatableEntity
 		for (final GameEntity entity : entities) {
