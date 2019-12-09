@@ -12,8 +12,10 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.ui.button.AbstractButton;
+import mrmathami.thegame.ui.ingame.button.SellButton;
 import mrmathami.thegame.ui.ingame.button.TowerButton;
 import mrmathami.thegame.entity.UIEntity;
+import mrmathami.thegame.ui.ingame.button.UpgradeButton;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -40,7 +42,15 @@ public class GameButtonDrawer implements UIEntityDrawer {
 
             buttonImage = new WritableImage(reader, (towerButton.getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((towerButton.getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
             graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);
-            if (((TowerButton)entity).getKeyBinding() != "") {
+        }
+
+        if ((entity instanceof TowerButton) || (entity instanceof UpgradeButton) || (entity instanceof SellButton)) {
+            String keyBinding = "";
+            if (entity instanceof TowerButton) keyBinding = ((TowerButton) entity).getKeyBinding();
+            else if (entity instanceof UpgradeButton) keyBinding = "Z";
+            else if (entity instanceof SellButton) keyBinding = "X";
+            
+            if (!keyBinding.equals("")) {
                 graphicsContext.setFill(Color.rgb(116, 185, 255));
                 graphicsContext.fillRect(screenPosX, screenPosY + screenHeight - 10, 10, 10);
 
@@ -52,7 +62,7 @@ public class GameButtonDrawer implements UIEntityDrawer {
                 graphicsContext.setTextAlign(TextAlignment.CENTER);
                 graphicsContext.setTextBaseline(VPos.BOTTOM);
                 graphicsContext.setFont(Font.loadFont(new File("res/font/Tomorrow-Regular.ttf").toURI().toString(), 8));
-                graphicsContext.fillText(((TowerButton) entity).getKeyBinding(), screenPosX + 5, screenPosY + screenHeight);
+                graphicsContext.fillText(keyBinding, screenPosX + 5, screenPosY + screenHeight);
             }
         }
     }

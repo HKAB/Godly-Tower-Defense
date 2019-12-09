@@ -1,4 +1,4 @@
-16 9 23
+16 9 33
 168 169 167 168 168 237 237 237 237 237 232 232 232 232 232 232
 168 169 167 168 168 237 237 237 237 237 232 232 211 255 255 255
 168 169 167 168 168 237 237 237 237 237 232 232 233 208 209 209
@@ -8,11 +8,21 @@
 168 169 190 191 191 260 260 260 260 260 260 260 261 236 237 237
 168 170 145 145 145 214 214 214 214 214 214 214 214 240 237 237
 168 168 168 168 168 237 237 237 237 237 237 237 237 237 237 237
-Target 15 1 1 1 20
-NormalAircraftSpawner 1 0 1 1 30 5 0
-BigAircraftSpawner 1 0 1 1 30 20 0
-TankerSpawner 1 0 1 1 20 30 1
-MedicBossSpawner 1 0 1 1 30 10 1
+Target 14 1 1 1 20
+TankerSpawner 1 0 1 1 30 30 7
+NormalAircraftSpawner 1 0 1 1 20 220 35
+BigAircraftSpawner 1 0 1 1 30 550 25
+GrabSpawner 1 0 1 1 30 789 15
+JohnCenaBossSpawner 1 0 1 1 30 888 1
+TankerSpawner 1 0 1 1 30 1100 10
+NormalAircraftSpawner 1 0 1 1 20 1100 15
+BigAircraftSpawner 1 0 1 1 25 1234 10
+GrabSpawner 1 0 1 1 20 1366 12
+SonGokuBossSpawner 1 0 1 1 20 1500 1
+TankerSpawner 1 0 1 1 25 1610 30
+BigAircraftSpawner 1 0 1 1 20 1610 35
+NormalAircraftSpawner 1 0 1 1 20 1610 35
+GrabSpawner 1 0 1 1 20 1610 35
 TurnPoint 1 5 1 6 2 6
 TurnPoint 11 6 12 6 12 5
 TurnPoint 12 2 12 1 13 1

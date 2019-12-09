@@ -74,7 +74,7 @@ public final class Config {
 
 
 	//region Audio
-	public static double INITIAL_MAIN_VOLUME = 0.1;
+	public static double INITIAL_MAIN_VOLUME = 0.5;
 	public static final int AUDIO_MAX_PENDING = 16;
 	//endregion
 	//region Popup
@@ -84,7 +84,8 @@ public final class Config {
 
 	// Player informations
 	public static final long PLAYER_INITIAL_HEALTH = 10;
-	public static final long PLAYER_INITIAL_MONEY = 10000;
+	public static final long PLAYER_INITIAL_MONEY = 666;
+	public static final long TICK_COUNT_PER_MONEY = 5;
 
 	//Other config related to other entities in the game.
 
@@ -202,17 +203,12 @@ public final class Config {
 	//endregion
 
 	//region Enemy
-	public static final double NORMAL_ENEMY_SIZE = 1;
-	public static final long NORMAL_ENEMY_HEALTH = 1000;
-	public static final long NORMAL_ENEMY_ARMOR = 3;
-	public static final double NORMAL_ENEMY_SPEED = 0.2;
-	public static final long NORMAL_ENEMY_REWARD = 1;
 
 	public static final double NORMAL_AIRCRAFT_ENEMY_SIZE = 1.0;
 	public static final long NORMAL_AIRCRAFT_ENEMY_HEALTH = 20;
 	public static final long NORMAL_AIRCRAFT_ENEMY_ARMOR = 0;
 	public static final double NORMAL_AIRCRAFT_ENEMY_SPEED = 0.1;
-	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 1;
+	public static final long NORMAL_AIRCRAFT_ENEMY_REWARD = 10;
 	public static final int[] NORMAL_AIRCRAFT_ENEMY_GID = {246, 247, 248, 249};
 	public static final double NORMAL_AIRCRAFT_ENEMY_WIDTH = 24.0;
 	public static final double NORMAL_AIRCRAFT_ENEMY_HEIGHT = 28.0;
@@ -223,7 +219,7 @@ public final class Config {
 	public static final long BIG_AIRCRAFT_ENEMY_HEALTH = 120;
 	public static final long BIG_AIRCRAFT_ENEMY_ARMOR = 0;
 	public static final double BIG_AIRCRAFT_ENEMY_SPEED = 0.15;
-	public static final long BIG_AIRCRAFT_ENEMY_REWARD = 1;
+	public static final long BIG_AIRCRAFT_ENEMY_REWARD = 25;
 	public static final int[] BIG_AIRCRAFT_ENEMY_GID = {271, 272};
 	public static final double BIG_AIRCRAFT_ENEMY_WIDTH = 55.0;
 	public static final double BIG_AIRCRAFT_ENEMY_HEIGHT = 60.0;
@@ -234,7 +230,7 @@ public final class Config {
 	public static final long TANKER_ENEMY_HEALTH = 300;
 	public static final long TANKER_ENEMY_ARMOR = 2;
 	public static final double TANKER_ENEMY_SPEED = 0.07;
-	public static final long TANKER_ENEMY_REWARD = 35;
+	public static final long TANKER_ENEMY_REWARD = 30;
 	public static final int[] TANKER_ENEMY_GID = {269, 270};
 	public static final double TANKER_ENEMY_WIDTH = 54.0;
 	public static final double TANKER_ENEMY_HEIGHT = 36.0;
@@ -247,7 +243,7 @@ public final class Config {
 	public static final long JOHN_CENA_BOSS_ENEMY_ARMOR = 10;
 	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.05;
 	public static final long JOHN_CENA_BOSS_ENEMY_REWARD = 100;
-	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 30.0;
+	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 40.0;
 	public static final double JOHN_CENA_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int JOHN_CENA_BOSS_ENEMY_GID = 223;
 	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
@@ -295,7 +291,7 @@ public final class Config {
 	public static final double ELON_MUSK_BOSS_ENEMY_WIDTH = 42.0;
 	public static final double ELON_MUSK_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int ELON_MUSK_BOSS_ENEMY_GID = 179;
-	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.5;
+	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.420;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 75;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 200;
 	public static final String ELON_MUSK_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/elonmuskcutin.png";
@@ -311,13 +307,14 @@ public final class Config {
 	public static final int MEDIC_BOSS_ENEMY_UBER_GID = 178;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 125;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 225;
+	public static final long MEDIC_BOSS_ENEMY_HEALTH_REGENERATE = 2;
 	public static final String MEDIC_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/mediccutin.png";
 
 	public static final double GRAB_ENEMY_SIZE = 1;
 	public static final long GRAB_ENEMY_HEALTH = 20;
 	public static final long GRAB_ENEMY_ARMOR = 2;
 	public static final double GRAB_ENEMY_SPEED = 0.11;
-	public static final long GRAB_ENEMY_REWARD = 1;
+	public static final long GRAB_ENEMY_REWARD = 30;
 	public static final int GRAB_ENEMY_GID = 225;
 	public static final double GRAB_ENEMY_WIDTH = 40.0;
 	public static final double GRAB_ENEMY_HEIGHT = 18.0;

@@ -41,7 +41,8 @@ public final class GameStage {
 								|| value == 243 || value == 264 || value == 265 || value == 266 || value == 220 || value == 221// map 1 part 2 road id
 								|| value == 169 || value == 190 || value == 191 || value == 260 || value == 261 || value == 238 ||  value == 233 || value == 211 || value == 255 // map 2
 								|| value == 58 || value == 59 || value == 36 || value == 13 || value == 56 || value == 57
-								|| value == 164 || value == 142 || value == 186|| value == 187 || value == 141) // mapMP
+								|| value == 164 || value == 142 || value == 186|| value == 187 || value == 141 || value == 185 // mapMP
+								|| value == 174 || value == 151 || value == 196 || value == 195)// map 2 dm met
 						{
 							entities.add(new Road(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
