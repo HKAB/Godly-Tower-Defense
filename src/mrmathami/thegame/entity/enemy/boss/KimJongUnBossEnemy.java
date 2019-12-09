@@ -10,6 +10,7 @@ import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class KimJongUnBossEnemy extends BossEnemy {
@@ -18,7 +19,7 @@ public class KimJongUnBossEnemy extends BossEnemy {
     }
 
     @Override
-    public void skillCheck(GameField field) {
+    public void skillCheck(@Nonnull GameField field) {
         if ((field.getTickCount() - getCreatedTick()) == Config.KIM_JONG_UN_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.KIM_JONG_UN_BOSS_ENEMY_CUT_IN_URI));
             GameAudio.getInstance().playSound(new AudioClip(GameAudio.kimJongUnSkillSound));

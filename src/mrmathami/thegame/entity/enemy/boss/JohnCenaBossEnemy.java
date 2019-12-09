@@ -6,13 +6,15 @@ import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 
+import javax.annotation.Nonnull;
+
 public class JohnCenaBossEnemy extends BossEnemy {
     public JohnCenaBossEnemy (long createdTick, double posX, double posY) {
         super(createdTick, posX, posY, Config.JOHN_CENA_BOSS_ENEMY_WIDTH, Config.JOHN_CENA_BOSS_ENEMY_HEIGHT, Config.JOHN_CENA_BOSS_ENEMY_HEALTH, Config.JOHN_CENA_BOSS_ENEMY_ARMOR, Config.JOHN_CENA_BOSS_ENEMY_SPEED, Config.JOHN_CENA_BOSS_ENEMY_REWARD, Config.JOHN_CENA_BOSS_ENEMY_GID);
     }
 
     @Override
-    public void skillCheck(GameField field) {
+    public void skillCheck(@Nonnull GameField field) {
         if ((field.getTickCount() - getCreatedTick()) == Config.JOHN_CENA_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.JOHN_CENA_BOSS_ENEMY_CUT_IN_URI));

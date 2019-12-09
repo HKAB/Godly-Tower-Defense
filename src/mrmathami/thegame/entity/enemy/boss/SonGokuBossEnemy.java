@@ -6,6 +6,8 @@ import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 
+import javax.annotation.Nonnull;
+
 public class SonGokuBossEnemy extends BossEnemy {
     private boolean reborn;
 
@@ -15,7 +17,7 @@ public class SonGokuBossEnemy extends BossEnemy {
     }
 
     @Override
-    public void skillCheck(GameField field) {
+    public void skillCheck(@Nonnull GameField field) {
         if (this.isDestroyed() && (!reborn)) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.SON_GOKU_BOSS_ENEMY_CUT_IN_URI));
             GameAudio.getInstance().playSound(new AudioClip(GameAudio.sonGokuSkillSound));

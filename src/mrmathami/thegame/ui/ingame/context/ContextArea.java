@@ -93,7 +93,7 @@ public class ContextArea {
     }
 
     public List<AbstractUIContext> getUIContextsList() {
-        List<AbstractUIContext> UIContexts = new ArrayList<AbstractUIContext>();
+        List<AbstractUIContext> UIContexts = new ArrayList<>();
         UIContexts.add(upperContext);
         UIContexts.add(lowerContext);
         UIContexts.add(messageContext);

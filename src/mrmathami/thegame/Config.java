@@ -8,7 +8,7 @@ public final class Config {
 	/**
 	 * Ticks per second
 	 */
-	public static final long GAME_TPS = 20;
+	public static final long GAME_TPS = 10;
 	/**
 	 * Nanoseconds per tick
 	 */
@@ -84,8 +84,9 @@ public final class Config {
 	//endregion
 
 	// Player informations
-	public static final long PLAYER_INITIAL_HEALTH = 100;
+	public static final long PLAYER_INITIAL_HEALTH = 1;
 	public static final long PLAYER_INITIAL_MONEY = 10000;
+	public static final long TICK_COUNT_PER_MONEY = 5;
 
 	//Other config related to other entities in the game.
 

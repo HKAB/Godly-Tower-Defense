@@ -41,8 +41,6 @@ public final class AlertEffectDrawer implements EntityDrawer {
             }
         }
 
-
-
         if (((AlertEffect) entity).getContentGID() != 0)
         {
             maxTileWidth = (int)Math.round(imgSheet.getWidth()/Config.TILE_SIZE);
