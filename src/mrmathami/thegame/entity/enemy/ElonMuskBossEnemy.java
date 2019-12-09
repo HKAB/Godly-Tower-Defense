@@ -6,13 +6,15 @@ import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 
+import javax.annotation.Nonnull;
+
 public class ElonMuskBossEnemy extends BossEnemy {
     public ElonMuskBossEnemy (long createdTick, double posX, double posY) {
         super(createdTick, posX, posY, Config.ELON_MUSK_BOSS_ENEMY_WIDTH, Config.ELON_MUSK_BOSS_ENEMY_HEIGHT, Config.ELON_MUSK_BOSS_ENEMY_HEALTH, Config.ELON_MUSK_BOSS_ENEMY_ARMOR, Config.ELON_MUSK_BOSS_ENEMY_SPEED, Config.ELON_MUSK_BOSS_ENEMY_REWARD, Config.ELON_MUSK_BOSS_ENEMY_GID);
     }
 
     @Override
-    public void skillCheck(GameField field) {
+    public void skillCheck(@Nonnull GameField field) {
         if ((field.getTickCount() - getCreatedTick()) == Config.ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME) {
             //Activate skill
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.ELON_MUSK_BOSS_ENEMY_CUT_IN_URI));

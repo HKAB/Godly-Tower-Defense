@@ -74,7 +74,7 @@ public final class Config {
 
 
 	//region Audio
-	public static double INITIAL_MAIN_VOLUME = 0.0;
+	public static double INITIAL_MAIN_VOLUME = 0.5;
 	public static final int AUDIO_MAX_PENDING = 16;
 	//endregion
 	//region Popup
@@ -222,7 +222,7 @@ public final class Config {
 	public static final long JOHN_CENA_BOSS_ENEMY_ARMOR = 10;
 	public static final double JOHN_CENA_BOSS_ENEMY_SPEED = 0.05;
 	public static final long JOHN_CENA_BOSS_ENEMY_REWARD = 100;
-	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 30.0;
+	public static final double JOHN_CENA_BOSS_ENEMY_WIDTH = 40.0;
 	public static final double JOHN_CENA_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int JOHN_CENA_BOSS_ENEMY_GID = 223;
 	public static final int JOHN_CENA_BOSS_ENEMY_ON_SKILL_GID = 224;
@@ -270,7 +270,7 @@ public final class Config {
 	public static final double ELON_MUSK_BOSS_ENEMY_WIDTH = 42.0;
 	public static final double ELON_MUSK_BOSS_ENEMY_HEIGHT = 64.0;
 	public static final int ELON_MUSK_BOSS_ENEMY_GID = 179;
-	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.05;
+	public static final double ELON_MUSK_BOSS_ENEMY_SKILL_MULTIPLY = 2.420;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 75;
 	public static final long ELON_MUSK_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 200;
 	public static final String ELON_MUSK_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/elonmuskcutin.png";
@@ -286,7 +286,7 @@ public final class Config {
 	public static final int MEDIC_BOSS_ENEMY_UBER_GID = 178;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_ACTIVATE_TIME = 125;
 	public static final long MEDIC_BOSS_ENEMY_SKILL_DEACTIVATE_TIME = 225;
-	public static final long MEDIC_BOSS_ENEMY_HEALTH_REGENERATE = 1;
+	public static final long MEDIC_BOSS_ENEMY_HEALTH_REGENERATE = 2;
 	public static final String MEDIC_BOSS_ENEMY_CUT_IN_URI = "/stage/bosscutin/mediccutin.png";
 
 	public static final double GRAB_ENEMY_SIZE = 1;

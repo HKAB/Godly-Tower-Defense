@@ -9,13 +9,15 @@ import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
 import mrmathami.thegame.entity.tile.tower.AbstractTower;
 
+import javax.annotation.Nonnull;
+
 public class BinLadenBossEnemy extends BossEnemy {
     public BinLadenBossEnemy (long createdTick, double posX, double posY) {
         super(createdTick, posX, posY, Config.BIN_LADEN_BOSS_ENEMY_WIDTH, Config.BIN_LADEN_BOSS_ENEMY_HEIGHT, Config.BIN_LADEN_BOSS_ENEMY_HEALTH, Config.BIN_LADEN_BOSS_ENEMY_ARMOR, Config.BIN_LADEN_BOSS_ENEMY_SPEED, Config.BIN_LADEN_BOSS_ENEMY_REWARD, Config.BIN_LADEN_BOSS_ENEMY_GID);
     }
 
     @Override
-    public void skillCheck(GameField field) {
+    public void skillCheck(@Nonnull GameField field) {
         if (this.isDestroyed()) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.BIN_LADEN_BOSS_ENEMY_CUT_IN_URI));
             GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound));

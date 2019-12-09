@@ -1,4 +1,4 @@
-16 9 21
+16 9 34
 242 242 242 242 242 242 242 173 35 36 34 35 35 35 35 35
 242 242 242 242 242 242 242 173 35 36 34 35 35 35 35 35
 242 242 242 242 242 242 242 173 35 36 57 58 58 58 15 35
@@ -9,8 +9,21 @@
 242 242 242 242 243 264 265 58 58 58 58 58 58 59 34 35
 242 242 242 242 244 219 219 12 12 12 12 12 12 12 38 35
 Target 9 0 1 1 20
-NormalAircraftSpawner 0 3 1 1 30 5 1
-KimJongUnBossSpawner 0 3 1 1 30 10 1
+NormalAircraftSpawner 0 3 1 1 30 30 20
+BigAircraftSpawner 0 3 1 1 30 30 20
+TankerSpawner 0 3 1 1 30 200 8
+GrabSpawner 0 3 1 1 30 555 15
+MedicBossSpawner 0 3 1 1 30 666 1
+NormalAircraftSpawner 0 3 1 1 20 650 18
+BigAircraftSpawner 0 3 1 1 20 1024 20
+TankerSpawner 0 3 1 1 30 1024 13
+NormalAircraftSpawner 0 3 1 1 20 1024 20
+GrabSpawner 0 3 1 1 20 1024 20
+KimJongUnBossSpawner 0 3 1 1 20 1080 1
+NormalAircraftSpawner 0 3 1 1 20 1600 30
+BigAircraftSpawner 0 3 1 1 20 1700 25
+GrabSpawner 0 3 1 1 20 1700 25
+TankerSpawner 0 3 1 1 30 1810 13
 TurnPoint 3 3 4 3 4 4
 TurnPoint 4 6 4 7 5 7
 TurnPoint 12 7 13 7 13 6
