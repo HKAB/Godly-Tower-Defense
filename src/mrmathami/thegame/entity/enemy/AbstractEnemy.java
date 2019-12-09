@@ -128,7 +128,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	}
 
 	@Override
-	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
+	public boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		field.harmPlayer(1);
 		field.setMoney(field.getMoney() - 1);
 		if (field.isMultiplayer() && !(field instanceof MPGameField)) {

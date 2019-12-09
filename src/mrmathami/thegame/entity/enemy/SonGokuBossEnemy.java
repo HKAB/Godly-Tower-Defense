@@ -4,7 +4,12 @@ import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
+import mrmathami.thegame.entity.LivingEntity;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
+import mrmathami.thegame.net.MPGameField;
+import mrmathami.thegame.net.MPSocketController;
+
+import javax.annotation.Nonnull;
 
 public class SonGokuBossEnemy extends BossEnemy {
     private boolean reborn;
@@ -21,5 +26,18 @@ public class SonGokuBossEnemy extends BossEnemy {
             GameAudio.getInstance().playSound(new AudioClip(GameAudio.sonGokuSkillSound));
             field.doSpawn(new SonGokuBossEnemy(field.getTickCount(), this.getPosX(), this.getPosY(), true));
         }
+    }
+
+    @Override
+    public boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
+        field.harmPlayer(field.getHealth());
+        field.setMoney(field.getMoney() - 1);
+        if (field.isMultiplayer() && !(field instanceof MPGameField)) {
+            MPSocketController socket = MPSocketController.getCurrentInstance();
+            socket.sendState(field.getHealth());
+        }
+        setHealth(Long.MIN_VALUE);
+        this.reborn = true;
+        return false;
     }
 }
