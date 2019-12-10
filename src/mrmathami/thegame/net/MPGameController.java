@@ -218,6 +218,9 @@ public final class MPGameController extends AnimationTimer {
 		//update the values in context so it match the current field, as fast as possible
 		contextArea.updateMPContext(field.getMoney(), field.getHealth(), opponentField.getHealth(), towerPicker);
 
+		//update the tower picker to match the current field, as fast as possible
+		if (towerPicker != null) towerPicker.update(field);
+
 		// draw a new frame, as fast as possible.
 		try {
 			drawer.render();
@@ -393,10 +396,10 @@ public final class MPGameController extends AnimationTimer {
 							if ((entity instanceof AbstractTower) && (towerPicker.isOverlappedWithTower(entity))) {
 								if (towerPicker instanceof TowerUpgrading) {
 									if (((TowerUpgrading) towerPicker).getUpgradePrice(entity) <= field.getMoney()) {
+										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 										((AbstractTower) entity).doUpgrade();
 										// Effect
 										this.field.addSFX(new UpgradeEffect(0, entity.getPosX(), entity.getPosY()));
-										field.setMoney(field.getMoney() - ((TowerUpgrading) towerPicker).getUpgradePrice(entity));
 
 										// START: multi-player
 										this.socket.sendUpgrade((long)((mousePosX - drawer.getFieldStartPosX()) / drawer.getFieldZoom()),
