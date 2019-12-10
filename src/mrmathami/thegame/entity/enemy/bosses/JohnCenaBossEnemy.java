@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
@@ -10,7 +10,13 @@ import javax.annotation.Nonnull;
 
 public class JohnCenaBossEnemy extends BossEnemy {
     public JohnCenaBossEnemy (long createdTick, double posX, double posY) {
-        super(createdTick, posX, posY, Config.JOHN_CENA_BOSS_ENEMY_WIDTH, Config.JOHN_CENA_BOSS_ENEMY_HEIGHT, Config.JOHN_CENA_BOSS_ENEMY_HEALTH, Config.JOHN_CENA_BOSS_ENEMY_ARMOR, Config.JOHN_CENA_BOSS_ENEMY_SPEED, Config.JOHN_CENA_BOSS_ENEMY_REWARD, Config.JOHN_CENA_BOSS_ENEMY_GID);
+        super(createdTick, posX, posY, Config.JOHN_CENA_BOSS_ENEMY_WIDTH,
+                Config.JOHN_CENA_BOSS_ENEMY_HEIGHT,
+                Config.JOHN_CENA_BOSS_ENEMY_HEALTH,
+                Config.JOHN_CENA_BOSS_ENEMY_ARMOR,
+                Config.JOHN_CENA_BOSS_ENEMY_SPEED,
+                Config.JOHN_CENA_BOSS_ENEMY_REWARD,
+                Config.JOHN_CENA_BOSS_ENEMY_GID);
     }
 
     @Override

@@ -49,7 +49,10 @@ public final class AlertEffectDrawer implements EntityDrawer {
             maxTileHeight = (int)Math.round(imgSheet.getHeight()/Config.TILE_SIZE);
 
             PixelReader imgSheetPixelReader = imgSheet.getPixelReader();
-            WritableImage contentImage = new WritableImage(imgSheetPixelReader, (((AlertEffect) entity).getContentGID() - 1) % maxTileWidth * (int)Config.TILE_SIZE, (((AlertEffect) entity).getContentGID() - 1) / maxTileWidth * (int)Config.TILE_SIZE, (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
+            WritableImage contentImage = new WritableImage(imgSheetPixelReader,
+                    (((AlertEffect) entity).getContentGID() - 1) % maxTileWidth * (int)Config.TILE_SIZE,
+                    (((AlertEffect) entity).getContentGID() - 1) / maxTileWidth * (int)Config.TILE_SIZE,
+                    (int)Config.TILE_SIZE, (int)Config.TILE_SIZE);
             ImageView imageView = new ImageView(contentImage);
             imageView.setPreserveRatio(true);
             imageView.setFitHeight(Config.TILE_SIZE/2.0);
@@ -60,7 +63,9 @@ public final class AlertEffectDrawer implements EntityDrawer {
             for (int y = 0; y < contentScaleImage.getHeight(); y++) {
                 for (int x = 0; x < contentScaleImage.getWidth(); x++) {
                     if (!contentImagePixelReader.getColor(x, y).equals(Color.rgb(255, 255, 255))) {
-                        emoteImagePixelWriter.setColor(x, y, Color.rgb((int) (contentImagePixelReader.getColor(x, y).getRed() * 255), (int) (contentImagePixelReader.getColor(x, y).getGreen() * 255), (int) (contentImagePixelReader.getColor(x, y).getBlue() * 255)));
+                        emoteImagePixelWriter.setColor(x, y, Color.rgb((int) (contentImagePixelReader.getColor(x, y).getRed() * 255),
+                                (int) (contentImagePixelReader.getColor(x, y).getGreen() * 255),
+                                (int) (contentImagePixelReader.getColor(x, y).getBlue() * 255)));
                     }
                 }
             }

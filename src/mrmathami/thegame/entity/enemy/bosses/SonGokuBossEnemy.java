@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
@@ -15,7 +15,13 @@ public class SonGokuBossEnemy extends BossEnemy {
     private boolean reborn;
 
     public SonGokuBossEnemy (long createdTick, double posX, double posY, boolean reborn) {
-        super(createdTick, posX, posY, Config.SON_GOKU_BOSS_ENEMY_WIDTH, Config.SON_GOKU_BOSS_ENEMY_HEIGHT, Config.SON_GOKU_BOSS_ENEMY_HEALTH * (long)(reborn ? 1.5 : 1), Config.SON_GOKU_BOSS_ENEMY_ARMOR * (long)(reborn ? 1.5 : 1), Config.SON_GOKU_BOSS_ENEMY_SPEED, Config.SON_GOKU_BOSS_ENEMY_REWARD, Config.SON_GOKU_BOSS_ENEMY_GID + (reborn ? 1 : 0));
+        super(createdTick, posX, posY, Config.SON_GOKU_BOSS_ENEMY_WIDTH,
+                Config.SON_GOKU_BOSS_ENEMY_HEIGHT,
+                Config.SON_GOKU_BOSS_ENEMY_HEALTH * (long)(reborn ? 1.5 : 1),
+                Config.SON_GOKU_BOSS_ENEMY_ARMOR * (long)(reborn ? 1.5 : 1),
+                Config.SON_GOKU_BOSS_ENEMY_SPEED,
+                Config.SON_GOKU_BOSS_ENEMY_REWARD,
+                Config.SON_GOKU_BOSS_ENEMY_GID + (reborn ? 1 : 0));
         this.reborn = reborn;
     }
 

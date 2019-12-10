@@ -23,13 +23,18 @@ import java.io.File;
 public class GameButtonDrawer implements UIEntityDrawer {
 
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         Image img = GameDrawer.getButtonImage();
         PixelReader reader = img.getPixelReader();
 
         AbstractButton button = (AbstractButton)entity;
 
-        WritableImage buttonImage = new WritableImage(reader, (int)button.getAssetPosX() * (int)fieldZoom, (int)button.getAssetPosY() * (int)fieldZoom, (int)screenWidth, (int)screenHeight);
+        WritableImage buttonImage = new WritableImage(reader,
+                (int)button.getAssetPosX() * (int)fieldZoom,
+                (int)button.getAssetPosY() * (int)fieldZoom,
+                (int)screenWidth,
+                (int)screenHeight);
         graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);
 
         if (entity instanceof TowerButton) {
@@ -40,7 +45,11 @@ public class GameButtonDrawer implements UIEntityDrawer {
             int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
             int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 
-            buttonImage = new WritableImage(reader, (towerButton.getGID() - 1) % maxTileWidth * (int)screenWidth, Math.round((towerButton.getGID() - 1) / maxTileWidth) * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+            buttonImage = new WritableImage(reader,
+                    (towerButton.getGID() - 1) % maxTileWidth * (int)screenWidth,
+                    Math.round((towerButton.getGID() - 1) / maxTileWidth) * (int)screenHeight,
+                    (int)screenWidth,
+                    (int)screenHeight);
             graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);
         }
 

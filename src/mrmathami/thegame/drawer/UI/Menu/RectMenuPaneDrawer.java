@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
 
 public class RectMenuPaneDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         Color rectColor = ((RectMenuPane)entity).getRectColor();
         graphicsContext.setFill(rectColor);
         graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);

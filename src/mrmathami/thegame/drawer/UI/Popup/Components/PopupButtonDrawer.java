@@ -14,10 +14,8 @@ import java.io.File;
 
 public class PopupButtonDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
-//        Color paneColor = Color.rgb(255, 255,255);
-//        graphicsContext.setFill(paneColor);
-//        graphicsContext.fillRect(screenPosX, screenPosY, entity.getWidth(), entity.getHeight());
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         graphicsContext.setLineWidth(3);
         graphicsContext.setFill(Color.rgb(205, 97, 51));
         graphicsContext.fillRect(screenPosX, screenPosY, entity.getWidth(), entity.getHeight());

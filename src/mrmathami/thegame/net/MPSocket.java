@@ -25,7 +25,9 @@ public class MPSocket {
 
     /**
      * Send a line to the remote host.
+     * Replace checkError() with flush() if you don't need to check the error.
      * @param data data to send.
+     * @return true if the data sent successfully, false otherwise.
      */
     public boolean sendLine(String data) {
         this.output.println(data);
@@ -51,7 +53,7 @@ public class MPSocket {
     }
 
     /**
-     * Close all currently open socket or streams.
+     * Close all currently opening socket or streams.
      */
     public void close() {
         try {

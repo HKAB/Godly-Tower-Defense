@@ -203,7 +203,6 @@ public final class GameStage {
 					else {
 						System.out.println("Unexpected value! Input value: " + value);
 						scanner.nextLine();
-//						throw new InputMismatchException("Unexpected value! Input value: " + value);
 					}
 				}
 
@@ -231,10 +230,6 @@ public final class GameStage {
 			} catch (NoSuchElementException e) {
 				throw new IOException("Resource invalid! Resource name: " + name, e);
 			}
-			// width height numOfRemainingTiles
-			// (width*height matrix with 1 for Mountain and 0 for Road)
-			// <SpawnerName> x y w h spawnInterval initialDelay numOfSpawn
-			// <TowerName> x y
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

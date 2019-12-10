@@ -1,8 +1,9 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import mrmathami.thegame.Config;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.entity.LivingEntity;
+import mrmathami.thegame.entity.enemy.AbstractEnemy;
 import mrmathami.thegame.net.MPGameField;
 import mrmathami.thegame.net.MPSocketController;
 

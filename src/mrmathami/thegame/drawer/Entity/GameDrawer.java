@@ -18,6 +18,7 @@ import mrmathami.thegame.drawer.UI.InGame.*;
 import mrmathami.thegame.drawer.UI.UIEntityDrawer;
 import mrmathami.thegame.entity.bullet.StopSignBullet;
 import mrmathami.thegame.entity.enemy.*;
+import mrmathami.thegame.entity.enemy.bosses.*;
 import mrmathami.thegame.entity.tile.cutineffect.BossCutInEffect;
 import mrmathami.thegame.entity.tile.tower.RobotPoliceTower;
 import mrmathami.thegame.towerpicker.AbstractTowerPicker;
@@ -307,9 +308,6 @@ public final class GameDrawer {
 					fieldStartPosX, fieldStartPosY, Config.SCREEN_WIDTH / fieldZoom, Config.SCREEN_HEIGHT / fieldZoom));
 			for (final GameEntity entity : opponentEntities) {
 				final EntityDrawer drawer = getEntityDrawer(entity);
-//				if (entity instanceof MachineGunTower) {
-//					System.out.println("Opponent MachineGunTower " + entity.getPosX() + "" + entity.getPosY());
-//				}
 				if (drawer != null) {
 					drawer.draw(opponentGameField.getTickCount(), graphicsContext, entity,
 							(entity.getPosX() - fieldStartPosX) * fieldZoom,

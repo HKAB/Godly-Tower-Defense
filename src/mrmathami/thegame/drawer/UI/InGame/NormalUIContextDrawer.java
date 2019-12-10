@@ -39,7 +39,8 @@ public class NormalUIContextDrawer implements UIEntityDrawer {
     private final long FONT_SIZE = 27;
     private final long OFF_SET = 3;
 
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         //System.out.println(screenPosX + " " + screenPosY);
 
         Image img = GameDrawer.getContextIconImage();

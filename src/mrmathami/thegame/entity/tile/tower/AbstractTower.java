@@ -15,7 +15,8 @@ import mrmathami.thegame.entity.tile.effect.TowerDestroyEffect;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTile implements UpdatableEntity, RotatableEntity, DestroyableEntity, DestroyListener {
+public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTile
+		implements UpdatableEntity, RotatableEntity, DestroyableEntity, DestroyListener {
 	private double range;
 	private long speed;
 	private double angle;
@@ -42,7 +43,10 @@ public abstract class AbstractTower<E extends AbstractBullet> extends AbstractTi
 	@Override
 	public void onUpdate(@Nonnull GameField field) {
 		this.tickDown -= 1;
-		final Collection<LivingEntity> overlappedEntities = GameEntities.getAffectedEntities(field.getEntities(), bulletType,this.getPosX() - range, this.getPosY() - range, (range * 2 + 1), (range * 2 + 1));
+		final Collection<LivingEntity> overlappedEntities = GameEntities.getAffectedEntities(field.getEntities(), bulletType,
+				this.getPosX() - range,
+				this.getPosY() - range,
+				(range * 2 + 1), (range * 2 + 1));
 		for (LivingEntity livingEntity :
 				overlappedEntities) {
 			this.angle = this.defaultAngle + Math.atan2((livingEntity.getPosY() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getHeight()/2 - this.getPosY() - this.getWidth()/2), (livingEntity.getPosX() + Config.OFFSET/Config.TILE_SIZE + livingEntity.getWidth()/2 - this.getPosX() - this.getWidth()/2))*180/Math.PI;

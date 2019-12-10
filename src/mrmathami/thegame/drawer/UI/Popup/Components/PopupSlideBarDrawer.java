@@ -8,10 +8,10 @@ import mrmathami.thegame.ui.popup.components.PopupSlideBar;
 
 import javax.annotation.Nonnull;
 
-public class PopupSlideBarDrawer implements UIEntityDrawer{
-
+public class PopupSlideBarDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setFill(Color.TRANSPARENT);
         graphicsContext.fillRect(screenPosX, screenPosY, screenWidth, screenHeight);

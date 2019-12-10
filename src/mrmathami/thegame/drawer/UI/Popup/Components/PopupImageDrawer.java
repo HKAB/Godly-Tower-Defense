@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
 
 public class PopupImageDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         Image img = ((PopupImage)entity).getImage();
         graphicsContext.drawImage(img, screenPosX, screenPosY);
     }

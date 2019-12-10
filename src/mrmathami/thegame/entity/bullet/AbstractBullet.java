@@ -20,7 +20,9 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 	private double angle;
 	private AbstractEnemy enemyTarget;
 
-	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY, double width, double height, double speed, long strength, long timeToLive, int GID, AbstractEnemy enemyTarget) {
+	protected AbstractBullet(long createdTick, double posX, double posY, double deltaX, double deltaY,
+							 double width, double height, double speed, long strength, long timeToLive, int GID,
+							 AbstractEnemy enemyTarget) {
 		super(createdTick, posX, posY, width, height);
 		final double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 		this.deltaX = deltaX * normalize;
@@ -42,21 +44,12 @@ public abstract class AbstractBullet extends AbstractEntity implements Updatable
 			double normalize = speed / Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 			deltaX = deltaX * normalize;
 			deltaY = deltaY * normalize;
-//			if ((getPosX() + deltaX)*Config.TILE_SIZE + Config.OFFSET + getWidth()*Config.TILE_SIZE > Config.TILE_SIZE*Config.TILE_HORIZONTAL)
-//			{
-//				doDestroy();
-//				return;
-//			}
 			setPosX(getPosX() + deltaX);
 			setPosY(getPosY() + deltaY);
 			setAngle(90 + Math.atan2(deltaY, deltaX) * 180 / Math.PI);
 		}
 		else
 		{
-//			if ((getPosX() + deltaX)*Config.TILE_SIZE + Config.OFFSET + getWidth()*Config.TILE_SIZE > Config.TILE_SIZE*Config.TILE_HORIZONTAL) {
-//				doDestroy();
-//				return;
-//			}
 			setPosX(getPosX() + deltaX);
 			setPosY(getPosY() + deltaY);
 		}

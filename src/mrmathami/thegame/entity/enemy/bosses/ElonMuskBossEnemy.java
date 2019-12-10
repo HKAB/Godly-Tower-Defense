@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
@@ -10,7 +10,13 @@ import javax.annotation.Nonnull;
 
 public class ElonMuskBossEnemy extends BossEnemy {
     public ElonMuskBossEnemy (long createdTick, double posX, double posY) {
-        super(createdTick, posX, posY, Config.ELON_MUSK_BOSS_ENEMY_WIDTH, Config.ELON_MUSK_BOSS_ENEMY_HEIGHT, Config.ELON_MUSK_BOSS_ENEMY_HEALTH, Config.ELON_MUSK_BOSS_ENEMY_ARMOR, Config.ELON_MUSK_BOSS_ENEMY_SPEED, Config.ELON_MUSK_BOSS_ENEMY_REWARD, Config.ELON_MUSK_BOSS_ENEMY_GID);
+        super(createdTick, posX, posY, Config.ELON_MUSK_BOSS_ENEMY_WIDTH,
+                Config.ELON_MUSK_BOSS_ENEMY_HEIGHT,
+                Config.ELON_MUSK_BOSS_ENEMY_HEALTH,
+                Config.ELON_MUSK_BOSS_ENEMY_ARMOR,
+                Config.ELON_MUSK_BOSS_ENEMY_SPEED,
+                Config.ELON_MUSK_BOSS_ENEMY_REWARD,
+                Config.ELON_MUSK_BOSS_ENEMY_GID);
     }
 
     @Override

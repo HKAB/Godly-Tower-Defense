@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
@@ -13,7 +13,13 @@ import javax.annotation.Nonnull;
 
 public class BinLadenBossEnemy extends BossEnemy {
     public BinLadenBossEnemy (long createdTick, double posX, double posY) {
-        super(createdTick, posX, posY, Config.BIN_LADEN_BOSS_ENEMY_WIDTH, Config.BIN_LADEN_BOSS_ENEMY_HEIGHT, Config.BIN_LADEN_BOSS_ENEMY_HEALTH, Config.BIN_LADEN_BOSS_ENEMY_ARMOR, Config.BIN_LADEN_BOSS_ENEMY_SPEED, Config.BIN_LADEN_BOSS_ENEMY_REWARD, Config.BIN_LADEN_BOSS_ENEMY_GID);
+        super(createdTick, posX, posY, Config.BIN_LADEN_BOSS_ENEMY_WIDTH,
+                Config.BIN_LADEN_BOSS_ENEMY_HEIGHT,
+                Config.BIN_LADEN_BOSS_ENEMY_HEALTH,
+                Config.BIN_LADEN_BOSS_ENEMY_ARMOR,
+                Config.BIN_LADEN_BOSS_ENEMY_SPEED,
+                Config.BIN_LADEN_BOSS_ENEMY_REWARD,
+                Config.BIN_LADEN_BOSS_ENEMY_GID);
     }
 
     @Override
@@ -21,7 +27,8 @@ public class BinLadenBossEnemy extends BossEnemy {
         if (this.isDestroyed()) {
             field.addSFX(new BossCutInEffect(field.getTickCount(), Config.BIN_LADEN_BOSS_ENEMY_CUT_IN_URI));
             GameAudio.getInstance().playSound(new AudioClip(GameAudio.binLadenSkillSound));
-            for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(), AbstractTower.class, getPosX() - 1, getPosY() - 1, 3, 3)) {
+            for (AbstractTower towerEntity: GameEntities.getFilteredOverlappedEntities(field.getEntities(),
+                    AbstractTower.class, getPosX() - 1, getPosY() - 1, 3, 3)) {
                 towerEntity.doDestroy();
                 field.addSFX(new ExplosionEffect(0, towerEntity.getPosX(), towerEntity.getPosY()));
             }

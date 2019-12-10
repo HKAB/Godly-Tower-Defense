@@ -8,7 +8,7 @@ public class PopupInput extends AbstractMenuPane {
     private boolean isFocus = false;
     private int fontSize;
     public PopupInput(long createdTick, double posX, double posY, double width, double height, int fontSize) {
-        //draw at center
+        // draw at center
         super(createdTick, posX - width/2/Config.TILE_SIZE, posY, width, height);
         this.fontSize = fontSize;
     }

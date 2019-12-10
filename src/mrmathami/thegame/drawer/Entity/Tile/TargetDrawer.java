@@ -13,10 +13,8 @@ import javax.annotation.Nonnull;
 
 public final class TargetDrawer implements EntityDrawer {
 	@Override
-	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
-//		graphicsContext.setStroke(Color.DARKRED);
-//		graphicsContext.setLineWidth(4);
-//		graphicsContext.strokeRect(screenPosX, screenPosY, screenWidth, screenHeight);
+	public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity,
+					 double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
 		screenPosX += Config.TILE_SIZE/2.0;
 		screenPosY += Config.TILE_SIZE/2.0;
 		Image img = GameDrawer.getSheetImage();
@@ -24,7 +22,11 @@ public final class TargetDrawer implements EntityDrawer {
 		int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
 		PixelReader reader = img.getPixelReader();
 
-		WritableImage roadImage = new WritableImage(reader, (Config.TARGET_GID - 1) % maxTileWidth * (int)screenWidth, (Config.TARGET_GID - 1)/maxTileWidth * (int)screenHeight, (int)screenWidth, (int)screenHeight);
+		WritableImage roadImage = new WritableImage(reader,
+				(Config.TARGET_GID - 1) % maxTileWidth * (int)screenWidth,
+				(Config.TARGET_GID - 1)/maxTileWidth * (int)screenHeight,
+				(int)screenWidth,
+				(int)screenHeight);
 
 		graphicsContext.drawImage(roadImage, screenPosX, screenPosY);
 	}

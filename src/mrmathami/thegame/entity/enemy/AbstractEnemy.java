@@ -9,6 +9,7 @@ import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
 import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.enemy.bosses.BossEnemy;
 import mrmathami.thegame.entity.tile.Road;
 import mrmathami.thegame.entity.tile.TurnPoint;
 import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
@@ -18,7 +19,8 @@ import mrmathami.thegame.net.MPSocketController;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
-public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
+public abstract class AbstractEnemy extends AbstractEntity
+		implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
 //			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
@@ -33,7 +35,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	private double t_bezier = 0;
 	private double speed_coef = 1;
 
-	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
+	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health,
+							long armor, double speed, long reward, int GID) {
 		super(createdTick, posX, posY, width, height);
 		this.health = health;
 		this.armor = armor;
@@ -87,7 +90,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 				for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
 					final double currentPosX = enemyPosX + deltaDirection[0] * speed;
 					final double currentPosY = enemyPosY + deltaDirection[1] * speed;
-					final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
+					final double currentDistance = evaluateDistance(overlappableEntities, this,
+							currentPosX, currentPosY, enemyWidth, enemyHeight);
 					if (currentDistance < minimumDistance) {
 						minimumDistance = currentDistance;
 						newPosX = currentPosX;
@@ -98,7 +102,8 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 //				}
 //			}
 		}
-		final Collection<TurnPoint> turnPointCollection = GameEntities.getFilteredOverlappedEntities(field.getEntities(), TurnPoint.class, enemyPosX + bestX * speed, enemyPosY + bestY * speed, enemyWidth, enemyHeight);
+		final Collection<TurnPoint> turnPointCollection = GameEntities.getFilteredOverlappedEntities(field.getEntities(),
+				TurnPoint.class, enemyPosX + bestX * speed, enemyPosY + bestY * speed, enemyWidth, enemyHeight);
 		/**
 		 * Big thank to Benzier
 		 */

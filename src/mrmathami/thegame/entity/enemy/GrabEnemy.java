@@ -5,9 +5,7 @@ import mrmathami.thegame.Config;
 
 public final class GrabEnemy extends AbstractEnemy {
     public GrabEnemy(long createdTick, double posX, double posY) {
-        super(createdTick,
-                posX,
-                posY,
+        super(createdTick, posX, posY,
                 Config.GRAB_ENEMY_WIDTH/Config.TILE_SIZE,
                 Config.GRAB_ENEMY_HEIGHT/Config.TILE_SIZE,
                 Config.GRAB_ENEMY_HEALTH,

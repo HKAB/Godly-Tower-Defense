@@ -13,13 +13,18 @@ import javax.annotation.Nonnull;
 public class MenuButtonDrawer implements UIEntityDrawer {
 
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         Image img = MenuDrawer.getButtonImage();
         PixelReader reader = img.getPixelReader();
 
         AbstractButton button = (AbstractButton)entity;
 
-        WritableImage buttonImage = new WritableImage(reader, (int)button.getAssetPosX() * (int)fieldZoom, (int)button.getAssetPosY() * (int)fieldZoom, (int)screenWidth, (int)screenHeight);
+        WritableImage buttonImage = new WritableImage(reader,
+                (int)button.getAssetPosX() * (int)fieldZoom,
+                (int)button.getAssetPosY() * (int)fieldZoom,
+                (int)screenWidth,
+                (int)screenHeight);
         graphicsContext.drawImage(buttonImage, screenPosX, screenPosY);
     }
 }

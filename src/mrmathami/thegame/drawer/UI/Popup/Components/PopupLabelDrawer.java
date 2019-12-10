@@ -13,7 +13,8 @@ import java.io.File;
 
 public class PopupLabelDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         graphicsContext.setTextAlign(((PopupLabel)entity).getTextAlignment());
         graphicsContext.setTextBaseline(VPos.BASELINE);
         Color paneColor = Color.rgb(255, 255,255);

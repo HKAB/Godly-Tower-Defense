@@ -36,7 +36,8 @@ public class MessageUIContextDrawer implements UIEntityDrawer {
     private final long EDGE_SIZE = 10;
     private final long FONT_SIZE = 22;
 
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double fieldZoom) {
         Image img = GameDrawer.getContextIconImage();
         PixelReader reader = img.getPixelReader();
 

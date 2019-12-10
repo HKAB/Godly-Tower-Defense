@@ -2,15 +2,11 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.drawer.UI.Menu.MenuDrawer;
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
@@ -19,7 +15,6 @@ import mrmathami.thegame.ui.menu.*;
 import mrmathami.thegame.ui.popup.*;
 import mrmathami.utilities.ThreadFactoryBuilder;
 
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.Executors;
@@ -127,12 +122,12 @@ public final class MenuController extends AnimationTimer {
         // MSPT display. MSPT stand for Milliseconds Per Tick.
         // It means how many ms your game spend to update and then draw the game once.
         // Draw it out mostly for debug
-        final double mspt = (System.nanoTime() - startNs) / 1000000.0;
-        graphicsContext.setFill(Color.BLACK);
-        graphicsContext.setTextAlign(TextAlignment.LEFT);
-        graphicsContext.setTextBaseline(VPos.TOP);
-        graphicsContext.setFont(new Font(12));
-        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+//        final double mspt = (System.nanoTime() - startNs) / 1000000.0;
+//        graphicsContext.setFill(Color.BLACK);
+//        graphicsContext.setTextAlign(TextAlignment.LEFT);
+//        graphicsContext.setTextBaseline(VPos.TOP);
+//        graphicsContext.setFont(new Font(12));
+//        graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
 
         // if we have time to spend, do a spin
         while (currentTick == tick) Thread.onSpinWait();
@@ -192,27 +187,6 @@ public final class MenuController extends AnimationTimer {
         System.out.println("Key down handler in main menu called");
     }
 
-    /**
-     * Key up handler.
-     *
-     * @param keyEvent the key that you release up.
-     */
-    final void keyUpHandler(KeyEvent keyEvent) { }
-
-    /**
-     * Mouse down handler.
-     *
-     * @param mouseEvent the mouse button you press down.
-     */
-    final void mouseDownHandler(MouseEvent mouseEvent) { }
-
-    /**
-     * Mouse up handler.
-     *
-     * @param mouseEvent the mouse button you release up.
-     */
-    final void mouseUpHandler(MouseEvent mouseEvent) { }
-
     public final void mouseMoveHandler(MouseEvent mouseEvent) {
         Collection<UIEntity> UIEntities = this.menuUI.getEntities();
         double mousePosX = mouseEvent.getX();
@@ -251,15 +225,15 @@ public final class MenuController extends AnimationTimer {
                     break;
                 } else if (entity instanceof MultiPlayerButton) {
                     MPPopup mpPopup = new MPPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(mpPopup.getPopupCanvas().getGraphicsContext2D(), mpPopup.getPopupComponents());
                     break;
                 } else if (entity instanceof SettingsButton) {
                     SettingPopup settingPopup = new SettingPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(settingPopup.getPopupCanvas().getGraphicsContext2D(), settingPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(settingPopup.getPopupCanvas().getGraphicsContext2D(), settingPopup.getPopupComponents());
                     break;
                 } else if (entity instanceof CreditsButton) {
                     CreditPopup creditPopup = new CreditPopup(0,(Config.SCREEN_WIDTH - Config.CREDIT_POPUP_WIDTH)/2, (Config.SCREEN_HEIGHT - Config.CREDIT_POPUP_HEIGHT)/2, Config.CREDIT_POPUP_WIDTH, Config.CREDIT_POPUP_HEIGHT, stackPane);
-                    popupDrawer = new PopupDrawer(creditPopup.getPopupCanvas().getGraphicsContext2D(), creditPopup.getPopupEntities());
+                    popupDrawer = new PopupDrawer(creditPopup.getPopupCanvas().getGraphicsContext2D(), creditPopup.getPopupComponents());
                     break;
                 }
             }

@@ -22,7 +22,8 @@ public final class RobotPoliceTower extends AbstractTower<StopSignBullet> {
     @Override
     protected final StopSignBullet doSpawn(long createdTick, double posX, double posY, double deltaX, double deltaY, AbstractEnemy enemyTarget) {
         GameAudio.getInstance().playSound(new AudioClip(GameAudio.stopSignBulletSound));
-        return new StopSignBullet(createdTick, posX - Config.STOP_SIGN_BULLET_WIDTH/(2*Config.TILE_SIZE), posY - Config.STOP_SIGN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
+        return new StopSignBullet(createdTick, posX - Config.STOP_SIGN_BULLET_WIDTH/(2*Config.TILE_SIZE),
+                posY - Config.STOP_SIGN_BULLET_HEIGHT/(2*Config.TILE_SIZE), deltaX, deltaY, enemyTarget);
     }
 
     @Override

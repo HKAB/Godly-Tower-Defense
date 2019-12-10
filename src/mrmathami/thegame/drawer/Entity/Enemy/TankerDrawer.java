@@ -14,7 +14,8 @@ import javax.annotation.Nonnull;
 
 public final class TankerDrawer implements EntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         if (((Tanker) entity).getAngle() == Double.MIN_VALUE) return;
         screenPosX += Config.OFFSET;
         screenPosY += Config.OFFSET;
@@ -29,13 +30,23 @@ public final class TankerDrawer implements EntityDrawer {
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
         PixelReader reader = img.getPixelReader();
         
-        WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
-        WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(Config.TILE_SIZE)), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
+        WritableImage baseImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE)),
+                (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
+        WritableImage barrelImage = new WritableImage(reader, (((Tanker)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), (Math.round((((Tanker)entity).getGID() - 1) / maxTileWidth + 1) * (int)(Config.TILE_SIZE)),
+                (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
 
         reader = baseImage.getPixelReader();
-        WritableImage t_baseImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_HEIGHT/2), (int)(Config.TANKER_ENEMY_WIDTH), (int)(Config.TANKER_ENEMY_HEIGHT));
+        WritableImage t_baseImage = new WritableImage(reader,
+                (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_WIDTH/2),
+                (int)(Config.TILE_SIZE/2 - Config.TANKER_ENEMY_HEIGHT/2),
+                (int)(Config.TANKER_ENEMY_WIDTH),
+                (int)(Config.TANKER_ENEMY_HEIGHT));
         reader = barrelImage.getPixelReader();
-        WritableImage t_barrelImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_HEIGHT/2), (int)(Config.TANKER_BARREL_ENEMY_WIDTH), (int)(Config.TANKER_BARREL_ENEMY_HEIGHT));
+        WritableImage t_barrelImage = new WritableImage(reader,
+                (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_WIDTH/2),
+                (int)(Config.TILE_SIZE/2 - Config.TANKER_BARREL_ENEMY_HEIGHT/2),
+                (int)(Config.TANKER_BARREL_ENEMY_WIDTH),
+                (int)(Config.TANKER_BARREL_ENEMY_HEIGHT));
 
 
         WritableImage tankerImage = new WritableImage((int)Config.TANKER_ENEMY_WIDTH, (int)(Config.TANKER_ENEMY_HEIGHT));
@@ -53,7 +64,9 @@ public final class TankerDrawer implements EntityDrawer {
         for (int y = 0; y < t_barrelImage.getHeight(); y++) {
             for (int x = 0; x < t_barrelImage.getWidth(); x++) {
                 if (!barrelImagePixelReader.getColor(x, y).equals(Color.rgb(0, 0, 0, 0)))
-                    pixelWriterTanker.setColor(x, y + (int)((Config.TANKER_ENEMY_HEIGHT - Config.TANKER_BARREL_ENEMY_HEIGHT)/2), barrelImagePixelReader.getColor(x, y));
+                    pixelWriterTanker.setColor(x,
+                            y + (int)((Config.TANKER_ENEMY_HEIGHT - Config.TANKER_BARREL_ENEMY_HEIGHT)/2),
+                            barrelImagePixelReader.getColor(x, y));
             }
         }
         
@@ -63,7 +76,9 @@ public final class TankerDrawer implements EntityDrawer {
             graphicsContext.fillRect(screenPosX, screenPosY - 10, Config.TANKER_ENEMY_WIDTH, 7);
 
             graphicsContext.setFill(Color.GREEN);
-            graphicsContext.fillRect(screenPosX, screenPosY - 10, ((Tanker) entity).getHealth() * 1.0 / Config.TANKER_ENEMY_HEALTH * Config.TANKER_ENEMY_WIDTH, 7);
+            graphicsContext.fillRect(screenPosX, screenPosY - 10,
+                    ((Tanker) entity).getHealth() * 1.0 / Config.TANKER_ENEMY_HEALTH * Config.TANKER_ENEMY_WIDTH,
+                    7);
         }
     }
 }

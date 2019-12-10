@@ -1,4 +1,4 @@
-package mrmathami.thegame.entity.enemy;
+package mrmathami.thegame.entity.enemy.bosses;
 
 import javafx.scene.media.AudioClip;
 import mrmathami.thegame.Config;
@@ -10,7 +10,13 @@ import javax.annotation.Nonnull;
 
 public class MedicBossEnemy extends BossEnemy {
     public MedicBossEnemy (long createdTick, double posX, double posY) {
-        super(createdTick, posX, posY, Config.MEDIC_BOSS_ENEMY_WIDTH, Config.MEDIC_BOSS_ENEMY_HEIGHT, Config.MEDIC_BOSS_ENEMY_HEALTH, Config.MEDIC_BOSS_ENEMY_ARMOR, Config.MEDIC_BOSS_ENEMY_SPEED, Config.MEDIC_BOSS_ENEMY_REWARD, Config.MEDIC_BOSS_ENEMY_GID);
+        super(createdTick, posX, posY, Config.MEDIC_BOSS_ENEMY_WIDTH,
+                Config.MEDIC_BOSS_ENEMY_HEIGHT,
+                Config.MEDIC_BOSS_ENEMY_HEALTH,
+                Config.MEDIC_BOSS_ENEMY_ARMOR,
+                Config.MEDIC_BOSS_ENEMY_SPEED,
+                Config.MEDIC_BOSS_ENEMY_REWARD,
+                Config.MEDIC_BOSS_ENEMY_GID);
     }
 
     @Override

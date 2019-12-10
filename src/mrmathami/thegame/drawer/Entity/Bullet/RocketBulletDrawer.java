@@ -16,20 +16,37 @@ import javax.annotation.Nonnull;
 
 public final class RocketBulletDrawer implements EntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull GameEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         screenPosX += Config.OFFSET;
         screenPosY += Config.OFFSET;
         Image img = GameDrawer.getSheetImage();
         int maxTileWidth = (int)Math.round(img.getWidth()/ Config.TILE_SIZE);
         int maxTileHeight = (int)Math.round(img.getHeight()/Config.TILE_SIZE);
         PixelReader reader = img.getPixelReader();
-        WritableImage rocketImage = new WritableImage(reader, (((RocketBullet)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), Math.round((((RocketBullet)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
-        WritableImage fireImage = new WritableImage(reader, (((RocketBullet)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE), Math.round((((RocketBullet)entity).getGID() - 1) / maxTileWidth + 2) * (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE), (int)(Config.TILE_SIZE));
+        WritableImage rocketImage = new WritableImage(reader,
+                (((RocketBullet)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE),
+                Math.round((((RocketBullet)entity).getGID() - 1) / maxTileWidth) * (int)(Config.TILE_SIZE),
+                (int)(Config.TILE_SIZE),
+                (int)(Config.TILE_SIZE));
+        WritableImage fireImage = new WritableImage(reader,
+                (((RocketBullet)entity).getGID() - 1) % maxTileWidth * (int)(Config.TILE_SIZE),
+                Math.round((((RocketBullet)entity).getGID() - 1) / maxTileWidth + 2) * (int)(Config.TILE_SIZE),
+                (int)(Config.TILE_SIZE),
+                (int)(Config.TILE_SIZE));
 
         reader = rocketImage.getPixelReader();
-        WritableImage t_rocketImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.ROCKET_BULLET_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.ROCKET_BULLET_HEIGHT/2), (int)(Config.ROCKET_BULLET_WIDTH), (int)(Config.ROCKET_BULLET_HEIGHT));
+        WritableImage t_rocketImage = new WritableImage(reader,
+                (int)(Config.TILE_SIZE/2 - Config.ROCKET_BULLET_WIDTH/2),
+                (int)(Config.TILE_SIZE/2 - Config.ROCKET_BULLET_HEIGHT/2),
+                (int)(Config.ROCKET_BULLET_WIDTH),
+                (int)(Config.ROCKET_BULLET_HEIGHT));
         reader = fireImage.getPixelReader();
-        WritableImage t_fireImage = new WritableImage(reader, (int)(Config.TILE_SIZE/2 - Config.FIRE1_WIDTH/2), (int)(Config.TILE_SIZE/2 - Config.FIRE1_HEIGHT/2), (int)(Config.FIRE1_WIDTH), (int)(Config.FIRE1_HEIGHT));
+        WritableImage t_fireImage = new WritableImage(reader,
+                (int)(Config.TILE_SIZE/2 - Config.FIRE1_WIDTH/2),
+                (int)(Config.TILE_SIZE/2 - Config.FIRE1_HEIGHT/2),
+                (int)(Config.FIRE1_WIDTH),
+                (int)(Config.FIRE1_HEIGHT));
 
 
         WritableImage rocketAndFireImage = new WritableImage((int)Config.FIRE1_WIDTH, (int)(Config.FIRE1_HEIGHT  + Config.ROCKET_BULLET_HEIGHT));
@@ -45,17 +62,14 @@ public final class RocketBulletDrawer implements EntityDrawer {
 
         for (int y = 0; y < t_fireImage.getHeight(); y++) {
             for (int x = 0; x < t_fireImage.getWidth(); x++) {
-//                if (!fireImagePixelReader.getColor((int) (t_fireImage.getWidth() - x), (int) (t_fireImage.getHeight() - y)).equals(Color.rgb(0, 0, 0, 0)))
-                pixelWriterRockAndFire.setColor(x, (int) (y + t_rocketImage.getHeight()), fireImagePixelReader.getColor((int) (t_fireImage.getWidth()) - x - 1, (int) (t_fireImage.getHeight()) - y - 1));
+                pixelWriterRockAndFire.setColor(x, (int) (y + t_rocketImage.getHeight()),
+                        fireImagePixelReader.getColor((int) (t_fireImage.getWidth()) - x - 1, (int) (t_fireImage.getHeight()) - y - 1));
             }
         }
 
-//        graphicsContext.setStroke(Color.DARKBLUE);
-//        graphicsContext.setLineWidth(4);
-//        graphicsContext.strokeRect(screenPosX, screenPosY, (int)Config.FIRE1_WIDTH, (int)(Config.FIRE1_HEIGHT  + Config.ROCKET_BULLET_HEIGHT));
-
         if (((RocketBullet) entity).getAngle() != Double.MAX_VALUE) {
-            ((RocketBullet) entity).rotate(graphicsContext, rocketAndFireImage, screenPosX, screenPosY, ((RocketBullet) entity).getAngle());
+            ((RocketBullet) entity).rotate(graphicsContext, rocketAndFireImage, screenPosX, screenPosY,
+                    ((RocketBullet) entity).getAngle());
         }
     }
 }

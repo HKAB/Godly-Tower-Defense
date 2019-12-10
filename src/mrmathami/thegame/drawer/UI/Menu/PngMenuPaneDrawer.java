@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
 
 public class PngMenuPaneDrawer implements UIEntityDrawer {
     @Override
-    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity, double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
+    public void draw(long tickCount, @Nonnull GraphicsContext graphicsContext, @Nonnull UIEntity entity,
+                     double screenPosX, double screenPosY, double screenWidth, double screenHeight, double zoom) {
         String imageUri = ((PngMenuPane)entity).getImageUri();
         Image image = new Image(getClass().getResourceAsStream(imageUri));
         graphicsContext.drawImage(image, screenPosX, screenPosY, screenWidth, screenHeight);

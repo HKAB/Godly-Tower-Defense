@@ -26,9 +26,6 @@ public class MPConfig {
      * Player fields
      */
     public static final int OPPONENT_START_X = 12;
-    public static final double OPPONENT_START_PX_X = TILE_SIZE * OPPONENT_START_X;
-    public static final double FIELD_WIDTH_PX = TILE_HORIZONTAL * TILE_SIZE;
-    public static final double FIELD_HEIGHT_PX = TILE_VERTICAL * TILE_SIZE;
 
     /**
      * Network stuffs.

@@ -30,9 +30,17 @@ public interface UIEntity {
     double getHeight();
 
     /**
-     * Handle mouse event
+     * Handle mouse click
      */
     void onClick();
+
+    /**
+     * Handle mouse hover
+     */
     void onFocus();
+
+    /**
+     * Handle mouse unhover
+     */
     void outFocus();
 }

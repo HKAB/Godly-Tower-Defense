@@ -6,7 +6,6 @@ import mrmathami.thegame.Config;
 import mrmathami.thegame.entity.UIEntity;
 import mrmathami.thegame.ui.popup.components.*;
 
-import javax.swing.*;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -29,37 +28,63 @@ public class CreditPopup extends AbstractPopup {
     public CreditPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
         super(createdTick, posX, posY, width, height, stackPane);
         // TODO: make this more easier to calculate position
-        getPopupEntities().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
-//        getPopupEntities().add(new ClosePopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 32.0)/Config.TILE_SIZE, posY/Config.TILE_SIZE));
-        getPopupEntities().add(new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE, (posY + 10)/Config.TILE_SIZE, 20, "\ueee4"));
+        getPopupComponents().add(new PopupPane(0, posX/Config.TILE_SIZE, posY/Config.TILE_SIZE, width, height));
+        getPopupComponents().add(new PopupButton(0, 0, 0,
+                (Config.SCREEN_WIDTH - posX - 30)/Config.TILE_SIZE,
+                (posY + 10)/Config.TILE_SIZE,
+                20, "\ueee4"));
 
-        PopupImage logo = new PopupImage(0, (posX + LOGO_POS_X) / Config.TILE_SIZE, (posY + LOGO_POS_Y) / Config.TILE_SIZE, "res/menu/credits/logo.png");
-        getPopupEntities().add(logo);
+        PopupImage logo = new PopupImage(0,
+                (posX + LOGO_POS_X) / Config.TILE_SIZE,
+                (posY + LOGO_POS_Y) / Config.TILE_SIZE,
+                "res/menu/credits/logo.png");
+        getPopupComponents().add(logo);
 
-        PopupText message = new PopupText(0, (posX + TEXT_POS_X) / Config.TILE_SIZE, (posY + TEXT_POS_Y) / Config.TILE_SIZE, 23, Color.BLACK, MESSAGE);
-        getPopupEntities().add(message);
+        PopupText message = new PopupText(0,
+                (posX + TEXT_POS_X) / Config.TILE_SIZE,
+                (posY + TEXT_POS_Y) / Config.TILE_SIZE,
+                23, Color.BLACK, MESSAGE);
+        getPopupComponents().add(message);
 
         PopupImage authorImage = null;
         PopupLabel authorName = null;
 
-        authorImage = new PopupImage(0, (posX + width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/credits/ultoxtung.png");
-        getPopupEntities().add(authorImage);
-        authorName = new PopupLabel(0,(posX + width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Le Duc Tung");
-        getPopupEntities().add(authorName);
+        authorImage = new PopupImage(0,
+                (posX + width / 6) / Config.TILE_SIZE,
+                (posY + IMAGE_POS_Y) / Config.TILE_SIZE,
+                "res/menu/credits/ultoxtung.png");
+        getPopupComponents().add(authorImage);
+        authorName = new PopupLabel(0,
+                (posX + width / 6) / Config.TILE_SIZE,
+                (posY + NAME_POS_Y + 27) / Config.TILE_SIZE,
+                27, Color.BLACK, "Le Duc Tung");
+        getPopupComponents().add(authorName);
 
-        authorImage = new PopupImage(0, (posX + 3 * width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/credits/tacbliw.png");
-        getPopupEntities().add(authorImage);
-        authorName = new PopupLabel(0,(posX + 3 * width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Le Tran Hai Tung");
-        getPopupEntities().add(authorName);
+        authorImage = new PopupImage(0,
+                (posX + 3 * width / 6) / Config.TILE_SIZE,
+                (posY + IMAGE_POS_Y) / Config.TILE_SIZE,
+                "res/menu/credits/tacbliw.png");
+        getPopupComponents().add(authorImage);
+        authorName = new PopupLabel(0,
+                (posX + 3 * width / 6) / Config.TILE_SIZE,
+                (posY + NAME_POS_Y + 27) / Config.TILE_SIZE,
+                27, Color.BLACK, "Le Tran Hai Tung");
+        getPopupComponents().add(authorName);
 
-        authorImage = new PopupImage(0, (posX + 5 * width / 6) / Config.TILE_SIZE, (posY + IMAGE_POS_Y) / Config.TILE_SIZE, "res/menu/credits/hkab.png");
-        getPopupEntities().add(authorImage);
-        authorName = new PopupLabel(0,(posX + 5 * width / 6) / Config.TILE_SIZE, (posY + NAME_POS_Y + 27) / Config.TILE_SIZE, 27, Color.BLACK, "Nguyen Phu Truong");
-        getPopupEntities().add(authorName);
+        authorImage = new PopupImage(0,
+                (posX + 5 * width / 6) / Config.TILE_SIZE,
+                (posY + IMAGE_POS_Y) / Config.TILE_SIZE,
+                "res/menu/credits/hkab.png");
+        getPopupComponents().add(authorImage);
+        authorName = new PopupLabel(0,
+                (posX + 5 * width / 6) / Config.TILE_SIZE,
+                (posY + NAME_POS_Y + 27) / Config.TILE_SIZE,
+                27, Color.BLACK, "Nguyen Phu Truong");
+        getPopupComponents().add(authorName);
 
         getPopupCanvas().setOnMouseClicked(mouseEvent -> {
 
-            Collection<UIEntity> UIEntities = getPopupEntities();
+            Collection<UIEntity> UIEntities = getPopupComponents();
             double mousePosX = mouseEvent.getX();
             double mousePosY = mouseEvent.getY();
             Iterator<UIEntity> iterator = UIEntities.iterator();

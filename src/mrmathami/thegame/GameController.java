@@ -2,7 +2,6 @@ package mrmathami.thegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -10,9 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 
 import mrmathami.thegame.drawer.UI.Popup.PopupDrawer;
@@ -164,7 +160,7 @@ public final class GameController extends AnimationTimer {
 		if (this.currentMap > Config.MAX_LEVEL_COUNT){
 			AfterCreditPopup afterCreditPopup = new AfterCreditPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			afterCreditPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(afterCreditPopup.getPopupCanvas().getGraphicsContext2D(), afterCreditPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(afterCreditPopup.getPopupCanvas().getGraphicsContext2D(), afterCreditPopup.getPopupComponents());
 			afterCreditPopup.getPopupCanvas().toFront();
 		}
 		else {
@@ -225,14 +221,14 @@ public final class GameController extends AnimationTimer {
 		{
 			GameOverPopup gameOverPopup = new GameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 			gameOverPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupComponents());
 			gamePause();
 		}
 		else if (field.isWon() && !isWonPopupShowUp)
 		{
 			isWonPopupShowUp = true;
 			WinPopup winPopup = new WinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
-			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupComponents());
 			winPopup.setGameController(this);
 		}
 
@@ -255,13 +251,13 @@ public final class GameController extends AnimationTimer {
 		// MSPT display. MSPT stand for Milliseconds Per Tick.
 		// It means how many ms your game spend to update and then draw the game once.
 		// Draw it out mostly for debug
-		final double mspt = (System.nanoTime() - startNs) / 1000000.0;
-		graphicsContext.setFill(Color.BLACK);
-		graphicsContext.setTextAlign(TextAlignment.LEFT);
-		graphicsContext.setTextBaseline(VPos.TOP);
-		graphicsContext.setFont(new Font(12));
-		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
-		graphicsContext.fillText(String.format("Tick: %d", tick), 0, 20);
+//		final double mspt = (System.nanoTime() - startNs) / 1000000.0;
+//		graphicsContext.setFill(Color.BLACK);
+//		graphicsContext.setTextAlign(TextAlignment.LEFT);
+//		graphicsContext.setTextBaseline(VPos.TOP);
+//		graphicsContext.setFont(new Font(12));
+//		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+//		graphicsContext.fillText(String.format("Tick: %d", tick), 0, 20);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
@@ -431,7 +427,7 @@ public final class GameController extends AnimationTimer {
 					else if (entity instanceof PauseButton) {
 						GamePausePopup gameOverPopup = new GamePausePopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, stackPane);
 						gameOverPopup.setGameController(this);
-						popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+						popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupComponents());
 						popupDrawer.render();
 						gamePause();
 					}

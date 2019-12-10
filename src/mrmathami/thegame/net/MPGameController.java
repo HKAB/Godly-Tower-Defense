@@ -2,7 +2,6 @@ package mrmathami.thegame.net;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -10,9 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.WindowEvent;
 import mrmathami.thegame.*;
 import mrmathami.thegame.drawer.Entity.GameDrawer;
@@ -203,12 +199,12 @@ public final class MPGameController extends AnimationTimer {
 		if (opponentField.isLoss()) {
 			MPWinPopup winPopup = new MPWinPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 			winPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(winPopup.getPopupCanvas().getGraphicsContext2D(), winPopup.getPopupComponents());
 			gamePause();
 		} else if (field.isLoss()) {
 			MPGameOverPopup gameOverPopup = new MPGameOverPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 			gameOverPopup.setGameController(this);
-			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupEntities());
+			popupDrawer = new PopupDrawer(gameOverPopup.getPopupCanvas().getGraphicsContext2D(), gameOverPopup.getPopupComponents());
 			gamePause();
 		}
 
@@ -236,12 +232,12 @@ public final class MPGameController extends AnimationTimer {
 		// MSPT display. MSPT stand for Milliseconds Per Tick.
 		// It means how many ms your game spend to update and then draw the game once.
 		// Draw it out mostly for debug
-		final double mspt = (System.nanoTime() - startNs) / 1000000.0;
-		graphicsContext.setFill(Color.BLACK);
-		graphicsContext.setTextAlign(TextAlignment.LEFT);
-		graphicsContext.setTextBaseline(VPos.TOP);
-		graphicsContext.setFont(new Font(12));
-		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+//		final double mspt = (System.nanoTime() - startNs) / 1000000.0;
+//		graphicsContext.setFill(Color.BLACK);
+//		graphicsContext.setTextAlign(TextAlignment.LEFT);
+//		graphicsContext.setTextBaseline(VPos.TOP);
+//		graphicsContext.setFont(new Font(12));
+//		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
@@ -268,7 +264,7 @@ public final class MPGameController extends AnimationTimer {
 			if (!isConnected) {
 				MPDisconnectPopup disconnectPopup = new MPDisconnectPopup(0, 0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, this.stackPane);
 				disconnectPopup.setGameController(this);
-				popupDrawer = new PopupDrawer(disconnectPopup.getPopupCanvas().getGraphicsContext2D(), disconnectPopup.getPopupEntities());
+				popupDrawer = new PopupDrawer(disconnectPopup.getPopupCanvas().getGraphicsContext2D(), disconnectPopup.getPopupComponents());
 				gamePause();
 			}
 		}

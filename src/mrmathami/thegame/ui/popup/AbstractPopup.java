@@ -15,7 +15,7 @@ public abstract class AbstractPopup implements UIEntity {
     private double width;
     private double height;
     private StackPane stackPane;
-    private List<UIEntity> popupEntities;
+    private List<UIEntity> popupComponents;
     private Canvas popupCanvas;
 
     protected AbstractPopup(long createdTick, double posX, double posY, double width, double height, StackPane stackPane) {
@@ -25,13 +25,13 @@ public abstract class AbstractPopup implements UIEntity {
         this.width = width;
         this.height = height;
         this.stackPane = stackPane;
-        this.popupEntities = new ArrayList<>();
+        this.popupComponents = new ArrayList<>();
         this.popupCanvas = new Canvas(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
         stackPane.getChildren().add(this.popupCanvas);
     }
 
-    public List<UIEntity> getPopupEntities() {
-        return popupEntities;
+    public List<UIEntity> getPopupComponents() {
+        return popupComponents;
     }
 
     public Canvas getPopupCanvas() {
