@@ -26,7 +26,7 @@ public class MPPopup extends AbstractPopup {
         getPopupComponents().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 160)/Config.TILE_SIZE, 42, Color.BLACK, "MULTI-PLAYER"));
         // START: Input field
         getPopupComponents().add(new PopupLabel(0, (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "ADDRESS"));
-        getPopupComponents().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 30, Color.BLACK, TextAlignment.LEFT, "PORT"));
+        getPopupComponents().add(new PopupLabel(0,  (Config.SCREEN_WIDTH/2.0 - 150 - 155)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 10)/Config.TILE_SIZE, 27, Color.BLACK, TextAlignment.LEFT, "PORT"));
         PopupInput popupAddressInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 60 - 27)/Config.TILE_SIZE, 300, 50, 25);
         PopupInput popupPortInput = new PopupInput(0, Config.SCREEN_WIDTH/2.0/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 - 27)/Config.TILE_SIZE, 300, 50, 25);
         PopupButton clientButton =  new PopupButton(0, 0, 0, (Config.SCREEN_WIDTH/2.0 + 150 - 20*3/2.0 - 5)/Config.TILE_SIZE, (Config.SCREEN_HEIGHT/2.0 + 60 - 10)/Config.TILE_SIZE, 20, " \uecf9 ");

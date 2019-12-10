@@ -72,14 +72,6 @@ public class MPSocketController {
     }
 
     /**
-     * Send a command to remote host from a List of Strings.
-     * @param command remote command to send.
-     */
-    private void sendCommand(List<String> command) {
-        this.socket.sendLine(String.join(" ", command));  // Ignore the return value
-    }
-
-    /**
      * Get the next line and split it by spaces.
      * @return List of String which is space-separated from a line received from socket.
      */
@@ -89,6 +81,14 @@ public class MPSocketController {
             return List.of();
         }
         return Arrays.asList(command.split(" "));
+    }
+
+    /**
+     * Send a command to remote host from a List of Strings.
+     * @param command remote command to send.
+     */
+    private void sendCommand(List<String> command) {
+        this.socket.sendLine(String.join(" ", command));  // Ignore the return value
     }
 
     /**
@@ -128,6 +128,10 @@ public class MPSocketController {
         sendCommand(List.of("STATE", Long.toString(health)));
     }
 
+    /**
+     * KEEPALIVE sender. Used to check connection status.
+     * @return true when connection is active, false otherwise.
+     */
     public boolean sendKeepAlive() {
         return this.socket.sendLine("KEEPALIVE");
     }

@@ -155,7 +155,8 @@ public final class MPGameField extends GameField {
                     default:
                         System.out.println("Unhandled tower code " + command.get(1));
                 }
-            } else if (command.get(0).equals("UPGRADE")) {
+            }
+            else if (command.get(0).equals("UPGRADE")) {
                 upgradeAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));
             } else if (command.get(0).equals("SELL")) {
                 sellAtPosition(Double.parseDouble(command.get(1)), Double.parseDouble(command.get(2)));

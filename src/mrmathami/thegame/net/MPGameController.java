@@ -238,7 +238,8 @@ public final class MPGameController extends AnimationTimer {
 		graphicsContext.setTextAlign(TextAlignment.LEFT);
 		graphicsContext.setTextBaseline(VPos.TOP);
 		graphicsContext.setFont(new Font(12));
-		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+//		graphicsContext.fillText(String.format("MSPT: %3.2f", mspt), 0, 0);
+//		graphicsContext.fillText(String.format("Tick: %d", field.getTickCount()), 0, 14);
 
 		// if we have time to spend, do a spin
 		while (currentTick == tick) Thread.onSpinWait();
