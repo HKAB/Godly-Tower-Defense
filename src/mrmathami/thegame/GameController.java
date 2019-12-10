@@ -496,14 +496,6 @@ public final class GameController extends AnimationTimer {
 						if (towerPicker instanceof TowerPlacing) {
 							((TowerPlacing) towerPicker).setPlacingState(((TowerPlacing) towerPicker).NOT_PLACEABLE);
 						}
-						else if (towerPicker instanceof TowerUpgrading) {
-//							if (field.getMoney() >= ((TowerUpgrading) towerPicker).getUpgradePrice(entity)) {
-								towerPicker.setPickingState(towerPicker.PICKABLE);
-//							}
-//							else {
-//								towerPicker.setPickingState(towerPicker.NOT_PICKABLE);
-//							}
-						}
 						else {
 							towerPicker.setPickingState(towerPicker.PICKABLE);
 						}
