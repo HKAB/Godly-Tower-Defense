@@ -142,7 +142,6 @@ public class GameAudio {
         }
         if (channel == -1)
         {
-            System.out.println("OUT OF CHANNEL!");
             return;
         }
         audioChannels[channel] = new AudioChannel(audioClip, mainVolume);
