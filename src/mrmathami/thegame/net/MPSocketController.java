@@ -128,6 +128,12 @@ public class MPSocketController {
         sendCommand(List.of("STATE", Long.toString(health)));
     }
 
+    /**
+     * KEEPALIVE command sender. Used to check the TCP connection.
+     * TCP in general not provide a method for checking the connection status,
+     * we have to send some data and catch the error to be able to make sure the connection is alive.
+     * @return true if connection is alive, false otherwise.
+     */
     public boolean sendKeepAlive() {
         return this.socket.sendLine("KEEPALIVE");
     }
