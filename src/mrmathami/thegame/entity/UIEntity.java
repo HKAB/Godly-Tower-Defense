@@ -1,6 +1,5 @@
 package mrmathami.thegame.entity;
 
-
 /**
  * A game entity
  */
@@ -31,9 +30,17 @@ public interface UIEntity {
     double getHeight();
 
     /**
-     * Handle mouse event
+     * Handle mouse click
      */
-    String onClick();
+    void onClick();
+
+    /**
+     * Handle mouse hover
+     */
     void onFocus();
+
+    /**
+     * Handle mouse unhover
+     */
     void outFocus();
 }

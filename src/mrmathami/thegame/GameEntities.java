@@ -3,15 +3,13 @@ package mrmathami.thegame;
 import mrmathami.thegame.entity.EffectEntity;
 import mrmathami.thegame.entity.GameEntity;
 import mrmathami.thegame.entity.LivingEntity;
-import mrmathami.thegame.entity.bullet.MachineGunBullet;
-import mrmathami.thegame.entity.bullet.NormalBullet;
-import mrmathami.thegame.entity.bullet.RocketBullet;
-import mrmathami.thegame.entity.enemy.BigAircraft;
-import mrmathami.thegame.entity.enemy.NormalAircraft;
-import mrmathami.thegame.entity.enemy.NormalEnemy;
-import mrmathami.thegame.entity.enemy.Tanker;
+import mrmathami.thegame.entity.bullet.*;
+import mrmathami.thegame.entity.enemy.*;
+import mrmathami.thegame.entity.enemy.bosses.*;
+import mrmathami.thegame.entity.tile.Bush;
 import mrmathami.thegame.entity.tile.Mountain;
 import mrmathami.thegame.entity.tile.Target;
+import mrmathami.thegame.entity.tile.tower.*;
 import mrmathami.utilities.Pair;
 import mrmathami.utilities.UnorderedPair;
 
@@ -20,16 +18,17 @@ import java.util.*;
 
 public final class GameEntities {
 	/**
-	 * TODO: This is a list contains Pair of Entities that can collide with each other.
 	 * Remember, if an entity can collide with itself, you should put that here too.
 	 */
 	private static final Set<UnorderedPair<Class<? extends GameEntity>, Class<? extends GameEntity>>> COLLISION_PAIR_SET
 			= new HashSet<>(Set.of(
-			UnorderedPair.immutableOf(Mountain.class, NormalEnemy.class),
 			UnorderedPair.immutableOf(Mountain.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Mountain.class, Tanker.class),
-			UnorderedPair.immutableOf(NormalEnemy.class, NormalEnemy.class),
+			UnorderedPair.immutableOf(Bush.class, NormalTower.class),
+			UnorderedPair.immutableOf(Bush.class, RocketLauncherTower.class),
+			UnorderedPair.immutableOf(Bush.class, MachineGunTower.class),
+			UnorderedPair.immutableOf(Bush.class, RobotPoliceTower.class),
 			UnorderedPair.immutableOf(NormalAircraft.class, NormalAircraft.class),
 			UnorderedPair.immutableOf(BigAircraft.class, BigAircraft.class),
 			UnorderedPair.immutableOf(Tanker.class, Tanker.class)
@@ -37,15 +36,39 @@ public final class GameEntities {
 
 	private static final Set<Pair<Class<? extends EffectEntity>, Class<? extends LivingEntity>>> EFFECT_LIVING_SET
 			= new HashSet<>(Set.of(
-			Pair.immutableOf(NormalBullet.class, NormalEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, NormalAircraft.class),
 			Pair.immutableOf(NormalBullet.class, NormalAircraft.class),
 			Pair.immutableOf(RocketBullet.class, BigAircraft.class),
+			Pair.immutableOf(StopSignBullet.class, GrabEnemy.class),
 			Pair.immutableOf(MachineGunBullet.class, Tanker.class),
-			Pair.immutableOf(NormalEnemy.class, Target.class),
+			Pair.immutableOf(NormalBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, JohnCenaBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, BinLadenBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, BinLadenBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, BinLadenBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, KimJongUnBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, KimJongUnBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, KimJongUnBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, SonGokuBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, SonGokuBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, SonGokuBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, ElonMuskBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, ElonMuskBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, ElonMuskBossEnemy.class),
+			Pair.immutableOf(NormalBullet.class, MedicBossEnemy.class),
+			Pair.immutableOf(MachineGunBullet.class, MedicBossEnemy.class),
+			Pair.immutableOf(RocketBullet.class, MedicBossEnemy.class),
 			Pair.immutableOf(NormalAircraft.class, Target.class),
 			Pair.immutableOf(BigAircraft.class, Target.class),
-			Pair.immutableOf(Tanker.class, Target.class)//,
+			Pair.immutableOf(Tanker.class, Target.class),
+			Pair.immutableOf(GrabEnemy.class, Target.class),
+			Pair.immutableOf(JohnCenaBossEnemy.class, Target.class),
+			Pair.immutableOf(BinLadenBossEnemy.class, Target.class),
+			Pair.immutableOf(KimJongUnBossEnemy.class, Target.class),
+			Pair.immutableOf(SonGokuBossEnemy.class, Target.class),
+			Pair.immutableOf(ElonMuskBossEnemy.class, Target.class),
+			Pair.immutableOf(MedicBossEnemy.class, Target.class)
 	));
 
 	private GameEntities() {
@@ -242,7 +265,11 @@ public final class GameEntities {
 		for (final GameEntity entity : entities) {
 			if (entity instanceof LivingEntity && entity.isBeingOverlapped(posX, posY, width, height)) {
 				final LivingEntity livingEntity = (LivingEntity) entity;
-				if (isAffectable(entityClass, livingEntity.getClass())) outputEntities.add(livingEntity);
+				if (isAffectable(entityClass, livingEntity.getClass())) {
+					if (!((livingEntity instanceof BossEnemy) && (((BossEnemy) livingEntity).isInvisible()))) {
+						outputEntities.add(livingEntity);
+					}
+				}
 			}
 		}
 		return outputEntities;

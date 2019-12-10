@@ -20,6 +20,10 @@ public final class Target extends AbstractTile implements LivingEntity {
 		if (health != Long.MIN_VALUE) this.health += value;
 	}
 
+	public void setHealth(long health) {
+		this.health = health;
+	}
+
 	@Override
 	public void doDestroy() {
 		this.health = Long.MIN_VALUE;

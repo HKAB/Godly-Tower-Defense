@@ -1,16 +1,10 @@
 package mrmathami.thegame;
 
 import mrmathami.thegame.entity.GameEntity;
-import mrmathami.thegame.entity.tile.Mountain;
-import mrmathami.thegame.entity.tile.Road;
-import mrmathami.thegame.entity.tile.Target;
-import mrmathami.thegame.entity.tile.spawner.BigAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.NormalAircraftSpawner;
-import mrmathami.thegame.entity.tile.spawner.NormalSpawner;
-import mrmathami.thegame.entity.tile.spawner.TankerSpawner;
-import mrmathami.thegame.entity.tile.tower.MachineGunTower;
-import mrmathami.thegame.entity.tile.tower.NormalTower;
-import mrmathami.thegame.entity.tile.tower.RocketLauncherTower;
+import mrmathami.thegame.entity.tile.*;
+import mrmathami.thegame.entity.tile.spawner.*;
+import mrmathami.thegame.entity.tile.tower.*;
+import mrmathami.thegame.net.MPConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +25,7 @@ public final class GameStage {
 	}
 
 	@Nullable
-	public static GameStage load(@Nonnull String name) {
+	public static GameStage load(@Nonnull String name, boolean isOpponent) {
 		try (final InputStream stream = GameStage.class.getResourceAsStream(name)) {
 			if (stream == null) throw new IOException("Resource not found! Resource name: " + name);
 			final Scanner scanner = new Scanner(stream);
@@ -43,18 +37,19 @@ public final class GameStage {
 				for (int y = 0; y < height; y++) {
 					for (int x = 0; x < width; x++) {
 						final int value = scanner.nextInt();
-						if (value == 61 || value == 268) {
-							entities.add(new Road(0, x, y, value));
-//						} else if (value == 183 || value == 181 || value == 184) {
-//							entities.add(new Mountain(0, x, y, value));
+						if (value == 26 || value == 4 || value == 48 || value == 49 || value == 47 || value == 3 // map 1 part 1 road id
+								|| value == 243 || value == 264 || value == 265 || value == 266 || value == 220 || value == 221// map 1 part 2 road id
+								|| value == 169 || value == 190 || value == 191 || value == 260 || value == 261 || value == 238 ||  value == 233 || value == 211 || value == 255 // map 2
+								|| value == 58 || value == 59 || value == 36 || value == 13 || value == 56 || value == 57
+								|| value == 164 || value == 142 || value == 186|| value == 187 || value == 141 || value == 185 // mapMP
+								|| value == 174 || value == 151 || value == 196 || value == 195)// map 2 dm met
+						{
+							entities.add(new Road(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
 						else if (value != 0)
 						{
-							entities.add(new Mountain(0, x, y, value));
+							entities.add(new Mountain(0, x + (isOpponent ? MPConfig.OPPONENT_START_X : 0), y, value));
 						}
-//						else {
-//							throw new InputMismatchException("Unexpected value! Input value: " + value);
-//						}
 					}
 				}
 				// path finding
@@ -62,23 +57,19 @@ public final class GameStage {
 
 				for (int i = 0; i < numOfTiles; i++) {
 					final String value = scanner.next();
-					if ("NormalSpawner".equals(value)) {
-						final int x = scanner.nextInt();
-						final int y = scanner.nextInt();
-						final int w = scanner.nextInt();
-						final int h = scanner.nextInt();
-						final int spawnInterval = scanner.nextInt();
-						final int initialDelay = scanner.nextInt();
-						final int numOfSpawn = scanner.nextInt();
-						entities.add(new NormalSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
-					}
-					else if ("Mountain".equals(value)) {
-						final int x = scanner.nextInt();
+					if ("Rock".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int gid = scanner.nextInt();
-						entities.add(new Mountain(0, x, y, gid));
+						entities.add(new Rock(0, x, y, gid));
+					}
+					else if ("Bush".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int gid = scanner.nextInt();
+						entities.add(new Bush(0, x, y, gid));
 					} else if ("NormalAircraftSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -87,7 +78,7 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new NormalAircraftSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("BigAircraftSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -96,7 +87,7 @@ public final class GameStage {
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new BigAircraftSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("TankerSpawner".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -104,23 +95,86 @@ public final class GameStage {
 						final int initialDelay = scanner.nextInt();
 						final int numOfSpawn = scanner.nextInt();
 						entities.add(new TankerSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("GrabSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new GrabSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("JohnCenaBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new JohnCenaBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("BinLadenBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new BinLadenBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("KimJongUnBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new KimJongUnBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("SonGokuBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new SonGokuBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("ElonMuskBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new ElonMuskBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
+					} else if ("MedicBossSpawner".equals(value)) {
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final int y = scanner.nextInt();
+						final int w = scanner.nextInt();
+						final int h = scanner.nextInt();
+						final int spawnInterval = scanner.nextInt();
+						final int initialDelay = scanner.nextInt();
+						final int numOfSpawn = scanner.nextInt();
+						entities.add(new MedicBossSpawner(0, x, y, w, h, spawnInterval, initialDelay, numOfSpawn));
 					} else if ("NormalTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int angle = scanner.nextInt();
 						entities.add(new NormalTower(0, x, y, angle));
 					} else if ("MachineGunTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final double angle = scanner.nextInt();
 						entities.add(new MachineGunTower(0, x, y, angle));
 					} else if ("RocketLauncherTower".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final double angle = scanner.nextInt();
 						entities.add(new RocketLauncherTower(0, x, y, angle));
 					} else if ("Target".equals(value)) {
-						final int x = scanner.nextInt();
+						final int x = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
 						final int y = scanner.nextInt();
 						final int w = scanner.nextInt();
 						final int h = scanner.nextInt();
@@ -135,10 +189,20 @@ public final class GameStage {
 								road.setDistance(0.0);
 							}
 						}
-					} else {
+					}
+					else if ("TurnPoint".equals(value))
+					{
+						final long x1 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final long y1 = scanner.nextInt();
+						final long x2 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final long y2 = scanner.nextInt();
+						final long x3 = scanner.nextInt() + (isOpponent ? MPConfig.OPPONENT_START_X : 0);
+						final long y3 = scanner.nextInt();
+						entities.add(new TurnPoint(x1, y1, x2, y2, x3, y3));
+					}
+					else {
 						System.out.println("Unexpected value! Input value: " + value);
 						scanner.nextLine();
-//						throw new InputMismatchException("Unexpected value! Input value: " + value);
 					}
 				}
 
@@ -166,10 +230,6 @@ public final class GameStage {
 			} catch (NoSuchElementException e) {
 				throw new IOException("Resource invalid! Resource name: " + name, e);
 			}
-			// width height numOfRemainingTiles
-			// (width*height matrix with 1 for Mountain and 0 for Road)
-			// <SpawnerName> x y w h spawnInterval initialDelay numOfSpawn
-			// <TowerName> x y
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

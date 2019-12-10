@@ -1,33 +1,14 @@
 package mrmathami.thegame.ui.menu;
 
-public class CreditsButton extends AbstractMenuButton {
-    private String imageUri;
-    private String outFocusImageUri;
-    private String onFocusImageUri;
+import mrmathami.thegame.ui.button.AbstractButton;
 
-    public CreditsButton(long createdTick, double posX, double posY, double width, double height, String imageUri, String focusImageUri) {
-        super(createdTick, posX, posY, width, height);
-        this.imageUri = imageUri;
-        this.outFocusImageUri = imageUri;
-        this.onFocusImageUri = focusImageUri;
-    }
+public class CreditsButton extends AbstractButton {
 
-    public String getImageUri() {
-        return imageUri;
+    public CreditsButton(long createdTick, double assetPosX, double assetPosY, double posX, double posY, double width, double height, String command) {
+        super(createdTick, assetPosX, assetPosY, posX, posY, width, height);
     }
 
     @Override
-    public String onClick() {
-        return "";
-    }
-
-    @Override
-    public void onFocus() {
-        this.imageUri = this.onFocusImageUri;
-    }
-
-    @Override
-    public void outFocus() {
-        this.imageUri = this.outFocusImageUri;
+    public void onClick () {
     }
 }

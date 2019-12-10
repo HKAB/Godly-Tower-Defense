@@ -2,17 +2,25 @@ package mrmathami.thegame.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.transform.Rotate;
+import mrmathami.thegame.Config;
 import mrmathami.thegame.GameEntities;
 import mrmathami.thegame.GameField;
+import mrmathami.thegame.audio.GameAudio;
 import mrmathami.thegame.entity.*;
+import mrmathami.thegame.entity.enemy.bosses.BossEnemy;
 import mrmathami.thegame.entity.tile.Road;
+import mrmathami.thegame.entity.tile.TurnPoint;
+import mrmathami.thegame.entity.tile.effect.ExplosionEffect;
+import mrmathami.thegame.net.MPGameField;
+import mrmathami.thegame.net.MPSocketController;
 
 import javax.annotation.Nonnull;
-import java.math.BigDecimal;
 import java.util.Collection;
 
-public abstract class AbstractEnemy extends AbstractEntity implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
+public abstract class AbstractEnemy extends AbstractEntity
+		implements UpdatableEntity, RotatableEntity, EffectEntity, LivingEntity, DestroyListener {
 	private static final double[][] DELTA_DIRECTION_ARRAY = {
 			{0.0, -1.0}, {0.0, 1.0}, {-1.0, 0.0}, {1.0, 0.0},
 //			{-SQRT_2, -SQRT_2}, {SQRT_2, SQRT_2}, {SQRT_2, -SQRT_2}, {-SQRT_2, SQRT_2},
@@ -23,9 +31,12 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	private double speed;
 	private long reward;
 	protected int GID;
-	private double angle = 0;
+	private double angle = Double.MIN_VALUE;
+	private double t_bezier = 0;
+	private double speed_coef = 1;
 
-	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health, long armor, double speed, long reward, int GID) {
+	protected AbstractEnemy(long createdTick, double posX, double posY, double width, double height, long health,
+							long armor, double speed, long reward, int GID) {
 		super(createdTick, posX, posY, width, height);
 		this.health = health;
 		this.armor = armor;
@@ -63,29 +74,50 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		final double enemyPosY = getPosY();
 		final double enemyWidth = 1.0;
 		final double enemyHeight = 1.0;
+
+		if (this instanceof BossEnemy) ((BossEnemy) this).skillCheck(field);
+
 		final Collection<GameEntity> overlappableEntities = GameEntities.getOverlappedEntities(field.getEntities(),
 				getPosX() - speed, getPosY() - speed, speed + 1.0 + speed, speed + 1.0 + speed);
 		double minimumDistance = Double.MAX_VALUE;
 		double newPosX = enemyPosX;
 		double newPosY = enemyPosY;
-		for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
-			for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
-				final double currentPosX = enemyPosX + deltaDirection[0] * realSpeed;
-				BigDecimal a = BigDecimal.valueOf(enemyPosY + deltaDirection[1] * realSpeed);
-				final double currentPosY = enemyPosY + deltaDirection[1] * realSpeed;
-				final double currentDistance = evaluateDistance(overlappableEntities, this, currentPosX, currentPosY, enemyWidth, enemyHeight);
-				if (currentDistance < minimumDistance) {
-					minimumDistance = currentDistance;
-					newPosX = currentPosX;
-					newPosY = currentPosY;
-				}
-			}
+
+		double bestX = 0;
+		double bestY = 0;
+
+//			for (double realSpeed = speed * 0.125; realSpeed <= speed; realSpeed += realSpeed) {
+				for (double[] deltaDirection : DELTA_DIRECTION_ARRAY) {
+					final double currentPosX = enemyPosX + deltaDirection[0] * speed;
+					final double currentPosY = enemyPosY + deltaDirection[1] * speed;
+					final double currentDistance = evaluateDistance(overlappableEntities, this,
+							currentPosX, currentPosY, enemyWidth, enemyHeight);
+					if (currentDistance < minimumDistance) {
+						minimumDistance = currentDistance;
+						newPosX = currentPosX;
+						newPosY = currentPosY;
+						bestX = deltaDirection[0];
+						bestY = deltaDirection[1];
+					}
+//				}
+//			}
 		}
-		if (newPosX - enemyPosX == 0 && newPosY - enemyPosY > 0) this.angle = 180;
-		else
-			this.angle = Math.atan((newPosX - enemyPosX)/(newPosY- enemyPosY))*180/Math.PI;
-
-
+		final Collection<TurnPoint> turnPointCollection = GameEntities.getFilteredOverlappedEntities(field.getEntities(),
+				TurnPoint.class, enemyPosX + bestX * speed, enemyPosY + bestY * speed, enemyWidth, enemyHeight);
+		/**
+		 * Big thank to Benzier
+		 */
+		if (turnPointCollection.size() == 1)
+		{
+			t_bezier += 0.7*speed;
+			if (t_bezier > 1) t_bezier = 1;
+			newPosX = (1 - t_bezier) * (1 - t_bezier) * turnPointCollection.iterator().next().x1 + 2 * (1 - t_bezier) * t_bezier * turnPointCollection.iterator().next().x2 + t_bezier * t_bezier * turnPointCollection.iterator().next().x3;
+			newPosY = (1 - t_bezier) * (1 - t_bezier) * turnPointCollection.iterator().next().y1 + 2 * (1 - t_bezier) * t_bezier * turnPointCollection.iterator().next().y2 + t_bezier * t_bezier * turnPointCollection.iterator().next().y3;
+		}
+		else {
+			t_bezier = 0;
+		}
+		this.angle = Math.atan2((newPosY- enemyPosY), (newPosX - enemyPosX))*180/Math.PI;
 
 		setPosX(newPosX);
 		setPosY(newPosY);
@@ -93,13 +125,21 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	}
 
 	@Override
-	public final void onDestroy(@Nonnull GameField field) {
-		// TODO: reward
+	public void onDestroy(@Nonnull GameField field) {
+		field.setMoney(field.getMoney() + reward);
+		if (this instanceof BossEnemy) ((BossEnemy) this).skillCheck(field);
+		GameAudio.getInstance().playSound(new AudioClip(GameAudio.explosionSound));
+		field.addSFX(new ExplosionEffect(0, getPosX() + Config.OFFSET/Config.TILE_SIZE, getPosY() + Config.OFFSET/Config.TILE_SIZE));
 	}
 
 	@Override
-	public final boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
-		// TODO: harm the target
+	public boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
+		field.harmPlayer(1);
+		field.setMoney(field.getMoney() - this.getReward());
+		if (field.isMultiplayer() && !(field instanceof MPGameField)) {
+			MPSocketController socket = MPSocketController.getCurrentInstance();
+			socket.sendState(field.getHealth());
+		}
 		this.health = Long.MIN_VALUE;
 		return false;
 	}
@@ -109,9 +149,15 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 		return health;
 	}
 
+	public void setHealth(long health) {
+		this.health = health;
+	}
+
 	@Override
-	public final void doEffect(long value) {
-		if (health != Long.MIN_VALUE && (value < -armor || value > 0)) this.health += value;
+	public void doEffect(long value) {
+		if (health != Long.MIN_VALUE && (value < -armor || value > 0) && (!((this instanceof BossEnemy) && (((BossEnemy)this).isImmortal())))) {
+			this.health += value;
+		}
 	}
 
 	@Override
@@ -140,5 +186,25 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public String toString() {
 		return "[Enemy@x=" + getPosX() + ",y=" + getPosY() + ",w=" + getWidth() + ",h=" + getHeight() + "]";
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
+	public long getArmor() {
+		return armor;
+	}
+
+	public void setArmor(long armor) {
+		this.armor = armor;
+	}
+
+	public long getReward() {
+		return reward;
 	}
 }

@@ -1,0 +1,5 @@
+RectMenuPane 8 1 4 7 204 190 163
+SinglePlayerButton 0 0 8.5 1.5 3 1.5
+MultiPlayerButton 0 2 8.5 3.5 3 1
+SettingsButton 0 3 8.5 5 3 1
+CreditsButton 0 4 8.5 6.5 3 1

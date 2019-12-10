@@ -1,7 +1,7 @@
 package mrmathami.thegame;
 
 import mrmathami.thegame.entity.UIEntity;
-import mrmathami.thegame.ui.button.*;
+import mrmathami.thegame.ui.ingame.button.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,42 +14,39 @@ public final class GameUI {
 
     public GameUI(String path) {
         this.entities = new ArrayList<UIEntity>();
+        prepareGameUI(path);
+    }
+
+    private void prepareGameUI (String path) {
         try (final InputStream stream = GameUI.class.getResourceAsStream(path)) {
             if (stream == null) throw new IOException("Resource not found! Resource name: " + path);
             final Scanner scanner = new Scanner(stream);
-            while (true) {
+            while (scanner.hasNext()) {
                 final String value = scanner.next();
-                if (value.equals("EndOfFile")) break;
-                else {
-                    final double assetX = scanner.nextDouble();
-                    final double assetY = scanner.nextDouble();
-                    final double x = scanner.nextDouble();
-                    final double y = scanner.nextDouble();
-                    final double w = scanner.nextDouble();
-                    final double h = scanner.nextDouble();
-                    String towerType = "";
-                    if (value.equals("TowerButton")) {
-                        towerType = scanner.next();
-                    }
+                final double assetX = scanner.nextDouble();
+                final double assetY = scanner.nextDouble();
+                final double x = scanner.nextDouble();
+                final double y = scanner.nextDouble();
+                final double w = scanner.nextDouble();
+                final double h = scanner.nextDouble();
 
-                    if (value.equals("MoneyButton")) {
-                        entities.add(new UnclickableButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("BackButton")) {
-                        entities.add(new BackButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("PauseButton")) {
-                        entities.add(new PauseButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("TowerButton")) {
-                        entities.add(new TowerButton(0, assetX, assetY, x, y, w, h, towerType));
-                    }
-                    else if (value.equals("UpgradeButton")) {
-                        entities.add(new UpgradeButton(0, assetX, assetY, x, y, w, h));
-                    }
-                    else if (value.equals("SellButton")) {
-                        entities.add(new SellButton(0, assetX, assetY, x, y, w, h));
-                    }
+                switch (value) {
+                    case "BackButton":
+                        addButton(new BackButton(0, assetX, assetY, x, y, w, h));
+                        break;
+                    case "PauseButton":
+                        addButton(new PauseButton(0, assetX, assetY, x, y, w, h));
+                        break;
+                    case "UpgradeButton":
+                        addButton(new UpgradeButton(0, assetX, assetY, x, y, w, h));
+                        break;
+                    case "SellButton":
+                        addButton(new SellButton(0, assetX, assetY, x, y, w, h));
+                        break;
+                    case "TowerButton":
+                        final String towerType = scanner.next();
+                        addButton(new TowerButton(0, assetX, assetY, x, y, w, h, towerType));
+                        break;
                 }
             }
         }
