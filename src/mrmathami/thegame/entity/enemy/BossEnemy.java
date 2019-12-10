@@ -65,7 +65,7 @@ public abstract class BossEnemy extends AbstractEnemy {
     @Override
     public boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
         field.harmPlayer(field.getHealth());
-        field.setMoney(field.getMoney() - 1);
+        field.setMoney(field.getMoney() - this.getReward());
         if (field.isMultiplayer() && !(field instanceof MPGameField)) {
             MPSocketController socket = MPSocketController.getCurrentInstance();
             socket.sendState(field.getHealth());

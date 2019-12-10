@@ -130,7 +130,7 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 	@Override
 	public boolean onEffect(@Nonnull GameField field, @Nonnull LivingEntity livingEntity) {
 		field.harmPlayer(1);
-		field.setMoney(field.getMoney() - 1);
+		field.setMoney(field.getMoney() - this.getReward());
 		if (field.isMultiplayer() && !(field instanceof MPGameField)) {
 			MPSocketController socket = MPSocketController.getCurrentInstance();
 			socket.sendState(field.getHealth());
@@ -197,5 +197,9 @@ public abstract class AbstractEnemy extends AbstractEntity implements UpdatableE
 
 	public void setArmor(long armor) {
 		this.armor = armor;
+	}
+
+	public long getReward() {
+		return reward;
 	}
 }
