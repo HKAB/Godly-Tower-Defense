@@ -90,18 +90,22 @@ public class MPPopup extends AbstractPopup {
                             String address = popupAddressInput.getText().toLowerCase();
                             if (isNumeric(popupPortInput.getText())) {
                                 int port = Integer.parseInt(popupPortInput.getText());
-                                if (isValidPort(port)) {
-                                    if (isValidAddress(address)) {
-                                        try {
-                                            MPSocketController.setCurrentInstance(new MPSocketController(address, port));
-                                            moveToMPScene();
-                                        } catch (IOException e) {
-                                            showErrorMessage("Failed to connect to the remote host");
+                                try {
+                                    if (isValidPort(port)) {
+                                        if (isValidAddress(address)) {
+                                            try {
+                                                MPSocketController.setCurrentInstance(new MPSocketController(address, port));
+                                                moveToMPScene();
+                                            } catch (IOException e) {
+                                                showErrorMessage("Failed to connect to the remote host");
+                                            }
+                                        } else {
+                                            showErrorMessage("Invalid address");
                                         }
                                     } else {
-                                        showErrorMessage("Invalid address");
+                                        showErrorMessage("Invalid port number");
                                     }
-                                } else {
+                                } catch (NumberFormatException e) {
                                     showErrorMessage("Invalid port number");
                                 }
                             } else {
@@ -110,14 +114,18 @@ public class MPPopup extends AbstractPopup {
                         } else if (entity.hashCode() == serverButton.hashCode()) {
                             if (isNumeric(popupPortInput.getText())) {
                                 int port = Integer.parseInt(popupPortInput.getText());
-                                if (isValidPort(port)) {
-                                    try {
-                                        MPSocketController.setCurrentInstance(new MPSocketController(port));
-                                        moveToMPScene();
-                                    } catch (IOException e) {
-                                        showErrorMessage("Port already in use");
+                                try {
+                                    if (isValidPort(port)) {
+                                        try {
+                                            MPSocketController.setCurrentInstance(new MPSocketController(port));
+                                            moveToMPScene();
+                                        } catch (IOException e) {
+                                            showErrorMessage("Port already in use");
+                                        }
+                                    } else {
+                                        showErrorMessage("Invalid port number");
                                     }
-                                } else {
+                                } catch (NumberFormatException e) {
                                     showErrorMessage("Invalid port number");
                                 }
                             } else {
