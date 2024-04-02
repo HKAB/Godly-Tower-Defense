@@ -22,6 +22,9 @@ public class ButtonUIContext extends AbstractUIContext {
             case "RobotPoliceTower":
                 this.tower = new RobotPoliceTower(0, 0, 0, 90);
                 break;
+            case "CardboardBoxTower":
+                this.tower = new CardboardBoxTower(0, 0, 0, 90);
+                break;
         }
         this.money = money;
     }

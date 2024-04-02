@@ -44,6 +44,7 @@ public class GameAudio {
     public static String normalBulletSound = new File("res/audio/normalbullet.mp3").toURI().toString();
     public static String rocketBulletSound = new File("res/audio/rocketbullet.mp3").toURI().toString();
     public static String machineBulletSound = new File("res/audio/machinegunbullet.mp3").toURI().toString();
+    public static String nyanCatBulletSound = new File("res/audio/nyancatbullet.mp3").toURI().toString();
     public static String stopSignBulletSound = new File("res/audio/signbullet.mp3").toURI().toString();
     public static String explosionSound = new File("res/audio/explosion.mp3").toURI().toString();
     public static String johnCenaSkillSound = new File("res/audio/johncenaskillsound.mp3").toURI().toString();

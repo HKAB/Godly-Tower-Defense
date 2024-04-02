@@ -29,6 +29,10 @@ public class TowerButton extends AbstractButton {
                 this.GID = Config.ROBOT_POLICE_TOWER_LEVEL1_GID;
                 this.keyBinding = "R";
                 break;
+            case "CardboardBoxTower":
+                this.GID = Config.CARDBOARD_BOX_TOWER_LEVEL1_GID;
+                this.keyBinding = "A";
+                break;
             default:
                 this.GID = Config.LOCKED_GID;
                 this.keyBinding = "";

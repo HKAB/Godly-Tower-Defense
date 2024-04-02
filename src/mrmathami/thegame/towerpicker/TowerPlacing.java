@@ -39,6 +39,10 @@ public class TowerPlacing extends AbstractTowerPicker {
                 this.GID = Config.ROBOT_POLICE_TOWER_LEVEL1_GID;
                 this.towerPrice = Config.ROBOT_POLICE_TOWER_PRICE;
                 break;
+            case "CardboardBoxTower":
+                this.GID = Config.CARDBOARD_BOX_TOWER_LEVEL1_GID;
+                this.towerPrice = Config.CARDBOARD_BOX_TOWER_PRICE;
+                break;
         }
     }
 
@@ -52,6 +56,8 @@ public class TowerPlacing extends AbstractTowerPicker {
                 return new MachineGunTower(0, getPosX(), getPosY(), 90);
             case "RobotPoliceTower":
                 return new RobotPoliceTower(0, getPosX(), getPosY(), 90);
+            case "CardboardBoxTower":
+                return new CardboardBoxTower(0, getPosX(), getPosY(), 90);
         }
         return null;
     }
@@ -66,6 +72,8 @@ public class TowerPlacing extends AbstractTowerPicker {
                 return Config.MACHINE_GUN_TOWER_RANGE;
             case "RobotPoliceTower":
                 return Config.ROBOT_POLICE_TOWER_RANGE;
+            case "CardboardBoxTower":
+                return Config.CARDBOARD_BOX_TOWER_RANGE;
         }
         return 0;
     }

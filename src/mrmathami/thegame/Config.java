@@ -123,6 +123,14 @@ public final class Config {
 	public static final double ROCKET_BULLET_WIDTH = 12.0;
 	public static final double ROCKET_BULLET_HEIGHT = 36.0;
 
+	public static final long NYAN_CAT_BULLET_TTL = 50;
+	public static final long NYAN_CAT_BULLET_STRENGTH = 7554;
+	public static final double NYAN_CAT_BULLET_SPEED = 0.2;
+	public static final int NYAN_CAT_BULLET_GID = 203;
+	public static final double NYAN_CAT_BULLET_WIDTH = 30.0;
+	public static final double NYAN_CAT_BULLET_HEIGHT = 39.0;
+	public static final double NYAN_CAT_BULLET_TAIL_HEIGHT = 10.0;
+
 	//endregion
 
 	//region Tower
@@ -177,6 +185,19 @@ public final class Config {
 	public static final long ROCKET_TOWER_LEVEL2_SELL_PRICE = 200;
 	public static final long ROCKET_TOWER_LEVEL2_UPGRADE_PRICE = 300;
 	public static final long ROCKET_TOWER_LEVEL3_SELL_PRICE = 300;
+
+	public static final long CARDBOARD_BOX_TOWER_SPEED = 80;
+	public static final double CARDBOARD_BOX_TOWER_RANGE = 4.0;
+	public static final int CARDBOARD_BOX_TOWER_LEVEL1_GID = 200;
+	public static final int CARDBOARD_BOX_TOWER_LEVEL2_GID = 201;
+	public static final int CARDBOARD_BOX_TOWER_LEVEL3_GID = 202;
+
+	public static final long CARDBOARD_BOX_TOWER_PRICE = 800;
+	public static final long CARDBOARD_BOX_TOWER_LEVEL1_SELL_PRICE = 200;
+	public static final long CARDBOARD_BOX_TOWER_LEVEL1_UPGRADE_PRICE = 1500;
+	public static final long CARDBOARD_BOX_TOWER_LEVEL2_SELL_PRICE = 1500;
+	public static final long CARDBOARD_BOX_TOWER_LEVEL2_UPGRADE_PRICE = 2500;
+	public static final long CARDBOARD_BOX_TOWER_LEVEL3_SELL_PRICE = 2500;
 
 	public static final int LOCKED_GID = 291;
 	//endregion
@@ -330,6 +351,9 @@ public final class Config {
 
 	public static final double FIRE1_WIDTH = 12.0;
 	public static final double FIRE1_HEIGHT = 24.0;
+
+	public static final double NYAN_CAT_RAINBOW_WIDTH = 30.0;
+	public static final double NYAN_CAT_RAINBOW_HEIGHT = 42.0;
 
 	//region star rank
 	public static final int TOWER_RANK_1_GID = 36;
